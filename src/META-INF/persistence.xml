@@ -13,5 +13,9 @@
 		<class>no.hvl.dat104.model.Rettigheter</class>
 		<class>no.hvl.dat104.model.Rolle</class>
 		<class>no.hvl.dat104.model.Tilbakemelding</class>
+		
+		<properties>
+			<property name="tomee.jpa.cdi" value="false" />
+		</properties>
 	</persistence-unit>
 </persistence>
