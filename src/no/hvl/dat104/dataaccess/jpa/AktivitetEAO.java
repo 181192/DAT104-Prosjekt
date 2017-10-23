@@ -11,38 +11,38 @@ import no.hvl.dat104.model.Aktivitet;
 
 @Stateless
 public class AktivitetEAO implements IAktivitetEAO {
-	
+
 	@PersistenceContext(name = "g03PersistenceUnit")
 	private EntityManager em;
 
 	@Override
 	public void leggTilAktivitet(Aktivitet a) {
-		// TODO Auto-generated method stub
-		
+		em.persist(a);
+
 	}
 
 	@Override
 	public Aktivitet finnAktivitet(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Aktivitet.class, id);
 	}
 
 	@Override
 	public void oppdaterAktivitet(Aktivitet a) {
-		// TODO Auto-generated method stub
-		
+		em.merge(a);
+
 	}
 
 	@Override
 	public void slettAktivitet(Aktivitet a) {
-		// TODO Auto-generated method stub
-		
+		em.remove(em.find(Aktivitet.class, a.getId()));
+
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Aktivitet> alleAktiviteter() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Aktivitet> aktiviteter = em.createQuery("SELECT a FROM Aktivitet a").getResultList();
+		return aktiviteter;
 	}
 
 }
