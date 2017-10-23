@@ -16,32 +16,32 @@ public class KodeordEAO implements IKodeordEAO {
 
 	@Override
 	public void leggTilKodeord(Kodeord k) {
-		// TODO Auto-generated method stub
+		em.persist(k);
 
 	}
 
 	@Override
 	public Kodeord finnKodeord(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Kodeord.class, id);
 	}
 
 	@Override
 	public void oppdaterKodeord(Kodeord k) {
-		// TODO Auto-generated method stub
+		em.merge(k);
 
 	}
 
 	@Override
 	public void slettKodeord(Kodeord k) {
-		// TODO Auto-generated method stub
+		em.remove(em.find(Kodeord.class, k.getId()));
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Kodeord> alleKodeord() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Kodeord> kodeord = em.createQuery("SELECT k FROM Kodeord k").getResultList();
+		return kodeord;
 	}
 
 }
