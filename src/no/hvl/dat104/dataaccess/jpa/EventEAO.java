@@ -16,32 +16,32 @@ public class EventEAO implements IEventEAO {
 
 	@Override
 	public void leggTilEvent(Event e) {
-		// TODO Auto-generated method stub
+		em.persist(e);
 
 	}
 
 	@Override
 	public Event finnEvent(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Event.class, id);
 	}
 
 	@Override
 	public void oppdaterEvent(Event e) {
-		// TODO Auto-generated method stub
+		em.merge(e);
 
 	}
 
 	@Override
 	public void slettEvent(Event e) {
-		// TODO Auto-generated method stub
+		em.remove(em.find(Event.class, e.getId()));
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Event> alleEventer() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Event> eventer = em.createQuery("SELECT e FROM Event e").getResultList();
+		return eventer;
 	}
 
 }
