@@ -16,32 +16,32 @@ public class RolleEAO implements IRolleEAO {
 
 	@Override
 	public void leggTilRolle(Rolle r) {
-		// TODO Auto-generated method stub
+		em.persist(r);
 
 	}
 
 	@Override
 	public Rolle finnRolle(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Rolle.class, id);
 	}
 
 	@Override
 	public void oppdaterRolle(Rolle r) {
-		// TODO Auto-generated method stub
+		em.merge(r);
 
 	}
 
 	@Override
 	public void slettRolle(Rolle r) {
-		// TODO Auto-generated method stub
+		em.remove(em.find(Rolle.class, r.getId()));
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Rolle> alleRollene() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Rolle> rollene = em.createQuery("SELECT r FROM Rolle r").getResultList();
+		return rollene;
 	}
 
 }
