@@ -16,32 +16,32 @@ public class BrukerEAO implements IBrukerEAO {
 
 	@Override
 	public void leggTilBruker(Bruker b) {
-		// TODO Auto-generated method stub
+		em.persist(b);
 
 	}
 
 	@Override
 	public Bruker finnBruker(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Bruker.class, id);
 	}
 
 	@Override
 	public void oppdaterBruker(Bruker b) {
-		// TODO Auto-generated method stub
+		em.merge(b);
 
 	}
 
 	@Override
 	public void slettBruker(Bruker b) {
-		// TODO Auto-generated method stub
+		em.remove(em.find(Bruker.class, b.getId()));
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Bruker> alleBrukerne() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Bruker> brukere = em.createQuery("SELECT b FROM Bruker b").getResultList();
+		return brukere;
 	}
 
 }
