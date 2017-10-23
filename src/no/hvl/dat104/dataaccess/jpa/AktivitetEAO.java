@@ -2,10 +2,18 @@ package no.hvl.dat104.dataaccess.jpa;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.model.Aktivitet;
 
+@Stateless
 public class AktivitetEAO implements IAktivitetEAO {
+	
+	@PersistenceContext(name = "g03PersistenceUnit")
+	private EntityManager em;
 
 	@Override
 	public void leggTilAktivitet(Aktivitet a) {
