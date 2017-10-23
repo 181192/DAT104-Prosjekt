@@ -17,7 +17,7 @@ public class UrlMappings {
 	public static final String REDIGERAKTIVITET_URL = "redigeraktivitet";
     public static final String REDIGEREVENT_URL = "redigerevent";
     public static final String VISAKTIVITET_URL = "visaktivitet";
-    public static final String LANDING_URL = "landing";
+    public static final String LANDING_URL = "";
     public static final String LOGGINN_URL = "logginn";
     
 }

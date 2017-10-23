@@ -2,11 +2,126 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
   <display-name>gruppe3</display-name>
   <servlet>
+    <servlet-name>AdministrerController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.admin.AdministrerController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GodkjennBrukerController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.admin.GodkjennBrukerController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DeltaEventController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.deltager.DeltaEventController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>EventFerdigController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.deltager.EventFerdigController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GiTilbakemeldingController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.deltager.GiTilbakemeldingController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>EventResultaterController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.styrer.EventResultaterController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>LagAktivitetController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.styrer.LagAktivitetController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>LagEventController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.styrer.LagEventController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>MineAktiviteterController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.styrer.MineAktiviteterController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>OpprettBrukerController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.styrer.OpprettBrukerController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>RedigerAktivitetController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.styrer.RedigerAktivitetController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>RedigerEventController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.styrer.RedigerEventController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>VisAktivitetController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.styrer.VisAktivitetController</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>LandingServlet</servlet-name>
     <servlet-class>no.hvl.dat104.controller.LandingServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>LoggInnController</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.LoggInnController</servlet-class>
+  </servlet>
+  
+  
+  <servlet-mapping>
+    <servlet-name>AdministrerController</servlet-name>
+    <url-pattern>/administrer</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GodkjennBrukerController</servlet-name>
+    <url-pattern>/godkjennbruker</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DeltaEventController</servlet-name>
+    <url-pattern>/deltaevent</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EventFerdigController</servlet-name>
+    <url-pattern>/eventferdig</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GiTilbakemeldingController</servlet-name>
+    <url-pattern>/gitilbakemelding</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>EventResultaterController</servlet-name>
+    <url-pattern>/eventresultater</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LagAktivitetController</servlet-name>
+    <url-pattern>/lagaktivitet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LagEventController</servlet-name>
+    <url-pattern>/lagevent</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MineAktiviteterController</servlet-name>
+    <url-pattern>/mineaktiviteter</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OpprettBrukerController</servlet-name>
+    <url-pattern>/opprettbruker</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RedigerAktivitetController</servlet-name>
+    <url-pattern>/redigeraktivitet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RedigerEventController</servlet-name>
+    <url-pattern>/redigerevent</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>VisAktivitetController</servlet-name>
+    <url-pattern>/visaktivitet</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LandingServlet</servlet-name>
     <url-pattern>/</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoggInnController</servlet-name>
+    <url-pattern>/logginn</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
