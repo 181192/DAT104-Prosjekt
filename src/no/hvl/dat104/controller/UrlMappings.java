@@ -1,7 +1,7 @@
 package no.hvl.dat104.controller;
 
 /**
- * Created by Peder on 27.09.2017.
+ * URLmappings
  */
 public class UrlMappings {
 	public static final String ADMINISTRER_URL = "administrer";
