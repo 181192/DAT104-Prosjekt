@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
+import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Tilbakemelding;
 
 @Stateless
@@ -16,32 +17,32 @@ public class TilbakemeldingEAO implements ITilbakemeldingEAO {
 
 	@Override
 	public void leggTilTilbakemelding(Tilbakemelding t) {
-		// TODO Auto-generated method stub
+		em.persist(t);
 
 	}
 
 	@Override
 	public Tilbakemelding finnTilbakemelding(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Tilbakemelding.class, id);
 	}
 
 	@Override
 	public void oppdaterTilbakemelding(Tilbakemelding t) {
-		// TODO Auto-generated method stub
+		em.merge(t);
 
 	}
 
 	@Override
 	public void slettTilbakemelding(Tilbakemelding t) {
-		// TODO Auto-generated method stub
+		em.remove(em.find(Tilbakemelding.class, t.getId()));
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Tilbakemelding> alleTilbakemeldingene() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Tilbakemelding> tilbakemeldinger = em.createQuery("SELECT t FROM Tilbakemelding t").getResultList();
+		return tilbakemeldinger;
 	}
 
 }

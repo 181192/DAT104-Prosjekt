@@ -17,7 +17,6 @@ public class BrukerEAO implements IBrukerEAO {
 	@Override
 	public void leggTilBruker(Bruker b) {
 		em.persist(b);
-
 	}
 
 	@Override
@@ -28,13 +27,11 @@ public class BrukerEAO implements IBrukerEAO {
 	@Override
 	public void oppdaterBruker(Bruker b) {
 		em.merge(b);
-
 	}
 
 	@Override
 	public void slettBruker(Bruker b) {
 		em.remove(em.find(Bruker.class, b.getId()));
-
 	}
 
 	@SuppressWarnings("unchecked")

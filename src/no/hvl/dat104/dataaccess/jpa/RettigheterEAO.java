@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import no.hvl.dat104.dataaccess.IRettigheterEAO;
+import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Rettigheter;
 
 @Stateless
@@ -16,32 +17,32 @@ public class RettigheterEAO implements IRettigheterEAO {
 
 	@Override
 	public void leggTilRettigheter(Rettigheter r) {
-		// TODO Auto-generated method stub
+		em.persist(r);
 
 	}
 
 	@Override
 	public Rettigheter finnRettigheter(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+		return em.find(Rettigheter.class, id);
 	}
 
 	@Override
 	public void oppdaterRettigheter(Rettigheter r) {
-		// TODO Auto-generated method stub
+		em.merge(r);
 
 	}
 
 	@Override
 	public void slettRettigheter(Rettigheter r) {
-		// TODO Auto-generated method stub
+		em.remove(em.find(Rettigheter.class, r.getId()));
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Rettigheter> alleRettigheter() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Rettigheter> rettigheter = em.createQuery("SELECT r FROM Rettigheter r").getResultList();
+		return rettigheter;
 	}
 
 }
