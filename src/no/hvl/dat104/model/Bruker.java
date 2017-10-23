@@ -7,6 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *  
+ * Modellrepresentasjon av Bruker
+ * @author BMO 2.0
+ *
+ */
 @Entity(name = "BrukerEntity")
 @Table(name = "bruker", schema = "db")
 public class Bruker {
@@ -20,7 +26,7 @@ public class Bruker {
 	String passord;
 	String salt;
 	
-	@Column(name = "id_rolle")
+	@Column(name = "id_Rolle")
 	Integer idRolle;
 
 	

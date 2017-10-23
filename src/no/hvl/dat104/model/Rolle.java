@@ -6,6 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * 
+ * Modellrepresentasjon av Rolle
+ * @author BMO 2.0
+ *
+ */
 @Entity(name = "RolleEntity")
 @Table(name = "rolle", schema = "db")
 public class Rolle {

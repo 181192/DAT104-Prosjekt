@@ -7,8 +7,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * Modellrepresentasjon av Tilbakemelding
+ * @author BMO 2.0
+ *
+ */
 @Entity(name = "TilbakemeldingEntity")
-@Table(name = "tilbakemelding", schema = "db")
+@Table(name = "Tilbakemelding", schema = "db")
 public class Tilbakemelding {
 
 	@Id
@@ -16,7 +22,7 @@ public class Tilbakemelding {
 	Integer id;
 	String stemme;
 	
-	@Column(name="id_event")
+	@Column(name="id_Event")
 	Integer idEvent;
 
 	/**

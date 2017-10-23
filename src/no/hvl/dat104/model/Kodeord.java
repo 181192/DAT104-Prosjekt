@@ -7,6 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ *
+ * Modellrepresentasjon av Kodeord
+ * @author BMO 2.0
+ *
+ */
 @Entity(name = "KodeordEntity")
 @Table(name = "kodeord", schema = "db")
 public class Kodeord {
@@ -16,7 +22,7 @@ public class Kodeord {
 	Integer id;
 	String kode;
 	
-	@Column (name="id_event")
+	@Column (name="id_Event")
 	Integer idEvent;
 
 	
