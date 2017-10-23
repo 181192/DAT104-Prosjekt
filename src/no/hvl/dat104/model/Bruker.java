@@ -31,13 +31,19 @@ public class Bruker {
 		this("", "", "", "", "", null);
 	}
 	/**
-	 * Konstruktor for bruker
-	 * @param mail Mail til bruker
-	 * @param fornavn Fornavnet til brukeren
-	 * @param etternavn Etternavnet til brukeren
-	 * @param passord Passordet til brukeren
-	 * @param salt Salt for passord til brukeren
-	 * @param idRolle Id for rollen til brukeren
+	 * Hovedknstruktor for bruker
+	 * @param mail 
+	 * 		Mail til bruker
+	 * @param fornavn 
+	 * 		Fornavnet til brukeren
+	 * @param etternavn 
+	 * 		Etternavnet til brukeren
+	 * @param passord 
+	 * 		Passordet til brukeren
+	 * @param salt 
+	 * 		Salt for passord til brukeren
+	 * @param idRolle 
+	 * 		Id for rollen til brukeren
 	 */
 	public Bruker(String mail, String fornavn, String etternavn, String passord, String salt, Integer idRolle) {
 		this.mail = mail;
