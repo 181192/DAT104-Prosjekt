@@ -1,5 +1,6 @@
 package no.hvl.dat104.model;
 
-public class Bruker {
+public class Aktivitet {
+	
 
 }
