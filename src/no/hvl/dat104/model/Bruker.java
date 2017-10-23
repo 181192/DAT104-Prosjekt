@@ -25,13 +25,13 @@ public class Bruker {
 
 	
 	/**
-	 Tom konstruktor for bruker
+	 Tom konstruktor for Bruker
 	 */
 	public Bruker() {
 		this("", "", "", "", "", null);
 	}
 	/**
-	 * Hovedknstruktor for bruker
+	 * Hovedknstruktor for Bruker
 	 * @param mail 
 	 * 		Mail til bruker
 	 * @param fornavn 

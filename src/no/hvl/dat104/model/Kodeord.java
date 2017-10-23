@@ -21,7 +21,7 @@ public class Kodeord {
 
 	
 	/**
-	 Tom konstruktor for kodeord
+	 Tom konstruktor for Kodeord
 	 */
 	public Kodeord() {
 		this("", null);
@@ -29,7 +29,7 @@ public class Kodeord {
 
 
 	/**
-	 * Hovedkonstroktor for kodeord
+	 * Hovedkonstroktor for Kodeord
 	 * @param kode 
 	 * 		Kodeord for eventet
 	 * @param idEvent
