@@ -7,6 +7,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Modellrepresentasjon av Aktivitet
+ * 
+ * @author Kristoffer-Andre Kalliainen
+ *
+ */
 @Entity(name = "Aktivitet")
 @Table(name = "Aktivitet", schema = "db")
 public class Aktivitet {
