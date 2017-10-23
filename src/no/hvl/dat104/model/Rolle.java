@@ -25,7 +25,9 @@ public class Rolle {
 	/**
 	 * Hovedkonstruktor for Rolle
 	 * @param id
+	 * 		Id til rollen
 	 * @param type
+	 * 		Typen rolle
 	 */
 	public Rolle(String type) {
 		this.type = type;
