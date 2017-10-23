@@ -3,7 +3,7 @@ package no.hvl.dat104.util;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.model.Deltager;
 
 public class InnloggingUtil {
 	 /**
@@ -41,7 +41,7 @@ public class InnloggingUtil {
      * @param b
      * @param init henter fra init parameter i xml.
      */
-    public static void loggInnSom(HttpServletRequest request, Bruker b, String init) {
+    public static void loggInnSom(HttpServletRequest request, Deltager b, String init) {
         loggUt(request);
         HttpSession sesjon = request.getSession(true);
         sesjon.setMaxInactiveInterval(Integer.parseInt(init));
@@ -55,7 +55,7 @@ public class InnloggingUtil {
      * @param request
      * @param b
      */
-    public static void loggInnSom(HttpServletRequest request, Bruker b) {
+    public static void loggInnSom(HttpServletRequest request, Deltager b) {
         loggUt(request);
         HttpSession sesjon = request.getSession(true);
         sesjon.setAttribute("currentUser", b);
