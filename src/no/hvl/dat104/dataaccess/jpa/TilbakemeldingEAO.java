@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
-import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Tilbakemelding;
 
 @Stateless
