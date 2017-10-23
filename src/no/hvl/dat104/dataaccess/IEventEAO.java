@@ -5,7 +5,7 @@ import java.util.List;
 import no.hvl.dat104.model.Event;
 
 public interface IEventEAO {
-
+	
 	/**
 	 * Legger til et event
 	 * 
