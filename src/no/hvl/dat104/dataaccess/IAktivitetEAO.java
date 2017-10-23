@@ -41,7 +41,7 @@ public interface IAktivitetEAO {
 	/**
 	 * Returnerer en liste med alle aktiviteter
 	 *
-	 * @return Alle deltakere
+	 * @return Alle aktiviteter
 	 */
 	public List<Aktivitet> alleAktiviteter();
 	
