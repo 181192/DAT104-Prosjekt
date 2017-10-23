@@ -1,4 +1,4 @@
-package no.hvl.dat104.controller.deltager;
+package no.hvl.dat104.controller.admin;
 
 import java.io.IOException;
 

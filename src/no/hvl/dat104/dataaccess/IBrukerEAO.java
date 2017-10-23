@@ -1,5 +1,5 @@
 package no.hvl.dat104.dataaccess;
 
-public interface IDeltagerEAO {
+public interface IBrukerEAO {
 
 }
