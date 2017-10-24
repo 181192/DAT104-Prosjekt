@@ -1,8 +1,6 @@
 package no.hvl.dat104.controller.styrer;
 
-import no.hvl.dat104.model.Aktivitet;
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 public class EventValidator {
     private String tittel;
