@@ -1,4 +1,5 @@
 /* VÅR EGEN CSS FIL. */
-* {
-	color: blue;
-} 
+#calendar {
+		max-width: 900px;
+		margin: 0 auto;
+	}

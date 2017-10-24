@@ -22,6 +22,10 @@
     <servlet-class>no.hvl.dat104.controller.deltager.GiTilbakemeldingController</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>LandingStyrerServlet</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.styrer.LandingStyrerServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>EventResultaterController</servlet-name>
     <servlet-class>no.hvl.dat104.controller.styrer.EventResultaterController</servlet-class>
   </servlet>
@@ -61,8 +65,6 @@
     <servlet-name>LoggInnController</servlet-name>
     <servlet-class>no.hvl.dat104.controller.LoggInnController</servlet-class>
   </servlet>
-  
-  
   <servlet-mapping>
     <servlet-name>AdministrerController</servlet-name>
     <url-pattern>/administrer</url-pattern>
@@ -116,6 +118,10 @@
     <url-pattern>/visaktivitet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+    <servlet-name>LandingStyrerServlet</servlet-name>
+    <url-pattern>/styrer</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
     <servlet-name>LandingServlet</servlet-name>
     <url-pattern></url-pattern>
   </servlet-mapping>
@@ -123,5 +129,4 @@
     <servlet-name>LoggInnController</servlet-name>
     <url-pattern>/logginn</url-pattern>
   </servlet-mapping>
-  
 </web-app>
