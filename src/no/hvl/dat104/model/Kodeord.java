@@ -1,6 +1,5 @@
 package no.hvl.dat104.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,6 +11,7 @@ import javax.persistence.Table;
 /**
  *
  * Modellrepresentasjon av Kodeord
+ * 
  * @author BMO 2.0
  *
  */
@@ -20,35 +20,33 @@ import javax.persistence.Table;
 public class Kodeord {
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String kode;
-	
+
 	@OneToOne
 	@JoinColumn(name = "id_Event", referencedColumnName = "id")
 	private Event idEvent;
 
-	
 	/**
-	 Tom konstruktor for Kodeord
+	 * Tom konstruktor for Kodeord
 	 */
 	public Kodeord() {
 		this("", null);
 	}
 
-
 	/**
 	 * Hovedkonstroktor for Kodeord
-	 * @param kode 
-	 * 		Kodeord for eventet
+	 * 
+	 * @param kode
+	 *            Kodeord for eventet
 	 * @param idEvent
-	 * 		Id for eventet
+	 *            Id for eventet
 	 */
 	public Kodeord(String kode, Event idEvent) {
 		this.kode = kode;
 		this.idEvent = idEvent;
 	}
-
 
 	/**
 	 * @return the id
@@ -57,7 +55,6 @@ public class Kodeord {
 		return id;
 	}
 
-
 	/**
 	 * @return the kode
 	 */
@@ -65,14 +62,13 @@ public class Kodeord {
 		return kode;
 	}
 
-
 	/**
-	 * @param kode the kode to set
+	 * @param kode
+	 *            the kode to set
 	 */
 	public void setKode(String kode) {
 		this.kode = kode;
 	}
-
 
 	/**
 	 * @return the idEvent
@@ -81,12 +77,12 @@ public class Kodeord {
 		return idEvent;
 	}
 
-
 	/**
-	 * @param idEvent the idEvent to set
+	 * @param idEvent
+	 *            the idEvent to set
 	 */
 	public void setIdEvent(Event idEvent) {
 		this.idEvent = idEvent;
 	}
-	
+
 }
