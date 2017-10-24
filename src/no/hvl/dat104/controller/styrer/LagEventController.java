@@ -20,8 +20,21 @@ public class LagEventController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		//TODO
+        EventValidator skjema = new EventValidator(request);
+        if (skjema.erAlleDataGyldige()) {
 
+//			Person p = new Person(skjema);
+//			p.setNavn(Skjea)
+//			p.setPostnr(Integer.pars)
+//			personEAO.lagrePerson(p)
+
+            request.getSession().removeAttribute("skjema");
+            response.sendRedirect("Hurra.html");
+        } else {
+            skjema.settOppFeilmeldinger();
+            request.getSession().setAttribute("skjema", skjema);
+            response.sendRedirect("skjema");
+        }
+    }
 }
