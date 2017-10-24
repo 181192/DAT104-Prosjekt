@@ -1,13 +1,17 @@
 package no.hvl.dat104.model;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Modellrepresentasjon av Event
@@ -34,14 +38,20 @@ public class Event {
 	private Date faktiskSlutt;
 	private String status;
 	private String sted;
+
+	@ManyToOne
 	@Column(name = "id_Aktivitet")
-	private String idAktivitet;
+	private Aktivitet idAktivitet;
+
+	@Transient
+	private List<Tilbakemelding> tilbakemeldinger;
 
 	/**
 	 * Tom konstruktor til Event
 	 */
 	public Event() {
 		this("", null, null, null, null, "", "", null);
+		tilbakemeldinger = new ArrayList<>();
 	}
 
 	/**
@@ -65,7 +75,7 @@ public class Event {
 	 *            Id paa aktiviteten eventen hoerer til
 	 */
 	public Event(String navn, Date tidFra, Date tidTil, Date faktiskStart, Date faktiskSlutt, String status,
-			String sted, String idAktivitet) {
+			String sted, Aktivitet idAktivitet) {
 		this.navn = navn;
 		this.tidFra = tidFra;
 		this.tidTil = tidTil;
@@ -74,6 +84,7 @@ public class Event {
 		this.status = status;
 		this.sted = sted;
 		this.idAktivitet = idAktivitet;
+		tilbakemeldinger = new ArrayList<>();
 	}
 
 	/**
@@ -184,7 +195,7 @@ public class Event {
 	/**
 	 * @return the idAktivitet
 	 */
-	public String getIdAktivitet() {
+	public Aktivitet getIdAktivitet() {
 		return idAktivitet;
 	}
 
@@ -192,7 +203,7 @@ public class Event {
 	 * @param idAktivitet
 	 *            the idAktivitet to set
 	 */
-	public void setIdAktivitet(String idAktivitet) {
+	public void setIdAktivitet(Aktivitet idAktivitet) {
 		this.idAktivitet = idAktivitet;
 	}
 
@@ -201,6 +212,21 @@ public class Event {
 	 */
 	public Integer getId() {
 		return id;
+	}
+
+	/**
+	 * @return the tilbakemeldinger
+	 */
+	public List<Tilbakemelding> getTilbakemeldinger() {
+		return tilbakemeldinger;
+	}
+
+	/**
+	 * @param tilbakemeldinger
+	 *            the tilbakemeldinger to set
+	 */
+	public void setTilbakemeldinger(List<Tilbakemelding> tilbakemeldinger) {
+		this.tilbakemeldinger = tilbakemeldinger;
 	}
 
 }

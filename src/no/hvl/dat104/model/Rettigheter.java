@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,8 +26,9 @@ public class Rettigheter {
 	private Boolean sletteBruker;
 	@Column(name = "opprette_bruker")
 	private Boolean oppretteBruker;
+	@ManyToOne
 	@Column(name = "id_Rolle")
-	private Integer idRolle;
+	private Rolle idRolle;
 
 	/**
 	 * Tom konstruktor for Rettigheter
@@ -47,7 +49,7 @@ public class Rettigheter {
 	 * @param idRolle
 	 *            Id for rollen som bruker rettighetene
 	 */
-	public Rettigheter(Boolean godkjenneBruker, Boolean sletteBruker, Boolean oppretteBruker, Integer idRolle) {
+	public Rettigheter(Boolean godkjenneBruker, Boolean sletteBruker, Boolean oppretteBruker, Rolle idRolle) {
 		this.godkjenneBruker = godkjenneBruker;
 		this.sletteBruker = sletteBruker;
 		this.oppretteBruker = oppretteBruker;
@@ -102,7 +104,7 @@ public class Rettigheter {
 	/**
 	 * @return the idRolle
 	 */
-	public Integer getIdRolle() {
+	public Rolle getIdRolle() {
 		return idRolle;
 	}
 
@@ -110,7 +112,7 @@ public class Rettigheter {
 	 * @param idRolle
 	 *            the idRolle to set
 	 */
-	public void setIdRolle(Integer idRolle) {
+	public void setIdRolle(Rolle idRolle) {
 		this.idRolle = idRolle;
 	}
 
@@ -120,5 +122,4 @@ public class Rettigheter {
 	public Integer getId() {
 		return id;
 	}
-
 }

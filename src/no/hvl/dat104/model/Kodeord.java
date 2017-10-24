@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,11 +21,12 @@ public class Kodeord {
 
 	@Id
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	Integer id;
-	String kode;
+	private Integer id;
+	private String kode;
 	
-	@Column (name="id_Event")
-	Integer idEvent;
+	@OneToOne
+	@JoinColumn(name = "id_Event", referencedColumnName = "id")
+	private Event idEvent;
 
 	
 	/**
@@ -41,7 +44,7 @@ public class Kodeord {
 	 * @param idEvent
 	 * 		Id for eventet
 	 */
-	public Kodeord(String kode, Integer idEvent) {
+	public Kodeord(String kode, Event idEvent) {
 		this.kode = kode;
 		this.idEvent = idEvent;
 	}
@@ -74,7 +77,7 @@ public class Kodeord {
 	/**
 	 * @return the idEvent
 	 */
-	public Integer getIdEvent() {
+	public Event getIdEvent() {
 		return idEvent;
 	}
 
@@ -82,7 +85,7 @@ public class Kodeord {
 	/**
 	 * @param idEvent the idEvent to set
 	 */
-	public void setIdEvent(Integer idEvent) {
+	public void setIdEvent(Event idEvent) {
 		this.idEvent = idEvent;
 	}
 	

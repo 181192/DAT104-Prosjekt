@@ -1,11 +1,16 @@
 package no.hvl.dat104.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  * Modellrepresentasjon av Aktivitet
@@ -21,14 +26,20 @@ public class Aktivitet {
 	private Integer id;
 	private String navn;
 	private String status;
+
+	@ManyToOne
 	@Column(name = "id_Bruker")
-	private Integer idBruker;
+	private Bruker idBruker;
+
+	@Transient
+	private List<Event> eventer;
 
 	/**
 	 * Tom kontruktor for Aktivitet
 	 */
 	public Aktivitet() {
 		this("", "", null);
+		eventer = new ArrayList<>();
 	}
 
 	/**
@@ -41,10 +52,11 @@ public class Aktivitet {
 	 * @param idBruker
 	 *            Id til bruker som opprettet aktiviteten
 	 */
-	public Aktivitet(String navn, String status, Integer idBruker) {
+	public Aktivitet(String navn, String status, Bruker idBruker) {
 		this.navn = navn;
 		this.status = status;
 		this.idBruker = idBruker;
+		eventer = new ArrayList<>();
 	}
 
 	/**
@@ -87,7 +99,7 @@ public class Aktivitet {
 	/**
 	 * @return the idBruker
 	 */
-	public Integer getIdBruker() {
+	public Bruker getIdBruker() {
 		return idBruker;
 	}
 
@@ -95,8 +107,23 @@ public class Aktivitet {
 	 * @param idBruker
 	 *            the idBruker to set
 	 */
-	public void setIdBruker(Integer idBruker) {
+	public void setIdBruker(Bruker idBruker) {
 		this.idBruker = idBruker;
+	}
+
+	/**
+	 * @return the eventer
+	 */
+	public List<Event> getEventer() {
+		return eventer;
+	}
+
+	/**
+	 * @param eventer
+	 *            the eventer to set
+	 */
+	public void setEventer(List<Event> eventer) {
+		this.eventer = eventer;
 	}
 
 }

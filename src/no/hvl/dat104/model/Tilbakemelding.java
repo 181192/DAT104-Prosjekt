@@ -10,6 +10,7 @@ import javax.persistence.Table;
 /**
  *
  * Modellrepresentasjon av Tilbakemelding
+ * 
  * @author BMO 2.0
  *
  */
@@ -18,12 +19,12 @@ import javax.persistence.Table;
 public class Tilbakemelding {
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	Integer id;
-	String stemme;
-	
-	@Column(name="id_Event")
-	Integer idEvent;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	private String stemme;
+
+	@Column(name = "id_Event")
+	private Event idEvent;
 
 	/**
 	 * Tom konstruktor for Tilbakemelding
@@ -34,14 +35,15 @@ public class Tilbakemelding {
 
 	/**
 	 * Hovedkonstruktor for Tilbakemelding
+	 * 
 	 * @param id
-	 * 		Id for tilbakemelding
+	 *            Id for tilbakemelding
 	 * @param stemme
-	 * 		Stemme for tilbakemelding
+	 *            Stemme for tilbakemelding
 	 * @param idEvent
-	 * 		Id for event paa tilbakemelding
+	 *            Id for event paa tilbakemelding
 	 */
-	public Tilbakemelding(String stemme, Integer idEvent) {
+	public Tilbakemelding(String stemme, Event idEvent) {
 		this.stemme = stemme;
 		this.idEvent = idEvent;
 	}
@@ -61,7 +63,8 @@ public class Tilbakemelding {
 	}
 
 	/**
-	 * @param stemme the stemme to set
+	 * @param stemme
+	 *            the stemme to set
 	 */
 	public void setStemme(String stemme) {
 		this.stemme = stemme;
@@ -70,18 +73,16 @@ public class Tilbakemelding {
 	/**
 	 * @return the idEvent
 	 */
-	public Integer getIdEvent() {
+	public Event getIdEvent() {
 		return idEvent;
 	}
 
 	/**
-	 * @param idEvent the idEvent to set
+	 * @param idEvent
+	 *            the idEvent to set
 	 */
-	public void setIdEvent(Integer idEvent) {
+	public void setIdEvent(Event idEvent) {
 		this.idEvent = idEvent;
 	}
-	
-	
-	
-	
+
 }
