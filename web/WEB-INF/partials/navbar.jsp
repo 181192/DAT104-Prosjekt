@@ -7,7 +7,9 @@
 		    </a>
 		  </div>
 		  <div class="item">
-		    <div class="ui primary button">Opprett Aktivitet</div>
+		   <a href="<%=MINEAKTIVITETER_URL %>">
+		    <div class="ui primary button">Aktiviteter</div>
+		   </a>
 		  </div>
 		  <div class="item">
 		    <div class="ui button">loggut</div>
