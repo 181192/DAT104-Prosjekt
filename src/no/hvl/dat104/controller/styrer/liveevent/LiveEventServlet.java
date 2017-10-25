@@ -1,4 +1,4 @@
-package no.hvl.dat104.controller.styrer;
+package no.hvl.dat104.controller.styrer.liveevent;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Indexsiden til brukeren
+ * Servlet implementation class LiveEventServlet
  */
-
-public class LandingStyrerServlet extends HttpServlet {
+public class LiveEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/styrer/index.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		request.getRequestDispatcher("WEB-INF/views/styrer/liveevent/liveevent.jsp").forward(request, response);
 	}
 
 	/**

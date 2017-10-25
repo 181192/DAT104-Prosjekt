@@ -65,6 +65,10 @@
     <servlet-name>LoggInnController</servlet-name>
     <servlet-class>no.hvl.dat104.controller.LoggInnController</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>LiveEventServlet</servlet-name>
+  	<servlet-class>no.hvl.dat104.controller.styrer.liveevent.LiveEventServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>AdministrerController</servlet-name>
     <url-pattern>/administrer</url-pattern>
@@ -119,7 +123,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LandingStyrerServlet</servlet-name>
-    <url-pattern>/styrer</url-pattern>
+    <url-pattern>/dashbord</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LandingServlet</servlet-name>
@@ -128,5 +132,9 @@
   <servlet-mapping>
     <servlet-name>LoggInnController</servlet-name>
     <url-pattern>/logginn</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LiveEventServlet</servlet-name>
+    <url-pattern>/liveevent</url-pattern>
   </servlet-mapping>
 </web-app>

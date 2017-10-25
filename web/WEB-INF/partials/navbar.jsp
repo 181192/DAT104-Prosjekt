@@ -3,7 +3,12 @@
 		<div class="right menu">
 		  <div class="item">
 		    <a href="<%=LANDING_STYRER_URL%>">
-		      <div class="ui button">styrer</div>
+		      <div class="ui button">Dashbord</div>
+		    </a>
+		  </div>
+		  <div class="item">
+		    <a href="<%=LIVE_EVENT_URL%>">
+		      <div class="ui primary button">Pågående Event</div>
 		    </a>
 		  </div>
 		  <div class="item">
