@@ -1,6 +1,6 @@
 package no.hvl.dat104.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,13 +29,13 @@ public class Event {
 	private String navn;
 
 	@Column(name = "tid_fra")
-	private Date tidFra;
+	private Timestamp tidFra;
 	@Column(name = "tid_til")
-	private Date tidTil;
+	private Timestamp tidTil;
 	@Column(name = "faktisk_start")
-	private Date faktiskStart;
+	private Timestamp faktiskStart;
 	@Column(name = "faktisk_slutt")
-	private Date faktiskSlutt;
+	private Timestamp faktiskSlutt;
 	private String status;
 	private String sted;
 
@@ -74,7 +74,7 @@ public class Event {
 	 * @param idAktivitet
 	 *            Id paa aktiviteten eventen hoerer til
 	 */
-	public Event(String navn, Date tidFra, Date tidTil, Date faktiskStart, Date faktiskSlutt, String status,
+	public Event(String navn, Timestamp tidFra, Timestamp tidTil, Timestamp faktiskStart, Timestamp faktiskSlutt, String status,
 			String sted, Aktivitet idAktivitet) {
 		this.navn = navn;
 		this.tidFra = tidFra;
@@ -105,7 +105,7 @@ public class Event {
 	/**
 	 * @return the tidFra
 	 */
-	public Date getTidFra() {
+	public Timestamp getTidFra() {
 		return tidFra;
 	}
 
@@ -113,14 +113,14 @@ public class Event {
 	 * @param tidFra
 	 *            the tidFra to set
 	 */
-	public void setTidFra(Date tidFra) {
+	public void setTidFra(Timestamp tidFra) {
 		this.tidFra = tidFra;
 	}
 
 	/**
 	 * @return the tidTil
 	 */
-	public Date getTidTil() {
+	public Timestamp getTidTil() {
 		return tidTil;
 	}
 
@@ -128,14 +128,14 @@ public class Event {
 	 * @param tidTil
 	 *            the tidTil to set
 	 */
-	public void setTidTil(Date tidTil) {
+	public void setTidTil(Timestamp tidTil) {
 		this.tidTil = tidTil;
 	}
 
 	/**
 	 * @return the faktiskStart
 	 */
-	public Date getFaktiskStart() {
+	public Timestamp getFaktiskStart() {
 		return faktiskStart;
 	}
 
@@ -143,14 +143,14 @@ public class Event {
 	 * @param faktiskStart
 	 *            the faktiskStart to set
 	 */
-	public void setFaktiskStart(Date faktiskStart) {
+	public void setFaktiskStart(Timestamp faktiskStart) {
 		this.faktiskStart = faktiskStart;
 	}
 
 	/**
 	 * @return the faktiskSlutt
 	 */
-	public Date getFaktiskSlutt() {
+	public Timestamp getFaktiskSlutt() {
 		return faktiskSlutt;
 	}
 
@@ -158,7 +158,7 @@ public class Event {
 	 * @param faktiskSlutt
 	 *            the faktiskSlutt to set
 	 */
-	public void setFaktiskSlutt(Date faktiskSlutt) {
+	public void setFaktiskSlutt(Timestamp faktiskSlutt) {
 		this.faktiskSlutt = faktiskSlutt;
 	}
 
