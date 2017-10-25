@@ -2,6 +2,8 @@ package no.hvl.dat104.controller.styrer;
 
 import javax.servlet.http.HttpServletRequest;
 
+import no.hvl.dat104.util.ValidatorUtil;
+
 public class EventValidator {
     private String tittel;
     private String dato;
@@ -24,45 +26,36 @@ public class EventValidator {
     }
 
     public EventValidator(HttpServletRequest request) {
-        tittel = request.getParameter("tittel");
-        dato =  request.getParameter("dato");
-        fra = request.getParameter("fra");
-        til = request.getParameter("til");
-        hvor = request.getParameter("hvor");
-        beskrivelse = request.getParameter("beskrivelse");
-        aktivitet = request.getParameter("aktivitet");
+        tittel = ValidatorUtil.escapeHtml(request.getParameter("tittel"));
+        dato =  ValidatorUtil.escapeHtml(request.getParameter("dato"));
+        fra = ValidatorUtil.escapeHtml(request.getParameter("fra"));
+        til = ValidatorUtil.escapeHtml(request.getParameter("til"));
+        hvor = ValidatorUtil.escapeHtml(request.getParameter("hvor"));
+        beskrivelse = ValidatorUtil.escapeHtml(request.getParameter("beskrivelse"));
+        aktivitet = ValidatorUtil.escapeHtml(request.getParameter("aktivitet"));
     }
     private boolean erTittelGyldig() {
-        //TODO
-        return true;
+        return ValidatorUtil.isNotNull0(tittel);
     }
     private boolean erDatoGyldig() {
-        //TODO
+    //TODO
         return true;
     }
     private boolean erFraGyldig() {
-        //TODO
-        return true;
+    	 return ValidatorUtil.isValidTimeFormat(fra);
     }
     private boolean erTilGyldig() {
-        //TODO
-        return true;
+        return ValidatorUtil.isValidTimeFormat(til);
     }
     private boolean erHvorGyldig() {
-        //TODO
-        return true;
-    }
-    private boolean erBeskrivelseGyldig() {
-        //TODO
-        return true;
+        return ValidatorUtil.isNotNull0(hvor);
     }
     private boolean erAktivitetGyldig() {
-        //TODO
-        return true;
+        return ValidatorUtil.isNotNull0(aktivitet);
     }
     public boolean erAlleDataGyldige() {
         //TODO
-        return true;
+        return erTittelGyldig()&&erDatoGyldig()&&erFraGyldig()&&erTilGyldig()&&erHvorGyldig()&&erAktivitetGyldig();
     }
     public void settOppFeilmeldinger() {
         //TODO

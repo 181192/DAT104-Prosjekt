@@ -48,5 +48,9 @@ public class ValidatorUtil {
     public static boolean isValidetternavn(String etternavn) {
         return etternavn.matches("^[A-ZØÆÅ][A-ZÆØÅa-zæøå\\-\\']{1,19}$");
     }
+    
+    public static boolean isValidTimeFormat(String tid) {
+    	return tid.matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")&&(isNotNull0(tid));
+    }
 
 }
