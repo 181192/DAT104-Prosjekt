@@ -38,8 +38,7 @@ public class EventValidator {
         return ValidatorUtil.isNotNull0(tittel);
     }
     private boolean erDatoGyldig() {
-    //TODO
-        return true;
+        return ValidatorUtil.isNotNull0(dato);
     }
     private boolean erFraGyldig() {
     	 return ValidatorUtil.isValidTimeFormat(fra);
@@ -54,21 +53,33 @@ public class EventValidator {
         return ValidatorUtil.isNotNull0(aktivitet);
     }
     public boolean erAlleDataGyldige() {
-        //TODO
         return erTittelGyldig()&&erDatoGyldig()&&erFraGyldig()&&erTilGyldig()&&erHvorGyldig()&&erAktivitetGyldig();
     }
     public void settOppFeilmeldinger() {
-        //TODO
-
-        /*if (!erNavnGyldig()) {
-            navn = "";
-            navnFeilmelding = "Navnet er ikke gyldig!";
+        if (!erTittelGyldig()) {
+        	tittel = "";
+        	tittelFeilmelding = "Tittel er ikke gyldig!";
         }
-        if (!erPostnrGyldig()) {
-            postnr = "";
-            postnrFeilmelding = "File postsjf";
-        }*/
-
+        if (!erDatoGyldig()) {
+        	dato = "";
+        	datoFeilmelding = "Feil Dato";
+        }
+        if (!erFraGyldig()) {
+        	fra = "";
+        	fraFeilmelding = "Ugyldig";
+        }
+        if (!erTilGyldig()) {
+        	til = "";
+        	tilFeilmelding = "Ugyldig";
+        }
+        if (!erHvorGyldig()) {
+        	hvor = "";
+        	hvorFeilmelding = "Ugyldig";
+        }
+        if (!erAktivitetGyldig()) {
+        	aktivitet = "";
+        	aktivitetFeilmelding = "Ugyldig";
+        }
     }
 
     public String getTittel() {

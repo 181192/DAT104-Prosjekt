@@ -33,6 +33,9 @@ public class Aktivitet {
 
 	@Transient
 	private List<Event> eventer;
+	
+	@Transient
+	private Event event;
 
 	/**
 	 * Tom kontruktor for Aktivitet
@@ -124,6 +127,14 @@ public class Aktivitet {
 	 */
 	public void setEventer(List<Event> eventer) {
 		this.eventer = eventer;
+	}
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
 	}
 
 }
