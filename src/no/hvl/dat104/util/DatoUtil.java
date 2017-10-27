@@ -3,6 +3,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class DatoUtil {
@@ -41,5 +42,16 @@ public class DatoUtil {
         String newStartDateString = df.format(startDato);
         return newStartDateString;
     }
+    
+    /**
+     * Returner dato med klokkeslotte på en sql vennlig måte.
+     * @return Timestamp object
+     */
+	public static Timestamp lagCurrentTimestamp() {
+		Calendar kalendar = Calendar.getInstance();
+		Date naa = kalendar.getTime();
+		return(new java.sql.Timestamp(naa.getTime()));
+	}
+	
 
 }
