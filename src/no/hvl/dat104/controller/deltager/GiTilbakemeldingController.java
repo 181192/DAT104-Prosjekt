@@ -29,7 +29,7 @@ public class GiTilbakemeldingController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Tilbakemelding tilbakemelding = new Tilbakemelding(request.getParameter("tilbakemelding"), null);
+		Tilbakemelding tilbakemelding = new Tilbakemelding(request.getParameter("tilbakemelding"), null, null);
 		TilbakemeldingEAO.leggTilTilbakemelding(tilbakemelding);
 		response.sendRedirect("liveevent");
 	}
