@@ -9,7 +9,7 @@
 	        <div class="column 5 wide tablet 5 wide computer 16 wide mobile column">
 	            <div>
 	                <button name="tilbakemelding" value="0" class="ui button">
-	                    <img alt="utilfreds" src="http://d2trtkcohkrm90.cloudfront.net/images/emoji/apple/ios-10/256/pouting-face.png">
+	                    <img alt="utilfreds" src="http://d2trtkcohkrm90.cloudfront.net/images/emoji/apple/ios-10/256/frowning-face.png">
 	                </button>
 	            </div>
 	        </div>
