@@ -3,6 +3,7 @@ package no.hvl.dat104.dataaccess.jpa;
 import java.util.List;
 
 import javax.ejb.Stateless;
+import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -62,6 +63,13 @@ public class AktivitetEAO implements IAktivitetEAO {
 	public void flyttAktivitetenTilNyBruker(Aktivitet a, Bruker bruker) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Aktivitet> finnAktiviteterTilBruker(Bruker id) {
+		Query a = em.createQuery("SELECT a FROM Aktivitet a WHERE a.idBruker =:id").setParameter("id", id);
+		return a.getResultList();
 	}
 
 }

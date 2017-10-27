@@ -38,6 +38,13 @@ public interface IAktivitetEAO {
 	 *            Aktivitet
 	 */
 	public void slettAktivitet(Aktivitet a);
+	
+	/**
+	 * Returnerer en liste med alle aktiviter til brukeren.
+	 * @param b
+	 * @return
+	 */
+	public List<Aktivitet> finnAktiviteterTilBruker(Bruker id);
 
 	/**
 	 * Returnerer en liste med alle aktiviteter
