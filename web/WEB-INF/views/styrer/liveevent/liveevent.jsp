@@ -19,10 +19,7 @@
 		onclick="godKnappHandeler()">Bra</button>
 </div>
 
-<script type="text/javascript">
-<!-->Må hente request attributten her i jsp siden, så kan man inkludere resten av scripten.</-->
-	var frekvensTabell = "${requestScope.data}";
-</script>
+
 
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>
