@@ -1,5 +1,7 @@
 /* 
 REVISION VERSIONS
+rev.2.3.0
+	- Changed all entities to start with lower case char
 rev.2.2.0
 	- Added new entity: "Live_tilbakemelding"
 	- Added tid to Tilbakemelding and Live_tilbakemelding
@@ -12,59 +14,60 @@ rev.2.1.0
 -- object: db | type: SCHEMA --
 DROP SCHEMA IF EXISTS db CASCADE;
 CREATE SCHEMA db;
+-- ddl-end --
 
 SET search_path TO db;
 -- ddl-end --
 
--- object: db."Bruker" | type: TABLE --
-DROP TABLE IF EXISTS db."Bruker" CASCADE;
-CREATE TABLE db."Bruker"(
+-- object: db.bruker | type: TABLE --
+DROP TABLE IF EXISTS db.bruker CASCADE;
+CREATE TABLE db.bruker(
 	id serial NOT NULL,
 	mail varchar(100) NOT NULL,
 	fornavn varchar(50) NOT NULL,
 	etternavn varchar(70) NOT NULL,
 	passord varchar NOT NULL,
 	salt varchar NOT NULL,
-	"id_Rolle" integer NOT NULL,
-	CONSTRAINT "Bruker_pk" PRIMARY KEY (id)
+	id_rolle integer NOT NULL,
+	CONSTRAINT bruker_pk PRIMARY KEY (id)
 
 );
 
--- object: db."Rolle" | type: TABLE --
-DROP TABLE IF EXISTS db."Rolle" CASCADE;
-CREATE TABLE db."Rolle"(
+-- object: db.rolle | type: TABLE --
+DROP TABLE IF EXISTS db.rolle CASCADE;
+CREATE TABLE db.rolle(
 	id serial NOT NULL,
 	type text NOT NULL,
-	CONSTRAINT "Rolle_pk" PRIMARY KEY (id)
+	CONSTRAINT rolle_pk PRIMARY KEY (id)
 
 );
 
--- object: db."Rettigheter" | type: TABLE --
-DROP TABLE IF EXISTS db."Rettigheter" CASCADE;
-CREATE TABLE db."Rettigheter"(
+-- object: db.rettigheter | type: TABLE --
+DROP TABLE IF EXISTS db.rettigheter CASCADE;
+CREATE TABLE db.rettigheter(
 	id serial NOT NULL,
 	godkjenne_bruker bool NOT NULL,
 	slette_bruker bool NOT NULL,
 	opprette_aktivitet bool NOT NULL,
-	"id_Rolle" integer NOT NULL,
-	CONSTRAINT "Rettigheter_pk" PRIMARY KEY (id)
+	id_rolle integer NOT NULL,
+	CONSTRAINT rettigheter_pk PRIMARY KEY (id)
 
 );
 
--- object: db."Aktivitet" | type: TABLE --
-DROP TABLE IF EXISTS db."Aktivitet" CASCADE;
-CREATE TABLE db."Aktivitet"(
+-- object: db.aktivitet | type: TABLE --
+DROP TABLE IF EXISTS db.aktivitet CASCADE;
+CREATE TABLE db.aktivitet(
 	id serial NOT NULL,
 	navn text NOT NULL,
 	status varchar NOT NULL,
-	"id_Bruker" integer NOT NULL,
-	CONSTRAINT "Aktivitet_pk" PRIMARY KEY (id)
+	id_bruker integer NOT NULL,
+	CONSTRAINT aktivitet_pk PRIMARY KEY (id)
 
 );
 
--- object: db."Event" | type: TABLE --
-DROP TABLE IF EXISTS db."Event" CASCADE;
-CREATE TABLE db."Event"(
+-- object: db.event | type: TABLE --
+DROP TABLE IF EXISTS db.event CASCADE;
+CREATE TABLE db.event(
 	id serial NOT NULL,
 	navn varchar NOT NULL,
 	beskrivelse text,
@@ -74,126 +77,127 @@ CREATE TABLE db."Event"(
 	faktisk_slutt timestamp,
 	status varchar NOT NULL,
 	sted varchar,
-	"id_Aktivitet" integer NOT NULL,
-	CONSTRAINT "Event_pk" PRIMARY KEY (id)
+	id_aktivitet integer NOT NULL,
+	CONSTRAINT event_pk PRIMARY KEY (id)
 
 );
 
--- object: db."Kodeord" | type: TABLE --
-DROP TABLE IF EXISTS db."Kodeord" CASCADE;
-CREATE TABLE db."Kodeord"(
+-- object: db.kodeord | type: TABLE --
+DROP TABLE IF EXISTS db.kodeord CASCADE;
+CREATE TABLE db.kodeord(
 	id serial NOT NULL,
 	kode varchar NOT NULL,
-	"id_Event" integer NOT NULL,
-	CONSTRAINT "Kodeord_pk" PRIMARY KEY (id),
+	id_event integer NOT NULL,
+	CONSTRAINT kodeord_pk PRIMARY KEY (id),
 	CONSTRAINT kode_uq UNIQUE (kode)
 
 );
 
--- object: db."Tilbakemelding" | type: TABLE --
-DROP TABLE IF EXISTS db."Tilbakemelding" CASCADE;
-CREATE TABLE db."Tilbakemelding"(
+-- object: db.tilbakemelding | type: TABLE --
+DROP TABLE IF EXISTS db.tilbakemelding CASCADE;
+CREATE TABLE db.tilbakemelding(
 	id serial NOT NULL,
 	stemme varchar NOT NULL,
 	tid timestamp NOT NULL,
-	"id_Event" integer NOT NULL,
-	CONSTRAINT "Tilbakemelding_pk" PRIMARY KEY (id)
+	id_event integer NOT NULL,
+	CONSTRAINT tilbakemelding_pk PRIMARY KEY (id)
 
 );
 
--- object: db."Live_tilbakemelding" | type: TABLE --
-DROP TABLE IF EXISTS db."Live_tilbakemelding" CASCADE;
-CREATE TABLE db."Live_tilbakemelding"(
+-- object: db.livetm | type: TABLE --
+DROP TABLE IF EXISTS db.livetm CASCADE;
+CREATE TABLE db.livetm(
 	id serial NOT NULL,
 	stemme varchar NOT NULL,
 	tid timestamp NOT NULL,
-	"id_Event" integer NOT NULL,
-	CONSTRAINT "Live_tilbakemelding_pk" PRIMARY KEY (id)
+	id_event integer NOT NULL,
+	CONSTRAINT livetm_pk PRIMARY KEY (id)
 
 );
 
--- object: "Rolle_fk" | type: CONSTRAINT --
--- ALTER TABLE db."Rettigheter" DROP CONSTRAINT IF EXISTS "Rolle_fk" CASCADE;
-ALTER TABLE db."Rettigheter" ADD CONSTRAINT "Rolle_fk" FOREIGN KEY ("id_Rolle")
-REFERENCES db."Rolle" (id) MATCH FULL
+-- object: rolle_fk | type: CONSTRAINT --
+-- ALTER TABLE db.rettigheter DROP CONSTRAINT IF EXISTS rolle_fk CASCADE;
+ALTER TABLE db.rettigheter ADD CONSTRAINT rolle_fk FOREIGN KEY (id_rolle)
+REFERENCES db.rolle (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: "Rolle_fk" | type: CONSTRAINT --
--- ALTER TABLE db."Bruker" DROP CONSTRAINT IF EXISTS "Rolle_fk" CASCADE;
-ALTER TABLE db."Bruker" ADD CONSTRAINT "Rolle_fk" FOREIGN KEY ("id_Rolle")
-REFERENCES db."Rolle" (id) MATCH FULL
+-- object: rolle_fk | type: CONSTRAINT --
+-- ALTER TABLE db.bruker DROP CONSTRAINT IF EXISTS rolle_fk CASCADE;
+ALTER TABLE db.bruker ADD CONSTRAINT rolle_fk FOREIGN KEY (id_rolle)
+REFERENCES db.rolle (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: "Bruker_fk" | type: CONSTRAINT --
--- ALTER TABLE db."Aktivitet" DROP CONSTRAINT IF EXISTS "Bruker_fk" CASCADE;
-ALTER TABLE db."Aktivitet" ADD CONSTRAINT "Bruker_fk" FOREIGN KEY ("id_Bruker")
-REFERENCES db."Bruker" (id) MATCH FULL
+-- object: bruker_fk | type: CONSTRAINT --
+-- ALTER TABLE db.aktivitet DROP CONSTRAINT IF EXISTS bruker_fk CASCADE;
+ALTER TABLE db.aktivitet ADD CONSTRAINT bruker_fk FOREIGN KEY (id_bruker)
+REFERENCES db.bruker (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: "Aktivitet_fk" | type: CONSTRAINT --
--- ALTER TABLE db."Event" DROP CONSTRAINT IF EXISTS "Aktivitet_fk" CASCADE;
-ALTER TABLE db."Event" ADD CONSTRAINT "Aktivitet_fk" FOREIGN KEY ("id_Aktivitet")
-REFERENCES db."Aktivitet" (id) MATCH FULL
+-- object: aktivitet_fk | type: CONSTRAINT --
+-- ALTER TABLE db.event DROP CONSTRAINT IF EXISTS aktivitet_fk CASCADE;
+ALTER TABLE db.event ADD CONSTRAINT aktivitet_fk FOREIGN KEY (id_aktivitet)
+REFERENCES db.aktivitet (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: "Event_fk" | type: CONSTRAINT --
--- ALTER TABLE db."Kodeord" DROP CONSTRAINT IF EXISTS "Event_fk" CASCADE;
-ALTER TABLE db."Kodeord" ADD CONSTRAINT "Event_fk" FOREIGN KEY ("id_Event")
-REFERENCES db."Event" (id) MATCH FULL
+-- object: event_fk | type: CONSTRAINT --
+-- ALTER TABLE db.kodeord DROP CONSTRAINT IF EXISTS event_fk CASCADE;
+ALTER TABLE db.kodeord ADD CONSTRAINT event_fk FOREIGN KEY (id_event)
+REFERENCES db.event (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: "Kodeord_uq" | type: CONSTRAINT --
--- ALTER TABLE db."Kodeord" DROP CONSTRAINT IF EXISTS "Kodeord_uq" CASCADE;
-ALTER TABLE db."Kodeord" ADD CONSTRAINT "Kodeord_uq" UNIQUE ("id_Event");
+-- object: kodeord_uq | type: CONSTRAINT --
+-- ALTER TABLE db.kodeord DROP CONSTRAINT IF EXISTS kodeord_uq CASCADE;
+ALTER TABLE db.kodeord ADD CONSTRAINT kodeord_uq UNIQUE (id_event);
 -- ddl-end --
 
--- object: "Event_fk" | type: CONSTRAINT --
--- ALTER TABLE db."Tilbakemelding" DROP CONSTRAINT IF EXISTS "Event_fk" CASCADE;
-ALTER TABLE db."Tilbakemelding" ADD CONSTRAINT "Event_fk" FOREIGN KEY ("id_Event")
-REFERENCES db."Event" (id) MATCH FULL
+-- object: event_fk | type: CONSTRAINT --
+-- ALTER TABLE db.tilbakemelding DROP CONSTRAINT IF EXISTS event_fk CASCADE;
+ALTER TABLE db.tilbakemelding ADD CONSTRAINT event_fk FOREIGN KEY (id_event)
+REFERENCES db.event (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
--- object: "Event_fk" | type: CONSTRAINT --
--- ALTER TABLE db."Live_tilbakemelding" DROP CONSTRAINT IF EXISTS "Event_fk" CASCADE;
-ALTER TABLE db."Live_tilbakemelding" ADD CONSTRAINT "Event_fk" FOREIGN KEY ("id_Event")
-REFERENCES db."Event" (id) MATCH FULL
+-- object: event_fk | type: CONSTRAINT --
+-- ALTER TABLE db.livetm DROP CONSTRAINT IF EXISTS event_fk CASCADE;
+ALTER TABLE db.livetm ADD CONSTRAINT event_fk FOREIGN KEY (id_event)
+REFERENCES db.event (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
---Dummy data
-INSERT INTO "Rolle" (type) VALUES('Admin');
-INSERT INTO "Rolle" (type) VALUES('Aktivitetsstyrer');
+-- Dummy data
 
-INSERT INTO "Rettigheter" (godkjenne_bruker, slette_bruker, opprette_aktivitet, "id_Rolle") VALUES ('1','1','0','1');
-INSERT INTO "Rettigheter" (godkjenne_bruker, slette_bruker, opprette_aktivitet, "id_Rolle") VALUES ('0','0','1','2');
+INSERT INTO Rolle (type) VALUES('Admin');
+INSERT INTO Rolle (type) VALUES('Aktivitetsstyrer');
 
-INSERT INTO "Bruker" (mail, fornavn, etternavn, passord, salt, "id_Rolle") VALUES ('admin@gruppe3.no', 'Ola', 'Olsen', 'foobar', 'dioawd633a', '1');
-INSERT INTO "Bruker" (mail, fornavn, etternavn, passord, salt, "id_Rolle") VALUES ('kari@gruppe3.no', 'Kari', 'Pettersen', 'foobar', 'afa7fa9dwa', '2');
-INSERT INTO "Bruker" (mail, fornavn, etternavn, passord, salt, "id_Rolle") VALUES ('per@gruppe3.no', 'Per', 'Hansen', 'foobar', 'njnpojniu2', '2');
+INSERT INTO Rettigheter (godkjenne_bruker, slette_bruker, opprette_aktivitet, "id_rolle") VALUES ('1','1','0','1');
+INSERT INTO Rettigheter (godkjenne_bruker, slette_bruker, opprette_aktivitet, "id_rolle") VALUES ('0','0','1','2');
 
-INSERT INTO "Aktivitet" (navn, status, "id_Bruker") VALUES ('DAT100', 'avsluttet', '2');
-INSERT INTO "Aktivitet" (navn, status, "id_Bruker") VALUES ('MAT101', 'pagaende', '2');
-INSERT INTO "Aktivitet" (navn, status, "id_Bruker") VALUES ('DAT102', 'planlagt', '3');
+INSERT INTO Bruker (mail, fornavn, etternavn, passord, salt, "id_rolle") VALUES ('admin@gruppe3.no', 'Ola', 'Olsen', 'foobar', 'dioawd633a', '1');
+INSERT INTO Bruker (mail, fornavn, etternavn, passord, salt, "id_rolle") VALUES ('kari@gruppe3.no', 'Kari', 'Pettersen', 'foobar', 'afa7fa9dwa', '2');
+INSERT INTO Bruker (mail, fornavn, etternavn, passord, salt, "id_rolle") VALUES ('per@gruppe3.no', 'Per', 'Hansen', 'foobar', 'njnpojniu2', '2');
 
-INSERT INTO "Event" (navn, tid_fra, tid_til, status, sted, "id_Aktivitet") VALUES ('DAT100', '2017-10-20 12:00:00', '2017-10-20 14:00:00', 'avsluttet', 'F115', '1');
-INSERT INTO "Event" (navn, tid_fra, tid_til, status, sted, "id_Aktivitet") VALUES ('MAT101', '2017-10-26 10:00:00', '2017-10-26 22:00:00', 'pagaende', 'F110', '2');
-INSERT INTO "Event" (navn, tid_fra, tid_til, status, sted, "id_Aktivitet") VALUES ('DAT102', '2017-12-20 09:00:00', '2017-12-20 10:30:00', 'planlagt', 'E403', '3');
+INSERT INTO aktivitet (navn, status, "id_bruker") VALUES ('DAT100', 'avsluttet', '2');
+INSERT INTO aktivitet (navn, status, "id_bruker") VALUES ('MAT101', 'pagaende', '2');
+INSERT INTO aktivitet (navn, status, "id_bruker") VALUES ('DAT102', 'planlagt', '3');
 
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('0','2017-10-20 14:01:00','1');
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('1','2017-10-20 14:02:00','1');
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('2','2017-10-20 14:03:00','1');
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('0','2017-10-20 14:04:00','1');
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('0','2017-10-20 14:05:00','1');
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('0','2017-10-20 14:06:00','1');
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('1','2017-10-20 14:07:00','1');
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('1','2017-10-20 14:08:00','1');
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('2','2017-10-20 14:09:00','1');
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('2','2017-10-20 14:10:00','1');
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('2','2017-10-20 14:11:00','1');
-INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('2','2017-10-20 14:12:00','1');
+INSERT INTO event (navn, tid_fra, tid_til, status, sted, "id_aktivitet") VALUES ('DAT100', '2017-10-20 12:00:00', '2017-10-20 14:00:00', 'avsluttet', 'F115', '1');
+INSERT INTO event (navn, tid_fra, tid_til, status, sted, "id_aktivitet") VALUES ('MAT101', '2017-10-26 10:00:00', '2017-10-26 22:00:00', 'pagaende', 'F110', '2');
+INSERT INTO event (navn, tid_fra, tid_til, status, sted, "id_aktivitet") VALUES ('DAT102', '2017-12-20 09:00:00', '2017-12-20 10:30:00', 'planlagt', 'E403', '3');
+
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:01:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:02:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:03:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:04:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:05:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:06:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:07:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:08:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:09:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:10:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:11:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:12:00','1');
