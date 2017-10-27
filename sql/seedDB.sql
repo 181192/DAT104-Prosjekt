@@ -1,3 +1,14 @@
+/* 
+REVISION VERSIONS
+rev.2.2.0
+	- Added new entity: "Live_tilbakemelding"
+	- Added tid to Tilbakemelding and Live_tilbakemelding
+	- Added sted and beskrivelse to Event
+
+rev.2.1.0
+	- Totally rewamped the design
+*/
+
 -- object: db | type: SCHEMA --
 DROP SCHEMA IF EXISTS db CASCADE;
 CREATE SCHEMA db;
@@ -34,7 +45,7 @@ CREATE TABLE db."Rettigheter"(
 	id serial NOT NULL,
 	godkjenne_bruker bool NOT NULL,
 	slette_bruker bool NOT NULL,
-	opprette_bruker bool NOT NULL,
+	opprette_aktivitet bool NOT NULL,
 	"id_Rolle" integer NOT NULL,
 	CONSTRAINT "Rettigheter_pk" PRIMARY KEY (id)
 
@@ -56,6 +67,7 @@ DROP TABLE IF EXISTS db."Event" CASCADE;
 CREATE TABLE db."Event"(
 	id serial NOT NULL,
 	navn varchar NOT NULL,
+	beskrivelse text,
 	tid_fra timestamp NOT NULL,
 	tid_til timestamp NOT NULL,
 	faktisk_start timestamp,
@@ -83,8 +95,20 @@ DROP TABLE IF EXISTS db."Tilbakemelding" CASCADE;
 CREATE TABLE db."Tilbakemelding"(
 	id serial NOT NULL,
 	stemme varchar NOT NULL,
+	tid timestamp NOT NULL,
 	"id_Event" integer NOT NULL,
 	CONSTRAINT "Tilbakemelding_pk" PRIMARY KEY (id)
+
+);
+
+-- object: db."Live_tilbakemelding" | type: TABLE --
+DROP TABLE IF EXISTS db."Live_tilbakemelding" CASCADE;
+CREATE TABLE db."Live_tilbakemelding"(
+	id serial NOT NULL,
+	stemme varchar NOT NULL,
+	tid timestamp NOT NULL,
+	"id_Event" integer NOT NULL,
+	CONSTRAINT "Live_tilbakemelding_pk" PRIMARY KEY (id)
 
 );
 
@@ -134,3 +158,42 @@ ALTER TABLE db."Tilbakemelding" ADD CONSTRAINT "Event_fk" FOREIGN KEY ("id_Event
 REFERENCES db."Event" (id) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
+
+-- object: "Event_fk" | type: CONSTRAINT --
+-- ALTER TABLE db."Live_tilbakemelding" DROP CONSTRAINT IF EXISTS "Event_fk" CASCADE;
+ALTER TABLE db."Live_tilbakemelding" ADD CONSTRAINT "Event_fk" FOREIGN KEY ("id_Event")
+REFERENCES db."Event" (id) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+--Dummy data
+INSERT INTO "Rolle" (type) VALUES('Admin');
+INSERT INTO "Rolle" (type) VALUES('Aktivitetsstyrer');
+
+INSERT INTO "Rettigheter" (godkjenne_bruker, slette_bruker, opprette_aktivitet, "id_Rolle") VALUES ('1','1','0','1');
+INSERT INTO "Rettigheter" (godkjenne_bruker, slette_bruker, opprette_aktivitet, "id_Rolle") VALUES ('0','0','1','2');
+
+INSERT INTO "Bruker" (mail, fornavn, etternavn, passord, salt, "id_Rolle") VALUES ('admin@gruppe3.no', 'Ola', 'Olsen', 'foobar', 'dioawd633a', '1');
+INSERT INTO "Bruker" (mail, fornavn, etternavn, passord, salt, "id_Rolle") VALUES ('kari@gruppe3.no', 'Kari', 'Pettersen', 'foobar', 'afa7fa9dwa', '2');
+INSERT INTO "Bruker" (mail, fornavn, etternavn, passord, salt, "id_Rolle") VALUES ('per@gruppe3.no', 'Per', 'Hansen', 'foobar', 'njnpojniu2', '2');
+
+INSERT INTO "Aktivitet" (navn, status, "id_Bruker") VALUES ('DAT100', 'avsluttet', '2');
+INSERT INTO "Aktivitet" (navn, status, "id_Bruker") VALUES ('MAT101', 'pagaende', '2');
+INSERT INTO "Aktivitet" (navn, status, "id_Bruker") VALUES ('DAT102', 'planlagt', '3');
+
+INSERT INTO "Event" (navn, tid_fra, tid_til, status, sted, "id_Aktivitet") VALUES ('DAT100', '2017-10-20 12:00:00', '2017-10-20 14:00:00', 'avsluttet', 'F115', '1');
+INSERT INTO "Event" (navn, tid_fra, tid_til, status, sted, "id_Aktivitet") VALUES ('MAT101', '2017-10-26 10:00:00', '2017-10-26 22:00:00', 'pagaende', 'F110', '2');
+INSERT INTO "Event" (navn, tid_fra, tid_til, status, sted, "id_Aktivitet") VALUES ('DAT102', '2017-12-20 09:00:00', '2017-12-20 10:30:00', 'planlagt', 'E403', '3');
+
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('0','2017-10-20 14:01:00','1');
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('1','2017-10-20 14:02:00','1');
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('2','2017-10-20 14:03:00','1');
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('0','2017-10-20 14:04:00','1');
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('0','2017-10-20 14:05:00','1');
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('0','2017-10-20 14:06:00','1');
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('1','2017-10-20 14:07:00','1');
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('1','2017-10-20 14:08:00','1');
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('2','2017-10-20 14:09:00','1');
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('2','2017-10-20 14:10:00','1');
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('2','2017-10-20 14:11:00','1');
+INSERT INTO "Tilbakemelding" (stemme, tid, "id_Event") VALUES ('2','2017-10-20 14:12:00','1');
