@@ -53,5 +53,20 @@ public class DatoUtil {
 		return(new java.sql.Timestamp(naa.getTime()));
 	}
 	
+	/**
+     * Formaterer en sql.Timestamp til en streng med format yyyy-mm-ddTHH:mm
+     * Kan da vises i fullcalendar.io
+     * @param timestamp
+     * @return
+     */
+    public static String timestampTilStrengForKalender(Timestamp timestamp) {
+        String dato = timestamp.toString();
+        String[] datoOgKlokke = dato.split(" ");
+        String[] fiksdatoen = datoOgKlokke[0].split("-");
+        String str = String.join("-", fiksdatoen);
+        String finalDato = str + "T" + datoOgKlokke[1];
+        return finalDato.substring(0,16)+":00";
+    }
+	
 
 }
