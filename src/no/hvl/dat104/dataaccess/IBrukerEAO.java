@@ -2,6 +2,8 @@ package no.hvl.dat104.dataaccess;
 
 import java.util.List;
 
+
+
 import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Rolle;
 
