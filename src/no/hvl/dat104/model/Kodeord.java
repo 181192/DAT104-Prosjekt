@@ -1,5 +1,6 @@
 package no.hvl.dat104.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class Kodeord {
 	private Integer id;
 	private String kode;
 
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_Event", referencedColumnName = "id")
 	private Event idEvent;
 

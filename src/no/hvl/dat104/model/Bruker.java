@@ -3,6 +3,7 @@ package no.hvl.dat104.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Bruker {
 	private String passord;
 	private String salt;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@Column(name = "id_Rolle")
 	private Rolle idRolle;
 
@@ -183,6 +184,10 @@ public class Bruker {
 	 */
 	public void setAktiviteter(List<Aktivitet> aktiviteter) {
 		this.aktiviteter = aktiviteter;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

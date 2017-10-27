@@ -14,7 +14,7 @@ public class DatoUtil {
 	 * @throws ParseException
 	 */
 	public static Timestamp formaterDatoTilStamp(String dato, String klokkeslett) throws ParseException {
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        DateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm");
         java.util.Date startDato= df.parse(dato + " " + klokkeslett);
         java.sql.Timestamp sq = new java.sql.Timestamp(startDato.getTime());
         return sq;

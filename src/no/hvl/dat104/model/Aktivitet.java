@@ -3,6 +3,7 @@ package no.hvl.dat104.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +28,7 @@ public class Aktivitet {
 	private String navn;
 	private String status;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@Column(name = "id_Bruker")
 	private Bruker idBruker;
 
@@ -135,6 +136,10 @@ public class Aktivitet {
 
 	public void setEvent(Event event) {
 		this.event = event;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 }

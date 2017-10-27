@@ -1,5 +1,6 @@
 package no.hvl.dat104.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -26,7 +27,7 @@ public class Rettigheter {
 	private Boolean sletteBruker;
 	@Column(name = "opprette_bruker")
 	private Boolean oppretteBruker;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@Column(name = "id_Rolle")
 	private Rolle idRolle;
 

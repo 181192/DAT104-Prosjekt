@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class Event {
 	private String status;
 	private String sted;
 
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@Column(name = "id_Aktivitet")
 	private Aktivitet idAktivitet;
 
