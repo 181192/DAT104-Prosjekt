@@ -2,6 +2,7 @@ package no.hvl.dat104.dataaccess;
 
 import java.util.List;
 
+import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Event;
 
 public interface IEventEAO {
@@ -44,5 +45,12 @@ public interface IEventEAO {
 	 * @return Alle eventer
 	 */
 	public List<Event> alleEventer();
+	
+	/**
+	 * Returnerer en liste med alle eventer til en gitt aktivitet.
+	 * @param aktivitet
+	 * @return
+	 */
+	public List<Event> finnAlleEventerTilAktivitet(Aktivitet id);
 
 }
