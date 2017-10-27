@@ -44,4 +44,10 @@ public class RolleEAO implements IRolleEAO {
 		return rollene;
 	}
 
+	@Override
+	public void endreTypePaaRolle(Rolle r, String type) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.model.Aktivitet;
+import no.hvl.dat104.model.Bruker;
 
 @Stateless
 public class AktivitetEAO implements IAktivitetEAO {
@@ -43,6 +44,24 @@ public class AktivitetEAO implements IAktivitetEAO {
 	public List<Aktivitet> alleAktiviteter() {
 		List<Aktivitet> aktiviteter = em.createQuery("SELECT a FROM Aktivitet a").getResultList();
 		return aktiviteter;
+	}
+
+	@Override
+	public void endreNavnPaaAktivitet(Aktivitet a, String navn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endreStatusPaaAktivitet(Aktivitet a, String status) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void flyttAktivitetenTilNyBruker(Aktivitet a, Bruker bruker) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -44,4 +44,14 @@ public interface IKodeordEAO {
 	 * @return Alle kodeordene
 	 */
 	public List<Kodeord> alleKodeord();
+
+	/**
+	 * Endre kode til kodeordet
+	 * 
+	 * @param k
+	 *            Kodeordet
+	 * @param kode
+	 *            Kode som skal endres
+	 */
+	public void endreKodePaaKodeord(Kodeord k, String kode);
 }

@@ -2,7 +2,9 @@ package no.hvl.dat104.dataaccess;
 
 import java.util.List;
 
-import no.hvl.dat104.model.Rolle;public interface IRolleEAO {
+import no.hvl.dat104.model.Rolle;
+
+public interface IRolleEAO {
 	/**
 	 * Legger til en rolle
 	 * 
@@ -41,4 +43,14 @@ import no.hvl.dat104.model.Rolle;public interface IRolleEAO {
 	 * @return Alle rollene
 	 */
 	public List<Rolle> alleRollene();
+
+	/**
+	 * Endre type paa rolle
+	 * 
+	 * @param r
+	 *            Rolle
+	 * @param type
+	 *            Type
+	 */
+	public void endreTypePaaRolle(Rolle r, String type);
 }

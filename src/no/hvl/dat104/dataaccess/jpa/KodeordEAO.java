@@ -44,4 +44,10 @@ public class KodeordEAO implements IKodeordEAO {
 		return kodeord;
 	}
 
+	@Override
+	public void endreKodePaaKodeord(Kodeord k, String kode) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

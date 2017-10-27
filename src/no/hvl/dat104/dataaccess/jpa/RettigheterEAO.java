@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import no.hvl.dat104.dataaccess.IRettigheterEAO;
 import no.hvl.dat104.model.Rettigheter;
+import no.hvl.dat104.model.Rolle;
 
 @Stateless
 public class RettigheterEAO implements IRettigheterEAO {
@@ -42,6 +43,30 @@ public class RettigheterEAO implements IRettigheterEAO {
 	public List<Rettigheter> alleRettigheter() {
 		List<Rettigheter> rettigheter = em.createQuery("SELECT r FROM Rettigheter r").getResultList();
 		return rettigheter;
+	}
+
+	@Override
+	public void endreGodkjenneBrukerPaaRettighet(Rettigheter r, Boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endreSletteBrukerPaaRettighet(Rettigheter r, Boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endreOppretteBrukerPaaRettighet(Rettigheter r, Boolean b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endreRollePaaRettighet(Rettigheter r, Rolle rolle) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

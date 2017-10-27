@@ -46,12 +46,16 @@ public class Event {
 	@Transient
 	private List<Tilbakemelding> tilbakemeldinger;
 
+	@Transient
+	private List<LiveTilbakemelding> liveTilbakemeldinger;
+
 	/**
 	 * Tom konstruktor til Event
 	 */
 	public Event() {
 		this("", null, null, null, null, "", "", null);
 		tilbakemeldinger = new ArrayList<>();
+		liveTilbakemeldinger = new ArrayList<>();
 	}
 
 	/**
@@ -74,8 +78,8 @@ public class Event {
 	 * @param idAktivitet
 	 *            Id paa aktiviteten eventen hoerer til
 	 */
-	public Event(String navn, Timestamp tidFra, Timestamp tidTil, Timestamp faktiskStart, Timestamp faktiskSlutt, String status,
-			String sted, Aktivitet idAktivitet) {
+	public Event(String navn, Timestamp tidFra, Timestamp tidTil, Timestamp faktiskStart, Timestamp faktiskSlutt,
+			String status, String sted, Aktivitet idAktivitet) {
 		this.navn = navn;
 		this.tidFra = tidFra;
 		this.tidTil = tidTil;
@@ -85,6 +89,7 @@ public class Event {
 		this.sted = sted;
 		this.idAktivitet = idAktivitet;
 		tilbakemeldinger = new ArrayList<>();
+		liveTilbakemeldinger = new ArrayList<>();
 	}
 
 	/**
@@ -227,6 +232,21 @@ public class Event {
 	 */
 	public void setTilbakemeldinger(List<Tilbakemelding> tilbakemeldinger) {
 		this.tilbakemeldinger = tilbakemeldinger;
+	}
+
+	/**
+	 * @return the liveTilbakemeldinger
+	 */
+	public List<LiveTilbakemelding> getLiveTilbakemeldinger() {
+		return liveTilbakemeldinger;
+	}
+
+	/**
+	 * @param liveTilbakemeldinger
+	 *            the liveTilbakemeldinger to set
+	 */
+	public void setLiveTilbakemeldinger(List<LiveTilbakemelding> liveTilbakemeldinger) {
+		this.liveTilbakemeldinger = liveTilbakemeldinger;
 	}
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.model.Rolle;
 
 @Stateless
 public class BrukerEAO implements IBrukerEAO {
@@ -39,6 +40,42 @@ public class BrukerEAO implements IBrukerEAO {
 	public List<Bruker> alleBrukerne() {
 		List<Bruker> brukere = em.createQuery("SELECT b FROM Bruker b").getResultList();
 		return brukere;
+	}
+
+	@Override
+	public void endreMailPaaBruker(Bruker b, String mail) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endreFornavnPaaBruker(Bruker b, String fornavn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endreEtternavnPaaBruker(Bruker b, String etternavn) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endrePassordPaaBruker(Bruker b, String passord) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endreSaltPaaBruker(Bruker b, String salt) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endreRollePaaBruker(Bruker b, Rolle r) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

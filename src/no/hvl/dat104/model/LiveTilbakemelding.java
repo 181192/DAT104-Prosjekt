@@ -1,3 +1,6 @@
+/**
+ * 
+ */
 package no.hvl.dat104.model;
 
 import java.sql.Timestamp;
@@ -10,16 +13,14 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *
- * Modellrepresentasjon av Tilbakemelding
+ * Modellrepresentasjon av Livetilbakemeldinger
  * 
- * @author BMO 2.0
+ * @author Kristoffer-Andre Kalliainen
  *
  */
-@Entity(name = "Tilbakemelding")
-@Table(name = "Tilbakemelding", schema = "db")
-public class Tilbakemelding {
-
+@Entity(name = "LiveTilbakemelding")
+@Table(name = "Live_tilbakemelding", schema = "db")
+public class LiveTilbakemelding {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -30,35 +31,29 @@ public class Tilbakemelding {
 	private Event idEvent;
 
 	/**
-	 * Tom konstruktor for Tilbakemelding
+	 * Tom konstruktor for live tilbakemeldinger
 	 */
-	public Tilbakemelding() {
-		this("", null, null);
+	public LiveTilbakemelding() {
+		this(null, "", null, null);
 	}
 
 	/**
-	 * Hovedkonstruktor for Tilbakemelding
+	 * Konstruktor med parameter live tilbakemeldinger
 	 * 
 	 * @param id
-	 *            Id for tilbakemelding
+	 *            Id
 	 * @param stemme
-	 *            Stemme for tilbakemelding
-	 * @param idEvent
-	 *            Id for event paa tilbakemelding
+	 *            Stemme
 	 * @param tid
 	 *            Tiden
+	 * @param idEvent
+	 *            Id til event
 	 */
-	public Tilbakemelding(String stemme, Event idEvent, Timestamp tid) {
+	public LiveTilbakemelding(Integer id, String stemme, Timestamp tid, Event idEvent) {
+		this.id = id;
 		this.stemme = stemme;
-		this.idEvent = idEvent;
 		this.tid = tid;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Integer getId() {
-		return id;
+		this.idEvent = idEvent;
 	}
 
 	/**
@@ -77,6 +72,21 @@ public class Tilbakemelding {
 	}
 
 	/**
+	 * @return the tid
+	 */
+	public Timestamp getTid() {
+		return tid;
+	}
+
+	/**
+	 * @param tid
+	 *            the tid to set
+	 */
+	public void setTid(Timestamp tid) {
+		this.tid = tid;
+	}
+
+	/**
 	 * @return the idEvent
 	 */
 	public Event getIdEvent() {
@@ -92,18 +102,10 @@ public class Tilbakemelding {
 	}
 
 	/**
-	 * @return the tid
+	 * @return the id
 	 */
-	public Timestamp getTid() {
-		return tid;
-	}
-
-	/**
-	 * @param tid
-	 *            the tid to set
-	 */
-	public void setTid(Timestamp tid) {
-		this.tid = tid;
+	public Integer getId() {
+		return id;
 	}
 
 }
