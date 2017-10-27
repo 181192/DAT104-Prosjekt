@@ -33,9 +33,14 @@ public class LandingStyrerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<Aktivitet> a = iAktivitetEAO.finnAktiviteterTilBruker(iBrukerEAO.finnBruker(2));
 		List<Event> e = iEventEAO.finnAlleEventerTilAktivitet(a.get(0));
+		Aktivitet aktiviteten = a.get(0);
+		Event eventet = e.get(0);
+		aktiviteten.setEventer(e);
 		System.out.println("Aktivitet: " + a.get(0).getId() +" " + a.get(0).getNavn() + " Event: " + e.get(0).getNavn());
 		System.out.println();
 		System.out.println("Aktivitet: " + a.get(0).getEventer().size());
+		request.getSession().setAttribute("aktiviteten", aktiviteten);
+		request.getSession().setAttribute("eventet", eventet);
 		request.getRequestDispatcher("WEB-INF/views/styrer/index.jsp").forward(request, response);
 	}
 
