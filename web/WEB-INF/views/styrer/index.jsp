@@ -6,9 +6,10 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <div id='calendar'></div>
-
+${color[0]}
 <script>
 var datoen;
+
 $('#calendar').fullCalendar({
 			editable: false,
 			aspectRatio: 1.8,
@@ -27,16 +28,14 @@ $('#calendar').fullCalendar({
 			defaultView: 'month',
 			//aktiviteter
 			resources: [
-				{ id: '${aktiviteten.id}', title: '${aktiviteten.navn}', eventColor: 'green'},
-				 //{ id: 'dat103', Hvor: 'f117', title: 'dat103' },
-				/*{ id: 'dat104', Hvor: 'f119', title: 'dat104', eventColor: 'green' },
-				{ id: 'mat102', Hvor: 'e403', title: 'mat102', eventColor: 'orange' } */
+				<c:forEach var="aktivitet" items="${aktiviteter}" varStatus="loop">
+					{ id: '${aktivitet.id}', title: '${aktivitet.navn}', eventColor: 'green'},
+				</c:forEach>
 				],
 			events: [
-				{id: '${eventet.id}', resourceId: '${eventet.idAktivitet}', start: '${dato.timestampTilStrengForKalender(eventet.tidTil)}', end: '${dato.timestampTilStrengForKalender(eventet.tidFra)}', title: '${eventet.navn}'},
-				/*{ id: '1', resourceId: 'dat104', start: '2017-10-07T02:00:00', end: '2017-10-07T16:30:00', title: 'Forelesning' },
-				{ id: '2', start: '2017-10-07T05:00:00', end: '2017-10-07T22:00:00', title: 'Forelesning' },*/
-				//{ id: '3', resourceId: 'mat102', start: '2017-10-06', end: '2017-10-06', title: 'Lab' }, 
+				<c:forEach var="event" items="${alleEventer}">
+					{ id: '${event.id}', resourceId: '${event.idAktivitet}', start: '${dato.timestampTilStrengForKalender(event.tidTil)}', end: '${dato.timestampTilStrengForKalender(event.tidFra)}', title: '${event.navn}'},
+				</c:forEach>
 			]
 		});
 function lagEvent() {

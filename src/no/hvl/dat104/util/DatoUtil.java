@@ -61,12 +61,22 @@ public class DatoUtil {
      */
     public static String timestampTilStrengForKalender(Timestamp timestamp) {
         String dato = timestamp.toString();
+        if (dato == null) {
+        	return null;
+        }
         String[] datoOgKlokke = dato.split(" ");
         String[] fiksdatoen = datoOgKlokke[0].split("-");
         String str = String.join("-", fiksdatoen);
         String finalDato = str + "T" + datoOgKlokke[1];
         return finalDato.substring(0,16)+":00";
     }
-	
+    /**
+     * test
+     * @param id
+     * @return
+     */
+	public static String idToString(Integer id) {
+		return id.toString();
+	}
 
 }

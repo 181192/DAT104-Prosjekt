@@ -13,6 +13,7 @@ import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Aktivitet;
+import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
 
 /**
@@ -31,16 +32,19 @@ public class LandingStyrerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Aktivitet> a = iAktivitetEAO.finnAktiviteterTilBruker(iBrukerEAO.finnBruker(2));
-		List<Event> e = iEventEAO.finnAlleEventerTilAktivitet(a.get(0));
-		Aktivitet aktiviteten = a.get(0);
-		Event eventet = e.get(0);
-		aktiviteten.setEventer(e);
-		System.out.println("Aktivitet: " + a.get(0).getId() +" " + a.get(0).getNavn() + " Event: " + e.get(0).getNavn());
-		System.out.println();
-		System.out.println("Aktivitet: " + a.get(0).getEventer().size());
-		request.getSession().setAttribute("aktiviteten", aktiviteten);
-		request.getSession().setAttribute("eventet", eventet);
+		Bruker bruker = iBrukerEAO.finnBruker(2);
+		List<Aktivitet> a = iAktivitetEAO.finnAktiviteterTilBruker(bruker);
+		List<Event> alleEventer = null;
+		bruker.setAktiviteter(a);
+		String[] farger = {"green","orange","red","blue","yellow"};
+		for(int i = 0; i < a.size(); i ++) { 
+			alleEventer = iEventEAO.finnAlleEventerTilAktivitet(a.get(i));
+			a.get(i).setEventer(alleEventer);
+			a.get(i).getId().toString();
+		}
+		request.getSession().setAttribute("alleEventer", alleEventer);
+		request.getSession().setAttribute("aktiviteter", a);
+		request.getSession().setAttribute("color", farger);
 		request.getRequestDispatcher("WEB-INF/views/styrer/index.jsp").forward(request, response);
 	}
 
@@ -50,6 +54,10 @@ public class LandingStyrerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	public void hentOgSetEventer(Aktivitet a) {
+		List<Event> e = iEventEAO.finnAlleEventerTilAktivitet(a);
+		a.setEventer(e);
 	}
 
 }

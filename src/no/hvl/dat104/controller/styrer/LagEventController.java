@@ -53,10 +53,10 @@ public class LagEventController extends HttpServlet {
 		Event e = new Event();
 		Bruker bruker = iBrukerEAO.finnBruker(2);
 		Aktivitet aktivitet = iAktivitetEAO.finnAktivitet(2);
+		e.setIdAktivitet(aktivitet);
     	e.setNavn(skjema.getTittel());
     	e.setSted(skjema.getHvor());
     	e.setStatus("ok");
-    	e.setIdAktivitet(aktivitet);
     	aktivitet.setIdBruker(bruker);
     	try {
 			e.setTidTil(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getTil()));
