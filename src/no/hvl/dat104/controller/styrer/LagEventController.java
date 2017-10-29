@@ -32,6 +32,8 @@ public class LagEventController extends HttpServlet {
 	private IAktivitetEAO iAktivitetEAO;
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String dato = DatoUtil.fraEngTilNorskDato(request.getParameter("dato"));
+		request.getSession().setAttribute("dato", dato);
 	request.getRequestDispatcher("WEB-INF/views/styrer/lagevent.jsp").forward(request, response);
 	}
 

@@ -70,5 +70,19 @@ public class DatoUtil {
         String finalDato = str + "T" + datoOgKlokke[1];
         return finalDato.substring(0,16)+":00";
     }
+    
+    public static String fraEngTilNorskDato(String dato) {
+    	String[] arr = dato.split("-");
+    	for(int i = 0; i < arr.length-1; i ++) {
+    		String tmp = arr[i];
+    		arr[i] = arr[i+1];
+        	arr[i+1] = tmp;
+    	}
+    	String tmp = arr[0];
+		arr[0] = arr[1];
+    	arr[1] = tmp;
+    	String nydato = String.join(".", arr);
+    	return nydato;
+    }
 
 }

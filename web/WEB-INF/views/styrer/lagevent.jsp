@@ -3,7 +3,7 @@
   <div class="ui container">
   <form method="post" action="<%=LAGEVENT_URL %>" class="ui form">
     <div class="field"><label>Tittel:</label> <input type="text" name="tittel" placeholder="Tittel"></div>
-    <div class="field" id="datoen"><label>Dato:</label><input type="text" name="dato" id="datepicker" value=""></div>
+    <div class="field" id="datoen"><label>Dato:</label><input type="text" name="dato" id="datepicker" value="${dato}"></div>
     <div class="two fields">
       <div class="field">
         <label>Fra:</label><input class="timepicker" type="text" name="fra" placeholder="hh.mm">

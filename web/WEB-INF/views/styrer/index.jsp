@@ -16,8 +16,7 @@ $('#calendar').fullCalendar({
 			scrollTime: '07:00',
 			dayClick: function(date, jsEvent, view, resourceObj) {
 				// ny event modul.
-				datoen = date.format();
-				lagmodal();
+				lagmodal(date);
     		},
     		eventClick: function(calEvent, jsEvent, view) {
     			console.log(calEvent);
@@ -74,9 +73,9 @@ function lagEvent() {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
-  function lagmodal() {
+  function lagmodal(date) {
       $("#myModal").modal()
-      $(".modal-body").load("<%=LAGEVENT_URL%>");
+      $(".modal-body").load("<%=LAGEVENT_URL%>?dato="+date.format());
   }
   function eventModal(event) {
 	  $("#myModal").modal()
