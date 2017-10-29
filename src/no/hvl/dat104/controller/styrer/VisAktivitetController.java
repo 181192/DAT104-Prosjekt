@@ -1,6 +1,9 @@
 package no.hvl.dat104.controller.styrer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
@@ -9,7 +12,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
@@ -38,7 +40,15 @@ public class VisAktivitetController extends HttpServlet {
 		int id = Integer.parseInt(aktivitetsId);
 		
 		Aktivitet a = aktivitetEao.finnAktivitet(id);
-		List<Event> eventListe = eventEao.finnAlleEventerTilAktivitet(a);
+		List<Event> readonlyEventListe = eventEao.finnAlleEventerTilAktivitet(a);
+		List<Event> eventListe = new ArrayList<Event>(); 
+		eventListe.addAll(readonlyEventListe);
+		//sorter
+		Collections.sort(eventListe, new Comparator<Event>() {
+		    public int compare(Event e1, Event e2) {
+		        return e1.getTidFra().compareTo(e2.getTidFra());
+		    }
+		});
 		
 		//kapasitet for dataListe
 		int count = eventListe.size();
