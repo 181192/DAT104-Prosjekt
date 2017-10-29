@@ -13,7 +13,7 @@
 
        // Create our data table.
        var array = [];
-       array.push(['Minutter', 'Fornøyd', 'Nøytral', 'Misfornøyd']);
+       array.push(['Minutter', 'Fornoyd', 'Noytral', 'Misfornoyd']);
 
        for (var i = 1; i < 60; i++) {
          array.push([i, Math.floor(Math.random() * 10 + 1), Math.floor(Math.random() * 10 + 1), Math.floor(Math.random() * 10 + 1)]);
