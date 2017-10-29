@@ -1,10 +1,18 @@
 /* VÅR EGEN CSS FIL. */
+#test {
+	color:green;
+}
+#delta {
+	margin-top:10%;
+	width:60%;
+}
 #calendar {
-		max-width: 900px;
-		margin: 0 auto;
-	}
+	max-width: 900px;
+	margin: 0 auto;
+}
 p.aktivitet-link {
-	text-decoration: underline;
+	text-decoration: overline;
     padding-left: 10px;
     padding-top:10px;
 }
+

@@ -11,11 +11,11 @@
 	<link rel="stylesheet" type="text/css" href="public/css/fullcalendar.min.css">
 	<link rel="stylesheet" type="text/css" href="public/css/semantic.min.css">
 	<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-	<link rel="stylesheet" type="text/css" href="public/css/style.css">
 	
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css.map">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css.map">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css">	
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="public/css/style.css">	
 </head>
 <jsp:include page="../partials/navbar.jsp" />
 <body>
