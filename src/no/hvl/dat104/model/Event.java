@@ -43,7 +43,7 @@ public class Event {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@Column(name = "id_Aktivitet")
 	private Aktivitet idAktivitet;
-
+	
 	@Transient
 	private List<Tilbakemelding> tilbakemeldinger;
 
@@ -249,5 +249,6 @@ public class Event {
 	public void setLiveTilbakemeldinger(List<LiveTilbakemelding> liveTilbakemeldinger) {
 		this.liveTilbakemeldinger = liveTilbakemeldinger;
 	}
+	
 
 }

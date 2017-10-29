@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <div id='calendar'></div>
-<%-- ${color[0]} --%>
 <script>
 var datoen;
 
@@ -18,7 +17,6 @@ $('#calendar').fullCalendar({
 			dayClick: function(date, jsEvent, view, resourceObj) {
 				// ny event modul.
 				datoen = date.format();
-				console.log(datoen);
 				lagmodal();
     		},
     		eventClick: function(calEvent, jsEvent, view) {
@@ -32,14 +30,15 @@ $('#calendar').fullCalendar({
 			},
 			defaultView: 'month',
 			//aktiviteter
+			resourceGroupField: 'title',
 			resources: [
 				<c:forEach var="aktivitet" items="${aktiviteter}" varStatus="loop">
-					{ id: '${aktivitet.id}', title: '${aktivitet.navn}', eventColor: 'green'},
+					{ id: '${aktivitet.id}', title: '${aktivitet.navn}', eventColor: '${color[loop.index]}'},
 				</c:forEach>
 				],
 			events: [
 				<c:forEach var="event" items="${alleEventer}">
-					{ id: '${event.id}', resourceId: '${event.idAktivitet}', start: '${dato.timestampTilStrengForKalender(event.tidFra)}', end: '${dato.timestampTilStrengForKalender(event.tidTil)}', title: '${event.navn}'},
+					{ id: '${event.id}', resourceId: '${event.idAktivitet.id}', start: '${dato.timestampTilStrengForKalender(event.tidFra)}', end: '${dato.timestampTilStrengForKalender(event.tidTil)}', title: '${event.navn}'},
 				</c:forEach>
 			]
 		});

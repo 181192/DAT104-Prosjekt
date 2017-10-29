@@ -37,7 +37,7 @@ public class Aktivitet {
 	
 	@Transient
 	private Event event;
-
+	
 	/**
 	 * Tom kontruktor for Aktivitet
 	 */

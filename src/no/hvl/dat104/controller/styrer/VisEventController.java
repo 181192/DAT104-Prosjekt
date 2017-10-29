@@ -31,6 +31,7 @@ public class VisEventController extends HttpServlet {
 		Integer id =Integer.parseInt(request.getParameter("id"));
 		Event e = iEventEAO.finnEvent(id);
 		Aktivitet a = e.getIdAktivitet();
+		
 		request.getSession().setAttribute("aktivitet", a);
 		request.getSession().setAttribute("event", e);
 		request.getRequestDispatcher("WEB-INF/views/styrer/visevent.jsp").forward(request, response);

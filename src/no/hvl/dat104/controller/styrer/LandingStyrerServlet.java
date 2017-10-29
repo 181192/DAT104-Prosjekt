@@ -1,6 +1,7 @@
 package no.hvl.dat104.controller.styrer;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -34,13 +35,13 @@ public class LandingStyrerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Bruker bruker = iBrukerEAO.finnBruker(2);
 		List<Aktivitet> a = iAktivitetEAO.finnAktiviteterTilBruker(bruker);
-		List<Event> alleEventer = null;
+		// finner alle eventer. Denne må gjøres om til FinnAlleEventerTil bruker.
+		List<Event> alleEventer = iEventEAO.alleEventer();
 		bruker.setAktiviteter(a);
-		String[] farger = {"green","orange","red","blue","yellow"};
+		String[] farger = {"orange","green","red","orange","yellow"};
 		for(int i = 0; i < a.size(); i ++) { 
-			alleEventer = iEventEAO.finnAlleEventerTilAktivitet(a.get(i));
-			a.get(i).setEventer(alleEventer);
-			a.get(i).getId().toString();
+			List<Event> alleEventerTilAktivitet = iEventEAO.finnAlleEventerTilAktivitet(a.get(i));
+			a.get(i).setEventer(alleEventerTilAktivitet);
 		}
 		request.getSession().setAttribute("alleEventer", alleEventer);
 		request.getSession().setAttribute("aktiviteter", a);
