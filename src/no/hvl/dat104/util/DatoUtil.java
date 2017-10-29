@@ -70,13 +70,5 @@ public class DatoUtil {
         String finalDato = str + "T" + datoOgKlokke[1];
         return finalDato.substring(0,16)+":00";
     }
-    /**
-     * test
-     * @param id
-     * @return
-     */
-	public static String idToString(Integer id) {
-		return id.toString();
-	}
 
 }

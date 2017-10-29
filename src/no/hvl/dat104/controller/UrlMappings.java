@@ -21,5 +21,6 @@ public class UrlMappings {
     public static final String LANDING_STYRER_URL = "dashbord";
     public static final String LOGGINN_URL = "logginn";
     public static final String LIVE_EVENT_URL ="liveevent";
+    public static final String VIS_EVENT_URL ="visevent";
     
 }

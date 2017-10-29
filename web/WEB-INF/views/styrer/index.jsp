@@ -6,11 +6,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 <div id='calendar'></div>
-${color[0]}
+<%-- ${color[0]} --%>
 <script>
 var datoen;
 
 $('#calendar').fullCalendar({
+			schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
 			editable: false,
 			aspectRatio: 1.8,
 			scrollTime: '07:00',
@@ -20,6 +21,10 @@ $('#calendar').fullCalendar({
 				console.log(datoen);
 				lagmodal();
     		},
+    		eventClick: function(calEvent, jsEvent, view) {
+    			console.log(calEvent);
+    			eventModal(calEvent);
+    	    },
 			header: {
 				left: 'today prev,next',
 				center: 'title',
@@ -34,7 +39,7 @@ $('#calendar').fullCalendar({
 				],
 			events: [
 				<c:forEach var="event" items="${alleEventer}">
-					{ id: '${event.id}', resourceId: '${event.idAktivitet}', start: '${dato.timestampTilStrengForKalender(event.tidTil)}', end: '${dato.timestampTilStrengForKalender(event.tidFra)}', title: '${event.navn}'},
+					{ id: '${event.id}', resourceId: '${event.idAktivitet}', start: '${dato.timestampTilStrengForKalender(event.tidFra)}', end: '${dato.timestampTilStrengForKalender(event.tidTil)}', title: '${event.navn}'},
 				</c:forEach>
 			]
 		});
@@ -73,6 +78,10 @@ function lagEvent() {
   function lagmodal() {
       $("#myModal").modal()
       $(".modal-body").load("<%=LAGEVENT_URL%>");
+  }
+  function eventModal(event) {
+	  $("#myModal").modal()
+      $(".modal-body").load("<%=VIS_EVENT_URL%>?id=" + event.id);
   }
 
 </script>

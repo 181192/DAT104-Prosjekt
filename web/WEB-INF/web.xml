@@ -66,9 +66,17 @@
     <servlet-class>no.hvl.dat104.controller.LoggInnController</servlet-class>
   </servlet>
   <servlet>
-  	<servlet-name>LiveEventServlet</servlet-name>
-  	<servlet-class>no.hvl.dat104.controller.styrer.liveevent.LiveEventServlet</servlet-class>
+    <servlet-name>LiveEventServlet</servlet-name>
+    <servlet-class>no.hvl.dat104.controller.styrer.liveevent.LiveEventServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>VisEventController</servlet-name>
+  	<servlet-class>no.hvl.dat104.controller.styrer.VisEventController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>VisEventController</servlet-name>
+    <url-pattern>/visevent</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>AdministrerController</servlet-name>
     <url-pattern>/administrer</url-pattern>
