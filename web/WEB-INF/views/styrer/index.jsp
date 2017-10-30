@@ -16,6 +16,7 @@ $('#calendar').fullCalendar({
 			scrollTime: '07:00',
 			dayClick: function(date, jsEvent, view, resourceObj) {
 				// ny event modul.
+				console.log("dayclick");
 				lagmodal(date);
     		},
     		eventClick: function(calEvent, jsEvent, view) {
@@ -54,7 +55,7 @@ function lagEvent() {
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Modal Header</h4>
+          <h4 class="modal-title"></h4>
         </div>
         <div class="modal-body">
 
@@ -75,6 +76,7 @@ function lagEvent() {
 <script>
   function lagmodal(date) {
       $("#myModal").modal()
+      console.log("lagmodal");
       $(".modal-body").load("<%=LAGEVENT_URL%>?dato="+date.format());
   }
   function eventModal(event) {
