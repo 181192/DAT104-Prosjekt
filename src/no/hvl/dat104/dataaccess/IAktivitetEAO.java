@@ -4,6 +4,7 @@ import java.util.List;
 
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.model.Event;
 
 public interface IAktivitetEAO {
 
@@ -38,13 +39,6 @@ public interface IAktivitetEAO {
 	 *            Aktivitet
 	 */
 	public void slettAktivitet(Aktivitet a);
-	
-	/**
-	 * Returnerer en liste med alle aktiviter til brukeren.
-	 * @param b
-	 * @return
-	 */
-	public List<Aktivitet> finnAktiviteterTilBruker(Bruker id);
 
 	/**
 	 * Returnerer en liste med alle aktiviteter
@@ -56,31 +50,39 @@ public interface IAktivitetEAO {
 	/**
 	 * Endrer navnet paa aktiviteten
 	 * 
-	 * @param a
+	 * @param id
 	 *            Aktiviteten som skal endres paa
 	 * @param navn
 	 *            Det nye navnet på aktiviteten
 	 */
-	public void endreNavnPaaAktivitet(Aktivitet a, String navn);
+	public void endreNavnPaaAktivitet(Integer id, String navn);
 
 	/**
 	 * Endrer statusen paa aktiviteten
 	 * 
-	 * @param a
+	 * @param id
 	 *            Aktiviteten som skal endres paa
 	 * @param status
 	 *            Den nye statusen
 	 */
-	public void endreStatusPaaAktivitet(Aktivitet a, String status);
+	public void endreStatusPaaAktivitet(Integer id, String status);
 
 	/**
 	 * Endrer brukeren paa aktiviteten
 	 * 
-	 * @param a
+	 * @param id
 	 *            Aktiviteten som skal endres paa
 	 * @param bruker
 	 *            Den nye brukeren
 	 */
-	public void flyttAktivitetenTilNyBruker(Aktivitet a, Bruker bruker);
+	public void flyttAktivitetenTilNyBruker(Integer id, Bruker bruker);
+
+	/**
+	 * Returnerer en liste med alle eventer til en gitt aktivitet.
+	 * 
+	 * @param aktivitet
+	 * @return
+	 */
+	public List<Event> finnAlleEventerTilAktivitet(Integer id);
 
 }

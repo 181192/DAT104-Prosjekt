@@ -1,17 +1,16 @@
 package no.hvl.dat104.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * Modellrepresentasjon av Aktivitet
@@ -20,7 +19,7 @@ import javax.persistence.Transient;
  *
  */
 @Entity(name = "Aktivitet")
-@Table(name = "Aktivitet", schema = "db")
+@Table(name = "aktivitet", schema = "db")
 public class Aktivitet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,21 +28,17 @@ public class Aktivitet {
 	private String status;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@Column(name = "id_Bruker")
+	@JoinColumn(name = "id_bruker", referencedColumnName = "id")
 	private Bruker idBruker;
 
-	@Transient
+	@OneToMany(mappedBy = "idAktivitet")
 	private List<Event> eventer;
-	
-	@Transient
-	private Event event;
-	
+
 	/**
 	 * Tom kontruktor for Aktivitet
 	 */
 	public Aktivitet() {
 		this("", "", null);
-		eventer = new ArrayList<>();
 	}
 
 	/**
@@ -60,7 +55,6 @@ public class Aktivitet {
 		this.navn = navn;
 		this.status = status;
 		this.idBruker = idBruker;
-		eventer = new ArrayList<>();
 	}
 
 	/**
@@ -128,18 +122,6 @@ public class Aktivitet {
 	 */
 	public void setEventer(List<Event> eventer) {
 		this.eventer = eventer;
-	}
-
-	public Event getEvent() {
-		return event;
-	}
-
-	public void setEvent(Event event) {
-		this.event = event;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 }

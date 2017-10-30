@@ -2,9 +2,9 @@ package no.hvl.dat104.dataaccess;
 
 import java.util.List;
 
-
-
+import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Rolle;
 
 public interface IBrukerEAO {
@@ -52,62 +52,80 @@ public interface IBrukerEAO {
 	/**
 	 * Endre mailen til brukeren
 	 * 
-	 * @param b
+	 * @param id
 	 *            Brukeren
 	 * @param mail
 	 *            Den nye mailen
 	 */
-	public void endreMailPaaBruker(Bruker b, String mail);
+	public void endreMailPaaBruker(Integer id, String mail);
 
 	/**
 	 * Endre fornavnet til brukeren
 	 * 
-	 * @param b
+	 * @param id
 	 *            Brukeren
 	 * @param fornavn
 	 *            Det nye fornavnet
 	 */
-	public void endreFornavnPaaBruker(Bruker b, String fornavn);
+	public void endreFornavnPaaBruker(Integer id, String fornavn);
 
 	/**
 	 * Endre etternavnet til brukeren
 	 * 
-	 * @param b
+	 * @param id
 	 *            Brukeren
 	 * @param etternavn
 	 *            Det nye etternavnet
 	 */
-	public void endreEtternavnPaaBruker(Bruker b, String etternavn);
+	public void endreEtternavnPaaBruker(Integer id, String etternavn);
 
 	/**
 	 * Endre passordet til brukeren
 	 * 
-	 * @param b
+	 * @param id
 	 *            Brukeren
 	 * @param passord
 	 *            Det nye passordet
 	 */
-	public void endrePassordPaaBruker(Bruker b, String passord);
+	public void endrePassordPaaBruker(Integer id, String passord);
 
 	/**
 	 * Endre saltet på passordet til brukeren
 	 * 
-	 * @param b
+	 * @param id
 	 *            Brukeren
 	 * @param salt
 	 *            Det nye saltet til passordet
 	 * 
 	 */
-	public void endreSaltPaaBruker(Bruker b, String salt);
+	public void endreSaltPaaBruker(Integer id, String salt);
 
 	/**
 	 * Endre rollen til brukeren
 	 * 
-	 * @param b
+	 * @param id
 	 *            Brukeren
 	 * @param r
 	 *            RolleF
 	 */
-	public void endreRollePaaBruker(Bruker b, Rolle r);
+	public void endreRollePaaBruker(Integer id, Rolle r);
+
+	/**
+	 * Finner alle eventer til brukeren
+	 * 
+	 * @param id
+	 *            Brukeren
+	 * @return Eventer til brukeren
+	 */
+	public List<Event> finnAlleEventerTilBruker(Integer id);
+
+	/**
+	 * Finner alle aktiviteter til brukeren
+	 * 
+	 * @param id
+	 *            Brukeren
+	 * @return Alle aktiviteter til brukeren
+	 */
+	public List<Aktivitet> finnAlleAktiviteterTilBruker(Integer id);
 
 }

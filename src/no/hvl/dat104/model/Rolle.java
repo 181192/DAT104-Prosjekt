@@ -1,14 +1,14 @@
 package no.hvl.dat104.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * 
@@ -17,7 +17,7 @@ import javax.persistence.Transient;
  * @author BMO 2.0
  *
  */
-@Entity(name = "RolleEntity")
+@Entity(name = "Rolle")
 @Table(name = "rolle", schema = "db")
 public class Rolle {
 
@@ -26,9 +26,9 @@ public class Rolle {
 	private Integer id;
 	private String type;
 
-	@Transient
+	@OneToMany(mappedBy = "idRolle", fetch = FetchType.LAZY)
 	private List<Bruker> brukere;
-	@Transient
+	@OneToMany(mappedBy = "idRolle", fetch = FetchType.LAZY)
 	private List<Rettigheter> rettigheter;
 
 	/**
@@ -36,8 +36,6 @@ public class Rolle {
 	 */
 	public Rolle() {
 		this("");
-		brukere = new ArrayList<>();
-		rettigheter = new ArrayList<>();
 	}
 
 	/**
@@ -50,8 +48,6 @@ public class Rolle {
 	 */
 	public Rolle(String type) {
 		this.type = type;
-		brukere = new ArrayList<>();
-		rettigheter = new ArrayList<>();
 	}
 
 	/**

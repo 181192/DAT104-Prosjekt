@@ -40,7 +40,7 @@ public class VisAktivitetController extends HttpServlet {
 		int id = Integer.parseInt(aktivitetsId);
 		
 		Aktivitet a = aktivitetEao.finnAktivitet(id);
-		List<Event> readonlyEventListe = eventEao.finnAlleEventerTilAktivitet(a);
+		List<Event> readonlyEventListe = aktivitetEao.finnAlleEventerTilAktivitet(a.getId());
 		List<Event> eventListe = new ArrayList<Event>(); 
 		eventListe.addAll(readonlyEventListe);
 		//sorter

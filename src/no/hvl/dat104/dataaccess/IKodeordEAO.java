@@ -48,10 +48,10 @@ public interface IKodeordEAO {
 	/**
 	 * Endre kode til kodeordet
 	 * 
-	 * @param k
+	 * @param id
 	 *            Kodeordet
 	 * @param kode
 	 *            Kode som skal endres
 	 */
-	public void endreKodePaaKodeord(Kodeord k, String kode);
+	public void endreKodePaaKodeord(Integer id, String kode);
 }

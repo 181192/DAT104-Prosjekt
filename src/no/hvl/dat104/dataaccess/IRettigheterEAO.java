@@ -49,40 +49,40 @@ public interface IRettigheterEAO {
 	/**
 	 * Endre godkjennebruker paa rettighet
 	 * 
-	 * @param r
+	 * @param id
 	 *            Rettighetene
 	 * @param b
 	 *            True false
 	 */
-	public void endreGodkjenneBrukerPaaRettighet(Rettigheter r, Boolean b);
+	public void endreGodkjenneBrukerPaaRettighet(Integer id, Boolean b);
 
 	/**
 	 * Endre slette bruker paa rettighet
 	 * 
-	 * @param r
+	 * @param id
 	 *            Rettighetene
 	 * @param b
 	 *            True false
 	 */
-	public void endreSletteBrukerPaaRettighet(Rettigheter r, Boolean b);
+	public void endreSletteBrukerPaaRettighet(Integer id, Boolean b);
 
 	/**
 	 * Endre oppdatere bruker paa rettighet
 	 * 
-	 * @param r
+	 * @param id
 	 *            Rettighetene
 	 * @param b
 	 *            True false
 	 */
-	public void endreOppretteBrukerPaaRettighet(Rettigheter r, Boolean b);
+	public void endreOppretteBrukerPaaRettighet(Integer id, Boolean b);
 
 	/**
 	 * Endre rolle paa rettighet
 	 * 
-	 * @param r
+	 * @param id
 	 *            Rettighetene
 	 * @param rolle
 	 *            Rolle
 	 */
-	public void endreRollePaaRettighet(Rettigheter r, Rolle rolle);
+	public void endreRollePaaRettighet(Integer id, Rolle rolle);
 }

@@ -47,10 +47,10 @@ public interface IRolleEAO {
 	/**
 	 * Endre type paa rolle
 	 * 
-	 * @param r
+	 * @param id
 	 *            Rolle
 	 * @param type
 	 *            Type
 	 */
-	public void endreTypePaaRolle(Rolle r, String type);
+	public void endreTypePaaRolle(Integer id, String type);
 }

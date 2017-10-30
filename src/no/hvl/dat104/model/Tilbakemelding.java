@@ -2,11 +2,11 @@ package no.hvl.dat104.model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -18,7 +18,7 @@ import javax.persistence.Table;
  *
  */
 @Entity(name = "Tilbakemelding")
-@Table(name = "Tilbakemelding", schema = "db")
+@Table(name = "tilbakemelding", schema = "db")
 public class Tilbakemelding {
 
 	@Id
@@ -28,7 +28,7 @@ public class Tilbakemelding {
 	private Timestamp tid;
 	
 	@ManyToOne
-	@Column(name = "id_Event")
+	@JoinColumn(name = "id_event", referencedColumnName = "id")
 	private Event idEvent;
 
 	/**

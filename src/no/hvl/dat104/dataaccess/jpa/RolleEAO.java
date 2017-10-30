@@ -45,9 +45,10 @@ public class RolleEAO implements IRolleEAO {
 	}
 
 	@Override
-	public void endreTypePaaRolle(Rolle r, String type) {
-		// TODO Auto-generated method stub
-		
+	public void endreTypePaaRolle(Integer id, String type) {
+		Rolle r = finnRolle(id);
+		r.setType(type);
+		em.merge(r);
 	}
 
 }

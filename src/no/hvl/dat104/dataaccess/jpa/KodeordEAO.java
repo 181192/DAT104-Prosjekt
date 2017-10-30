@@ -45,9 +45,10 @@ public class KodeordEAO implements IKodeordEAO {
 	}
 
 	@Override
-	public void endreKodePaaKodeord(Kodeord k, String kode) {
-		// TODO Auto-generated method stub
-		
+	public void endreKodePaaKodeord(Integer id, String kode) {
+		Kodeord k = finnKodeord(id);
+		k.setKode(kode);
+		em.merge(k);
 	}
 
 }

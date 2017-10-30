@@ -1,18 +1,19 @@
 package no.hvl.dat104.model;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * Modellrepresentasjon av Event
@@ -21,7 +22,7 @@ import javax.persistence.Transient;
  *
  */
 @Entity(name = "Event")
-@Table(name = "Event", schema = "db")
+@Table(name = "event", schema = "db")
 public class Event {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,13 +42,13 @@ public class Event {
 	private String sted;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@Column(name = "id_Aktivitet")
+	@JoinColumn(name = "id_aktivitet", referencedColumnName = "id")
 	private Aktivitet idAktivitet;
 	
-	@Transient
+	@OneToMany(mappedBy = "idEvent", fetch = FetchType.LAZY)
 	private List<Tilbakemelding> tilbakemeldinger;
 
-	@Transient
+	@OneToMany(mappedBy = "idEvent", fetch = FetchType.LAZY)
 	private List<LiveTilbakemelding> liveTilbakemeldinger;
 
 	/**
@@ -55,8 +56,6 @@ public class Event {
 	 */
 	public Event() {
 		this("", null, null, null, null, "", "", null);
-		tilbakemeldinger = new ArrayList<>();
-		liveTilbakemeldinger = new ArrayList<>();
 	}
 
 	/**
@@ -89,8 +88,6 @@ public class Event {
 		this.status = status;
 		this.sted = sted;
 		this.idAktivitet = idAktivitet;
-		tilbakemeldinger = new ArrayList<>();
-		liveTilbakemeldinger = new ArrayList<>();
 	}
 
 	/**

@@ -1,15 +1,16 @@
 package no.hvl.dat104.dataaccess.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
-import javax.persistence.Query;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.model.Event;
 
 @Stateless
 public class AktivitetEAO implements IAktivitetEAO {
@@ -48,28 +49,32 @@ public class AktivitetEAO implements IAktivitetEAO {
 	}
 
 	@Override
-	public void endreNavnPaaAktivitet(Aktivitet a, String navn) {
-		// TODO Auto-generated method stub
-		
+	public void endreNavnPaaAktivitet(Integer id, String navn) {
+		Aktivitet a = finnAktivitet(id);
+		a.setNavn(navn);
+		em.merge(a);
+
 	}
 
 	@Override
-	public void endreStatusPaaAktivitet(Aktivitet a, String status) {
-		// TODO Auto-generated method stub
-		
+	public void endreStatusPaaAktivitet(Integer id, String status) {
+		Aktivitet a = finnAktivitet(id);
+		a.setStatus(status);
+		em.merge(a);
 	}
 
 	@Override
-	public void flyttAktivitetenTilNyBruker(Aktivitet a, Bruker bruker) {
-		// TODO Auto-generated method stub
-		
+	public void flyttAktivitetenTilNyBruker(Integer id, Bruker bruker) {
+		Aktivitet a = finnAktivitet(id);
+		a.setIdBruker(bruker);
+		em.merge(a);
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	@Override
-	public List<Aktivitet> finnAktiviteterTilBruker(Bruker id) {
-		Query a = em.createQuery("SELECT a FROM Aktivitet a WHERE a.idBruker =:id").setParameter("id", id);
-		return a.getResultList();
+	public List<Event> finnAlleEventerTilAktivitet(Integer id) {
+		List<Event> e = new ArrayList<>();
+		e.addAll(em.find(Aktivitet.class, id).getEventer());
+		return e;
 	}
 
 }

@@ -46,27 +46,31 @@ public class RettigheterEAO implements IRettigheterEAO {
 	}
 
 	@Override
-	public void endreGodkjenneBrukerPaaRettighet(Rettigheter r, Boolean b) {
-		// TODO Auto-generated method stub
-		
+	public void endreGodkjenneBrukerPaaRettighet(Integer id, Boolean b) {
+		Rettigheter r = finnRettigheter(id);
+		r.setGodkjenneBruker(b);
+		em.merge(r);
 	}
 
 	@Override
-	public void endreSletteBrukerPaaRettighet(Rettigheter r, Boolean b) {
-		// TODO Auto-generated method stub
-		
+	public void endreSletteBrukerPaaRettighet(Integer id, Boolean b) {
+		Rettigheter r = finnRettigheter(id);
+		r.setSletteBruker(b);
+		em.merge(r);
 	}
 
 	@Override
-	public void endreOppretteBrukerPaaRettighet(Rettigheter r, Boolean b) {
-		// TODO Auto-generated method stub
-		
+	public void endreOppretteBrukerPaaRettighet(Integer id, Boolean b) {
+		Rettigheter r = finnRettigheter(id);
+		r.setOppretteBruker(b);
+		em.merge(r);
 	}
 
 	@Override
-	public void endreRollePaaRettighet(Rettigheter r, Rolle rolle) {
-		// TODO Auto-generated method stub
-		
+	public void endreRollePaaRettighet(Integer id, Rolle rolle) {
+		Rettigheter r = finnRettigheter(id);
+		r.setIdRolle(rolle);
+		em.merge(r);
 	}
 
 }

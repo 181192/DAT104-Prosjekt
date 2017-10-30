@@ -5,11 +5,11 @@ package no.hvl.dat104.model;
 
 import java.sql.Timestamp;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -20,7 +20,7 @@ import javax.persistence.Table;
  *
  */
 @Entity(name = "LiveTilbakemelding")
-@Table(name = "Live_tilbakemelding", schema = "db")
+@Table(name = "live_tilbakemelding", schema = "db")
 public class LiveTilbakemelding {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class LiveTilbakemelding {
 	private String stemme;
 	private Timestamp tid;
 	@ManyToOne
-	@Column(name = "id_Event")
+	@JoinColumn(name = "id_event", referencedColumnName = "id")
 	private Event idEvent;
 
 	/**

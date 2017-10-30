@@ -1,17 +1,16 @@
 package no.hvl.dat104.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /**
  * 
@@ -20,7 +19,7 @@ import javax.persistence.Transient;
  * @author BMO 2.0
  *
  */
-@Entity(name = "BrukerEntity")
+@Entity(name = "Bruker")
 @Table(name = "bruker", schema = "db")
 public class Bruker {
 
@@ -34,10 +33,10 @@ public class Bruker {
 	private String salt;
 
 	@ManyToOne(cascade = CascadeType.ALL)
-	@Column(name = "id_Rolle")
+	@JoinColumn(name = "id_rolle", referencedColumnName = "id")
 	private Rolle idRolle;
 
-	@Transient
+	@OneToMany(mappedBy = "idBruker")
 	private List<Aktivitet> aktiviteter;
 
 	/**
@@ -45,7 +44,6 @@ public class Bruker {
 	 */
 	public Bruker() {
 		this("", "", "", "", "", null);
-		aktiviteter = new ArrayList<>();
 	}
 
 	/**
@@ -71,7 +69,6 @@ public class Bruker {
 		this.passord = passord;
 		this.salt = salt;
 		this.idRolle = idRolle;
-		aktiviteter = new ArrayList<>();
 	}
 
 	/**
@@ -184,10 +181,6 @@ public class Bruker {
 	 */
 	public void setAktiviteter(List<Aktivitet> aktiviteter) {
 		this.aktiviteter = aktiviteter;
-	}
-
-	public void setId(Integer id) {
-		this.id = id;
 	}
 
 }

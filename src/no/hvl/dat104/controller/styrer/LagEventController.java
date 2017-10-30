@@ -2,6 +2,7 @@ package no.hvl.dat104.controller.styrer;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -54,19 +55,22 @@ public class LagEventController extends HttpServlet {
 	public Event lagEvent(HttpServletRequest request, EventValidator skjema) {
 		Event e = new Event();
 		Bruker bruker = iBrukerEAO.finnBruker(2);
-		Aktivitet aktivitet = iAktivitetEAO.finnAktivitet(2);
+		
+		List<Aktivitet> a = iBrukerEAO.finnAlleAktiviteterTilBruker(bruker.getId());
+		Aktivitet aktivitet = a.get(0);
+		System.out.println(aktivitet.getNavn());
 		e.setIdAktivitet(aktivitet);
     	e.setNavn(skjema.getTittel());
     	e.setSted(skjema.getHvor());
     	e.setStatus("avsluttet");
-    	aktivitet.setIdBruker(bruker);
     	try {
 			e.setTidTil(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getTil()));
 			e.setTidFra(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getFra()));
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-    	aktivitet.setEvent(e);
+    	bruker.getAktiviteter().get(0).getEventer().add(e);
+    	iBrukerEAO.oppdaterBruker(bruker);
 		return e;
 	}
 }
