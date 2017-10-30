@@ -23,7 +23,7 @@ public class Kodeord {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String kode;
+	private Integer kode;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_event", referencedColumnName = "id")
@@ -33,7 +33,7 @@ public class Kodeord {
 	 * Tom konstruktor for Kodeord
 	 */
 	public Kodeord() {
-		this("", null);
+		this(null, null);
 	}
 
 	/**
@@ -44,7 +44,7 @@ public class Kodeord {
 	 * @param idEvent
 	 *            Id for eventet
 	 */
-	public Kodeord(String kode, Event idEvent) {
+	public Kodeord(Integer kode, Event idEvent) {
 		this.kode = kode;
 		this.idEvent = idEvent;
 	}
@@ -59,7 +59,7 @@ public class Kodeord {
 	/**
 	 * @return the kode
 	 */
-	public String getKode() {
+	public Integer getKode() {
 		return kode;
 	}
 
@@ -67,7 +67,7 @@ public class Kodeord {
 	 * @param kode
 	 *            the kode to set
 	 */
-	public void setKode(String kode) {
+	public void setKode(Integer kode) {
 		this.kode = kode;
 	}
 
