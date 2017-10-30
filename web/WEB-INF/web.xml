@@ -43,7 +43,7 @@
   </servlet>
   <servlet>
     <servlet-name>OpprettBrukerController</servlet-name>
-    <servlet-class>no.hvl.dat104.controller.styrer.OpprettBrukerController</servlet-class>
+    <servlet-class>no.hvl.dat104.controller.styrer.bruker.OpprettBrukerController</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>RedigerAktivitetController</servlet-name>

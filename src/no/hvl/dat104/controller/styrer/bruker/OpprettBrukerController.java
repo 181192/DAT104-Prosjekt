@@ -20,7 +20,7 @@ public class OpprettBrukerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	@EJB
-	IBrukerEAO brukerEAO;
+	private IBrukerEAO brukerEAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
