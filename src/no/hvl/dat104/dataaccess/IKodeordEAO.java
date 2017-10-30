@@ -53,5 +53,5 @@ public interface IKodeordEAO {
 	 * @param kode
 	 *            Kode som skal endres
 	 */
-	public void endreKodePaaKodeord(Integer id, String kode);
+	public void endreKodePaaKodeord(Integer id, Integer kode);
 }

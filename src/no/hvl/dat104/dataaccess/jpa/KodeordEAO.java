@@ -45,7 +45,7 @@ public class KodeordEAO implements IKodeordEAO {
 	}
 
 	@Override
-	public void endreKodePaaKodeord(Integer id, String kode) {
+	public void endreKodePaaKodeord(Integer id, Integer kode) {
 		Kodeord k = finnKodeord(id);
 		k.setKode(kode);
 		em.merge(k);
