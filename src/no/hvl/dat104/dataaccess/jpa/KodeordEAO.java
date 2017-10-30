@@ -40,7 +40,7 @@ public class KodeordEAO implements IKodeordEAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Kodeord> alleKodeord() {
-		List<Kodeord> kodeord = em.createQuery("SELECT k FROM Kodeord k").getResultList();
+		List<Kodeord> kodeord = em.createQuery("SELECT k FROM Kodeord k ORDER BY ASC").getResultList();
 		return kodeord;
 	}
 
