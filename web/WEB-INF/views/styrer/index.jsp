@@ -11,7 +11,7 @@
 	  margin: 5px;
 	  border: 1px solid rgba(0, 0, 0, .2);
 }
-table {
+aktivitet {
     width: 10%;
     margin: auto;
     display: block;
@@ -84,7 +84,7 @@ function lagEvent() {
 
 </div>
 
-<table>
+<table class="aktivitet">
  <thead>
  	<tr>
  	 <td></td>
