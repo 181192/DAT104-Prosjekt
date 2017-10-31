@@ -20,7 +20,7 @@ public final class JspMappings {
     // ----------------- EVENTER -----------------
 	public static final String EVENTRESULTATER_JSP = "WEB-INF/views/styrer/event/eventresultater.jsp";
 	public static final String LAGEVENT_JSP = "WEB-INF/views/styrer/event/lagevent.jsp";
-	public static final String LIVE_EVENT_JSP ="WEB-INF/views/styrer/liveevent/event/liveevent.jsp";
+	public static final String LIVE_EVENT_JSP ="WEB-INF/views/styrer/event/liveevent.jsp";
 	public static final String REDIGEREVENT_JSP = "WEB-INF/views/styrer/event/redigerevent.jsp";
     public static final String VIS_EVENT_JSP ="WEB-INF/views/styrer/event/visevent.jsp";
     

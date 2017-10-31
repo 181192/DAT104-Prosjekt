@@ -45,7 +45,7 @@ public class LiveEventServlet extends HttpServlet {
 		Integer eventNummer = 2;
 		Event e = eventEAO.finnEvent(eventNummer);
 		System.out.println("Skriver ut eventnummer: " + eventNummer);
-		System.out.println(e.toString());
+		//System.out.println(e.toString());
 		
 		Event ev = new Event();
 		ev.setNavn("Daid.");
