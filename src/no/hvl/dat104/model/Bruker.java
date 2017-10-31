@@ -2,7 +2,7 @@ package no.hvl.dat104.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,7 +21,7 @@ import javax.persistence.Table;
  *
  */
 @Entity(name = "Bruker")
-@Table(name = "bruker", schema = "db")
+@Table(schema = "db", name = "bruker")
 public class Bruker {
 
 	@Id

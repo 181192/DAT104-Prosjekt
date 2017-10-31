@@ -127,5 +127,12 @@ public interface IBrukerEAO {
 	 * @return Alle aktiviteter til brukeren
 	 */
 	public List<Aktivitet> finnAlleAktiviteterTilBruker(Integer id);
+	
+	/**
+	 * test
+	 * @param id
+	 * @param e
+	 */
+	public void finnBrukerLeggTilEvent(Integer id, Event e, Integer aktivitetId);
 
 }

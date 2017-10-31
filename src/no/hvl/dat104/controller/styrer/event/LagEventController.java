@@ -46,7 +46,7 @@ public class LagEventController extends HttpServlet {
         EventValidator skjema = new EventValidator(request);
         if (skjema.erAlleDataGyldige()) {        	
         	Event e = lagEvent(request, skjema);
-        	iEventEAO.leggTilEvent(e);
+        	iBrukerEAO.finnBrukerLeggTilEvent(2, e, 2);
             request.getSession().removeAttribute("skjema");
             response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
         } else {
@@ -57,25 +57,15 @@ public class LagEventController extends HttpServlet {
     }
 	public Event lagEvent(HttpServletRequest request, EventValidator skjema) {
 		Event e = new Event();
-		Bruker bruker = iBrukerEAO.finnBruker(2);
-		System.out.println(bruker.toString());
-		System.out.println(bruker.getFornavn());
-		List<Aktivitet> a = iBrukerEAO.finnAlleAktiviteterTilBruker(bruker.getId());
-		Aktivitet aktivitet = a.get(0);
-		System.out.println(aktivitet.getNavn());
-		e.setIdAktivitet(aktivitet);
     	e.setNavn(skjema.getTittel());
     	e.setSted(skjema.getHvor());
     	e.setStatus(Status.AVSLUTTET);
-    	a.add(aktivitet);
-    	bruker.setAktiviteter(a);
     	try {
 			e.setTidTil(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getTil()));
 			e.setTidFra(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getFra()));
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-    	
 		return e;
 	}
 }

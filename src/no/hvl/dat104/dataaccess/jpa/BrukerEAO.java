@@ -112,4 +112,22 @@ public class BrukerEAO implements IBrukerEAO {
 		return a;
 	}
 
+	@Override
+	public void finnBrukerLeggTilEvent(Integer id, Event e, Integer aktivitetId) {
+		Bruker b = finnBruker(id);
+		List<Aktivitet> a = b.getAktiviteter();
+		Aktivitet aktivitet = null;
+		for(Aktivitet k : a) {
+			if(k != null ) {
+				if(k.getId().equals(aktivitetId)) {
+					aktivitet = k;
+				}
+			}
+		}
+		aktivitet.getEventer().add(e);
+		e.setIdAktivitet(aktivitet);
+		em.persist(e);
+	}
+	
+
 }

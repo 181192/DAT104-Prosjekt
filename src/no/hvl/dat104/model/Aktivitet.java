@@ -1,5 +1,6 @@
 package no.hvl.dat104.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -40,6 +41,7 @@ public class Aktivitet {
 	 */
 	public Aktivitet() {
 		this("", "", null);
+		eventer = new ArrayList<>();
 	}
 
 	/**
@@ -56,6 +58,7 @@ public class Aktivitet {
 		this.navn = navn;
 		this.status = status;
 		this.idBruker = idBruker;
+		eventer = new ArrayList<>();
 	}
 
 	/**

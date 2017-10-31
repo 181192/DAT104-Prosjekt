@@ -1,5 +1,7 @@
 package no.hvl.dat104.controller.styrer.aktivitet;
 
+import static no.hvl.dat104.controller.JspMappings.*;
+
 import java.io.IOException;
 
 import javax.ejb.EJB;
@@ -8,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 
 /**
@@ -21,8 +22,8 @@ public class MineAktiviteterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		request.getRequestDispatcher(JspMappings.MINEAKTIVITETER_JSP).forward(request, response);
+		
+		request.getRequestDispatcher(MINEAKTIVITETER_JSP).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
