@@ -11,12 +11,18 @@
 <h1>Event resultat:</h1>
 <div id="dashboard_div">
   <div id="chart_div"></div>
-  <b style="padding-left:9em">Velg tidsperiode:</b>
-  <br>
-  <br>
-  <br>
+  <p>chartrangefilter</p>
   <div id="filter_div"></div>
-  <i style="padding-left:50%">Minutter</i>
+  <button class="ui blue basic button" id="byttKnapp"
+		onclick="switchView()">Bytt graf</button>
+		<button class="ui green basic button" id="green"
+		onclick="showColumn(1, this.id)">Vis fornøyd</button>
+		<button class="ui orange basic button" id="orange"
+		onclick="showColumn(2, this.id)">Vis nøytral</button>
+		<button class="ui red basic button" id="red"
+		onclick="showColumn(3, this.id)">Vis misfornøyd</button>
+		<button class="ui blue basic button" id="visAlleKnapp"
+		onclick="showAll()">Vis alle</button>
 </div>
 </body>
 </html>
