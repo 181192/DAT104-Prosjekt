@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Aktivitet;
@@ -31,7 +32,7 @@ public class LagAktivitetController extends HttpServlet {
 		while(i.hasNext()) {
 			System.out.println(i.next());
 		}
-		request.getRequestDispatcher("WEB-INF/views/styrer/lagaktivitet.jsp").forward(request, response);
+		request.getRequestDispatcher(JspMappings.LAGAKTIVITET_JSP).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 
 /**
@@ -18,7 +19,7 @@ public class RedigerAktivitetController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/styrer/redigeraktivitet.jsp").forward(request, response);
+		request.getRequestDispatcher(JspMappings.REDIGERAKTIVITET_JSP).forward(request, response);
 		
 	}
 

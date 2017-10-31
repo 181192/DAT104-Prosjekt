@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
 import no.hvl.dat104.model.Tilbakemelding;
@@ -23,7 +24,7 @@ public class GiTilbakemeldingController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-	request.getRequestDispatcher("WEB-INF/views/deltager/gitilbakemelding.jsp").forward(request, response);
+	request.getRequestDispatcher(JspMappings.GITILBAKEMELDING_JSP).forward(request, response);
 
 	}
 	
