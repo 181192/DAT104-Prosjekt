@@ -5,7 +5,7 @@
 	<c:set var="PAAGANDE" value="<%=PAAGANDE%>"></c:set>
 <c:set var="AVSLUTTET" value="<%=AVSLUTTET%>"></c:set>
 <div class="ui container">
-	<p>Mine eventer</p>
+	<h3>${aktivitet.navn} - Eventer:</h3>
 	<table class="ui fixed single line celled table">
 	  <thead>
 	    <tr><th>Navn</th>
@@ -15,9 +15,9 @@
 	  <tbody>	  
 	  	<c:forEach  items="${eventer}" var = "event">
 	        <tr>
-		      <td><c:out value = "${event.navn}"/></td>
+		      <td><a href="<%= EVENTRESULTATER_URL%>?eventId=${event.id}"><c:out value = "${event.navn}"/></a></td>
 		      <td class="${event.status eq PAAGANDE ? 'positive' : (event.status eq AVSLUTTET) ? 'error' : 'warning'}"><c:out value = "${event.status}"/></td>
-		      <td><a href="<%= REDIGEREVENT_URL%>?aktivitetId=${event.id}">Rediger</a></td>
+		      <td><a href="<%= REDIGEREVENT_URL%>?eventId=${event.id}">Rediger</a></td>
 	    	</tr>	  
 	     </c:forEach>
 	  </tbody>

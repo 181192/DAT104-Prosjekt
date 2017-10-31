@@ -45,6 +45,7 @@ public class MineEventerController extends HttpServlet {
 				}
 			});
 			request.getSession().setAttribute("eventer", eventer);
+			request.getSession().setAttribute("aktivitet", a);
 			request.getRequestDispatcher(MINEEVENTER_JSP).forward(request, response);
 		}
 
