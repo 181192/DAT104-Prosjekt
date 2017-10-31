@@ -11,7 +11,6 @@
 <h1>Event resultat:</h1>
 <div id="dashboard_div">
   <div id="chart_div"></div>
-  <p>chartrangefilter</p>
   <div id="filter_div"></div>
   <button class="ui blue basic button" id="byttKnapp"
 		onclick="switchView()">Bytt graf</button>
