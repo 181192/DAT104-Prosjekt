@@ -72,11 +72,6 @@ function drawChart() {
 				2 : {
 					color : 'RED'
 				}
-			},
-			'animation' : {
-				"startup" : true,
-				'duration' : '1000',
-				'easing' : 'out',
 			}
 		}
 	};
