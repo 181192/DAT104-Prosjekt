@@ -46,9 +46,8 @@ function drawChart() {
 	refresh = function() {
 		count++;
 		data.addRow([ 'SomeEvent: ' + count.toString(),
-						Math.floor(Math.random() * 15),
-						Math.floor(Math.random() * 15),
-						Math.floor(Math.random() * 15) ]);
+				Math.floor(Math.random() * 15), Math.floor(Math.random() * 15),
+				Math.floor(Math.random() * 15) ]);
 		currentView = new google.visualization.DataView(data);
 		boolFornoeyd = true;
 		boolNoeytral = true;
@@ -73,6 +72,11 @@ function drawChart() {
 				2 : {
 					color : 'RED'
 				}
+			},
+			'animation' : {
+				"startup" : true,
+				'duration' : '1000',
+				'easing' : 'out',
 			}
 		}
 	};
