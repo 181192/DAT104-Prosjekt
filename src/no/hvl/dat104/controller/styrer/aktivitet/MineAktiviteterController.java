@@ -1,8 +1,9 @@
 package no.hvl.dat104.controller.styrer.aktivitet;
 
-import static no.hvl.dat104.controller.JspMappings.*;
+import static no.hvl.dat104.controller.JspMappings.MINEAKTIVITETER_JSP;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.dataaccess.IBrukerEAO;
+import no.hvl.dat104.model.Aktivitet;
 
 /**
  * Servlet implementation class MineAktiviteterController
@@ -22,7 +24,8 @@ public class MineAktiviteterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		List<Aktivitet> a = brukerEAO.finnAlleAktiviteterTilBruker(2);
+		request.getSession().setAttribute("aktiviteter", a);
 		request.getRequestDispatcher(MINEAKTIVITETER_JSP).forward(request, response);
 	}
 
