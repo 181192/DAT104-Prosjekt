@@ -11,7 +11,7 @@
 	  margin: 5px;
 	  border: 1px solid rgba(0, 0, 0, .2);
 }
-aktivitet {
+.aktivitet {
     width: 10%;
     margin: auto;
     display: block;
@@ -59,7 +59,9 @@ $('#calendar').fullCalendar({
 function lagEvent() {
 	window.location.href = "<%=LAGEVENT_URL%>";
 };
+
 </script>
+
 <div class="container">
   <!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -94,7 +96,7 @@ function lagEvent() {
  <tbody>
  <c:forEach var="aktivitet" items="${aktiviteter}" varStatus="loop">
   <tr>
-   	<td class="foo" style="background-color: <c:out value="${color[loop.index]}"/>"></td>
+   	<td onclick="fjernAktivitet(<c:out value="${aktivitet.id}"/>)" class="foo" style="background-color: <c:out value="${color[loop.index]}"/>"></td>
    	<td>${aktivitet.navn}</td>
   </tr>
   </c:forEach>
@@ -113,5 +115,8 @@ function lagEvent() {
 	  $("#myModal").modal()
       $(".modal-body").load("<%=VIS_EVENT_URL%>?id=" + event.id);
   }
-
+  function fjernAktivitet(aktivitet){
+	  console.log(aktivitet);
+	  $('#calendar').fullCalendar('removeResource', aktivitet.toString());  
+  }
 </script>
