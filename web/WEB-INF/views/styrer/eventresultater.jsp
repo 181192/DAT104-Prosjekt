@@ -7,7 +7,6 @@
 <script src="public/js/eventResultat.js"></script>
 </head>
 <body>
-<!---->
 <h1>Event resultat:</h1>
 <div id="dashboard_div">
   <div id="chart_div"></div>
