@@ -37,7 +37,8 @@ public class LagEventController extends HttpServlet {
 			throws ServletException, IOException {
 		String dato = DatoUtil.fraEngTilNorskDato(request.getParameter("dato"));
 		request.getSession().setAttribute("dato", dato);
-		Bruker b = iBrukerEAO.finnBruker(2);
+		List<Aktivitet> a = iBrukerEAO.finnAlleAktiviteterTilBruker(2);
+		request.getSession().setAttribute("aktiviteter", a);
 	request.getRequestDispatcher(JspMappings.LAGEVENT_JSP).forward(request, response);
 	}
 

@@ -25,8 +25,9 @@
         <div class="default text">Aktivitet</div>
         <div class="menu">
           <!-- FOR LØKKE SOM GÅR GJENNOM ALLE AKTIVITETER.-->
-          <div class="item" data-value="1">DAT103</div>
-          <div class="item" data-value="0">MAT102</div>
+          <c:forEach var="aktivitet" items="${aktiviteter}" varStatus="count">
+          	<div class="item" data-value="${aktivitet.id}">${aktivitet.navn}</div>
+          </c:forEach>
         </div>
       </div>
     </div>

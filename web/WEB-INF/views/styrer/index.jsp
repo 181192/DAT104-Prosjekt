@@ -4,6 +4,20 @@
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<style rel="stylesheet">
+	.foo {
+	  width: 20px;
+	  height: 20px;
+	  margin: 5px;
+	  border: 1px solid rgba(0, 0, 0, .2);
+}
+table {
+    width: 10%;
+    margin: auto;
+    display: block;
+   }
+</style>
+
 </head>
 <div id='calendar'></div>
 <script>
@@ -70,6 +84,22 @@ function lagEvent() {
 
 </div>
 
+<table>
+ <thead>
+ 	<tr>
+ 	 <td></td>
+ 	 <td></td>
+ 	</tr>
+ </thead>
+ <tbody>
+ <c:forEach var="aktivitet" items="${aktiviteter}" varStatus="loop">
+  <tr>
+   	<td class="foo" style="background-color: <c:out value="${color[loop.index]}"/>"></td>
+   	<td>${aktivitet.navn}</td>
+  </tr>
+  </c:forEach>
+ </tbody>
+</table>
 <jsp:include page="../../partials/footer.jsp" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
