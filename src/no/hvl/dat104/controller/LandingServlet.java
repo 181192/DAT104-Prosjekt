@@ -21,7 +21,7 @@ public class LandingServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
-		request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);
+		request.getRequestDispatcher(JspMappings.LANDING_JSP).forward(request, response);
 	}
 
 	

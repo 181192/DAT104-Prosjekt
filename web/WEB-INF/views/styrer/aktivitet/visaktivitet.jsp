@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="style.css">
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="public/js/aktivitetsChart.js"></script>
+<script src="public/js/charts/aktivitetsChart.js"></script>
 <script>
 	<!-->https://stackoverflow.com/questions/19036522/how-to-copy-multidimensional-array-from-java-request-variable-to-javascript-vari<-->
 	var hentData = new Array();

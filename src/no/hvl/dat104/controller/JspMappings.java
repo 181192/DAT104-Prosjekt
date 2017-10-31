@@ -25,10 +25,10 @@ public final class JspMappings {
     public static final String VIS_EVENT_JSP ="WEB-INF/views/styrer/event/visevent.jsp";
     
     // ----------------- AKTIVITER -----------------
-    public static final String LAGAKTIVITET_JSP = "WEB-INF/views/styrer/aktivitet/";
-    public static final String VISAKTIVITET_JSP = "WEB-INF/views/styrer/aktivitet/";
-    public static final String REDIGERAKTIVITET_JSP = "WEB-INF/views/styrer/aktivitet/";
-    public static final String MINEAKTIVITETER_JSP = "WEB-INF/views/styrer/aktivitet/";
+    public static final String LAGAKTIVITET_JSP = "WEB-INF/views/styrer/aktivitet/lagaktivitet.jsp";
+    public static final String VISAKTIVITET_JSP = "WEB-INF/views/styrer/aktivitet/visaktivitet.jsp";
+    public static final String REDIGERAKTIVITET_JSP = "WEB-INF/views/styrer/aktivitet/redigeraktivitet.jsp";
+    public static final String MINEAKTIVITETER_JSP = "WEB-INF/views/styrer/aktivitet/mineaktiviteter.jsp";
 
     
 	

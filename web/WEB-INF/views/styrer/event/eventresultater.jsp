@@ -4,7 +4,7 @@
 <html>
 <head>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="public/js/eventResultat.js"></script>
+<script src="public/js/charts/eventResultat.js"></script>
 </head>
 <body>
 <!---->
