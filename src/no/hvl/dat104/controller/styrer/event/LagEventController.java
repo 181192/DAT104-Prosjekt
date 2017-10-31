@@ -37,6 +37,7 @@ public class LagEventController extends HttpServlet {
 			throws ServletException, IOException {
 		String dato = DatoUtil.fraEngTilNorskDato(request.getParameter("dato"));
 		request.getSession().setAttribute("dato", dato);
+		Bruker b = iBrukerEAO.finnBruker(2);
 	request.getRequestDispatcher(JspMappings.LAGEVENT_JSP).forward(request, response);
 	}
 
@@ -59,7 +60,6 @@ public class LagEventController extends HttpServlet {
 		Bruker bruker = iBrukerEAO.finnBruker(2);
 		System.out.println(bruker.toString());
 		System.out.println(bruker.getFornavn());
-		bruker.getAktiviteter();
 		List<Aktivitet> a = iBrukerEAO.finnAlleAktiviteterTilBruker(bruker.getId());
 		Aktivitet aktivitet = a.get(0);
 		System.out.println(aktivitet.getNavn());
@@ -67,14 +67,15 @@ public class LagEventController extends HttpServlet {
     	e.setNavn(skjema.getTittel());
     	e.setSted(skjema.getHvor());
     	e.setStatus(Status.AVSLUTTET);
+    	a.add(aktivitet);
+    	bruker.setAktiviteter(a);
     	try {
 			e.setTidTil(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getTil()));
 			e.setTidFra(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getFra()));
 		} catch (ParseException e1) {
 			e1.printStackTrace();
 		}
-    	bruker.getAktiviteter().get(0).getEventer().add(e);
-    	iBrukerEAO.oppdaterBruker(bruker);
+    	
 		return e;
 	}
 }

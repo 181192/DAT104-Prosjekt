@@ -1,5 +1,6 @@
 package no.hvl.dat104.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -44,6 +45,7 @@ public class Bruker {
 	 */
 	public Bruker() {
 		this("", "", "", "", "", null);
+		aktiviteter = new ArrayList<>();
 	}
 
 	/**
@@ -69,6 +71,7 @@ public class Bruker {
 		this.passord = passord;
 		this.salt = salt;
 		this.idRolle = idRolle;
+		aktiviteter = new ArrayList<>();
 	}
 
 	/**
