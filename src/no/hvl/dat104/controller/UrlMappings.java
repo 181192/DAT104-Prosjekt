@@ -3,7 +3,7 @@ package no.hvl.dat104.controller;
 /**
  * URLmappings
  */
-public class UrlMappings {
+public abstract class UrlMappings {
 	public static final String ADMINISTRER_URL = "administrer";
     public static final String GODKJENNBRUKER_URL = "godkjennbruker";
     public static final String DELTAEVENT_URL = "deltaevent";

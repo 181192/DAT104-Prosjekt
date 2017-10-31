@@ -6,10 +6,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import no.hvl.dat104.model.Event;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import no.hvl.dat104.dataaccess.IEventEAO;
+import no.hvl.dat104.dataaccess.jpa.EventEAO;
 
 /**
  * Servlet implementation class LiveEventServlet
@@ -17,12 +23,27 @@ import javax.servlet.http.HttpServletResponse;
 public class LiveEventServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
+	
+	@EJB
+	private IEventEAO eventEAO;
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("doGet LiveEventServlet kjører.");
-
+		/*
+		 * Sjekk innlogging
+		 * 
+		 * Send eventEAO i responsen. 
+		 * 
+		 * 
+		 * */
+		Integer eventNummer = 2;
+		Event e = eventEAO.finnEvent(eventNummer);
+		System.out.println("Skriver ut eventnummer: " + eventNummer);
+		System.out.println(e.toString());
+		
 		//Lager noen testdata og sender til jsp i requesten. 
 		List<Integer> dummyData = lagDummyListe(50, 20);
 		List<Integer> dummyDataFT = lagFrekvensTabell(dummyData, 60);
@@ -37,6 +58,24 @@ public class LiveEventServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
+		/**
+		 * START-KNAPP
+		 * 
+		 * Faktisk tid for start må settes.
+		 * Kodeord må genereres.
+		 * Kodeord må settes i session.
+		 * Status må edres til pagaende.
+		 */
+		
+		/**
+		 * STOPP-KNAPP
+		 * 
+		 * Faktisk tid for stop må settes.
+		 * Kodeord skal slettes fra databasen.
+		 * Status må endres til avsluttet. 
+		 * 
+		 */
 		doGet(request, response);
 	}
 	

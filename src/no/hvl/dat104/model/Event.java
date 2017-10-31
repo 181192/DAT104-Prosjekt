@@ -24,6 +24,8 @@ import javax.persistence.Table;
 @Entity(name = "Event")
 @Table(name = "event", schema = "db")
 public class Event {
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -55,7 +57,7 @@ public class Event {
 	 * Tom konstruktor til Event
 	 */
 	public Event() {
-		this("", null, null, null, null, "", "", null);
+		
 	}
 
 	/**
@@ -78,18 +80,6 @@ public class Event {
 	 * @param idAktivitet
 	 *            Id paa aktiviteten eventen hoerer til
 	 */
-	public Event(String navn, Timestamp tidFra, Timestamp tidTil, Timestamp faktiskStart, Timestamp faktiskSlutt,
-			String status, String sted, Aktivitet idAktivitet) {
-		this.navn = navn;
-		this.tidFra = tidFra;
-		this.tidTil = tidTil;
-		this.faktiskStart = faktiskStart;
-		this.faktiskSlutt = faktiskSlutt;
-		this.status = status;
-		this.sted = sted;
-		this.idAktivitet = idAktivitet;
-	}
-
 	/**
 	 * @return the navn
 	 */
@@ -246,6 +236,16 @@ public class Event {
 	public void setLiveTilbakemeldinger(List<LiveTilbakemelding> liveTilbakemeldinger) {
 		this.liveTilbakemeldinger = liveTilbakemeldinger;
 	}
+
+	@Override
+	public String toString() {
+		return "Event [id=" + id + ", \nnavn=" + navn + ", \ntidFra=" + tidFra + ", \ntidTil=" + tidTil + ", \nfaktiskStart="
+				+ faktiskStart + ", \nfaktiskSlutt=" + faktiskSlutt + ", \nstatus=" + status + ", \nsted=" + sted
+				+ ", \nidAktivitet=" + idAktivitet + ", \ntilbakemeldinger=" + tilbakemeldinger + ", \nliveTilbakemeldinger="
+				+ liveTilbakemeldinger + "]";
+	}
+	
+	
 	
 
 }
