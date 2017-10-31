@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IEventEAO;
@@ -69,7 +70,7 @@ public class VisAktivitetController extends HttpServlet {
 		
 		request.getSession().setAttribute("aktivitetsNavn", a.getNavn());
 		request.setAttribute("arrayMedTilbakemeldinger", dataListe);
-		request.getRequestDispatcher("WEB-INF/views/styrer/visaktivitet.jsp").forward(request, response);
+		request.getRequestDispatcher(JspMappings.VISAKTIVITET_JSP).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
