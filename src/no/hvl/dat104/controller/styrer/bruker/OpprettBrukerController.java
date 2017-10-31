@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Bruker;
 
@@ -24,7 +25,7 @@ public class OpprettBrukerController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/views/styrer/opprettbruker.jsp").forward(request, response);
+		request.getRequestDispatcher(JspMappings.OPPRETTBRUKER_JSP).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

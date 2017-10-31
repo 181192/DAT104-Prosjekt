@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<jsp:include page="../../partials/header.jsp" />
+<jsp:include page="../../../partials/header.jsp" />
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
 <div class="ui container">
 	<form method="post" action="<%=LAGAKTIVITET_URL %>" class="ui form">
@@ -11,4 +11,4 @@
 	</form>
 </div>
 
-<jsp:include page="../../partials/footer.jsp" />
+<jsp:include page="../../../partials/footer.jsp" />

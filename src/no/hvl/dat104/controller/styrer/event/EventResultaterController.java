@@ -1,4 +1,4 @@
-package no.hvl.dat104.controller.styrer;
+package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
 
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 //import no.hvl.dat104.model.Event;
 
@@ -24,7 +25,7 @@ public class EventResultaterController extends HttpServlet {
 //		Integer id = Integer.parseInt(request.getParameter("eventId"));
 //		Event e = iEventEAO.finnEvent(id);
 //		response.getWriter().append("Event: " + e.getNavn());
-		request.getRequestDispatcher("WEB-INF/views/styrer/eventresultater.jsp").forward(request, response);//Midlertidlig graf -Fredrik
+		request.getRequestDispatcher(JspMappings.EVENTRESULTATER_JSP).forward(request, response);//Midlertidlig graf -Fredrik
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

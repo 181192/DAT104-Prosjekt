@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.dataaccess.IEventEAO;
@@ -46,7 +47,7 @@ public class LandingStyrerServlet extends HttpServlet {
 		request.getSession().setAttribute("alleEventer", alleEventer);
 		request.getSession().setAttribute("aktiviteter", a);
 		request.getSession().setAttribute("color", farger);
-		request.getRequestDispatcher("WEB-INF/views/styrer/index.jsp").forward(request, response);
+		request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);
 	}
 
 	/**

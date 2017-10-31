@@ -1,4 +1,4 @@
-package no.hvl.dat104.controller.styrer.liveevent;
+package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.jpa.EventEAO;
 
@@ -54,7 +55,7 @@ public class LiveEventServlet extends HttpServlet {
 		List<Integer> dummyData = lagDummyListe(50, 20);
 		List<Integer> dummyDataFT = lagFrekvensTabell(dummyData, 60);
 		request.setAttribute("dummyData", dummyDataFT);
-		request.getRequestDispatcher("WEB-INF/views/styrer/liveevent/liveevent.jsp").
+		request.getRequestDispatcher(JspMappings.LIVE_EVENT_JSP).
 						forward(request, response);
 		
 	}

@@ -44,4 +44,4 @@
  		});
  		
 	 </script>
-<jsp:include page="../../partials/footer.jsp" />
+<jsp:include page="../../../partials/footer.jsp" />

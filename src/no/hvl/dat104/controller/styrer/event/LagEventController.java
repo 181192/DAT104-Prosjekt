@@ -1,4 +1,4 @@
-package no.hvl.dat104.controller.styrer;
+package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
@@ -17,6 +18,7 @@ import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.model.Status;
 import no.hvl.dat104.util.DatoUtil;
 
 /**
@@ -35,7 +37,7 @@ public class LagEventController extends HttpServlet {
 			throws ServletException, IOException {
 		String dato = DatoUtil.fraEngTilNorskDato(request.getParameter("dato"));
 		request.getSession().setAttribute("dato", dato);
-	request.getRequestDispatcher("WEB-INF/views/styrer/lagevent.jsp").forward(request, response);
+	request.getRequestDispatcher(JspMappings.LAGEVENT_JSP).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -55,14 +57,16 @@ public class LagEventController extends HttpServlet {
 	public Event lagEvent(HttpServletRequest request, EventValidator skjema) {
 		Event e = new Event();
 		Bruker bruker = iBrukerEAO.finnBruker(2);
-		
+		System.out.println(bruker.toString());
+		System.out.println(bruker.getFornavn());
+		bruker.getAktiviteter();
 		List<Aktivitet> a = iBrukerEAO.finnAlleAktiviteterTilBruker(bruker.getId());
 		Aktivitet aktivitet = a.get(0);
 		System.out.println(aktivitet.getNavn());
 		e.setIdAktivitet(aktivitet);
     	e.setNavn(skjema.getTittel());
     	e.setSted(skjema.getHvor());
-    	e.setStatus("avsluttet");
+    	e.setStatus(Status.AVSLUTTET);
     	try {
 			e.setTidTil(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getTil()));
 			e.setTidFra(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getFra()));

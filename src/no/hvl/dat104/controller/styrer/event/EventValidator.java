@@ -1,4 +1,4 @@
-package no.hvl.dat104.controller.styrer;
+package no.hvl.dat104.controller.styrer.event;
 
 import javax.servlet.http.HttpServletRequest;
 

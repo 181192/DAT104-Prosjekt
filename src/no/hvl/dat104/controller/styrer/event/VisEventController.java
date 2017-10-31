@@ -1,4 +1,4 @@
-package no.hvl.dat104.controller.styrer;
+package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
 
@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Aktivitet;
@@ -34,7 +35,7 @@ public class VisEventController extends HttpServlet {
 		
 		request.getSession().setAttribute("aktivitet", a);
 		request.getSession().setAttribute("event", e);
-		request.getRequestDispatcher("WEB-INF/views/styrer/visevent.jsp").forward(request, response);
+		request.getRequestDispatcher(JspMappings.VIS_EVENT_JSP).forward(request, response);
 	}
 
 	/**

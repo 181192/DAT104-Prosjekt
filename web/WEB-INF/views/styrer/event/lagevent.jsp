@@ -33,7 +33,7 @@
     <button class="ui button">Lag event</button>
   </form>
   </div>
-  <jsp:include page="../../partials/footer.jsp" />
+  <jsp:include page="../../../partials/footer.jsp" />
   <script>
       $( function() {
           $( "#datepicker" ).datepicker({

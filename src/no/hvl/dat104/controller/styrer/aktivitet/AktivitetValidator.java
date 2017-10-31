@@ -1,4 +1,4 @@
-package no.hvl.dat104.controller.styrer;
+package no.hvl.dat104.controller.styrer.aktivitet;
 
 import javax.servlet.http.HttpServletRequest;
 

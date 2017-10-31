@@ -27,19 +27,19 @@
   </servlet>
   <servlet>
     <servlet-name>EventResultaterController</servlet-name>
-    <servlet-class>no.hvl.dat104.controller.styrer.EventResultaterController</servlet-class>
+    <servlet-class>no.hvl.dat104.controller.styrer.event.EventResultaterController</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>LagAktivitetController</servlet-name>
-    <servlet-class>no.hvl.dat104.controller.styrer.LagAktivitetController</servlet-class>
+    <servlet-class>no.hvl.dat104.controller.styrer.aktivitet.LagAktivitetController</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>LagEventController</servlet-name>
-    <servlet-class>no.hvl.dat104.controller.styrer.LagEventController</servlet-class>
+    <servlet-class>no.hvl.dat104.controller.styrer.event.LagEventController</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>MineAktiviteterController</servlet-name>
-    <servlet-class>no.hvl.dat104.controller.styrer.MineAktiviteterController</servlet-class>
+    <servlet-class>no.hvl.dat104.controller.styrer.aktivitet.MineAktiviteterController</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>OpprettBrukerController</servlet-name>
@@ -47,15 +47,15 @@
   </servlet>
   <servlet>
     <servlet-name>RedigerAktivitetController</servlet-name>
-    <servlet-class>no.hvl.dat104.controller.styrer.RedigerAktivitetController</servlet-class>
+    <servlet-class>no.hvl.dat104.controller.styrer.aktivitet.RedigerAktivitetController</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>RedigerEventController</servlet-name>
-    <servlet-class>no.hvl.dat104.controller.styrer.RedigerEventController</servlet-class>
+    <servlet-class>no.hvl.dat104.controller.styrer.event.RedigerEventController</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>VisAktivitetController</servlet-name>
-    <servlet-class>no.hvl.dat104.controller.styrer.VisAktivitetController</servlet-class>
+    <servlet-class>no.hvl.dat104.controller.styrer.aktivitet.VisAktivitetController</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>LandingServlet</servlet-name>
@@ -63,15 +63,15 @@
   </servlet>
   <servlet>
     <servlet-name>LoggInnController</servlet-name>
-    <servlet-class>no.hvl.dat104.controller.LoggInnController</servlet-class>
+    <servlet-class>no.hvl.dat104.controller.styrer.bruker.LoggInnController</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>LiveEventServlet</servlet-name>
-    <servlet-class>no.hvl.dat104.controller.styrer.liveevent.LiveEventServlet</servlet-class>
+    <servlet-class>no.hvl.dat104.controller.styrer.event.LiveEventServlet</servlet-class>
   </servlet>
   <servlet>
   	<servlet-name>VisEventController</servlet-name>
-  	<servlet-class>no.hvl.dat104.controller.styrer.VisEventController</servlet-class>
+  	<servlet-class>no.hvl.dat104.controller.styrer.event.VisEventController</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>VisEventController</servlet-name>

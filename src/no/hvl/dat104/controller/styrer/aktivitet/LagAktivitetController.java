@@ -1,4 +1,4 @@
-package no.hvl.dat104.controller.styrer;
+package no.hvl.dat104.controller.styrer.aktivitet;
 
 import java.io.IOException;
 import java.util.Iterator;
