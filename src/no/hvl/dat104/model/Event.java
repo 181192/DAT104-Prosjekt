@@ -60,29 +60,7 @@ public class Event {
 		
 	}
 
-	/**
-	 * Kontruktor med parameter for Event
-	 * 
-	 * @param navn
-	 *            Navnet paa eventen
-	 * @param tidFra
-	 *            Planlagt tid naar eventen begynner
-	 * @param tidTil
-	 *            Planlagt tid naar eventen slutter
-	 * @param faktiskStart
-	 *            Faktisk start paa event
-	 * @param faktiskSlutt
-	 *            Faktisk slutt paa event
-	 * @param status
-	 *            Status paa eventen
-	 * @param sted
-	 *            Stedet til eventen
-	 * @param idAktivitet
-	 *            Id paa aktiviteten eventen hoerer til
-	 */
-	/**
-	 * @return the navn
-	 */
+
 	public String getNavn() {
 		return navn;
 	}
