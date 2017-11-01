@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
-//import no.hvl.dat104.model.Event;
+import no.hvl.dat104.model.Event;
 
 /**
  * Servlet implementation class EventResultaterController
@@ -19,12 +19,13 @@ public class EventResultaterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private IEventEAO iEventEAO;
-
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-//		Integer id = Integer.parseInt(request.getParameter("eventId"));
-//		Event e = iEventEAO.finnEvent(id);
-//		response.getWriter().append("Event: " + e.getNavn());
+		Integer id = Integer.parseInt(request.getParameter("eventId"));
+		Event e = iEventEAO.finnEvent(id);
+		request.setAttribute("aktivitet", e.getIdAktivitet());
+		request.setAttribute("event", e);
 		request.getRequestDispatcher(JspMappings.EVENTRESULTATER_JSP).forward(request, response);//Midlertidlig graf -Fredrik
 	}
 
