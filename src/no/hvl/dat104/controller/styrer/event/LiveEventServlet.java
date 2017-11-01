@@ -41,20 +41,9 @@ public class LiveEventServlet extends HttpServlet {
 		System.out.println("doGet LiveEventServlet kjører.");
 		/*
 		 * Sjekk innlogging
-		 * 
 		 * Send eventEAO i responsen. 
 		 * 
-		 * 
 		 * */
-		Integer eventNummer = 2;
-		Event e = eventEAO.finnEvent(eventNummer);
-		System.out.println(genererKodeord(e).getKode());
-		System.out.println("Skriver ut eventnummer: " + eventNummer);
-		//System.out.println(e.toString());
-		
-		Event ev = new Event();
-		ev.setNavn("Daid.");
-		System.out.println(ev.getNavn());
 		
 		//Lager noen testdata og sender til jsp i requesten. 
 		List<Integer> dummyData = lagDummyListe(50, 20);
