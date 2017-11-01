@@ -2,6 +2,7 @@ package no.hvl.dat104.dataaccess;
 
 import java.util.List;
 
+import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
 
 public interface IKodeordEAO {
@@ -64,4 +65,14 @@ public interface IKodeordEAO {
 	 * 
 	 */
 	public Boolean sjekkOmKodeordErUnik(Kodeord kode);
+	
+	/**
+	 * Finner kodeordet til event. 
+	 * 
+	 * @param event
+	 * 
+	 * @return Ett kodeord
+	 * 
+	 */
+	public Kodeord finnKodeordTilEvent(Event event);
 }

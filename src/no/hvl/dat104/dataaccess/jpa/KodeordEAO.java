@@ -5,8 +5,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import no.hvl.dat104.dataaccess.IKodeordEAO;
+import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
 
 @Stateless
@@ -56,6 +58,12 @@ public class KodeordEAO implements IKodeordEAO {
 		String sql = "SELECT COUNT(k.id) FROM KodeordEntity k WHERE k.kode = "+kode.getKode();
 		Long q = (Long)em.createQuery(sql).getSingleResult();
 		return q < 1;
+	}
+	
+	@Override
+	public Kodeord finnKodeordTilEvent(Event event) {
+		   Query query = em.createQuery( "Select Kodeord from Kodeord kd where kd.idEvent.id = " + event.getId() );
+		   return (Kodeord) query.getSingleResult();
 	}
 
 }
