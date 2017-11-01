@@ -5,9 +5,12 @@
 <head>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="public/js/charts/eventResultater.js"></script>
+<c:set var = "a" scope = "request" value = "${aktivitet}"/>
+<c:set var = "e" scope = "request" value = "${event}"/>
 </head>
 <body>
-<h1>Event resultater:</h1>
+<h2>${a.navn}:</h2>
+<h1>Tilbakemeldinger for "${e.navn}":</h1>
 <div id="dashboard_div">
   <div id="chart_div"></div>
   <div id="filter_div"></div>
