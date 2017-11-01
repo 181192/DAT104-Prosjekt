@@ -54,4 +54,14 @@ public interface IKodeordEAO {
 	 *            Kode som skal endres
 	 */
 	public void endreKodePaaKodeord(Integer id, Integer kode);
+	
+	/**
+	 * Sjekk at kodeordet du har generert er unikt
+	 * 
+	 * @param kode
+	 * 
+	 * @return true/false
+	 * 
+	 */
+	public Boolean sjekkOmKodeordErUnik(Kodeord kode);
 }

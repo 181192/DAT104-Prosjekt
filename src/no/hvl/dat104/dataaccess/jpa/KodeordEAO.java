@@ -40,7 +40,7 @@ public class KodeordEAO implements IKodeordEAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Kodeord> alleKodeord() {
-		List<Kodeord> kodeord = em.createQuery("SELECT k FROM Kodeord k ORDER BY ASC").getResultList();
+		List<Kodeord> kodeord = em.createQuery("SELECT k FROM kodeord k ORDER BY ASC").getResultList();
 		return kodeord;
 	}
 
@@ -49,6 +49,13 @@ public class KodeordEAO implements IKodeordEAO {
 		Kodeord k = finnKodeord(id);
 		k.setKode(kode);
 		em.merge(k);
+	}
+	
+	@Override
+	public Boolean sjekkOmKodeordErUnik(Kodeord kode) {
+		String sql = "SELECT COUNT(k.id) FROM KodeordEntity k WHERE k.kode = "+kode.getKode();
+		Long q = (Long)em.createQuery(sql).getSingleResult();
+		return q < 1;
 	}
 
 }

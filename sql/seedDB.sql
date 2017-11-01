@@ -86,7 +86,7 @@ CREATE TABLE db.event(
 DROP TABLE IF EXISTS db.kodeord CASCADE;
 CREATE TABLE db.kodeord(
 	id serial NOT NULL,
-	kode varchar NOT NULL,
+	kode integer NOT NULL,
 	id_event integer NOT NULL,
 	CONSTRAINT kodeord_pk PRIMARY KEY (id),
 	CONSTRAINT kode_uq UNIQUE (kode)

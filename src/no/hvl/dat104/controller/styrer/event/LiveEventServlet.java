@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.model.Kodeord;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
+import no.hvl.dat104.dataaccess.IKodeordEAO;
 import no.hvl.dat104.dataaccess.jpa.EventEAO;
 
 /**
@@ -28,6 +30,8 @@ public class LiveEventServlet extends HttpServlet {
 	@EJB
 	private IEventEAO eventEAO;
 	
+	@EJB
+	private IKodeordEAO kodeordEAO;
 	
 	
 	/**
@@ -44,6 +48,7 @@ public class LiveEventServlet extends HttpServlet {
 		 * */
 		Integer eventNummer = 2;
 		Event e = eventEAO.finnEvent(eventNummer);
+		System.out.println(genererKodeord(e).getKode());
 		System.out.println("Skriver ut eventnummer: " + eventNummer);
 		//System.out.println(e.toString());
 		
@@ -74,6 +79,7 @@ public class LiveEventServlet extends HttpServlet {
 		 * Kodeord må settes i session.
 		 * Status må edres til pagaende.
 		 */
+
 		
 		/**
 		 * STOPP-KNAPP
@@ -126,5 +132,23 @@ public class LiveEventServlet extends HttpServlet {
         
         return Arrays.asList(ftb);
     }
+    
+    /**
+     * Metode for aa generere et kodeord for eventet
+     * @param event
+     * @return kodeord klassen
+     */
 
+    private Kodeord genererKodeord(Event e) {
+    		Boolean unik = false;
+    		Kodeord kodeord = new Kodeord();
+    		Random rand = new Random();
+    		while(!unik) {
+    			kodeord.setKode(rand.nextInt((99999-10000)-1)+10000);
+    			if(kodeordEAO.sjekkOmKodeordErUnik(kodeord)) {
+    				unik = true;
+    			}
+    		}
+		return kodeord;
+    }
 }
