@@ -11,6 +11,7 @@
 	    <tr><th>Navn</th>
 	    <th>Status</th>
 	    <th>Rediger</th>
+	    <th>Slett</th>
 	  </tr></thead>
 	  <tbody>	  
 	  	<c:forEach  items="${eventer}" var = "event">
@@ -18,6 +19,7 @@
 		      <td><a href="<%= EVENTRESULTATER_URL%>?eventId=${event.id}"><c:out value = "${event.navn}"/></a></td>
 		      <td class="${event.status eq PAAGANDE ? 'positive' : (event.status eq AVSLUTTET) ? 'error' : 'warning'}"><c:out value = "${event.status}"/></td>
 		      <td><a href="<%= REDIGEREVENT_URL%>?eventId=${event.id}">Rediger</a></td>
+		      <td><a href="<%= SLETTEVENT_URL%>?eventId=${event.id}">Slett</a></td>
 	    	</tr>	  
 	     </c:forEach>
 	  </tbody>

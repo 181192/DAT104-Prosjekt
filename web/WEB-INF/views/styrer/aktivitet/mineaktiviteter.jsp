@@ -11,6 +11,7 @@
 	    <tr><th>Navn</th>
 	    <th>Status</th>
 	    <th>Rediger</th>
+	    <th>Slett</th>
 	  </tr></thead>
 	  <tbody>	  
 	  	<c:forEach  items="${aktiviteter}" var = "aktivitet">
@@ -18,6 +19,7 @@
 		      <td><a href="<%=MINEEVENTER_URL%>?aktivitetId=${aktivitet.id}"><c:out value = "${aktivitet.navn}"/></a></td>
 		      <td class="${aktivitet.status eq PAAGANDE ? 'positive' : (aktivitet.status eq AVSLUTTET) ? 'error' : 'warning'}"><c:out value = "${aktivitet.status}"/></td>
 		      <td><a href="<%= REDIGERAKTIVITET_URL%>?aktivitetId=${aktivitet.id}">Rediger</a></td>
+		      <td><a href="<%= SLETTAKTIVITET_URL%>?aktivitetId=${aktivitet.id}">Slett</a></td>
 	    	</tr>	  
 	     </c:forEach>
 	  </tbody>

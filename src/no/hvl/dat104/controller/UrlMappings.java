@@ -24,5 +24,7 @@ public abstract class UrlMappings {
 	public static final String LIVE_EVENT_URL = "liveevent";
 	public static final String VIS_EVENT_URL = "visevent";
 	public static final String MINEEVENTER_URL = "mineeventer";
+	public static final String SLETTEVENT_URL = "slettevent";
+	public static final String SLETTAKTIVITET_URL = "slettaktivitet";
 
 }
