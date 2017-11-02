@@ -86,7 +86,7 @@ public class LiveEventServlet extends HttpServlet {
 		}
 		
 		if(true) {
-			System.out.println("liveevent, denneevent i do post:" + denneEvent);
+			System.out.println("liveevent, denneevent i do post:" + denneEvent.getNavn());
 		}
 		/**
 		 * START-KNAPP

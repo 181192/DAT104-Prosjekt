@@ -48,6 +48,7 @@ function tegnDiagram() {
 	var button = document.getElementById('start-stopp');
 	var chartDiv = document.getElementById('chart_div');
 	var data = google.visualization.arrayToDataTable(dataArray);
+	
 
 	var classicOptions = {
 		width : 1400,
@@ -76,24 +77,23 @@ function tegnDiagram() {
 		colors : [ FARGE_SUR, FARGE_MIDDELS, FARGE_GLAD ]
 	};
 
-	function startHandeler() {
-		button.innerText = 'Stop';
-		button.onclick = stopHandeler;
-	}
-
-	function stopHandeler() {
-		button.innerText = 'Start';
-		button.onclick = startHandeler;
-	}
 
 	function drawClassicChart() {
 		var classicChart = new google.visualization.ColumnChart(chartDiv);
 		classicChart.draw(data, classicOptions);
-		startHandeler();
+		stopHandeler();
 	}
 
 	drawClassicChart();
 };
+
+
+
+function stopHandeler() {
+	var stoppModal2 = document.getElementById('stopp-knapp-modal');
+	button.innerText = 'Stopp';
+	console.log("stophandeler2: " + stoppModal2);
+}
 
 function daarligKnappHandeler() {
 	klargjortData[6][1] += 1;
