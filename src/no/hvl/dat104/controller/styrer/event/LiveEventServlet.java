@@ -12,9 +12,11 @@ import no.hvl.dat104.model.Kodeord;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.IKodeordEAO;
@@ -44,6 +46,18 @@ public class LiveEventServlet extends HttpServlet {
 		 * Send eventEAO i responsen. 
 		 * 
 		 * */
+		HttpSession session = request.getSession(false);
+		
+		//bedre test/kontroll må komme.
+		if(session != null) {
+			Event detteEvent = (Event)session.getAttribute(Attributter.LIVE_EVENT);
+			//
+			if(detteEvent != null) {
+				Kodeord kodeord = genererKodeord(detteEvent);
+				//kodeordEAO.leggTilKodeord(kodeord);
+				session.setAttribute(Attributter.KODEORD, kodeord);
+			}
+		}
 		
 		//Lager noen testdata og sender til jsp i requesten. 
 		List<Integer> dummyData = lagDummyListe(50, 20);
@@ -59,7 +73,21 @@ public class LiveEventServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("dopost i liveeventservlet...");
 		
+		//Må ha test for innlogging og gyldig session her. 
+		HttpSession session = request.getSession(false);
+		Event denneEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
+		//Forleng-knapp
+		Boolean test = false;
+		
+		if(test) {
+			System.out.println("forlengknapp");
+		}
+		
+		if(true) {
+			System.out.println("liveevent, denneevent i do post:" + denneEvent);
+		}
 		/**
 		 * START-KNAPP
 		 * 
@@ -131,6 +159,7 @@ public class LiveEventServlet extends HttpServlet {
     private Kodeord genererKodeord(Event e) {
     		Boolean unik = false;
     		Kodeord kodeord = new Kodeord();
+    		kodeord.setIdEvent(e);
     		Random rand = new Random();
     		while(!unik) {
     			kodeord.setKode(rand.nextInt((99999-10000)-1)+10000);

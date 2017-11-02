@@ -1,5 +1,6 @@
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
-<div class="ui menu">
+<div class="ui menu" id="nav-bar">
+		<div class="item"><h1 id="nav-textfelt"></h1></div>
 		<!-- HVIS BRUKE ER INNLOGGET. -->
 		<div class="right menu">
 		  <div class="item">
@@ -8,7 +9,7 @@
 		    </a>
 		  </div>
 		  <div class="item">
-		    <a href="<%=LIVE_EVENT_URL%>">
+		    <a href="<%=PRE_EVENT_URL%>">
 		      <div class="ui primary button">Pågående Event</div>
 		    </a>
 		  </div>

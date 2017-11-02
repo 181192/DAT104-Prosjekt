@@ -50,20 +50,21 @@ function tegnDiagram() {
 	var data = google.visualization.arrayToDataTable(dataArray);
 
 	var classicOptions = {
-		width : 1250,
+		width : 1400,
 		series : {
 			0 : {
 				targetAxisIndex : 0
 			}
 		// 1: {targetAxisIndex: 1}
 		},
-		title : 'Tilbakemeldinger',
+		//title : 'Tilbakemeldinger',
 		vAxes : {
 			// Adds titles to each axis.
-			0 : {
-				title : 'Antall'
-			}
+			//0 : {
+				//title : 'Antall'
+			//}
 		},
+		
 		hAxes : {
 			// Adds titles to each axis.
 			0 : {
@@ -71,13 +72,6 @@ function tegnDiagram() {
 			}
 		},
 		axes : {
-			y : {
-				distance : {
-					side : 'right',
-					label : 'Antall'
-				}
-			// Right y-axis.
-			}
 		},
 		colors : [ FARGE_SUR, FARGE_MIDDELS, FARGE_GLAD ]
 	};
@@ -116,3 +110,4 @@ function godKnappHandeler() {
 	klargjortData[6][3] += 1;
 	tegnDiagram();
 }
+

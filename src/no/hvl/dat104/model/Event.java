@@ -24,8 +24,7 @@ import javax.persistence.Table;
 @Entity(name = "Event")
 @Table(name = "event", schema = "db")
 public class Event {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -46,7 +45,7 @@ public class Event {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_aktivitet", referencedColumnName = "id")
 	private Aktivitet idAktivitet;
-	
+
 	@OneToMany(mappedBy = "idEvent", fetch = FetchType.LAZY)
 	private List<Tilbakemelding> tilbakemeldinger;
 
@@ -57,9 +56,8 @@ public class Event {
 	 * Tom konstruktor til Event
 	 */
 	public Event() {
-		
-	}
 
+	}
 
 	public String getNavn() {
 		return navn;
@@ -217,13 +215,10 @@ public class Event {
 
 	@Override
 	public String toString() {
-		return "Event [id=" + id + ", \nnavn=" + navn + ", \ntidFra=" + tidFra + ", \ntidTil=" + tidTil + ", \nfaktiskStart="
-				+ faktiskStart + ", \nfaktiskSlutt=" + faktiskSlutt + ", \nstatus=" + status + ", \nsted=" + sted
-				+ ", \nidAktivitet=" + idAktivitet + ", \ntilbakemeldinger=" + tilbakemeldinger + ", \nliveTilbakemeldinger="
-				+ liveTilbakemeldinger + "]";
+		return "Event [id=" + id + ", \nnavn=" + navn + ", \ntidFra=" + tidFra + ", \ntidTil=" + tidTil
+				+ ", \nfaktiskStart=" + faktiskStart + ", \nfaktiskSlutt=" + faktiskSlutt + ", \nstatus=" + status
+				+ ", \nsted=" + sted + ", \nidAktivitet=" + idAktivitet + ", \ntilbakemeldinger=" + tilbakemeldinger
+				+ ", \nliveTilbakemeldinger=" + liveTilbakemeldinger + "]";
 	}
-	
-	
-	
 
 }
