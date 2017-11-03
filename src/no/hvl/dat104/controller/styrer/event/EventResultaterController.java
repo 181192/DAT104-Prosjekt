@@ -24,8 +24,6 @@ public class EventResultaterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
     private IEventEAO iEventEAO;
-	@EJB
-	private ITilbakemeldingEAO iTilbakemeldingEao;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -33,11 +31,11 @@ public class EventResultaterController extends HttpServlet {
 		//Får tak i event id
 		Integer id = Integer.parseInt(request.getParameter("eventId"));
 		Event e = iEventEAO.finnEvent(id);
-		//Får tak i liste med tilbakemeldinger for eventet, deretter konverterer den til et format som kan brukes i grafene
-		List<Tilbakemelding> mellomLagretListe = iTilbakemeldingEao.alleTilbakemeldingene();
+//		//Får tak i liste med tilbakemeldinger for eventet, deretter konverterer den til et format som kan brukes i grafene
+//		List<Tilbakemelding> mellomLagretListe = iTilbakemeldingEao.alleTilbakemeldingene();
 		
 		//Må filtrere ut tilbakemeldingene...
-		List<FormatertTilbakemelding> formaterteTilbakemeldinger = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(mellomLagretListe);
+		List<FormatertTilbakemelding> formaterteTilbakemeldinger = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(e.getTilbakemeldinger());
 //		for(FormatertTilbakemelding t : formaterteTilbakemeldinger) {
 //			System.out.println(t.getTid() + "  -  " + t.getFornoyd() +"   " + t.getNoytral() + "      " + t.getMisfornoyd());
 //		}
