@@ -5,10 +5,21 @@
 <head>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="public/js/charts/eventResultater.js"></script>
+<script type="text/javascript">
+
+// Create our data table.
+var array = [ ['Tid', 'Fornoyd', 'Noytral', 'Misfornoyd'], 
+<c:forEach items="${requestScope.formaterteTilbakemeldinger}" var="t">
+	[new Date("${t.tid.toString()}"), ${t.fornoyd}, ${t.noytral}, ${t.misfornoyd}],
+</c:forEach>
+];
+
+</script>
 <c:set var = "a" scope = "request" value = "${aktivitet}"/>
 <c:set var = "e" scope = "request" value = "${event}"/>
 </head>
 <body>
+
 <h2>${a.navn}:</h2>
 <h1>Tilbakemeldinger for "${e.navn}":</h1>
 <div id="dashboard_div">
