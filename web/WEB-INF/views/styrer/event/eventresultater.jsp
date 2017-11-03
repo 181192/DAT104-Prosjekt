@@ -23,7 +23,6 @@ var array = [ ['Tid', 'Fornoyd', 'Noytral', 'Misfornoyd'],
 <h2>${a.navn}:</h2>
 <h1>Tilbakemeldinger for "${e.navn}":</h1>
   <div class="ui container">
-    <h1>Event resultater:</h1>
     <div id="chart_div"></div>
     <div id="filter_div"></div>
     <button class="ui blue basic button" id="byttKnapp" onclick="switchView()"><i class="bar chart icon"></i>Bytt graf</button>
