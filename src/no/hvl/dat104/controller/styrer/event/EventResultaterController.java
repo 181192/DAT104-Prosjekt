@@ -38,9 +38,9 @@ public class EventResultaterController extends HttpServlet {
 		
 		//Må filtrere ut tilbakemeldingene...
 		List<FormatertTilbakemelding> formaterteTilbakemeldinger = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(mellomLagretListe);
-		for(FormatertTilbakemelding t : formaterteTilbakemeldinger) {
-			System.out.println(t.getTid() + "  -  " + t.getFornoyd() +"   " + t.getNoytral() + "      " + t.getMisfornoyd());
-		}
+//		for(FormatertTilbakemelding t : formaterteTilbakemeldinger) {
+//			System.out.println(t.getTid() + "  -  " + t.getFornoyd() +"   " + t.getNoytral() + "      " + t.getMisfornoyd());
+//		}
 		//Attributter får verdiene sine tilsendt
 		request.setAttribute("aktivitet", e.getIdAktivitet());
 		request.setAttribute("event", e);
