@@ -8,14 +8,16 @@
 	<div class="ui form warning">
 	  <div class="field">
 	    <label>Kode-Ord</label>
-	    <input type="text" placeholder="1234" name="kode">
+	    <input type="text" placeholder="1234" name="kodeord">
 	  </div>
-	  <!-- <div class="ui warning message">
-	    <div class="header">Could you check something!</div>
-	    <ul class="list">
-	      <li>Det kodeordet er ikke gyldig.</li>
-	    </ul>
-	  </div> -->
+	  <c:if test="${feilmelding=='true'}">
+		  <div class="ui warning message">
+		    <div class="header">Dette gikk galt!</div>
+		    <ul class="list">
+		      <li>Det kodeordet er ikke gyldig.</li>
+		    </ul>
+		  </div>
+	  </c:if>
 	  <input type="submit" class="ui primary button" value="Delta Event">
 	</div>
 </form>
