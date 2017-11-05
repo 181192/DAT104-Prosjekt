@@ -1,5 +1,6 @@
 package no.hvl.dat104.dataaccess.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -8,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.model.Tilbakemelding;
 
 @Stateless
 public class EventEAO implements IEventEAO {
@@ -42,5 +44,12 @@ public class EventEAO implements IEventEAO {
 	public List<Event> alleEventer() {
 		List<Event> eventer = em.createQuery("SELECT e FROM Event e").getResultList();
 		return eventer;
+	}
+	
+	@Override
+	public List<Tilbakemelding> finnAlleTilbakemeldingerTilEvent(Integer id) {
+		List<Tilbakemelding> t = new ArrayList<>();
+		t.addAll(em.find(Event.class, id).getTilbakemeldinger());
+		return t;
 	}
 }

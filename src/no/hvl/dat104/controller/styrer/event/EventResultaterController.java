@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
-import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Tilbakemelding;
 import no.hvl.dat104.util.FormaterTilbakemeldingUtil;
@@ -23,27 +22,26 @@ import no.hvl.dat104.util.FormatertTilbakemelding;
 public class EventResultaterController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
-    private IEventEAO iEventEAO;
-	
+	private IEventEAO eventEAO;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		//Får tak i event id
+
+		// Får tak i event id
 		Integer id = Integer.parseInt(request.getParameter("eventId"));
-		Event e = iEventEAO.finnEvent(id);
-//		//Får tak i liste med tilbakemeldinger for eventet, deretter konverterer den til et format som kan brukes i grafene
-//		List<Tilbakemelding> mellomLagretListe = iTilbakemeldingEao.alleTilbakemeldingene();
-		
-		//Må filtrere ut tilbakemeldingene...
-		List<FormatertTilbakemelding> formaterteTilbakemeldinger = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(e.getTilbakemeldinger());
-//		for(FormatertTilbakemelding t : formaterteTilbakemeldinger) {
-//			System.out.println(t.getTid() + "  -  " + t.getFornoyd() +"   " + t.getNoytral() + "      " + t.getMisfornoyd());
-//		}
-		//Attributter får verdiene sine tilsendt
+		Event e = eventEAO.finnEvent(id);
+		List<Tilbakemelding> t = eventEAO.finnAlleTilbakemeldingerTilEvent(id);
+		// Får tak i liste med tilbakemeldinger for eventet, deretter konverterer den
+		// til et format som kan brukes i grafene
+		List<FormatertTilbakemelding> formaterteTilbakemeldinger = FormaterTilbakemeldingUtil
+				.formaterTilbakemeldinger(t);
+
+		// Attributter får verdiene sine tilsendt
 		request.setAttribute("aktivitet", e.getIdAktivitet());
 		request.setAttribute("event", e);
 		request.setAttribute("formaterteTilbakemeldinger", formaterteTilbakemeldinger);
-		request.getRequestDispatcher(JspMappings.EVENTRESULTATER_JSP).forward(request, response);//Midlertidlig graf -Fredrik
+		request.getRequestDispatcher(JspMappings.EVENTRESULTATER_JSP).forward(request, response);// Midlertidlig graf
+																									// -Fredrik
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)

@@ -3,6 +3,7 @@ package no.hvl.dat104.dataaccess;
 import java.util.List;
 
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.model.Tilbakemelding;
 
 public interface IEventEAO {
 
@@ -44,5 +45,14 @@ public interface IEventEAO {
 	 * @return Alle eventer
 	 */
 	public List<Event> alleEventer();
+
+	/**
+	 * Returnerer en liste med alle tilbakemeldingene til eventet
+	 * 
+	 * @param id
+	 *            Id til eventet
+	 * @return Liste med tilbakemeldinger
+	 */
+	public List<Tilbakemelding> finnAlleTilbakemeldingerTilEvent(Integer id);
 
 }
