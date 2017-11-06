@@ -4,7 +4,7 @@
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<style rel="stylesheet">
+<style>
 	.foo {
 	  width: 20px;
 	  height: 20px;
