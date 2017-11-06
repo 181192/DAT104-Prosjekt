@@ -1,6 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 <jsp:include page="../../../partials/header.jsp" />
+
+<fmt:parseDate value="${event.tidFra}" var="datoFra"
+                pattern="yyyy-MM-dd HH:mm:ss" />
+<fmt:formatDate value = "${datoFra}" var = "parsedDate" pattern = "dd-MM-yyyy" />
+<fmt:formatDate value = "${datoFra}" var = "parsedTimeFra" pattern = "hh-mm" />
+
+<fmt:parseDate value="${event.tidTil}" var="datoTil"
+                pattern="yyyy-MM-dd HH:mm:ss" />
+<fmt:formatDate value = "${datoTil}" var = "parsedTimeTil" pattern = "hh-mm" />
 
 <div class="ui container">
 	<h3>Rediger event</h3>
@@ -22,13 +32,13 @@
 <!-- Endre tid og dato -->
 
  <div class="field" id="datoen">
- <label>Dato:</label><input type="text" name="dato" id="datepicker" value="${dato}"></div>
+ <label>Dato:</label><input type="text" name="dato" id="datepicker" value="${parsedDate}"></div>
     <div class="two fields">
       <div class="field">
-        <label>Fra:</label><input class="timepicker" type="text" name="fra" ${fra eq null ? 'placeholder="hh.mm"' : fra}>
+        <label>Fra:</label><input class="timepicker" type="text" name="fra" value="${parsedTimeFra}" placeholder="hh:mm">
       </div>
       <div class="field">
-        <label>Til:</label><input type="text" class="timepicker" name="til" ${til eq null ? 'placeholder="hh.mm"' : til}>
+        <label>Til:</label><input class="timepicker" type="text" name="til" value="${parsedTimeTil}" placeholder="hh:mm">
       </div>
     </div>
 
