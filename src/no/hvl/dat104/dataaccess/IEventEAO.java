@@ -1,5 +1,6 @@
 package no.hvl.dat104.dataaccess;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import no.hvl.dat104.model.Aktivitet;
@@ -84,5 +85,16 @@ public interface IEventEAO {
 	 * @return Aktiviteten til eventet
 	 */
 	public Aktivitet finnAktivitetTilEvent(Integer id);
-
+	
+	/**
+	 * Endrer eventet basert på parametere
+	 * @param id
+	 * @param navn
+	 * @param beskrivelse
+	 * @param tidFra
+	 * @param tidTil
+	 * @param status
+	 * @param sted
+	 */
+	public void endreParametereTilEvent(Integer id, String navn, String beskrivelse, Timestamp tidFra, Timestamp tidTil, String status, String sted);
 }
