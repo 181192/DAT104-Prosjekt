@@ -27,7 +27,6 @@ public class OpprettBrukerController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
 		request.getRequestDispatcher(JspMappings.OPPRETTBRUKER_JSP).forward(request, response);
 	}
 
@@ -41,16 +40,14 @@ public class OpprettBrukerController extends HttpServlet {
 			bruker.setEtternavn(request.getParameter("etternavn"));
 			bruker.setMail(request.getParameter("mail"));
 			bruker.setPassord(request.getParameter("passord"));
-			bruker.setIdRolle(rolleEAO.finnRolle(2));
+			bruker.setIdRolle(rolleEAO.finnRolle(0));
 			//Må endres senere
 			bruker.setSalt("testSalt");
 			brukerEAO.leggTilBruker(bruker);
-			request.getSession().removeAttribute("skjema");
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		} else {
-			skjema.settOppFeilmeldinger();
-			request.getSession().setAttribute("skjema", skjema);
-			response.sendRedirect(UrlMappings.OPPRETTBRUKER_URL);
+			skjema.settOppFeilmeldinger(request);
+			request.getRequestDispatcher(JspMappings.OPPRETTBRUKER_JSP).forward(request, response);
 		}
 	}
 }

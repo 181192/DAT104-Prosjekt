@@ -16,8 +16,6 @@ public class BrukerValidator {
     private String etternavnFeilmelding;
     private String mailFeilmelding;
     private String passordFeilmelding;
-    private String saltFeilmelding;
-    private String idRolleFeilmelding;
     
     public BrukerValidator() {
     	
@@ -50,41 +48,37 @@ public class BrukerValidator {
     	return ValidatorUtil.isNotNull0(passord) && 
     			ValidatorUtil.isValidString(passord);
     }
-    private boolean erSaltGyldig() {
-    	return ValidatorUtil.isNotNull0(salt);
-    }
-    private boolean erIdRolleGyldig() {
-    	return ValidatorUtil.isNotNull0(idRolle);
-    }
+
     public boolean erAlleDataGyldig() {
-    	return erFornavnGyldig()&&erEtternavnGyldig()&&erMailGyldig()&&erPassordGyldig()&&erSaltGyldig()&&erIdRolleGyldig();
+    	return erFornavnGyldig()&&erEtternavnGyldig()&&erMailGyldig()&&erPassordGyldig();
     }
-    public void settOppFeilmeldinger() {
+    public void settOppFeilmeldinger(HttpServletRequest request) {
     	
     	if (!erFornavnGyldig()) {
-    		fornavn = "";
-    		fornavnFeilmelding = "Fornavn er ikke gyldig!";
+    		request.setAttribute("fornavn", "");
+    		request.setAttribute("fornavn_feil", "Fornavn er ikke gyldig!");
+    	} else {
+    		request.setAttribute("fornavn", fornavn);
     	}
     	if (!erEtternavnGyldig()) {
-    		etternavn = "";
-    		etternavnFeilmelding = "Etternavn er ikke gyldig!";
+    		request.setAttribute("etteravn", "");
+    		request.setAttribute("etternavn_feil", "Etternavn er ikke gyldig!");
+    	} else {
+    		request.setAttribute("etternavn", etternavn);
     	}
     	if (!erMailGyldig()) {
-    		mail = "";
-    		mailFeilmelding = "Mailadressen er ikke gyldig!";
+    		request.setAttribute("mail", "");
+    		request.setAttribute("mail_feil", "Mailadressen er ikke gyldig!");
+    	} else {
+    		request.setAttribute("mail", mail);
     	}
     	if (!erPassordGyldig()) {
-    		passord = "";
-    		passordFeilmelding = "Passord er ikke gyldig!";
+    		request.setAttribute("passord", "");
+    		request.setAttribute("passord_feil", "Passord er ikke gyldig!");
+    	} else {
+    		request.setAttribute("passord", passord);
     	}
-    	if (!erSaltGyldig()) {
-    		salt = "";
-    		saltFeilmelding = "Salt er ikke gyldig!";
-    	}
-    	if (!erIdRolleGyldig()) {
-    		idRolle = "";
-    		idRolleFeilmelding = "idRolle er ikke gyldig!";
-    	}
+
     }
 
 	public String getFornavn() {
@@ -167,21 +161,6 @@ public class BrukerValidator {
 		this.passordFeilmelding = passordFeilmelding;
 	}
 
-	public String getSaltFeilmelding() {
-		return saltFeilmelding;
-	}
-
-	public void setSaltFeilmelding(String saltFeilmelding) {
-		this.saltFeilmelding = saltFeilmelding;
-	}
-	
-	public String getIdRolleFeilmelding() {
-		return idRolleFeilmelding;
-	}
-
-	public void setIdRolleFeilmelding(String idRolleFeilmelding) {
-		this.idRolleFeilmelding = idRolleFeilmelding;
-	}
     
     
 }

@@ -4,11 +4,13 @@
 <div class="ui container">
 	<h1>Opprett en ny bruker</h1>
 	<form method="post" action="<%=OPPRETTBRUKER_URL %>" class="ui form">
-		 <div class="field"><label>Fornavn:</label> <input type="text" name="foravn" placeholder="Fornavn">
-		 <p><font color="red">${fornavn_feil}</font></p></div>
-	    <div class="field"><label>Eternavn:</label><input type="text" name="etternavn" id="datepicker" placeholder="Etternavn"></div>
-	    <div class="field"> <label>Mail:</label><input class="timepicker" type="text" name="mail" placeholder="Mailadresse"></div>
-      <div class="field"><label>Passord:</label><input type="password" class="timepicker" name="passord" placeholder="Passord"></div>
+		<div class="field"><label>Fornavn:</label> <input type="text" name="fornavn" value="${fornavn}" placeholder="Fornavn">
+		<p><font color="red">${fornavn_feil}</font></p></div>
+	    <div class="field"><label>Eternavn:</label><input type="text" name="etternavn" value="${etternavn}" id="datepicker" placeholder="Etternavn"></div>
+	    <p><font color="red">${etternavn_feil}</font></p>
+	    <div class="field"> <label>Mail:</label><input class="timepicker" type="text" name="mail" value="${mail}" placeholder="Mailadresse"></div>
+      	<p><font color="red">${mail_feil}</font></p>
+      	<div class="field"><label>Passord:</label><input type="password" class="timepicker" name="passord" value="${passord}" placeholder="Passord"></div>
 	  
 	  <button class="ui button">Opprett bruker</button>
 	</form>
