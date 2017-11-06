@@ -29,12 +29,21 @@ public class EventResultaterController extends HttpServlet {
 
 		// Får tak i event id
 		Integer id = Integer.parseInt(request.getParameter("eventId"));
-		Event e = eventEAO.finnEvent(id);
-		List<Tilbakemelding> t = eventEAO.finnAlleTilbakemeldingerTilEvent(id);
+		Event e = null;
+		e = eventEAO.finnEvent(id);
+		List<Tilbakemelding> t = null;
+		t = eventEAO.finnAlleTilbakemeldingerTilEvent(id);
 		// Får tak i liste med tilbakemeldinger for eventet, deretter konverterer den
 		// til et format som kan brukes i grafene
-		List<FormatertTilbakemelding> formaterteTilbakemeldinger = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(t);
-		
+		List<FormatertTilbakemelding> formaterteTilbakemeldinger = null;
+		if(!t.isEmpty()) {
+			formaterteTilbakemeldinger = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(t);
+			for(FormatertTilbakemelding ft : formaterteTilbakemeldinger) {
+				System.out.println("Debug: "+ft.toString());
+			}
+		} else {
+			System.out.println("Listen er tom.");
+		}
 		// Attributter får verdiene sine tilsendt
 		request.setAttribute("aktivitet", e.getIdAktivitet());
 		request.setAttribute("event", e);
