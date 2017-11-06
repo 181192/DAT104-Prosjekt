@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class DatoUtil {
 	/**
-	 * Foraterer og konkatinerer to strenger til en timestamp
+	 * Formaterer og konkatinerer to strenger til en timestamp
 	 * @param dato
 	 * @param klokkeslett
 	 * @return sql.Timestamp
@@ -20,6 +20,7 @@ public class DatoUtil {
         java.sql.Timestamp sq = new java.sql.Timestamp(startDato.getTime());
         return sq;
     }
+	
 	/**
 	 * Formaterer en timestamp til en dato.
 	 * @param timestamp
@@ -84,5 +85,18 @@ public class DatoUtil {
     	String nydato = String.join(".", arr);
     	return nydato;
     }
-
+    
+    /**
+	 * Formaterer og konkatinerer to strenger til en timestamp, basert på at dato har bindestreker
+	 * @param dato
+	 * @param klokkeslett
+	 * @return sql.Timestamp
+	 * @throws ParseException
+	 */
+	public static Timestamp parseBasertPaaBindestrek(String dato, String klokkeslett) throws ParseException {
+        DateFormat df = new SimpleDateFormat("dd-mm-yyyy HH:mm");
+        java.util.Date startDato= df.parse(dato + " " + klokkeslett);
+        java.sql.Timestamp sq = new java.sql.Timestamp(startDato.getTime());
+        return sq;
+    }
 }
