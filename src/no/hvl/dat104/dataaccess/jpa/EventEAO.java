@@ -52,4 +52,11 @@ public class EventEAO implements IEventEAO {
 		t.addAll(em.find(Event.class, id).getTilbakemeldinger());
 		return t;
 	}
-}
+	
+	@Override
+	public void endreStatusPaaEvent(Integer id, String status) {
+		Event e = finnEvent(id);
+		e.setStatus(status);
+		em.merge(e);
+	}
+} 

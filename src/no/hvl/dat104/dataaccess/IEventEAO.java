@@ -55,4 +55,11 @@ public interface IEventEAO {
 	 */
 	public List<Tilbakemelding> finnAlleTilbakemeldingerTilEvent(Integer id);
 
+	/**
+	 * Endre status på event
+	 * @param id Id til event
+	 * @param status Statusen som skal endres
+	 */
+	public void endreStatusPaaEvent(Integer id, String status);
+
 }

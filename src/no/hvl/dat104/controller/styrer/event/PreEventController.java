@@ -27,7 +27,7 @@ public class PreEventController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@EJB
-	IEventEAO ieventEAO;
+	IEventEAO eventEAO;
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -41,10 +41,8 @@ public class PreEventController extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		
 		//Må finne eventet som skal startes på en eller annen måte. 
-		Event ev = ieventEAO.finnEvent(20);
-		
-		ev.setStatus(Status.PLANLAGT);
-		ieventEAO.oppdaterEvent(ev);
+		Event ev = eventEAO.finnEvent(20);
+		eventEAO.endreStatusPaaEvent(ev.getId(), Status.PLANLAGT);
 		
 		System.out.println("eventStatus: " + ev.getStatus());
 		
