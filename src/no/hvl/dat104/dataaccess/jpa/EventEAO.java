@@ -1,5 +1,6 @@
 package no.hvl.dat104.dataaccess.jpa;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,5 +71,20 @@ public class EventEAO implements IEventEAO {
 	@Override
 	public Aktivitet finnAktivitetTilEvent(Integer id) {
 		return (Aktivitet) em.createQuery("SELECT a FROM Aktivitet a, Event e WHERE a.id = e.idAktivitet AND e.id=" + id).getSingleResult();
+	}
+
+	@Override
+	public void endreParametereTilEvent(Integer id, String navn, String beskrivelse, Timestamp tidFra, Timestamp tidTil,
+			String status, String sted) {
+		
+		Event e = finnEvent(id);
+		e.setNavn(navn);
+		e.setBeskrivelse(beskrivelse);
+		e.setTidFra(tidFra);
+		e.setTidTil(tidTil);
+		e.setStatus(status);
+		e.setSted(sted);
+		
+		em.merge(e);
 	}
 } 
