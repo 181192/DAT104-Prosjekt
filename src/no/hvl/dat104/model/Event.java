@@ -30,7 +30,7 @@ public class Event {
 	private Integer id;
 
 	private String navn;
-
+	private String beskrivelse;
 	@Column(name = "tid_fra")
 	private Timestamp tidFra;
 	@Column(name = "tid_til")
@@ -181,6 +181,21 @@ public class Event {
 	 */
 	public Integer getId() {
 		return id;
+	}
+
+	/**
+	 * @return the beskrivelse
+	 */
+	public String getBeskrivelse() {
+		return beskrivelse;
+	}
+
+	/**
+	 * @param beskrivelse
+	 *            the beskrivelse to set
+	 */
+	public void setBeskrivelse(String beskrivelse) {
+		this.beskrivelse = beskrivelse;
 	}
 
 	/**
