@@ -67,4 +67,8 @@ public class FormatertTilbakemelding {
 	public void setMisfornoyd(Integer misfornoyd) {
 		this.misfornoyd = misfornoyd;
 	}
+	
+	public String toString() {
+		return ("Date: " + this.tid.toString() + " Fornøyd: " + this.fornoyd + " Nøytral: " + this.noytral + " Misfornøyd" + this.misfornoyd);
+	}
 }
