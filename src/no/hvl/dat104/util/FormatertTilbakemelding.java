@@ -68,6 +68,9 @@ public class FormatertTilbakemelding {
 		this.misfornoyd = misfornoyd;
 	}
 	
+	/**
+	 * Returnerer en streng med tid, antall fornøyd, antall nøytral og antall misfornøyde for den formaterte tilbakemeldingsobjektet
+	 */
 	public String toString() {
 		return ("Date: " + this.tid.toString() + " Fornøyd: " + this.fornoyd + " Nøytral: " + this.noytral + " Misfornøyd" + this.misfornoyd);
 	}
