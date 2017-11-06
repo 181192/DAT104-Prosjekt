@@ -69,12 +69,11 @@ public class AktivitetEAO implements IAktivitetEAO {
 		a.setIdBruker(bruker);
 		em.merge(a);
 	}
-	
+
 	@Override
 	public List<Event> finnAlleEventerTilAktivitet(Integer id) {
 		List<Event> e = new ArrayList<>();
 		e.addAll(em.find(Aktivitet.class, id).getEventer());
 		return e;
 	}
-
 }

@@ -2,6 +2,7 @@ package no.hvl.dat104.dataaccess;
 
 import java.util.List;
 
+import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
 import no.hvl.dat104.model.Tilbakemelding;
@@ -74,5 +75,14 @@ public interface IEventEAO {
 	 * @return Eventet
 	 */
 	public Event finnEventBasertPaaKodeord(Kodeord k);
+
+	/**
+	 * Finner aktiviteten til eventet
+	 * 
+	 * @param id
+	 *            Id til event
+	 * @return Aktiviteten til eventet
+	 */
+	public Aktivitet finnAktivitetTilEvent(Integer id);
 
 }

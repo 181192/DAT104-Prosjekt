@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import no.hvl.dat104.dataaccess.IEventEAO;
+import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
 import no.hvl.dat104.model.Tilbakemelding;
@@ -64,5 +65,10 @@ public class EventEAO implements IEventEAO {
 	@Override
 	public Event finnEventBasertPaaKodeord(Kodeord k) {
 		return (Event) em.createQuery("SELECT e FROM Event e, Kodeord k WHERE e = k.idEvent AND k.kode="+k.getKode()).getSingleResult();
+	}
+	
+	@Override
+	public Aktivitet finnAktivitetTilEvent(Integer id) {
+		return (Aktivitet) em.createQuery("SELECT a FROM Aktivitet a, Event e WHERE a.id = e.idAktivitet AND e.id=" + id).getSingleResult();
 	}
 } 
