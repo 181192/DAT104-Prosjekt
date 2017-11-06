@@ -6,22 +6,22 @@
 	<!-- HVIS BRUKE ER INNLOGGET. -->
 	<div class="right menu">
 		<div class="item">
-			<a class="ui primary button" href="<%=LANDING_STYRER_URL%>">
+			<a class="ui teal button" href="<%=LANDING_STYRER_URL%>">
 				Dashbord </a>
 		</div>
 		<div class="item">
-			<a class="ui primary button" href="<%=PRE_EVENT_URL%>"> Pågående
+			<a class="ui teal button" href="<%=PRE_EVENT_URL%>"> Pågående
 				Event </a>
 		</div>
 		<div class="item">
-			<a class="ui primary button" href="<%=MINEAKTIVITETER_URL%>">
+			<a class="ui teal button" href="<%=MINEAKTIVITETER_URL%>">
 				Mine Aktiviteter </a>
 		</div>
 		<div class="item">
-			<button class="ui button">Innlogget Som: "Atle"</button>
+			<button class="ui teal basic button">Innlogget Som: Atle</button>
 		</div>
 		<div class="item">
-			<button class="ui button">loggut</button>
+			<button class="ui teal basic button">loggut</button>
 		</div>
 	</div>
 	<!-- HVIS IKKE INNLOGGET VIS LOGIN REGISTRER -->
