@@ -32,9 +32,14 @@ public class Aktivitet {
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "id_bruker", referencedColumnName = "id")
 	private Bruker idBruker;
-
-	@OneToMany(mappedBy = "idAktivitet")
+	
+	//Ny 
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idAktivitet")
 	private List<Event> eventer;
+	
+	//Gammel (i tilfelle noe går galt)
+	/*	@OneToMany(mappedBy = "idAktivitet")
+	private List<Event> eventer;*/
 
 	/**
 	 * Tom kontruktor for Aktivitet
