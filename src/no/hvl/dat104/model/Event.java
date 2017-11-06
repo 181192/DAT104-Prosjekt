@@ -3,7 +3,6 @@ package no.hvl.dat104.model;
 import java.sql.Timestamp;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -41,11 +40,18 @@ public class Event {
 	private Timestamp faktiskSlutt;
 	private String status;
 	private String sted;
-
-	@ManyToOne(cascade = CascadeType.ALL)
+	
+	//Ny
+	@ManyToOne
 	@JoinColumn(name = "id_aktivitet", referencedColumnName = "id")
 	private Aktivitet idAktivitet;
-
+	
+	//Gammel (i tilfelle noe går galt)
+	/*	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id_aktivitet", referencedColumnName = "id")
+	private Aktivitet idAktivitet;*/
+	
+	
 	@OneToMany(mappedBy = "idEvent", fetch = FetchType.LAZY)
 	private List<Tilbakemelding> tilbakemeldinger;
 
