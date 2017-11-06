@@ -1,29 +1,55 @@
 package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
+
+import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.UrlMappings;
+import no.hvl.dat104.dataaccess.IEventEAO;
+import no.hvl.dat104.model.Event;
+import no.hvl.dat104.util.FlashUtil;
+import no.hvl.dat104.util.ValidatorUtil;
+
 /**
  * Servlet implementation class SlettEventController
  */
-@WebServlet("/SlettEventController")
 public class SlettEventController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@EJB
+	private IEventEAO eventEAO;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String eventId = ValidatorUtil.escapeHtml(request.getParameter("eventId"));
+		System.out.println("eventid " + eventId);
+
+		if (ValidatorUtil.isNotNull0(eventId)) {
+			Integer id = Integer.parseInt(eventId);
+			Event e = eventEAO.finnEvent(id);
+			if (e != null) {
+				System.out.println(e.getNavn());
+				eventEAO.slettEvent(e);
+				FlashUtil.Flash(request, "success", "Eventet " + e.getNavn() + " er slettet!");
+				response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+			} else {
+				System.out.println("den er tom");
+				FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
+				response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+			}
+		} else {
+			FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
+			response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+		}
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

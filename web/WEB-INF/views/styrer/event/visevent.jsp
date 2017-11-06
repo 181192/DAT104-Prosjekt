@@ -24,7 +24,7 @@
 	      <td>${event.sted}</td>
 	      <td class="selectable" id="rediger">
 	      	<p class="aktivitet-link">Rediger<p>
-		    <form id="redigerForm" action="<%= REDIGEREVENT_URL%>?eventId=${event.id}" method="post">
+		    <form id="redigerForm" action="<%= REDIGEREVENT_URL%>" method="get">
 		      <input type="hidden" value="${event.id}" name="eventId">
 		    </form>
 		  </td>
