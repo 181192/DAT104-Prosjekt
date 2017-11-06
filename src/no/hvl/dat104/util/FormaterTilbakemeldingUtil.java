@@ -26,7 +26,6 @@ public class FormaterTilbakemeldingUtil {
 		if (!liste.isEmpty()) {
 			for (Tilbakemelding tilbakemelding : liste) {
 				if (!tilbakemeldingMedSammeTidsStempelEksisterer(tilbakemelding.getTid())) {
-					System.out.println("Bra");
 					FormatertTilbakemelding tilbakemeldingFormatert = new FormatertTilbakemelding();
 					konverterStemmeOgInkrementerTilbakemelding(tilbakemeldingFormatert, tilbakemelding.getStemme());
 					tilbakemeldingFormatert.setTid(tilbakemelding.getTid());
@@ -35,11 +34,10 @@ public class FormaterTilbakemeldingUtil {
 					finnTilbakemeldingMedSammeTidOgLeggTilStemme(tilbakemelding.getTid(), tilbakemelding.getStemme());
 				}
 			}
-			sorterTilbakemeldingere();
+			sorterTilbakemeldingene();
 			return formaterteTilbakemeldinger;
 		} else {
-			System.out.println("Hmm?");
-			formaterteTilbakemeldinger.add(new FormatertTilbakemelding(0, 0, 0));
+			formaterteTilbakemeldinger = null;
 			return formaterteTilbakemeldinger;
 		}
 	}
@@ -47,7 +45,7 @@ public class FormaterTilbakemeldingUtil {
 	/**
 	 * Sorterer listen med formaterte tilbakemeldinger etter dato.
 	 */
-	private static void sorterTilbakemeldingere() {
+	private static void sorterTilbakemeldingene() {
 		Collections.sort(formaterteTilbakemeldinger, new Comparator<FormatertTilbakemelding>(){
 			   @Override
 			   public int compare(final FormatertTilbakemelding ftb1, FormatertTilbakemelding ftb2) {
