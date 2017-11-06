@@ -14,7 +14,7 @@
 		  <div class="ui warning message">
 		    <div class="header">Dette gikk galt!</div>
 		    <ul class="list">
-		      <li>Det kodeordet er ikke gyldig.</li>
+		      <li>det kodeordet er ikke gyldig.</li>
 		    </ul>
 		  </div>
 	  </c:if>

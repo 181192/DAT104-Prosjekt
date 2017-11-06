@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.util.SHA;
 
 /**
  * Servlet implementation class OpprettBrukerController
@@ -37,10 +38,11 @@ public class OpprettBrukerController extends HttpServlet {
 			bruker.setEtternavn(request.getParameter("etternavn"));
 			bruker.setMail(request.getParameter("mail"));
 			bruker.setPassord(request.getParameter("passord"));
+			//Må endres senere
+			bruker.setSalt("testSalt");
 			brukerEAO.leggTilBruker(bruker);
 			request.getSession().removeAttribute("skjema");
 			response.sendRedirect(LOGGINN_URL);
 		}
 	}
-
 }
