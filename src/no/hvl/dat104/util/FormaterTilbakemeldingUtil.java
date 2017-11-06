@@ -44,6 +44,9 @@ public class FormaterTilbakemeldingUtil {
 		}
 	}
 	
+	/**
+	 * Sorterer listen med formaterte tilbakemeldinger etter dato.
+	 */
 	private static void sorterTilbakemeldingere() {
 		Collections.sort(formaterteTilbakemeldinger, new Comparator<FormatertTilbakemelding>(){
 			   @Override
