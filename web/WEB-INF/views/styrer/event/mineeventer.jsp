@@ -6,6 +6,14 @@
 <c:set var="AVSLUTTET" value="<%=AVSLUTTET%>"></c:set>
 <div class="ui container">
 	<h3>${aktivitet.navn} - Eventer:</h3>
+	<c:if test="${flash == 'success'}">
+		<p style="color: green;">${melding}</p>
+		<c:remove var="flash" scope="session" />
+	</c:if>
+	<c:if test="${flash == 'error'}">
+		<p style="color: red;">${melding}</p>
+		<c:remove var="flash" scope="session" />
+	</c:if>
 	<table class="ui fixed single line celled table">
 	  <thead>
 	    <tr><th>Navn</th>

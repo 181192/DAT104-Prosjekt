@@ -8,12 +8,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
+import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.ValidatorUtil;
 
 /**
@@ -24,15 +27,27 @@ public class LagAktivitetController extends HttpServlet {
 
 	@EJB
 	private IBrukerEAO brukerEAO;
+	@EJB
+	private IAktivitetEAO aktivitetEAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Bruker b = brukerEAO.finnBruker(2);
-		Iterator<Aktivitet> i = b.getAktiviteter().iterator();
-		while(i.hasNext()) {
-			System.out.println(i.next());
+		String aktivitetsId = request.getParameter("aktivitetId");
+		if (ValidatorUtil.isNotNull0(aktivitetsId)) {
+			Integer id = Integer.parseInt(aktivitetsId);
+			Aktivitet a = aktivitetEAO.finnAktivitet(id);
+			if (a != null) {
+				HttpSession mySession = request.getSession();
+				mySession.setAttribute("aktivitet", a);
+				request.getRequestDispatcher(JspMappings.REDIGERAKTIVITET_JSP).forward(request, response);
+			} else {
+				response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+				FlashUtil.Flash(request, "error", "Beklager, aktiviteten eksisterer ikke");
+			}
+		} else {
+			response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+			FlashUtil.Flash(request, "error", "Beklager, aktiviteten eksisterer ikke");
 		}
-		request.getRequestDispatcher(JspMappings.LAGAKTIVITET_JSP).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
