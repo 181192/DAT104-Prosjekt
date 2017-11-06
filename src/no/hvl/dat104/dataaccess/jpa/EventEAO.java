@@ -9,6 +9,7 @@ import javax.persistence.PersistenceContext;
 
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.model.Kodeord;
 import no.hvl.dat104.model.Tilbakemelding;
 
 @Stateless
@@ -58,5 +59,10 @@ public class EventEAO implements IEventEAO {
 		Event e = finnEvent(id);
 		e.setStatus(status);
 		em.merge(e);
+	}
+	
+	@Override
+	public Event finnEventBasertPaaKodeord(Kodeord k) {
+		return (Event) em.createQuery("SELECT e FROM Event e, Kodeord k WHERE e = k.idEvent AND k.kode="+k.getKode()).getSingleResult();
 	}
 } 

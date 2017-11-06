@@ -65,5 +65,10 @@ public class KodeordEAO implements IKodeordEAO {
 		   Query query = em.createQuery( "Select Kodeord from Kodeord kd where kd.idEvent.id = " + event.getId() );
 		   return (Kodeord) query.getSingleResult();
 	}
+	
+	@Override
+	public Kodeord finnKodeordBasertPaaKode(Integer kode) {
+		return (Kodeord) em.createQuery("SELECT k FROM Kodeord k WHERE k.kode =" + kode).getSingleResult();
+	}
 
 }

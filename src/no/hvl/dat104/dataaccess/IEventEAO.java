@@ -3,6 +3,7 @@ package no.hvl.dat104.dataaccess;
 import java.util.List;
 
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.model.Kodeord;
 import no.hvl.dat104.model.Tilbakemelding;
 
 public interface IEventEAO {
@@ -57,9 +58,21 @@ public interface IEventEAO {
 
 	/**
 	 * Endre status på event
-	 * @param id Id til event
-	 * @param status Statusen som skal endres
+	 * 
+	 * @param id
+	 *            Id til event
+	 * @param status
+	 *            Statusen som skal endres
 	 */
 	public void endreStatusPaaEvent(Integer id, String status);
+
+	/**
+	 * Finner eventet basert på kodeordet
+	 * 
+	 * @param k
+	 *            Kodeord
+	 * @return Eventet
+	 */
+	public Event finnEventBasertPaaKodeord(Kodeord k);
 
 }

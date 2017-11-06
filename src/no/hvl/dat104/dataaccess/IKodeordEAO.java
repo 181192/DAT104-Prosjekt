@@ -55,7 +55,7 @@ public interface IKodeordEAO {
 	 *            Kode som skal endres
 	 */
 	public void endreKodePaaKodeord(Integer id, Integer kode);
-	
+
 	/**
 	 * Sjekk at kodeordet du har generert er unikt
 	 * 
@@ -65,9 +65,9 @@ public interface IKodeordEAO {
 	 * 
 	 */
 	public Boolean sjekkOmKodeordErUnik(Kodeord kode);
-	
+
 	/**
-	 * Finner kodeordet til event. 
+	 * Finner kodeordet til event.
 	 * 
 	 * @param event
 	 * 
@@ -75,4 +75,13 @@ public interface IKodeordEAO {
 	 * 
 	 */
 	public Kodeord finnKodeordTilEvent(Event event);
+
+	/**
+	 * Finner kodeord basert på kode
+	 * 
+	 * @param kode
+	 *            Kode
+	 * @return Kodeord
+	 */
+	public Kodeord finnKodeordBasertPaaKode(Integer kode);
 }
