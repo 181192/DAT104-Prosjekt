@@ -35,10 +35,6 @@ public class EventResultaterController extends HttpServlet {
 		// til et format som kan brukes i grafene
 		List<FormatertTilbakemelding> formaterteTilbakemeldinger = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(t);
 		
-		for(FormatertTilbakemelding ft : formaterteTilbakemeldinger) {
-			System.out.println(ft.toString());
-		}
-		
 		// Attributter får verdiene sine tilsendt
 		request.setAttribute("aktivitet", e.getIdAktivitet());
 		request.setAttribute("event", e);
