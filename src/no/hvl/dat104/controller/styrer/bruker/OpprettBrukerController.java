@@ -14,13 +14,12 @@ import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.dataaccess.IRolleEAO;
 import no.hvl.dat104.model.Bruker;
 
-
 /**
  * Servlet implementation class OpprettBrukerController
  */
 public class OpprettBrukerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@EJB
 	private IBrukerEAO brukerEAO;
 	private IRolleEAO rolleEAO;
@@ -32,7 +31,7 @@ public class OpprettBrukerController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		BrukerValidator skjema = new BrukerValidator(request);
 		if (skjema.erAlleDataGyldig()) {
 			Bruker bruker = new Bruker();
@@ -41,13 +40,14 @@ public class OpprettBrukerController extends HttpServlet {
 			bruker.setMail(request.getParameter("mail"));
 			bruker.setPassord(request.getParameter("passord"));
 			bruker.setIdRolle(rolleEAO.finnRolle(0));
-			//Må endres senere
+			// Må endres senere
 			bruker.setSalt("testSalt");
 			brukerEAO.leggTilBruker(bruker);
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		} else {
 			skjema.settOppFeilmeldinger(request);
-			request.getRequestDispatcher(JspMappings.OPPRETTBRUKER_JSP).forward(request, response);
+			request.getSession().setAttribute("skjema", skjema);
+			response.sendRedirect(UrlMappings.OPPRETTBRUKER_URL);
 		}
 	}
 }
