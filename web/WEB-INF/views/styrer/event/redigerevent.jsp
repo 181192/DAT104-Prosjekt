@@ -6,11 +6,11 @@
 <fmt:parseDate value="${event.tidFra}" var="datoFra"
                 pattern="yyyy-MM-dd HH:mm:ss" />
 <fmt:formatDate value = "${datoFra}" var = "parsedDate" pattern = "dd-MM-yyyy" />
-<fmt:formatDate value = "${datoFra}" var = "parsedTimeFra" pattern = "hh-mm" />
+<fmt:formatDate value = "${datoFra}" var = "parsedTimeFra" pattern = "HH-mm" />
 
 <fmt:parseDate value="${event.tidTil}" var="datoTil"
                 pattern="yyyy-MM-dd HH:mm:ss" />
-<fmt:formatDate value = "${datoTil}" var = "parsedTimeTil" pattern = "hh-mm" />
+<fmt:formatDate value = "${datoTil}" var = "parsedTimeTil" pattern = "HH-mm" />
 
 <div class="ui container">
 	<h3>Rediger event</h3>
@@ -18,6 +18,10 @@
 
 
 	<form class="ui form" method="post" action="<%=REDIGEREVENT_URL%>">
+		
+		<!-- Ta vare på event ID -->
+		<input type="hidden" name="id" value="${event.id}">
+		
 		<!-- Endre navn på event -->
 		<div class="field">
 			<label>Event</label> <input type="text" name="navn"
