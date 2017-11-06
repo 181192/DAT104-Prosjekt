@@ -4,7 +4,7 @@
 <html>
 <head>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="public/js/charts/eventResultater.js"></script>
+<script src="public/js/charts/eventResultaterChart.js"></script>
 <script type="text/javascript">
 <c:set var = "a" scope = "request" value = "${aktivitet}"/>
 <c:set var = "e" scope = "request" value = "${event}"/>
