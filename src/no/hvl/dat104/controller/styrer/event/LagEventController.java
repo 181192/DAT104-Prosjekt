@@ -56,6 +56,8 @@ public class LagEventController extends HttpServlet {
             response.sendRedirect("skjema");
         }
     }
+	
+	
 	public Event lagEvent(HttpServletRequest request, EventValidator skjema) {
 		Event e = new Event();
     	e.setNavn(skjema.getTittel());

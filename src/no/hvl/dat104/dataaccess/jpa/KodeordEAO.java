@@ -19,7 +19,6 @@ public class KodeordEAO implements IKodeordEAO {
 	@Override
 	public void leggTilKodeord(Kodeord k) {
 		em.persist(k);
-
 	}
 
 	@Override
