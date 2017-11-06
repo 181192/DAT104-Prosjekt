@@ -64,11 +64,18 @@ public class RedigerEventController extends HttpServlet {
 		Timestamp dateTil = null;
 		
 		try {
-		    dateFra = DatoUtil.parseBasertPaaBindestrek(dato, klokkeslettFra);
-		    dateTil = DatoUtil.parseBasertPaaBindestrek(dato, klokkeslettTil);
+		    dateFra = DatoUtil.formaterDatoTilStamp(dato, klokkeslettFra);
+		    dateTil = DatoUtil.formaterDatoTilStamp(dato, klokkeslettTil);
 		} catch(Exception exc) { 
 			exc.printStackTrace();
-			
+			//Hvis dato ikke kan parses med punkter, prøver man å parse med streker
+			try {
+			    dateFra = DatoUtil.parseBasertPaaBindestrek(dato, klokkeslettFra);
+			    dateTil = DatoUtil.parseBasertPaaBindestrek(dato, klokkeslettTil);
+			} catch(Exception exc2) { 
+				exc2.printStackTrace();
+				
+			}
 		}
 		
 		//Oppdaterer eventen
