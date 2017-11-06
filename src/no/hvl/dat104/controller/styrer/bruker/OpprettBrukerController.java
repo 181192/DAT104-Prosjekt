@@ -22,6 +22,7 @@ public class OpprettBrukerController extends HttpServlet {
 
 	@EJB
 	private IBrukerEAO brukerEAO;
+	@EJB
 	private IRolleEAO rolleEAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -39,7 +40,7 @@ public class OpprettBrukerController extends HttpServlet {
 			bruker.setEtternavn(request.getParameter("etternavn"));
 			bruker.setMail(request.getParameter("mail"));
 			bruker.setPassord(request.getParameter("passord"));
-			bruker.setIdRolle(rolleEAO.finnRolle(0));
+			bruker.setIdRolle(rolleEAO.finnRolle(2));
 			// Må endres senere
 			bruker.setSalt("testSalt");
 			brukerEAO.leggTilBruker(bruker);
