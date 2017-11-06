@@ -33,15 +33,17 @@ public class EventResultaterController extends HttpServlet {
 		List<Tilbakemelding> t = eventEAO.finnAlleTilbakemeldingerTilEvent(id);
 		// Får tak i liste med tilbakemeldinger for eventet, deretter konverterer den
 		// til et format som kan brukes i grafene
-		List<FormatertTilbakemelding> formaterteTilbakemeldinger = FormaterTilbakemeldingUtil
-				.formaterTilbakemeldinger(t);
-
+		List<FormatertTilbakemelding> formaterteTilbakemeldinger = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(t);
+		
+		for(FormatertTilbakemelding ft : formaterteTilbakemeldinger) {
+			System.out.println(ft.toString());
+		}
+		
 		// Attributter får verdiene sine tilsendt
 		request.setAttribute("aktivitet", e.getIdAktivitet());
 		request.setAttribute("event", e);
 		request.setAttribute("formaterteTilbakemeldinger", formaterteTilbakemeldinger);
-		request.getRequestDispatcher(JspMappings.EVENTRESULTATER_JSP).forward(request, response);// Midlertidlig graf
-																									// -Fredrik
+		request.getRequestDispatcher(JspMappings.EVENTRESULTATER_JSP).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
