@@ -22,8 +22,10 @@ public class FormaterTilbakemeldingUtil {
 	 * @param liste
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public static List<FormatertTilbakemelding> formaterTilbakemeldinger(List<Tilbakemelding> liste) {
 		if (!liste.isEmpty()) {
+			int last = 0;
 			for (Tilbakemelding tilbakemelding : liste) {
 				if (!tilbakemeldingMedSammeTidsStempelEksisterer(tilbakemelding.getTid())) {
 					FormatertTilbakemelding tilbakemeldingFormatert = new FormatertTilbakemelding();
@@ -35,6 +37,19 @@ public class FormaterTilbakemeldingUtil {
 				}
 			}
 			sorterTilbakemeldingene();
+			last = formaterteTilbakemeldinger.size();
+			//legger til en tom tilbakemelding i slutten av listen, slik at grafen gidder å gjøre jobben sin
+			FormatertTilbakemelding ekkelFiks = new FormatertTilbakemelding(0, 0, 0);
+			Timestamp time = formaterteTilbakemeldinger.get(last-1).getTid();
+			if(time.getMinutes()+1 > 59) {
+				time.setHours(time.getHours()+1);
+				time.setMinutes(0);
+			}else {
+				time.setMinutes(time.getMinutes()+1);
+			}
+			ekkelFiks.setTid(time);
+			formaterteTilbakemeldinger.add(ekkelFiks);
+			
 			return formaterteTilbakemeldinger;
 		} else {
 			formaterteTilbakemeldinger = null;
