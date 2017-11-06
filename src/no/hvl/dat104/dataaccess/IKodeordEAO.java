@@ -83,5 +83,5 @@ public interface IKodeordEAO {
 	 *            Kode
 	 * @return Kodeord
 	 */
-	public Kodeord finnKodeordBasertPaaKode(Integer kode);
+	public List<Kodeord> finnKodeordBasertPaaKode(Integer kode);
 }

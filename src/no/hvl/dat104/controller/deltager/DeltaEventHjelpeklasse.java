@@ -20,6 +20,25 @@ public class DeltaEventHjelpeklasse {
 	}
 
 	/**
+	 * Laster event til sesjon
+	 * @param kodeord
+	 * @param iEventEAO
+	 * @param request
+	 * @throws Exception
+	 */
+
+	public static void lastEventTilSesjon(Kodeord kodeord, IEventEAO iEventEAO,
+			HttpServletRequest request) {
+		HttpSession sesjon = request.getSession();
+		sesjon.invalidate();
+		sesjon = request.getSession(true);
+
+		Event event = DeltaEventHjelpeklasse.finnEvent(kodeord, iEventEAO);
+
+		sesjon.setAttribute("Event", event);
+	}
+	
+	/**
 	 * finner eventet til kodeordet
 	 * 
 	 * @param kodeord
@@ -27,13 +46,5 @@ public class DeltaEventHjelpeklasse {
 	 */
 	private static Event finnEvent(Kodeord k, IEventEAO eventEAO) {
 		return eventEAO.finnEventBasertPaaKodeord(k);
-	}
-
-	public static void lastEventTilSesjon(Kodeord kodeord, HttpSession sesjon, IEventEAO iEventEAO,
-			HttpServletRequest request) {
-		sesjon.invalidate();
-		sesjon = request.getSession(true);
-		Event event = DeltaEventHjelpeklasse.finnEvent(kodeord, iEventEAO);
-		sesjon.setAttribute("Event", event);
 	}
 }

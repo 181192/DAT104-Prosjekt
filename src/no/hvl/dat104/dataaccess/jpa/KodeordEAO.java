@@ -66,8 +66,8 @@ public class KodeordEAO implements IKodeordEAO {
 	}
 	
 	@Override
-	public Kodeord finnKodeordBasertPaaKode(Integer kode) {
-		return (Kodeord) em.createQuery("SELECT k FROM Kodeord k WHERE k.kode =" + kode).getSingleResult();
+	public List<Kodeord> finnKodeordBasertPaaKode(Integer kode) {
+		return (List<Kodeord>) em.createQuery("SELECT k FROM Kodeord k WHERE k.kode =" + kode).getResultList();
 	}
 
 }

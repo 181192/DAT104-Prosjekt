@@ -10,13 +10,14 @@
 	    <label>Kode-Ord</label>
 	    <input type="text" placeholder="1234" name="kodeord">
 	  </div>
-	  <c:if test="${feilmelding=='true'}">
+	  <c:if test="${flash=='Error'}">
 		  <div class="ui warning message">
 		    <div class="header">Dette gikk galt!</div>
 		    <ul class="list">
-		      <li>det kodeordet er ikke gyldig.</li>
+		      <li>${melding}</li>
 		    </ul>
 		  </div>
+		  <c:remove var="flash" scope="session" />
 	  </c:if>
 	  <input type="submit" class="ui primary button" value="Delta Event">
 	</div>
