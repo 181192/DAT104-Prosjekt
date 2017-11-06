@@ -65,6 +65,7 @@ public class KodeordEAO implements IKodeordEAO {
 		   return (Kodeord) query.getSingleResult();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Kodeord> finnKodeordBasertPaaKode(Integer kode) {
 		return (List<Kodeord>) em.createQuery("SELECT k FROM Kodeord k WHERE k.kode =" + kode).getResultList();
