@@ -190,14 +190,14 @@ INSERT INTO event (navn, tid_fra, tid_til, status, sted, "id_aktivitet") VALUES 
 INSERT INTO event (navn, tid_fra, tid_til, status, sted, "id_aktivitet") VALUES ('DAT102', '2017-12-20 09:00:00', '2017-12-20 10:30:00', 'planlagt', 'E403', '3');
 
 INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:01:00','1');
-INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:02:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:01:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:01:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:02:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:02:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:02:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:03:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:03:00','1');
 INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:03:00','1');
-INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:04:00','1');
-INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:05:00','1');
-INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:06:00','1');
-INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:07:00','1');
-INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:08:00','1');
-INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:09:00','1');
-INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:10:00','1');
-INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:11:00','1');
-INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:12:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:14:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:14:00','1');
+INSERT INTO Tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:14:00','1');
