@@ -55,7 +55,7 @@ public class KodeordEAO implements IKodeordEAO {
 	
 	@Override
 	public Boolean sjekkOmKodeordErUnik(Kodeord kode) {
-		String sql = "SELECT COUNT(k.id) FROM KodeordEntity k WHERE k.kode = "+kode.getKode();
+		String sql = "SELECT COUNT(k.id) FROM Kodeord k WHERE k.kode = "+kode.getKode();
 		Long q = (Long)em.createQuery(sql).getSingleResult();
 		return q < 1;
 	}

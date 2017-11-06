@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * @author BMO 2.0
  *
  */
-@Entity(name = "KodeordEntity")
+@Entity(name = "Kodeord")
 @Table(name = "kodeord", schema = "db")
 public class Kodeord {
 
