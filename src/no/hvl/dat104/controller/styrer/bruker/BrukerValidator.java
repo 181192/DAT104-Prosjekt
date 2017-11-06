@@ -30,6 +30,8 @@ public class BrukerValidator {
         passord = ValidatorUtil.escapeHtml(request.getParameter("passord"));
         salt = ValidatorUtil.escapeHtml(request.getParameter("salt"));
         idRolle = ValidatorUtil.escapeHtml(request.getParameter("idRolle"));
+        
+        
     }
     
     private boolean erFornavnGyldig() {
@@ -51,7 +53,6 @@ public class BrukerValidator {
     private boolean erSaltGyldig() {
     	return ValidatorUtil.isNotNull0(salt);
     }
-    //Gjøre sjekk på om den er gyldig?
     private boolean erIdRolleGyldig() {
     	return ValidatorUtil.isNotNull0(idRolle);
     }
@@ -59,6 +60,7 @@ public class BrukerValidator {
     	return erFornavnGyldig()&&erEtternavnGyldig()&&erMailGyldig()&&erPassordGyldig()&&erSaltGyldig()&&erIdRolleGyldig();
     }
     public void settOppFeilmeldinger() {
+    	
     	if (!erFornavnGyldig()) {
     		fornavn = "";
     		fornavnFeilmelding = "Fornavn er ikke gyldig!";

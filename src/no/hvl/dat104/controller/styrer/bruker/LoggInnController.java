@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.JspMappings;
+
 /**
  * Servlet implementation class LoggInnController
  */
@@ -15,8 +17,7 @@ public class LoggInnController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.getRequestDispatcher(JspMappings.LOGGINN_JSP).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
