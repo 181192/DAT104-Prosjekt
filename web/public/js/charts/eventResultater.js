@@ -4,7 +4,16 @@ google.charts.load('current', {
 });
 
 // Set a callback to run when the Google Visualization API is loaded.
-google.charts.setOnLoadCallback(drawDashboard);
+google.charts.setOnLoadCallback(runIfEnabled);
+
+//Bruker denne variablen for å tillate/stoppe skript fra å bli eksekvert
+var enable = false;
+
+function runIfEnabled(){
+	if (enable === true){
+		drawDashboard();
+	}
+}
 
 // Callback that creates and populates a data table,
 // instantiates a dashboard, a range slider and a pie chart,
@@ -35,8 +44,8 @@ function drawDashboard() {
         'format': {
           'pattern': 'hh:mm:SS'
         },
-        'step': '10 minute',
-        'unitIncrement': '10 minute',
+        'step': '1 minute',
+        'unitIncrement': '1 minute',
         'label': 'Tidsinterval:'
       }
     }
@@ -50,7 +59,7 @@ function drawDashboard() {
       colors: ['green', 'orange', 'red'],
       'animation': {
         "startup": true,
-        'duration': '1000',
+        'duration': '500',
         'easing': 'out',
       },
       hAxis: {
@@ -87,7 +96,7 @@ function drawDashboard() {
 
     if (sliderState.highValue - sliderState.lowValue === 0) {
       var mins = sliderState.lowValue.getMinutes();
-      var a = (mins + 10) % 60;
+      var a = (mins + 1) % 60;
       var b = Math.floor(mins / 60);
 
       if (b > 0) {
@@ -136,7 +145,7 @@ function drawDashboard() {
       colors: ['green', 'orange', 'red'],
       'animation': {
         "startup": true,
-        'duration': '1000',
+        'duration': '500',
         'easing': 'out',
       }
 
@@ -154,7 +163,7 @@ function drawDashboard() {
       colors: [farge],
       'animation': {
         "startup": true,
-        'duration': '1000',
+        'duration': '500',
         'easing': 'out',
       }
 
