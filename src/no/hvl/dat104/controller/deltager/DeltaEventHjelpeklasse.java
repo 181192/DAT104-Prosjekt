@@ -35,7 +35,7 @@ public class DeltaEventHjelpeklasse {
 
 		Event event = DeltaEventHjelpeklasse.finnEvent(kodeord, iEventEAO);
 
-		sesjon.setAttribute("Event", event);
+		sesjon.setAttribute("event", event);
 	}
 	
 	/**

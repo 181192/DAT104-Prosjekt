@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
+import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Tilbakemelding;
 import no.hvl.dat104.util.DatoUtil;
 
@@ -41,7 +42,7 @@ public class GiTilbakemeldingController extends HttpServlet {
 	}
 
 	private void lastOppTilbakemelding(HttpServletRequest request) {
-		Tilbakemelding tilbakemelding = new Tilbakemelding(request.getParameter("tilbakemelding"), iEventEAO.finnEvent(1), DatoUtil.lagCurrentTimestamp());
+		Tilbakemelding tilbakemelding = new Tilbakemelding(request.getParameter("tilbakemelding"), (Event) request.getSession(true).getAttribute("event"), DatoUtil.lagCurrentTimestamp());
 		iTilbakemeldingEAO.leggTilTilbakemelding(tilbakemelding);
 	}
 
