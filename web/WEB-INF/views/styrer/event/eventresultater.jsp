@@ -6,22 +6,30 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="public/js/charts/eventResultater.js"></script>
 <script type="text/javascript">
-
-// Create our data table.
-var array = [ ['Tid', 'Fornoyd', 'Noytral', 'Misfornoyd'], 
-<c:forEach items="${requestScope.formaterteTilbakemeldinger}" var="t">
-	[new Date("${t.tid.toString()}"), ${t.fornoyd}, ${t.noytral}, ${t.misfornoyd}],
-</c:forEach>
-];
-
-</script>
 <c:set var = "a" scope = "request" value = "${aktivitet}"/>
 <c:set var = "e" scope = "request" value = "${event}"/>
+<c:set var = "melding" scope = "page" value = "Tilbakemeldinger for"/>
+
+<c:choose>
+<c:when test="${not empty requestScope.formaterteTilbakemeldinger}">
+	enable = true;
+	var array = [ ['Tid', 'Fornoyd', 'Noytral', 'Misfornoyd'], 
+	<c:forEach items="${requestScope.formaterteTilbakemeldinger}" var="t">
+		[new Date("${t.tid.toString()}"), ${t.fornoyd}, ${t.noytral}, ${t.misfornoyd}],
+	</c:forEach>
+	];
+</c:when>
+<c:otherwise>
+<c:set var = "melding" scope = "page" value = "Det finnes ingen tilbakemeldinger for"/>
+</c:otherwise>
+</c:choose>
+
+</script>
 </head>
 <body>
 
 <h2>${a.navn}:</h2>
-<h1>Tilbakemeldinger for "${e.navn}":</h1>
+<h1>${melding} "${e.navn}":</h1>
   <div class="ui container">
     <div id="chart_div"></div>
     <div id="filter_div"></div>
