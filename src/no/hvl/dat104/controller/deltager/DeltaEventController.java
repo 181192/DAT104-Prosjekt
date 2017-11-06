@@ -34,6 +34,7 @@ public class DeltaEventController extends HttpServlet {
     private IEventEAO iEventEAO;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding( "UTF-8" );
 		String kodeord = request.getParameter("kodeord");
 		HttpSession sesjon = request.getSession(true);
 		if (DeltaEventHjelpeklasse.riktigKodeordSyntaks(kodeord)) {
