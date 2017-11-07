@@ -33,7 +33,7 @@ public class LoggInnController extends HttpServlet {
 		
 		InnloggingValidator skjema = new InnloggingValidator(request);
 		if (skjema.gyldigInnlogging()) {
-			Bruker b = brukerEAO.finnBruker(request.getParameter("mail"));
+			Bruker b = brukerEAO.finnBrukerPaaEmail(request.getParameter("mail"));
 			InnloggingUtil.loggInnSom(request, b, "60");
 		} else {
 			skjema.settOppFeilmeldinger(request);

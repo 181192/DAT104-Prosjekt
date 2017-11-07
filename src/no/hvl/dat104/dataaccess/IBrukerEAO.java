@@ -33,7 +33,7 @@ public interface IBrukerEAO {
 	 *            Mailadressen til brukeren
 	 * @return En bruker
 	 */
-	public Bruker finnBruker(String mail);
+	public Bruker finnBrukerPaaEmail(String email);
 
 	/**
 	 * Oppdaterer brukeren
@@ -144,5 +144,7 @@ public interface IBrukerEAO {
 	 * @param e
 	 */
 	public void finnBrukerLeggTilEvent(Integer id, Event e, Integer aktivitetId);
+
+
 
 }

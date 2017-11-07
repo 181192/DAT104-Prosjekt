@@ -29,14 +29,14 @@ public class InnloggingValidator {
 	}
 	
 	private boolean erMailRegistrert() {
-		return brukerEAO.finnBruker(mail) != null;
+		return brukerEAO.finnBrukerPaaEmail(mail) != null;
 	}
 	
 	private boolean erPassordRett() {
 		if (!erMailGyldig() || !erMailRegistrert()) {
 			return false;
-		} if (brukerEAO.finnBruker(mail) != null) {
-			return brukerEAO.finnBruker(mail).getPassord().equals(passord);	
+		} if (brukerEAO.finnBrukerPaaEmail(mail) != null) {
+			return brukerEAO.finnBrukerPaaEmail(mail).getPassord().equals(passord);	
 		}
 		return false;
 	}

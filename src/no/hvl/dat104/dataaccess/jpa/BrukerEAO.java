@@ -29,9 +29,14 @@ public class BrukerEAO implements IBrukerEAO {
 	}
 
 	@Override
-	public Bruker finnBruker(String mail) {
-		return (Bruker) em.createQuery("SELECT b FROM Bruker b WHERE b.mail = " + mail).getSingleResult();
-	}
+	public Bruker finnBrukerPaaEmail(String mail) {
+        Bruker bruker = (Bruker) em.createQuery("SELECT b FROM Bruker b WHERE b.mail = :mail").setParameter("mail",mail).getSingleResult();
+
+        return bruker;
+
+    }
+
+
 	
 	@Override
 	public void oppdaterBruker(Bruker b) {
