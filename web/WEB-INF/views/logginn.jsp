@@ -4,12 +4,12 @@
 <div class="ui container">
 	<form method="post" action="<%=LOGGINN_URL %>" class="ui form">
 		<div class="field">
-			<label>Mailadresse</label> <input type="text" name="mail"
-				placeholder="Mailadresse">
-			<label>Mailadresse</label> <input type="password" name="passord"
-				placeholder="Passord">
+			<label>Mailadresse</label> <input type="text" name="mail" value="${mail}" placeholder="Mailadresse">
+			<p><font color="red">${skjema.mailFeilmelding}</font></p>
+			<label>Passord</label> <input type="password" name="passord" value="${passord}" placeholder="Passord">
+			<p><font color="red">${skjema.passordFeilmelding}</font></p>
 		</div>
-		<button class="ui button">Lag aktivitet</button>
+		<button class="ui button">Logg inn</button>
 	</form>
 </div>
 

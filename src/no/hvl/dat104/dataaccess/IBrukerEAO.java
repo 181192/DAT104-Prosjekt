@@ -27,6 +27,15 @@ public interface IBrukerEAO {
 	public Bruker finnBruker(Integer id);
 
 	/**
+	 * Finner en bruker ut fra mailadresse
+	 * 
+	 * @param mail
+	 *            Mailadressen til brukeren
+	 * @return En bruker
+	 */
+	public Bruker finnBruker(String mail);
+
+	/**
 	 * Oppdaterer brukeren
 	 * 
 	 * @param b
@@ -34,6 +43,7 @@ public interface IBrukerEAO {
 	 */
 	public void oppdaterBruker(Bruker b);
 
+	
 	/**
 	 * Sletter en bruker
 	 * 

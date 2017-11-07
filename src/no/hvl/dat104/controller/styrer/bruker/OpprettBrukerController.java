@@ -44,6 +44,7 @@ public class OpprettBrukerController extends HttpServlet {
 			// Må endres senere
 			bruker.setSalt("testSalt");
 			brukerEAO.leggTilBruker(bruker);
+			request.getSession().removeAttribute("skjema");
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		} else {
 			skjema.settOppFeilmeldinger(request);
