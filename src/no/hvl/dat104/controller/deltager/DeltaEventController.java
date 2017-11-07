@@ -42,7 +42,7 @@ public class DeltaEventController extends HttpServlet {
 				FlashUtil.Flash(request, "Error", "Kodeordet finnes ikke!");
 				response.sendRedirect(UrlMappings.GITILBAKEMELDING_URL);
 			} else {
-				FlashUtil.Flash(request, "Error", "Kodeordet finnes ikke!");
+				FlashUtil.Flash(request, "Error", "Kodeordet finnes ikke");
 				response.sendRedirect(UrlMappings.DELTAEVENT_URL);// index
 			}
 

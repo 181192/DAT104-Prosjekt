@@ -35,14 +35,12 @@ public class LiveTilbakemelding {
 	 * Tom konstruktor for live tilbakemeldinger
 	 */
 	public LiveTilbakemelding() {
-		this(null, "", null, null);
+		this("", null, null);
 	}
 
 	/**
 	 * Konstruktor med parameter live tilbakemeldinger
 	 * 
-	 * @param id
-	 *            Id
 	 * @param stemme
 	 *            Stemme
 	 * @param tid
@@ -50,8 +48,7 @@ public class LiveTilbakemelding {
 	 * @param idEvent
 	 *            Id til event
 	 */
-	public LiveTilbakemelding(Integer id, String stemme, Timestamp tid, Event idEvent) {
-		this.id = id;
+	public LiveTilbakemelding(String stemme, Timestamp tid, Event idEvent) {
 		this.stemme = stemme;
 		this.tid = tid;
 		this.idEvent = idEvent;
