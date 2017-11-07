@@ -2,6 +2,8 @@ package no.hvl.dat104.controller.styrer.bruker;
 
 import javax.servlet.http.HttpServletRequest;
 
+import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.model.Rolle;
 import no.hvl.dat104.util.ValidatorUtil;
 
 public class BrukerValidator {
@@ -10,8 +12,7 @@ public class BrukerValidator {
 	private String mail;
 	private String passord;
 	private String salt;
-	private String idRolle;
-
+	
 	private String fornavnFeilmelding;
 	private String etternavnFeilmelding;
 	private String mailFeilmelding;
@@ -20,6 +21,15 @@ public class BrukerValidator {
 	public BrukerValidator() {
 
 	}
+	
+	public BrukerValidator(Bruker b) {
+		fornavn = b.getFornavn();
+		etternavn = b.getEtternavn();
+		mail = b.getMail();
+		passord = b.getPassord();
+		salt = b.getSalt();
+		
+	}
 
 	public BrukerValidator(HttpServletRequest request) {
 		fornavn = ValidatorUtil.escapeHtml(request.getParameter("fornavn"));
@@ -27,7 +37,6 @@ public class BrukerValidator {
 		mail = ValidatorUtil.escapeHtml(request.getParameter("mail"));
 		passord = ValidatorUtil.escapeHtml(request.getParameter("passord"));
 		salt = ValidatorUtil.escapeHtml(request.getParameter("salt"));
-		idRolle = ValidatorUtil.escapeHtml(request.getParameter("idRolle"));
 
 	}
 
@@ -110,14 +119,6 @@ public class BrukerValidator {
 
 	public void setSalt(String salt) {
 		this.salt = salt;
-	}
-
-	public String getIdRolle() {
-		return idRolle;
-	}
-
-	public void setIdRolle(String idRolle) {
-		this.idRolle = idRolle;
 	}
 
 	public String getFornavnFeilmelding() {
