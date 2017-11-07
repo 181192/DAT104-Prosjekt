@@ -30,7 +30,7 @@ public class BrukerEAO implements IBrukerEAO {
 
 	@Override
 	public Bruker finnBruker(String mail) {
-		return (Bruker) em.createQuery("SELECT b FROM Bruker b WHERE b.mail = '" + mail + "'").getSingleResult();
+		return (Bruker) em.createQuery("SELECT b FROM Bruker b WHERE b.mail = " + mail).getSingleResult();
 	}
 	
 	@Override

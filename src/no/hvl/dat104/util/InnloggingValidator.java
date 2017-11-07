@@ -3,7 +3,6 @@ package no.hvl.dat104.util;
 import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.util.SystemPropertyUtils;
 
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 
@@ -34,20 +33,16 @@ public class InnloggingValidator {
 	}
 	
 	private boolean erPassordRett() {
-		System.out.println("Test");
-		if (!erMailGyldig()) {
+		if (!erMailGyldig() || !erMailRegistrert()) {
 			return false;
-		} if (brukerEAO.finnBruker(7) != null) {
-			System.out.println("Test2");
-			System.out.println(brukerEAO.finnBruker(7).getFornavn());
-			System.out.println(brukerEAO.finnBruker(7).getPassord());
-			return brukerEAO.finnBruker(7).getPassord().equals(passord);	
+		} if (brukerEAO.finnBruker(mail) != null) {
+			return brukerEAO.finnBruker(mail).getPassord().equals(passord);	
 		}
 		return false;
 	}
 	
 	public boolean gyldigInnlogging() {
-		return erPassordRett() && erMailGyldig();
+		return erMailGyldig() && erMailRegistrert() && erPassordRett();
 	}
 	
 	public void settOppFeilmeldinger(HttpServletRequest request) {
@@ -62,7 +57,7 @@ public class InnloggingValidator {
 		} else if (!erMailRegistrert()) {
 			mail = "";
 			mailFeilmelding = "Mailadressen er ikke registrert på en bruker";
-			passordFeilmelding = "";
+			passordFeilmelding = ""; //Trenger ikke feilmelding her dersom mail ikke er registrert
 		}
 	}
 

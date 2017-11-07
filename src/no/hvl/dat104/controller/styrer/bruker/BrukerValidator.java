@@ -21,7 +21,7 @@ public class BrukerValidator {
 	public BrukerValidator() {
 
 	}
-	
+	//Til å validere en bruker i Junit-test
 	public BrukerValidator(Bruker b) {
 		fornavn = b.getFornavn();
 		etternavn = b.getEtternavn();

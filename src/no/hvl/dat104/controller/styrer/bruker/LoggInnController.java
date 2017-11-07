@@ -25,7 +25,6 @@ public class LoggInnController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getSession().invalidate();
 		request.getRequestDispatcher(JspMappings.LOGGINN_JSP).forward(request, response);
 	}
 
