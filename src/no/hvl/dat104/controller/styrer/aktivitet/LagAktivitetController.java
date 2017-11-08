@@ -1,14 +1,12 @@
 package no.hvl.dat104.controller.styrer.aktivitet;
 
 import java.io.IOException;
-import java.util.Iterator;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
@@ -16,7 +14,6 @@ import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
-import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.ValidatorUtil;
 
 /**
@@ -32,22 +29,7 @@ public class LagAktivitetController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String aktivitetsId = request.getParameter("aktivitetId");
-		if (ValidatorUtil.isNotNull0(aktivitetsId)) {
-			Integer id = Integer.parseInt(aktivitetsId);
-			Aktivitet a = aktivitetEAO.finnAktivitet(id);
-			if (a != null) {
-				HttpSession mySession = request.getSession();
-				mySession.setAttribute("aktivitet", a);
-				request.getRequestDispatcher(JspMappings.REDIGERAKTIVITET_JSP).forward(request, response);
-			} else {
-				response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
-				FlashUtil.Flash(request, "error", "Beklager, aktiviteten eksisterer ikke");
-			}
-		} else {
-			response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
-			FlashUtil.Flash(request, "error", "Beklager, aktiviteten eksisterer ikke");
-		}
+		request.getRequestDispatcher(JspMappings.LAGAKTIVITET_JSP).forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -61,12 +43,5 @@ public class LagAktivitetController extends HttpServlet {
 			brukerEAO.oppdaterBruker(b);
 			response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
 		}
-	}
-
-	public Aktivitet lagAktivitet(HttpServletRequest request, AktivitetValidator skjema) {
-		Aktivitet a = new Aktivitet();
-		Bruker bruker = brukerEAO.finnBruker(2);
-		a.setNavn("");
-		return a;
 	}
 }
