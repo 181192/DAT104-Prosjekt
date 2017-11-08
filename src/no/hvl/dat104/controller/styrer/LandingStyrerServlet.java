@@ -38,10 +38,9 @@ public class LandingStyrerServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (InnloggingUtil.erInnloggetSomBruker(request)) {
-			Bruker bruker = InnloggingUtil.innloggetSomBruker(request);
+		Bruker bruker = InnloggingUtil.innloggetSomBruker(request);
+		if (InnloggingUtil.erInnloggetSomBruker(request) && bruker != null ) {
 			List<Aktivitet> a = brukerEAO.finnAlleAktiviteterTilBruker(bruker.getId());
-			System.out.println(a);
 			for (Aktivitet ak : a) {
 				System.out.println(ak.getNavn());
 			}
