@@ -43,9 +43,15 @@ public class OpprettBrukerController extends HttpServlet {
 			bruker.setIdRolle(rolleEAO.finnRolle(2));
 			// Må endres senere
 			bruker.setSalt("testSalt");
-			brukerEAO.leggTilBruker(bruker);
-			request.getSession().removeAttribute("skjema");
-			response.sendRedirect(UrlMappings.LOGGINN_URL);
+			if (skjema.erMailUnik(brukerEAO.finnBrukerPaaEmail(request.getParameter("mail")))) {
+				brukerEAO.leggTilBruker(bruker);
+				request.getSession().removeAttribute("skjema");
+				response.sendRedirect(UrlMappings.LOGGINN_URL);	
+			} else {
+				skjema.setMailFeilmelding("Denne mailadressen er allerede registrert");
+				request.getSession().setAttribute("skjema", skjema);
+				response.sendRedirect(UrlMappings.OPPRETTBRUKER_URL);
+			}
 		} else {
 			skjema.settOppFeilmeldinger(request);
 			request.getSession().setAttribute("skjema", skjema);

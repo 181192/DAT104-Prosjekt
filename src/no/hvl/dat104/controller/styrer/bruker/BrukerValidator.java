@@ -21,15 +21,6 @@ public class BrukerValidator {
 	public BrukerValidator() {
 
 	}
-	//Til å validere en bruker i Junit-test
-	public BrukerValidator(Bruker b) {
-		fornavn = b.getFornavn();
-		etternavn = b.getEtternavn();
-		mail = b.getMail();
-		passord = b.getPassord();
-		salt = b.getSalt();
-		
-	}
 
 	public BrukerValidator(HttpServletRequest request) {
 		fornavn = ValidatorUtil.escapeHtml(request.getParameter("fornavn"));
@@ -56,6 +47,12 @@ public class BrukerValidator {
 		return ValidatorUtil.isNotNull0(passord) && ValidatorUtil.isValidString(passord);
 	}
 
+	public boolean erMailUnik(Bruker b) {
+		if (b != null) {
+			return false;
+		}
+		return true;
+	}
 	public boolean erAlleDataGyldig() {
 		return erFornavnGyldig() && erEtternavnGyldig() && erMailGyldig() && erPassordGyldig();
 	}
