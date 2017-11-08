@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Aktivitet;
+import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**
@@ -26,10 +27,15 @@ public class MineAktiviteterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		Bruker b = InnloggingUtil.innloggetSomBruker(request);
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
-			List<Aktivitet> a = brukerEAO.finnAlleAktiviteterTilBruker(2);
-			request.getSession().setAttribute("aktiviteter", a);
-			request.getRequestDispatcher(MINEAKTIVITETER_JSP).forward(request, response);
+			if (b != null) {
+				List<Aktivitet> a = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
+				request.getSession().setAttribute("aktiviteter", a);
+				request.getRequestDispatcher(MINEAKTIVITETER_JSP).forward(request, response);
+			} else {
+				response.sendRedirect(UrlMappings.LOGGINN_URL);
+			}
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
