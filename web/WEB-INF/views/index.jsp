@@ -13,9 +13,7 @@
 	  <c:if test="${flash=='Error'}">
 		  <div class="ui warning message">
 		    <div class="header">Dette gikk galt!</div>
-		    <ul class="list">
-		      <li>${melding}</li>
-		    </ul>
+		    <p>${melding}</p>
 		  </div>
 		  <c:remove var="flash" scope="session" />
 	  </c:if>
