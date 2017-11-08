@@ -67,7 +67,6 @@ public class OpprettBrukerController extends HttpServlet {
 		setOppSalt(bruker);
 		String passord = SHA.hashPassord(skjema.getPassord(), bruker.getSalt());
 		bruker.setPassord(passord);
-		
 		return bruker;
 	}
 	public void setOppSalt(Bruker b) {
