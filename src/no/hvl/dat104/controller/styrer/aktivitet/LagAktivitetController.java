@@ -1,6 +1,7 @@
 package no.hvl.dat104.controller.styrer.aktivitet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -35,12 +36,16 @@ public class LagAktivitetController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String tittel = request.getParameter("tittel");
+		String status = request.getParameter("status");
 		if (ValidatorUtil.isNotNull0(tittel)) {
 			Bruker b = brukerEAO.finnBruker(2);
 			Aktivitet a = new Aktivitet();
 			a.setNavn(tittel);
-			b.getAktiviteter().add(a);
-			brukerEAO.oppdaterBruker(b);
+			a.setStatus(status);
+			a.setIdBruker(b);
+			List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
+			aktiviteter.add(a);
+			aktivitetEAO.leggTilAktivitet(a);
 			response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
 		}
 	}
