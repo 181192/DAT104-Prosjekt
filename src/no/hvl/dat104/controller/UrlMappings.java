@@ -16,6 +16,7 @@ public abstract class UrlMappings {
 	public static final String OPPRETTBRUKER_URL = "opprettbruker";
 	public static final String REDIGERAKTIVITET_URL = "redigeraktivitet";
 	public static final String REDIGEREVENT_URL = "redigerevent";
+	public static final String REDIGERBRUKER_URL = "redigerbruker";
 	public static final String VISAKTIVITET_URL = "visaktivitet";
 	public static final String LANDING_URL = "";
 	public static final String LANDING_STYRER_URL = "dashbord";

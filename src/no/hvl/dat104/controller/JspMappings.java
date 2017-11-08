@@ -1,9 +1,12 @@
 package no.hvl.dat104.controller;
 
 public final class JspMappings {
+	
+	// ----------------- BRUKER -----------------
 	public static final String LOGGINN_JSP = "WEB-INF/views/logginn.jsp";
 	public static final String LANDING_JSP = "WEB-INF/views/index.jsp";
 	public static final String OPPRETTBRUKER_JSP = "WEB-INF/views/styrer/opprettbruker.jsp";
+	public static final String REDIGERBRUKER_JSP = "WEB-INF/views/styrer/redigerbruker.jsp";
 
 	// ----------------- ADMIN -----------------
 	public static final String ADMINISTRER_JSP = "WEB-INF/views/admin/administrer.jsp";

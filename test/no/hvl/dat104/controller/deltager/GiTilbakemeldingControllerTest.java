@@ -32,7 +32,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 
 public class GiTilbakemeldingControllerTest {
-	/*@Mock HttpServletRequest stubRequest;
+	@Mock HttpServletRequest stubRequest;
 	@Mock HttpServletResponse stubResponse;
 	@Mock RequestDispatcher stubRequestDispatcher;
     GiTilbakemeldingController giTilbakemeldingController;
@@ -51,7 +51,7 @@ public class GiTilbakemeldingControllerTest {
         
         verify(stubRequest).getRequestDispatcher("WEB-INF/views/deltager/gitilbakemelding.jsp");
         verify(stubRequestDispatcher).forward(stubRequest, stubResponse);
-    }*/
+    }
 
 
 }
