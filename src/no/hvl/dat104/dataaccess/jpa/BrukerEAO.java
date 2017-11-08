@@ -32,7 +32,7 @@ public class BrukerEAO implements IBrukerEAO {
 	@Override
 	public Bruker finnBrukerPaaEmail(String mail) {
 		List<Bruker> bruker =em.createQuery("SELECT b FROM Bruker b WHERE b.mail = :mail").setParameter("mail", mail).getResultList();
-        if(bruker.isEmpty()) {
+		if(bruker.isEmpty()) {
         	return null;
         }
         return bruker.get(0);

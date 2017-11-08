@@ -10,6 +10,7 @@ public class InnloggingValidator {
 	private String passord;
 	private String mailFeilmelding;
 	private String passordFeilmelding;
+	private Bruker bruker;
 
 	public InnloggingValidator() {
 
@@ -28,40 +29,38 @@ public class InnloggingValidator {
 		return ValidatorUtil.isNotNull0(passord);
 	}
 
-	private boolean erMailRegistrert(Bruker b) {
-		return b != null;
+	private boolean erMailRegistrert() {
+		return bruker != null;
 	}
 
-	public boolean erPassordRett(Bruker b) {
-		if (!erMailGyldig() || !erMailRegistrert(b)) {
+	public boolean erPassordRett() {
+		if (!erMailGyldig() || !erMailRegistrert()) {
 			return false;
 		}
-		if (b != null) {
-			return b.getPassord().equals(passord);
+		if (bruker != null) {
+			return bruker.getPassord().equals(passord);
 		}
 		return false;
 	}
 
 	public void settOppFeilmeldinger(HttpServletRequest request) {
-		if (!erPassordGyldig()) {
+		if (!erPassordRett()) {
 			passord = "";
 			passordFeilmelding = "Passordet er feil";
 		}
-
 		if (!erMailGyldig()) {
 			mail = "";
 			mailFeilmelding = "Mailadressen er ikke gyldig";
 			passord = "";
 			passordFeilmelding = "";
 		} 
-//		else if (!erMailRegistrert(b)) {
-//			mail = "";
-//			mailFeilmelding = "Mailadressen er ikke registrert på en bruker";
-//			passordFeilmelding = ""; // Trenger ikke feilmelding her dersom mail ikke er registrert
-//		}
+		if (!erMailRegistrert()) {
+			mail = "";
+			mailFeilmelding = "Mailadressen er ikke registrert på en bruker";
+			passord = "";
+			passordFeilmelding = "";
+		}
 	}
-	
-	
 
 	/**
 	 * @return the mail
@@ -121,6 +120,20 @@ public class InnloggingValidator {
 	 */
 	public void setPassordFeilmelding(String passordFeilmelding) {
 		this.passordFeilmelding = passordFeilmelding;
+	}
+
+	/**
+	 * @return the bruker
+	 */
+	public Bruker getBruker() {
+		return bruker;
+	}
+
+	/**
+	 * @param bruker the bruker to set
+	 */
+	public void setBruker(Bruker bruker) {
+		this.bruker = bruker;
 	}
 
 }

@@ -7,13 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Bruker;
-import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**
@@ -39,22 +37,22 @@ public class LoggInnController extends HttpServlet {
 		if (skjema.erMailGyldig() && skjema.erPassordGyldig()) {
 			Bruker b = brukerEAO.finnBrukerPaaEmail(skjema.getMail());
 			if (b != null) {
-				if (skjema.erPassordRett(b)) {
-					System.out.println("Brukeren " + b.getEtternavn());
+				skjema.setBruker(b);
+				if (skjema.erPassordRett()) {
 					InnloggingUtil.loggInnSomBruker(request, b);
 					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 				} else {
-					// passord ikke korrekt
+					skjema.settOppFeilmeldinger(request);
+					request.getSession().setAttribute("skjema", skjema);
 					response.sendRedirect(UrlMappings.LOGGINN_URL);
 				}
 			} else {
-				// bruker finnes ikke
-				
+				skjema.settOppFeilmeldinger(request);
+				request.getSession().setAttribute("skjema", skjema);
 				response.sendRedirect(UrlMappings.LOGGINN_URL);
 				
 			}
 		} else {
-			// Skjema data ikke korrekt
 			skjema.settOppFeilmeldinger(request);
 			request.getSession().setAttribute("skjema", skjema);
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
