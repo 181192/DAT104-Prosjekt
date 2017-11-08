@@ -33,7 +33,7 @@ public class InnloggingUtil {
     public static void loggInnSomDeltager(HttpServletRequest request) {
     	loggUt(request);
         HttpSession sesjon = request.getSession(true);
-        sesjon.setAttribute("currentUser", "currentUser");
+        sesjon.setAttribute("deltager", "deltager");
     }
     /**
      * Logger inn som Bruker
@@ -41,11 +41,11 @@ public class InnloggingUtil {
      * @param b
      * @param init henter fra init parameter i xml.
      */
-    public static void loggInnSom(HttpServletRequest request, Bruker b, String init) {
+    public static void loggInnSomBruker(HttpServletRequest request, Bruker b, String init) {
         loggUt(request);
         HttpSession sesjon = request.getSession(true);
         sesjon.setMaxInactiveInterval(Integer.parseInt(init));
-        sesjon.setAttribute("currentUser", b);
+        sesjon.setAttribute("bruker", b);
     }
   
     /**
@@ -55,10 +55,10 @@ public class InnloggingUtil {
      * @param request
      * @param b
      */
-    public static void loggInnSom(HttpServletRequest request, Bruker b) {
+    public static void loggInnSomBruker(HttpServletRequest request, Bruker b) {
         loggUt(request);
         HttpSession sesjon = request.getSession(true);
-        sesjon.setAttribute("currentUser", b);
+        sesjon.setAttribute("bruker", b);
         sesjon.setMaxInactiveInterval(1200);
     }
     /**

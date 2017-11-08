@@ -38,9 +38,4 @@ public class SHA {
         }
         return generatedPassword;
     }
-    
-    private String passwordToHash = "password";
-    //Funker ikke for some reason?
-//    private byte[] salt = getSalt();
-//    private String securePassword = get_SHA_1_SecurePassword(passwordToHash, salt);
 }

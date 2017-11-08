@@ -30,11 +30,13 @@ public class LoggInnController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//byte[] salt = SHA.getSalt();
+		//String hashetPassord = get_SHA_1_SecurePassword(String passwordToHash, byte[] salt)
 		
 		InnloggingValidator skjema = new InnloggingValidator(request);
 		if (skjema.gyldigInnlogging()) {
 			Bruker b = brukerEAO.finnBrukerPaaEmail(request.getParameter("mail"));
-			InnloggingUtil.loggInnSom(request, b, "60");
+			InnloggingUtil.loggInnSomBruker(request, b);
 		} else {
 			skjema.settOppFeilmeldinger(request);
 			request.getSession().setAttribute("skjema", skjema);
