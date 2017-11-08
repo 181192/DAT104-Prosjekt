@@ -2,9 +2,6 @@ package no.hvl.dat104.controller.deltager;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;

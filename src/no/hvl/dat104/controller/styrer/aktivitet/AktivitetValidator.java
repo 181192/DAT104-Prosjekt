@@ -17,8 +17,38 @@ public class AktivitetValidator {
 		status = "planlagt";
 	}
 
-	private boolean erTittelGyldig() {
+	public boolean erTittelGyldig() {
 		return ValidatorUtil.isNotNull0(tittel);
+	}
+
+	/**
+	 * @return the tittel
+	 */
+	public String getTittel() {
+		return tittel;
+	}
+
+	/**
+	 * @param tittel
+	 *            the tittel to set
+	 */
+	public void setTittel(String tittel) {
+		this.tittel = tittel;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public String getStatus() {
+		return status;
+	}
+
+	/**
+	 * @param status
+	 *            the status to set
+	 */
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 }

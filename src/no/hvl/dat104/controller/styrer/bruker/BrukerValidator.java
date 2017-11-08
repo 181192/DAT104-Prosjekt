@@ -3,7 +3,6 @@ package no.hvl.dat104.controller.styrer.bruker;
 import javax.servlet.http.HttpServletRequest;
 
 import no.hvl.dat104.model.Bruker;
-import no.hvl.dat104.model.Rolle;
 import no.hvl.dat104.util.ValidatorUtil;
 
 public class BrukerValidator {

@@ -1,7 +1,8 @@
 package no.hvl.dat104.controller.admin;
 
-import static no.hvl.dat104.controller.JspMappings.*;
-import static no.hvl.dat104.controller.UrlMappings.*;
+import static no.hvl.dat104.controller.JspMappings.ADMINISTRER_JSP;
+import static no.hvl.dat104.controller.JspMappings.LANDING_JSP;
+import static no.hvl.dat104.controller.JspMappings.LANDING_STYRER_JSP;
 
 import java.io.IOException;
 import java.util.List;
