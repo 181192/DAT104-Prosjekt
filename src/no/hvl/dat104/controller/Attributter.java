@@ -7,4 +7,5 @@ public final class Attributter {
 	public static final String BRUKER = "bruker";
 	public static final String ADMIN = "admin";
 	public static final String DELTAGER = "deltager";
+	public static final Integer ROLLE_BRUKER = 2;
 }

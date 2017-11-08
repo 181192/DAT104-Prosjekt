@@ -10,20 +10,19 @@ public class SHA {
 		
 	}
 	
-    private static byte[] getSalt() throws NoSuchAlgorithmException {
+    public static byte[] getSalt() throws NoSuchAlgorithmException {
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
         byte[] salt = new byte[16];
         sr.nextBytes(salt);
-
         return salt;
     }
     
-    private static String get_SHA_1_SecurePassword(String passwordToHash, byte[] salt) {
+    public static String hashPassord(String passwordToHash, String salt) {
         String generatedPassword = null;
 
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
-            md.update(salt);
+            md.update(salt.getBytes());
             byte[] bytes = md.digest(passwordToHash.getBytes());
             StringBuilder sb = new StringBuilder();
             

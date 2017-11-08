@@ -1,6 +1,8 @@
 package no.hvl.dat104.controller.styrer.bruker;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -8,11 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.dataaccess.IRolleEAO;
 import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.util.SHA;
 
 /**
  * Servlet implementation class OpprettBrukerController
@@ -35,18 +39,11 @@ public class OpprettBrukerController extends HttpServlet {
 
 		BrukerValidator skjema = new BrukerValidator(request);
 		if (skjema.erAlleDataGyldig()) {
-			Bruker bruker = new Bruker();
-			bruker.setFornavn(request.getParameter("fornavn"));
-			bruker.setEtternavn(request.getParameter("etternavn"));
-			bruker.setMail(request.getParameter("mail"));
-			bruker.setPassord(request.getParameter("passord"));
-			bruker.setIdRolle(rolleEAO.finnRolle(2));
-			// Må endres senere
-			bruker.setSalt("testSalt");
-			if (skjema.erMailUnik(brukerEAO.finnBrukerPaaEmail(request.getParameter("mail")))) {
+			Bruker bruker = setOppBruker(request);
+			if (skjema.erMailUnik(brukerEAO.finnBrukerPaaEmail(bruker.getMail()))) {
 				brukerEAO.leggTilBruker(bruker);
 				request.getSession().removeAttribute("skjema");
-				response.sendRedirect(UrlMappings.LOGGINN_URL);	
+				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);	
 			} else {
 				skjema.setMailFeilmelding("Denne mailadressen er allerede registrert");
 				request.getSession().setAttribute("skjema", skjema);
@@ -56,6 +53,24 @@ public class OpprettBrukerController extends HttpServlet {
 			skjema.settOppFeilmeldinger(request);
 			request.getSession().setAttribute("skjema", skjema);
 			response.sendRedirect(UrlMappings.OPPRETTBRUKER_URL);
+		}
+	}
+	public Bruker setOppBruker(HttpServletRequest request) {
+		Bruker bruker = new Bruker();
+		bruker.setFornavn(request.getParameter("fornavn"));
+		bruker.setEtternavn(request.getParameter("etternavn"));
+		bruker.setMail(request.getParameter("mail"));
+		bruker.setPassord(request.getParameter("passord"));
+		bruker.setIdRolle(rolleEAO.finnRolle(Attributter.ROLLE_BRUKER));
+		setOppSalt(bruker);
+		return bruker;
+	}
+	public void setOppSalt(Bruker b) {
+		try {
+			byte[] salt = SHA.getSalt();
+			b.setSalt(Arrays.toString(salt));
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
 		}
 	}
 }
