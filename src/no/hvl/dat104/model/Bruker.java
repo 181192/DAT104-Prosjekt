@@ -37,7 +37,7 @@ public class Bruker {
 	@JoinColumn(name = "id_rolle", referencedColumnName = "id")
 	private Rolle idRolle;
 
-	@OneToMany(mappedBy = "idBruker")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idBruker")
 	private List<Aktivitet> aktiviteter;
 
 	/**

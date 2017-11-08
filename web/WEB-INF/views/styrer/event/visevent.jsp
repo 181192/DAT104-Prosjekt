@@ -11,6 +11,7 @@
 	      <th>Status</th>
 	      <th>Sted</th>
 	      <th>Rediger</th>
+	      <th>Slett</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -25,6 +26,12 @@
 	      <td class="selectable" id="rediger">
 	      	<p class="aktivitet-link">Rediger<p>
 		    <form id="redigerForm" action="<%= REDIGEREVENT_URL%>" method="get">
+		      <input type="hidden" value="${event.id}" name="eventId">
+		    </form>
+		  </td>
+		  <td class="selectable" id="slett">
+	      	<p class="aktivitet-link">Slett<p>
+		    <form id="slettForm" action="<%=SLETTEVENT_URL %>" method="get">
 		      <input type="hidden" value="${event.id}" name="eventId">
 		    </form>
 		  </td>
@@ -43,5 +50,10 @@
  		    document.getElementById("redigerForm").submit();
  		});
  		
+ 		var slettForm = document.getElementById('slett');
+ 		document.querySelector('#myModal > div').style.width = '70%'; 
+ 		slettForm.addEventListener("click", function(){
+ 		    document.getElementById("slettForm").submit();
+ 		});
 	 </script>
 <jsp:include page="../../../partials/footer.jsp" />

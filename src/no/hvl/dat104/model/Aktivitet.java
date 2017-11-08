@@ -29,7 +29,7 @@ public class Aktivitet {
 	private String navn;
 	private String status;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_bruker", referencedColumnName = "id")
 	private Bruker idBruker;
 	
