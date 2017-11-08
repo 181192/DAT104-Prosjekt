@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.model.Event;
 
 public class InnloggingUtil {
 	 /**
@@ -30,10 +31,10 @@ public class InnloggingUtil {
      * Logger inn som en deltager
      * @param request
      */
-    public static void loggInnSomDeltager(HttpServletRequest request) {
+    public static void loggInnSomDeltager(HttpServletRequest request, Event event) {
     	loggUt(request);
         HttpSession sesjon = request.getSession(true);
-        sesjon.setAttribute("deltager", "deltager");
+        sesjon.setAttribute("event", event);
     }
     /**
      * Logger inn som Bruker
@@ -102,6 +103,21 @@ public class InnloggingUtil {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
+        }
+    }
+    
+    /**
+     * Sjekker om deltager har skrivd inn kodeord / er innlogget
+     * @param request
+     * @return boolean
+     */
+    public static boolean erInnloggetSomDeltager(HttpServletRequest request) {
+        HttpSession sesjon = request.getSession(false);
+        if (sesjon!=null) {
+        	return sesjon.getAttribute("event")!=null;
+        }
+        else {
+        	return false;
         }
     }
 
