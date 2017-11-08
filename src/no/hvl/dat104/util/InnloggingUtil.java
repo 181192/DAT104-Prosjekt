@@ -21,10 +21,10 @@ public class InnloggingUtil {
      * @param request
      * @return
      */
-    public static String isInnloggetSom(HttpServletRequest request) {
+    public static Bruker isInnloggetSom(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         return isInnlogget(request) ?
-                (String) session.getAttribute("currentUser") : null;
+                (Bruker) session.getAttribute("currentUser") : null;
     }
     /**
      * Logger inn som en deltager
