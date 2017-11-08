@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<jsp:useBean id="dato" class="no.hvl.dat104.util.DatoUtil" />
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
 <jsp:include page="../../../partials/headerNoNavbar.jsp" />
   <div class="ui container">

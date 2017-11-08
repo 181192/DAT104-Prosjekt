@@ -41,7 +41,7 @@ public class PreEventController extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		
 		//Må finne eventet som skal startes på en eller annen måte. 
-		Event ev = eventEAO.finnEvent(12);
+		Event ev = eventEAO.finnEvent(1);
 
 		ev.setStatus(Status.PLANLAGT);
 		

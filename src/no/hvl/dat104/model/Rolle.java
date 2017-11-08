@@ -2,6 +2,7 @@ package no.hvl.dat104.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,9 +27,9 @@ public class Rolle {
 	private Integer id;
 	private String type;
 
-	@OneToMany(mappedBy = "idRolle", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idRolle")
 	private List<Bruker> brukere;
-	@OneToMany(mappedBy = "idRolle", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idRolle")
 	private List<Rettigheter> rettigheter;
 
 	/**

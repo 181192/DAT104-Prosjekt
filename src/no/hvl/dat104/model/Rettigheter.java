@@ -28,7 +28,7 @@ public class Rettigheter {
 	private Boolean sletteBruker;
 	@Column(name = "opprette_bruker")
 	private Boolean oppretteBruker;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_rolle", referencedColumnName = "id")
 	private Rolle idRolle;
 

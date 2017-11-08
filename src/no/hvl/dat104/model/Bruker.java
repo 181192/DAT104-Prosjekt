@@ -33,7 +33,7 @@ public class Bruker {
 	private String passord;
 	private String salt;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "id_rolle", referencedColumnName = "id")
 	private Rolle idRolle;
 
