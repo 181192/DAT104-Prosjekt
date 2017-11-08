@@ -1,5 +1,7 @@
 package no.hvl.dat104.controller.deltager;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,25 +20,6 @@ public class DeltaEventHjelpeklasse {
 	public static boolean riktigKodeordSyntaks(String kodeord) {
 		return kodeord != null && kodeord.matches("[0-9]+"); // && kodeord.length()==8
 	}
-
-	/**
-	 * Laster event til sesjon
-	 * @param kodeord
-	 * @param iEventEAO
-	 * @param request
-	 * @throws Exception
-	 */
-
-	public static void lastEventTilSesjon(Kodeord kodeord, IEventEAO iEventEAO,
-			HttpServletRequest request) {
-		HttpSession sesjon = request.getSession();
-		sesjon.invalidate();
-		sesjon = request.getSession(true);
-
-		Event event = DeltaEventHjelpeklasse.finnEvent(kodeord, iEventEAO);
-
-		sesjon.setAttribute("event", event);
-	}
 	
 	/**
 	 * finner eventet til kodeordet
@@ -44,7 +27,16 @@ public class DeltaEventHjelpeklasse {
 	 * @param kodeord
 	 * @return Event
 	 */
-	private static Event finnEvent(Kodeord k, IEventEAO eventEAO) {
+	public static Event finnEvent(Kodeord k, IEventEAO eventEAO) {
 		return eventEAO.finnEventBasertPaaKodeord(k);
+	}
+	
+	/**
+	 * Sjekker om kodeord finnes
+	 * @param Liste av typen Kodeord
+	 * @return boolean
+	 */
+	public static boolean kodeordFinnes(List<Kodeord> k) {
+		return k.size() != 0;
 	}
 }

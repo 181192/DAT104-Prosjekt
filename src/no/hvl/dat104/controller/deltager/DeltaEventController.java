@@ -15,6 +15,7 @@ import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.IKodeordEAO;
 import no.hvl.dat104.model.Kodeord;
 import no.hvl.dat104.util.FlashUtil;
+import no.hvl.dat104.util.InnloggingUtil;
 
 /**
  * Servlet implementation class DeltaEventController
@@ -36,19 +37,22 @@ public class DeltaEventController extends HttpServlet {
 			throws ServletException, IOException {
 		String kodeord = request.getParameter("kodeord");
 		if (DeltaEventHjelpeklasse.riktigKodeordSyntaks(kodeord)) {
+			System.out.println("riktig kodeord syntaks");
+			System.out.println("innputt kodeord: " + kodeord);
 			List<Kodeord> k = kodeordEAO.finnKodeordBasertPaaKode(Integer.parseInt(kodeord));
-			if (k.size() != 0) {
-				DeltaEventHjelpeklasse.lastEventTilSesjon(k.get(0), eventEAO, request);
-				FlashUtil.Flash(request, "Error", "Kodeordet finnes ikke!");
+			if (DeltaEventHjelpeklasse.kodeordFinnes(kodeordEAO.finnKodeordBasertPaaKode(Integer.parseInt(kodeord)))){
+				System.out.println("kodeord finnes");
+				InnloggingUtil.loggInnSomDeltager(request ,eventEAO.finnEventBasertPaaKodeord(k.get(0)));
 				response.sendRedirect(UrlMappings.GITILBAKEMELDING_URL);
 			} else {
+				System.out.println("kodeord finnes ikke");
 				FlashUtil.Flash(request, "Error", "Kodeordet finnes ikke");
 				response.sendRedirect(UrlMappings.DELTAEVENT_URL);// index
 			}
 
 		} else {
+			System.out.println("feil kodeord syntaks");
 			FlashUtil.Flash(request, "Error", "Kodeord består av 5 siffer");
-			request.getSession().setAttribute("feilmelding", true);
 			response.sendRedirect(UrlMappings.DELTAEVENT_URL);// index
 		}
 	}
