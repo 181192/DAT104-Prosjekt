@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
+<jsp:include page="../../../partials/header.jsp" />
   <div class="ui container">
   <form method="post" action="<%=LAGEVENT_URL %>" class="ui form">
     <div class="field"><label>Tittel:</label> <input type="text" name="tittel" placeholder="Tittel"></div>
