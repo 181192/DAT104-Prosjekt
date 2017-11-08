@@ -43,28 +43,32 @@ public class RedigerBrukerController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			BrukerValidator skjema = new BrukerValidator(request);
+			Bruker b = (Bruker) request.getSession().getAttribute(Attributter.BRUKER);
 
-		BrukerValidator skjema = new BrukerValidator(request);
-		Bruker b = (Bruker) request.getSession().getAttribute(Attributter.BRUKER);
+			if (skjema.erAlleDataGyldig()) {
+				if (b != null) {
+					Integer id = b.getId();
 
-		if (skjema.erAlleDataGyldig()) {
-			if (b != null) {
-				Integer id = b.getId();
+					brukerEAO.endreEtternavnPaaBruker(id, skjema.getEtternavn());
+					brukerEAO.endreFornavnPaaBruker(id, skjema.getFornavn());
+					brukerEAO.endreMailPaaBruker(id, skjema.getMail());
+					brukerEAO.endrePassordPaaBruker(id, skjema.getPassord());
 
-				brukerEAO.endreEtternavnPaaBruker(id, skjema.getEtternavn());
-				brukerEAO.endreFornavnPaaBruker(id, skjema.getFornavn());
-				brukerEAO.endreMailPaaBruker(id, skjema.getMail());
-				brukerEAO.endrePassordPaaBruker(id, skjema.getPassord());
-
-				FlashUtil.Flash(request, "success", "Brukeren " + b.getFornavn() + b.getEtternavn() + " er oppdatert!");
-				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+					FlashUtil.Flash(request, "success",
+							"Brukeren " + b.getFornavn() + b.getEtternavn() + " er oppdatert!");
+					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+				} else {
+					FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
+					response.sendRedirect(UrlMappings.REDIGERBRUKER_URL);
+				}
 			} else {
-				FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
+				skjema.settOppFeilmeldinger(request);
 				response.sendRedirect(UrlMappings.REDIGERBRUKER_URL);
 			}
 		} else {
-			skjema.settOppFeilmeldinger(request);
-			response.sendRedirect(UrlMappings.REDIGERBRUKER_URL);
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 
 	}
