@@ -51,11 +51,12 @@ public class LagEventController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+		Bruker bruker = InnloggingUtil.innloggetSomBruker(request);
+		if (InnloggingUtil.erInnloggetSomBruker(request) && bruker != null) {
 			EventValidator skjema = new EventValidator(request);
 			if (skjema.erAlleDataGyldige()) {
 				Event e = lagEvent(request, skjema);
-				iBrukerEAO.finnBrukerLeggTilEvent(2, e, 2);
+				iBrukerEAO.finnBrukerLeggTilEvent(bruker.getId(), e, bruker.getId());
 				request.getSession().removeAttribute("skjema");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 			} else {
