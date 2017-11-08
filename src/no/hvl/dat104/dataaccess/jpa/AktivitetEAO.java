@@ -1,6 +1,5 @@
 package no.hvl.dat104.dataaccess.jpa;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
