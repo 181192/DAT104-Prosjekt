@@ -16,6 +16,7 @@ import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Aktivitet;
+import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Status;
 import no.hvl.dat104.util.DatoUtil;
@@ -36,10 +37,11 @@ public class LagEventController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+		Bruker bruker = InnloggingUtil.innloggetSomBruker(request);
+		if (InnloggingUtil.erInnloggetSomBruker(request) && bruker != null) {
 			String dato = DatoUtil.fraEngTilNorskDato(request.getParameter("dato"));
 			request.getSession().setAttribute("dato", dato);
-			List<Aktivitet> a = iBrukerEAO.finnAlleAktiviteterTilBruker(2);
+			List<Aktivitet> a = iBrukerEAO.finnAlleAktiviteterTilBruker(bruker.getId());
 			request.getSession().setAttribute("aktiviteter", a);
 			request.getRequestDispatcher(JspMappings.LAGEVENT_JSP).forward(request, response);
 		} else {
