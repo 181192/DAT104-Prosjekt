@@ -43,14 +43,17 @@ public class OpprettBrukerController extends HttpServlet {
 			if (skjema.erMailUnik(brukerEAO.finnBrukerPaaEmail(bruker.getMail()))) {
 				brukerEAO.leggTilBruker(bruker);
 				request.getSession().removeAttribute("skjema");
+				System.out.println("riktig");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);	
 			} else {
 				skjema.setMailFeilmelding("Denne mailadressen er allerede registrert");
 				request.getSession().setAttribute("skjema", skjema);
+				System.out.println("feil");
 				response.sendRedirect(UrlMappings.OPPRETTBRUKER_URL);
 			}
 		} else {
 			skjema.settOppFeilmeldinger(request);
+			System.out.println("feil");
 			request.getSession().setAttribute("skjema", skjema);
 			response.sendRedirect(UrlMappings.OPPRETTBRUKER_URL);
 		}

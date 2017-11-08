@@ -43,7 +43,7 @@ public class BrukerValidator {
 	}
 
 	private boolean erPassordGyldig() {
-		return ValidatorUtil.isNotNull0(passord) && ValidatorUtil.isValidString(passord);
+		return ValidatorUtil.isNotNull0(passord);
 	}
 
 	public boolean erMailUnik(Bruker b) {
