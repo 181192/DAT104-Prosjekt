@@ -60,6 +60,8 @@ public class RedigerAktivitetController extends HttpServlet {
 			if (a != null && ValidatorUtil.isNotNull0(navn) && ValidatorUtil.isNotNull0(status)) {
 				aktivitetEAO.endreNavnPaaAktivitet(id, navn);
 				aktivitetEAO.endreStatusPaaAktivitet(id, status);
+				// Oppdaterer aktiviteten
+				aktivitetEAO.endreParametereTilAktivitet(id, navn, status);
 				FlashUtil.Flash(request, "success", "Aktiviteten " + a.getNavn() + " er oppdatert!");
 				response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
 			} else {

@@ -1,5 +1,6 @@
 package no.hvl.dat104.dataaccess.jpa;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,4 +77,13 @@ public class AktivitetEAO implements IAktivitetEAO {
 		e.addAll(em.find(Aktivitet.class, id).getEventer());
 		return e;
 	}
+
+	@Override
+	public void endreParametereTilAktivitet(Integer id, String navn, String status) {
+		Aktivitet a = finnAktivitet(id);
+		a.setNavn(navn);
+		a.setStatus(status);
+		em.merge(a);
+	}
+	
 }
