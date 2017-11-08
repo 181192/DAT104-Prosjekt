@@ -12,6 +12,7 @@ import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.util.FlashUtil;
+import no.hvl.dat104.util.InnloggingUtil;
 import no.hvl.dat104.util.ValidatorUtil;
 
 /**
@@ -25,31 +26,30 @@ public class SlettEventController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String eventId = ValidatorUtil.escapeHtml(request.getParameter("eventId"));
-		System.out.println("eventid " + eventId);
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			String eventId = ValidatorUtil.escapeHtml(request.getParameter("eventId"));
+			System.out.println("eventid " + eventId);
 
-		if (ValidatorUtil.isNotNull0(eventId)) {
-			Integer id = Integer.parseInt(eventId);
-			Event e = eventEAO.finnEvent(id);
-			if (e != null) {
-				System.out.println(e.getNavn());
-				eventEAO.slettEvent(e);
-				FlashUtil.Flash(request, "success", "Eventet " + e.getNavn() + " er slettet!");
-				response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+			if (ValidatorUtil.isNotNull0(eventId)) {
+				Integer id = Integer.parseInt(eventId);
+				Event e = eventEAO.finnEvent(id);
+				if (e != null) {
+					System.out.println(e.getNavn());
+					eventEAO.slettEvent(e);
+					FlashUtil.Flash(request, "success", "Eventet " + e.getNavn() + " er slettet!");
+					response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+				} else {
+					System.out.println("den er tom");
+					FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
+					response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+				}
 			} else {
-				System.out.println("den er tom");
 				FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
 				response.sendRedirect(UrlMappings.MINEEVENTER_URL);
 			}
 		} else {
-			FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
-			response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-	}
-
 }

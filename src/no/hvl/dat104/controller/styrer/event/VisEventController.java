@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.controller.JspMappings;
+import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.util.InnloggingUtil;
 
 /**
  * Servlet implementation class VisEventController
@@ -21,28 +23,22 @@ import no.hvl.dat104.model.Event;
 public class VisEventController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
-    private IEventEAO iEventEAO;
+	private IEventEAO iEventEAO;
 	@EJB
-    private IAktivitetEAO iAktivitetEAO;
+	private IAktivitetEAO iAktivitetEAO;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer id =Integer.parseInt(request.getParameter("id"));
-		Event e = iEventEAO.finnEvent(id);
-		Aktivitet a = e.getIdAktivitet();
-		
-		request.getSession().setAttribute("aktivitet", a);
-		request.getSession().setAttribute("event", e);
-		request.getRequestDispatcher(JspMappings.VIS_EVENT_JSP).forward(request, response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			Integer id = Integer.parseInt(request.getParameter("id"));
+			Event e = iEventEAO.finnEvent(id);
+			Aktivitet a = e.getIdAktivitet();
+
+			request.getSession().setAttribute("aktivitet", a);
+			request.getSession().setAttribute("event", e);
+			request.getRequestDispatcher(JspMappings.VIS_EVENT_JSP).forward(request, response);
+		} else {
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
+		}
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-
 }

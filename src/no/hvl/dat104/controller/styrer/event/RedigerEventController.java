@@ -16,6 +16,7 @@ import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.util.DatoUtil;
 import no.hvl.dat104.util.FlashUtil;
+import no.hvl.dat104.util.InnloggingUtil;
 import no.hvl.dat104.util.ValidatorUtil;
 
 /**
@@ -23,65 +24,71 @@ import no.hvl.dat104.util.ValidatorUtil;
  */
 public class RedigerEventController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	@EJB
 	private IEventEAO eventEAO;
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		String eventId = request.getParameter("eventId");
-		if (ValidatorUtil.isNotNull0(eventId)) {
-			Integer id = Integer.parseInt(eventId);
-			Event e = eventEAO.finnEvent(id);
-			if (e != null) {
-				HttpSession mySession = request.getSession();
-				mySession.setAttribute("event", e);
-				request.getRequestDispatcher(JspMappings.REDIGEREVENT_JSP).forward(request, response);
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			String eventId = request.getParameter("eventId");
+			if (ValidatorUtil.isNotNull0(eventId)) {
+				Integer id = Integer.parseInt(eventId);
+				Event e = eventEAO.finnEvent(id);
+				if (e != null) {
+					HttpSession mySession = request.getSession();
+					mySession.setAttribute("event", e);
+					request.getRequestDispatcher(JspMappings.REDIGEREVENT_JSP).forward(request, response);
+				} else {
+					response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+					FlashUtil.Flash(request, "error", "Beklager, eventen eksisterer ikke");
+				}
 			} else {
 				response.sendRedirect(UrlMappings.MINEEVENTER_URL);
 				FlashUtil.Flash(request, "error", "Beklager, eventen eksisterer ikke");
 			}
 		} else {
-			response.sendRedirect(UrlMappings.MINEEVENTER_URL);
-			FlashUtil.Flash(request, "error", "Beklager, eventen eksisterer ikke");
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
-		
+
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		Integer id = Integer.valueOf(request.getParameter("id"));
-		String navn = request.getParameter("navn");
-		String beskrivelse = request.getParameter("beskrivelse");
-		String dato = request.getParameter("dato");
-		String klokkeslettFra = request.getParameter("fra");
-		String klokkeslettTil = request.getParameter("til");
-		String status = request.getParameter("status");
-		String sted = request.getParameter("sted");
-		Timestamp dateFra = null;
-		Timestamp dateTil = null;
-		
-		try {
-		    dateFra = DatoUtil.formaterDatoTilStamp(dato, klokkeslettFra);
-		    dateTil = DatoUtil.formaterDatoTilStamp(dato, klokkeslettTil);
-		} catch(Exception exc) { 
-			exc.printStackTrace();
-			//Hvis dato ikke kan parses med punkter, prøver man å parse med streker
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			Integer id = Integer.valueOf(request.getParameter("id"));
+			String navn = request.getParameter("navn");
+			String beskrivelse = request.getParameter("beskrivelse");
+			String dato = request.getParameter("dato");
+			String klokkeslettFra = request.getParameter("fra");
+			String klokkeslettTil = request.getParameter("til");
+			String status = request.getParameter("status");
+			String sted = request.getParameter("sted");
+			Timestamp dateFra = null;
+			Timestamp dateTil = null;
+
 			try {
-			    dateFra = DatoUtil.parseBasertPaaBindestrek(dato, klokkeslettFra);
-			    dateTil = DatoUtil.parseBasertPaaBindestrek(dato, klokkeslettTil);
-			} catch(Exception exc2) { 
-				exc2.printStackTrace();
-				
+				dateFra = DatoUtil.formaterDatoTilStamp(dato, klokkeslettFra);
+				dateTil = DatoUtil.formaterDatoTilStamp(dato, klokkeslettTil);
+			} catch (Exception exc) {
+				exc.printStackTrace();
+				// Hvis dato ikke kan parses med punkter, prøver man å parse med streker
+				try {
+					dateFra = DatoUtil.parseBasertPaaBindestrek(dato, klokkeslettFra);
+					dateTil = DatoUtil.parseBasertPaaBindestrek(dato, klokkeslettTil);
+				} catch (Exception exc2) {
+					exc2.printStackTrace();
+
+				}
 			}
+
+			// Oppdaterer eventen
+			eventEAO.endreParametereTilEvent(id, navn, beskrivelse, dateFra, dateTil, status, sted);
+			FlashUtil.Flash(request, "success", "Eventen " + navn + " er oppdatert!");
+			response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+		} else {
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
-		
-		//Oppdaterer eventen
-		eventEAO.endreParametereTilEvent(id, navn, beskrivelse, dateFra, dateTil, status, sted);
-		FlashUtil.Flash(request, "success", "Eventen " + navn + " er oppdatert!");
-		response.sendRedirect(UrlMappings.MINEEVENTER_URL);
 	}
 
 }
