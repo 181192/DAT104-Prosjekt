@@ -6,6 +6,8 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Aktivitet;
@@ -51,8 +53,8 @@ public class BrukerEAO implements IBrukerEAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Bruker> alleBrukerne() {
-		List<Bruker> brukere = em.createQuery("SELECT b FROM Bruker b").getResultList();
-		return brukere;
+		Query b = em.createQuery("SELECT b FROM Bruker b ORDER BY b.idRolle DESC, b.etternavn");
+        return b.getResultList();
 	}
 
 	@Override
