@@ -1,12 +1,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
 <%@ page import="static no.hvl.dat104.model.Status.*" %>
+<%@ page import="static no.hvl.dat104.util.DatoUtil.*" %>
 <jsp:include page="../../../partials/header.jsp" />
 	<c:set var="PAAGANDE" value="<%=PAAGANDE%>"></c:set>
 <c:set var="AVSLUTTET" value="<%=AVSLUTTET%>"></c:set>
 <div class="ui container">
 	<h3>${aktivitet.navn} - Eventer:
-	<a class="ui teal basic button" href="<%=LAGEVENT_URL%>?dato=2017-10-10" style="float: right;">Opprett event</a> 
+	<a class="ui teal basic button" href="<%=LAGEVENT_URL%>?dato=<%=lagCurrentDate()%>" style="float: right;">Opprett event</a> 
 	</h3><br>
 	<c:if test="${flash == 'success'}">
 		<p style="color: green;">${melding}</p>
