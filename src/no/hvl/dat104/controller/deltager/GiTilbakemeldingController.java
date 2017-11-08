@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.controller.JspMappings;
+import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
 import no.hvl.dat104.dataaccess.ILiveTilbakemeldingEAO;
@@ -18,6 +19,7 @@ import no.hvl.dat104.model.Tilbakemelding;
 import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.util.DatoUtil;
 import no.hvl.dat104.util.FlashUtil;
+import no.hvl.dat104.util.InnloggingUtil;
 
 /**
  * Servlet implementation class GiTilbakemeldingController
@@ -34,7 +36,12 @@ public class GiTilbakemeldingController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher(JspMappings.GITILBAKEMELDING_JSP).forward(request, response);
+		if (InnloggingUtil.erInnloggetSomDeltager(request)) {
+			request.getRequestDispatcher(JspMappings.GITILBAKEMELDING_JSP).forward(request, response);
+		}
+		else {
+			response.sendRedirect(UrlMappings.DELTAEVENT_URL);// index
+		}
 	}
 	
     @Override
@@ -63,7 +70,7 @@ public class GiTilbakemeldingController extends HttpServlet {
     
     private boolean eventPaagaar(HttpServletRequest request) {
     	Event event = (Event) request.getSession().getAttribute("event");
-    	return event.getTidTil().after(new Date()); 
+    	return event.getTidTil().before(new Date()); 
     }
     
     private boolean eventHarStartet(HttpServletRequest request) {
