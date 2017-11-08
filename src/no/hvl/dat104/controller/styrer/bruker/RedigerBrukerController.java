@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
@@ -24,36 +25,27 @@ public class RedigerBrukerController extends HttpServlet {
 	@EJB
 	private IBrukerEAO brukerEAO;
 
-	@SuppressWarnings("static-access")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		Bruker b = (Bruker) request.getSession().getAttribute("currentUser");
-
-		InnloggingUtil logIn = new InnloggingUtil();
-
-		if (logIn.isInnlogget(request)) {
-
+		Bruker b = (Bruker) request.getSession().getAttribute(Attributter.BRUKER);
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 			if (b != null) {
-				request.getSession().setAttribute("currentUser", b);
-
+				request.getSession().setAttribute(Attributter.BRUKER, b);
 				request.getRequestDispatcher(JspMappings.REDIGERBRUKER_JSP).forward(request, response);
 			} else {
-
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 			}
-
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
-
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		BrukerValidator skjema = new BrukerValidator(request);
-		Bruker b = (Bruker) request.getSession().getAttribute("currentUser");
+		Bruker b = (Bruker) request.getSession().getAttribute(Attributter.BRUKER);
 
 		if (skjema.erAlleDataGyldig()) {
 			if (b != null) {
@@ -73,7 +65,6 @@ public class RedigerBrukerController extends HttpServlet {
 		} else {
 			skjema.settOppFeilmeldinger(request);
 			response.sendRedirect(UrlMappings.REDIGERBRUKER_URL);
-
 		}
 
 	}
