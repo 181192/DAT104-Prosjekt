@@ -16,6 +16,7 @@ import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.dataaccess.IRolleEAO;
 import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.SHA;
 
 /**
@@ -43,17 +44,16 @@ public class OpprettBrukerController extends HttpServlet {
 			if (skjema.erMailUnik(brukerEAO.finnBrukerPaaEmail(bruker.getMail()))) {
 				brukerEAO.leggTilBruker(bruker);
 				request.getSession().removeAttribute("skjema");
-				System.out.println("riktig");
+				FlashUtil.Flash(request, "Success", "Velkommet til dashbordet!");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);	
 			} else {
 				skjema.setMailFeilmelding("Denne mailadressen er allerede registrert");
 				request.getSession().setAttribute("skjema", skjema);
-				System.out.println("feil");
 				response.sendRedirect(UrlMappings.OPPRETTBRUKER_URL);
 			}
 		} else {
 			skjema.settOppFeilmeldinger(request);
-			System.out.println("feil");
+			FlashUtil.Flash(request, "Error", "Ugyldig input!");
 			request.getSession().setAttribute("skjema", skjema);
 			response.sendRedirect(UrlMappings.OPPRETTBRUKER_URL);
 		}
