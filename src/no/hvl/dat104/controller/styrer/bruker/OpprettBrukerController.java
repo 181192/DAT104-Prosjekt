@@ -41,7 +41,6 @@ public class OpprettBrukerController extends HttpServlet {
 		if (skjema.erAlleDataGyldig()) {
 			Bruker bruker = setOppBruker(skjema);
 			if (skjema.erMailUnik(brukerEAO.finnBrukerPaaEmail(bruker.getMail()))) {
-				SHA.hashPassord(bruker.getPassord(), bruker.getSalt());
 				brukerEAO.leggTilBruker(bruker);
 				request.getSession().removeAttribute("skjema");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);	
@@ -61,9 +60,11 @@ public class OpprettBrukerController extends HttpServlet {
 		bruker.setFornavn(skjema.getFornavn());
 		bruker.setEtternavn(skjema.getEtternavn());
 		bruker.setMail(skjema.getMail());
-		bruker.setPassord(skjema.getPassord());
 		bruker.setIdRolle(rolleEAO.finnRolle(Attributter.ROLLE_BRUKER));
 		setOppSalt(bruker);
+		String passord = SHA.hashPassord(skjema.getPassord(), bruker.getSalt());
+		bruker.setPassord(passord);
+		
 		return bruker;
 	}
 	public void setOppSalt(Bruker b) {

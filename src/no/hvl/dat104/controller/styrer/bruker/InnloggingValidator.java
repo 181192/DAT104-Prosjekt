@@ -39,8 +39,8 @@ public class InnloggingValidator {
 			return false;
 		}
 		if (bruker != null) {
-			String hashetPassord = SHA.hashPassord(bruker.getPassord(), bruker.getSalt());
-			String brukerPassord = bruker.getPassord() + bruker.getSalt();
+			String hashetPassord = SHA.hashPassord(passord, bruker.getSalt());
+			String brukerPassord = bruker.getPassord();
 			return brukerPassord.equals(hashetPassord);
 		}
 		return false;
