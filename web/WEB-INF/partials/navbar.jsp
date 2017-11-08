@@ -5,7 +5,7 @@
 		<h1 id="nav-textfelt"></h1>
 	</div>
 	<!-- HVIS BRUKE ER INNLOGGET. -->
-	<c:if test="${not empty currentUser}">
+	<c:if test="${not empty bruker}">
 		<div class="right menu">
 			<div class="item">
 				<a class="ui teal button" href="<%=LANDING_STYRER_URL%>"> Dashbord </a>
@@ -24,7 +24,7 @@
 			</div>
 		</div>
 	</c:if>
-	<c:if test="${empty currentUser}">
+	<c:if test="${empty bruker}">
 		<!-- HVIS IKKE INNLOGGET VIS LOGIN REGISTRER -->
 
 		<div class="right menu">
