@@ -17,7 +17,7 @@
 				<a class="ui teal button" href="<%=MINEAKTIVITETER_URL%>"> Mine Aktiviteter </a>
 			</div>
 			<div class="item">
-				<a class="ui teal basic button" href="<%=MINEAKTIVITETER_URL%>">Innlogget Som: {$currentUser.fornavn}</a>
+				<a class="ui teal basic button" href="<%=MINEAKTIVITETER_URL%>">Innlogget som ${bruker.fornavn}</a>
 			</div>
 			<div class="item">
 				<a class="ui teal basic button" href="">Logg Ut</a>
