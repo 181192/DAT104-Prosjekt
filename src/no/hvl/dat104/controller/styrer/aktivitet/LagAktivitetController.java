@@ -41,18 +41,24 @@ public class LagAktivitetController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			Bruker b = InnloggingUtil.innloggetSomBruker(request);
 			String tittel = request.getParameter("tittel");
 			String status = request.getParameter("status");
-			if (ValidatorUtil.isNotNull0(tittel)) {
-				Bruker b = brukerEAO.finnBruker(2);
-				Aktivitet a = new Aktivitet();
-				a.setNavn(tittel);
-				a.setStatus(status);
-				a.setIdBruker(b);
-				List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
-				aktiviteter.add(a);
-				aktivitetEAO.leggTilAktivitet(a);
-				response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+			if (ValidatorUtil.isNotNull0(tittel) && ValidatorUtil.isNotNull0(status)) {
+				if (b != null) {
+					Aktivitet a = new Aktivitet();
+					a.setNavn(tittel);
+					a.setStatus(status);
+					a.setIdBruker(b);
+					List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
+					aktiviteter.add(a);
+					aktivitetEAO.leggTilAktivitet(a);
+					response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+				} else {
+					response.sendRedirect(UrlMappings.LOGGINN_URL);
+				}
+			} else {
+				response.sendRedirect(UrlMappings.LOGGINN_URL);
 			}
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
