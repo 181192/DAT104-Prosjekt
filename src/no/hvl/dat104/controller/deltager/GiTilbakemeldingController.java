@@ -48,16 +48,18 @@ public class GiTilbakemeldingController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		System.out.println("doPost metoden");
-    	if (eventHarStartet(request)) {
+    	if (eventHarStartet(request) && !maaVente(request, 10)) {
     		System.out.println("event har startet");
     		if(eventPaagaar(request)) {
         		System.out.println("event paagaar");
         		lastOppTilbakemelding(request,"paagaaende");
+        		FlashUtil.Flash(request, "Success", "Sist stemme avgitt " + new Date().toString().substring(11, 19));
         		response.sendRedirect("gitilbakemelding");
     		}
     		else {//helhetlig tilbakemelding
         		System.out.println("event avsluttet");
         		lastOppTilbakemelding(request,"heletlig");
+        		FlashUtil.Flash(request, "Success", "Sist stemme avgitt " + new Date().toString().substring(11, 19));
         		response.sendRedirect("gitilbakemelding");
     		}
     	}
@@ -68,9 +70,23 @@ public class GiTilbakemeldingController extends HttpServlet {
     	}
 	}
     
+    private boolean maaVente(HttpServletRequest request, int sekunder) {
+    	Date avgittDato = (Date) request.getAttribute("sistStemme");
+    	if (request.getAttribute("sistStemme")!=null) {
+    		Date naa = new Date();
+    		long sekunderMellom = (naa.getTime() - avgittDato.getTime() / 1000);
+    		return sekunderMellom >= sekunder;
+    		
+    	}
+    	else {
+    		return false;
+    	}
+    }
+
+    
     private boolean eventPaagaar(HttpServletRequest request) {
     	Event event = (Event) request.getSession().getAttribute("event");
-    	return event.getTidTil().before(new Date()); 
+    	return event.getTidTil().after(new Date()); 
     }
     
     private boolean eventHarStartet(HttpServletRequest request) {
@@ -81,6 +97,7 @@ public class GiTilbakemeldingController extends HttpServlet {
 
 	private void lastOppTilbakemelding(HttpServletRequest request, String type) {
 		if (type.equals("paagaaende")) {
+			System.out.println("Par 1: " + request.getParameter("tilbakemelding") + ", par 2: " + DatoUtil.lagCurrentTimestamp() + ", par 3: " + (request.getSession(true).getAttribute("event")!=null));
 			LiveTilbakemelding liveTilbakemelding = new LiveTilbakemelding(request.getParameter("tilbakemelding"),
 					DatoUtil.lagCurrentTimestamp(), (Event) request.getSession(true).getAttribute("event"));
 			//denne kaster nullpointexception
