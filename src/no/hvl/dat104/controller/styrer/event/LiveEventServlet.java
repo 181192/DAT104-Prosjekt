@@ -21,6 +21,7 @@ import no.hvl.dat104.dataaccess.IKodeordEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
 import no.hvl.dat104.model.Status;
+import no.hvl.dat104.util.InnloggingUtil;
 
 /**
  * Servlet implementation class LiveEventServlet
@@ -40,33 +41,37 @@ public class LiveEventServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("doGet LiveEventServlet kjører.");
-		/*
-		 * Sjekk innlogging Send eventEAO i responsen.
-		 * 
-		 */
-		HttpSession session = request.getSession(false);
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			System.out.println("doGet LiveEventServlet kjører.");
+			/*
+			 * Sjekk innlogging Send eventEAO i responsen.
+			 * 
+			 */
+			HttpSession session = request.getSession(false);
 
-		// bedre test/kontroll må komme.
-		if (session != null) {
-			Event detteEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
-			System.out.println(detteEvent.getNavn());
-			//
-			if (detteEvent != null) {
-				System.out.println("Kodeordet er her");
-				//Må ha test for at kodeordet ikke er satt fra før.
-				Kodeord kodeord = genererKodeord(detteEvent);
-				kodeordEAO.leggTilKodeord(kodeord);
+			// bedre test/kontroll må komme.
+			if (session != null) {
+				Event detteEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
+				System.out.println(detteEvent.getNavn());
+				//
+				if (detteEvent != null) {
+					System.out.println("Kodeordet er her");
+					// Må ha test for at kodeordet ikke er satt fra før.
+					Kodeord kodeord = genererKodeord(detteEvent);
+					kodeordEAO.leggTilKodeord(kodeord);
 
-				session.setAttribute(Attributter.KODEORD, kodeord);
+					session.setAttribute(Attributter.KODEORD, kodeord);
+				}
 			}
-		}
 
-		// Lager noen testdata og sender til jsp i requesten.
-		List<Integer> dummyData = lagDummyListe(50, 20);
-		List<Integer> dummyDataFT = lagFrekvensTabell(dummyData, 60);
-		request.setAttribute("dummyData", dummyDataFT);
-		request.getRequestDispatcher(JspMappings.LIVE_EVENT_JSP).forward(request, response);
+			// Lager noen testdata og sender til jsp i requesten.
+			List<Integer> dummyData = lagDummyListe(50, 20);
+			List<Integer> dummyDataFT = lagFrekvensTabell(dummyData, 60);
+			request.setAttribute("dummyData", dummyDataFT);
+			request.getRequestDispatcher(JspMappings.LIVE_EVENT_JSP).forward(request, response);
+		} else {
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
+		}
 
 	}
 
@@ -76,42 +81,46 @@ public class LiveEventServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		System.out.println("dopost i liveeventservlet...");
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			// TODO Auto-generated method stub
+			System.out.println("dopost i liveeventservlet...");
 
-		// Må ha test for innlogging og gyldig session her.
-		HttpSession session = request.getSession(false);
-		Event denneEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
-		
-		String knappTrykket = (String)request.getParameter(Attributter.LIVE_EVENT_KNAPP);
-		
-		// Forleng-knapp
-		Boolean test = false;
+			// Må ha test for innlogging og gyldig session her.
+			HttpSession session = request.getSession(false);
+			Event denneEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
 
-		if (test) {
-			System.out.println("forlengknapp");
+			String knappTrykket = (String) request.getParameter(Attributter.LIVE_EVENT_KNAPP);
+
+			// Forleng-knapp
+			Boolean test = false;
+
+			if (test) {
+				System.out.println("forlengknapp");
+			}
+
+			if (knappTrykket.equals("avslutt")) {
+				System.out.println("Avluttknapp...");
+				eventEAO.endreStatusPaaEvent(denneEvent.getId(), Status.AVSLUTTET);
+				response.sendRedirect(UrlMappings.POST_LIVE_EVENT_URL);
+
+			}
+			/**
+			 * START-KNAPP
+			 * 
+			 * Faktisk tid for start må settes. Kodeord må genereres. Kodeord må settes i
+			 * session. Status må edres til pagaende.
+			 */
+
+			/**
+			 * STOPP-KNAPP
+			 * 
+			 * Faktisk tid for stop må settes. Kodeord skal slettes fra databasen. Status må
+			 * endres til avsluttet.
+			 * 
+			 */
+		} else {
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
-
-		if (knappTrykket.equals("avslutt")) {
-			System.out.println("Avluttknapp...");
-			eventEAO.endreStatusPaaEvent(denneEvent.getId(), Status.AVSLUTTET);
-			response.sendRedirect(UrlMappings.POST_LIVE_EVENT_URL);
-			
-		}
-		/**
-		 * START-KNAPP
-		 * 
-		 * Faktisk tid for start må settes. Kodeord må genereres. Kodeord må settes i
-		 * session. Status må edres til pagaende.
-		 */
-
-		/**
-		 * STOPP-KNAPP
-		 * 
-		 * Faktisk tid for stop må settes. Kodeord skal slettes fra databasen. Status må
-		 * endres til avsluttet.
-		 * 
-		 */
 	}
 
 	/**
