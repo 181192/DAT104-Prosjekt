@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 <jsp:include page="../../../partials/header.jsp" />
 
 
@@ -19,8 +20,17 @@
 			<p>Ønsker du å avslutte eventet?</p>
 		</div>
 		<div class="actions">
-			<button class="ui green button">Bekreft</button>
-			<div class="ui red cancel button">Avbryt</div>
+			<div class="ui items">
+				<div class="item">
+					<form action=<%=LIVE_EVENT_URL%> method="post">
+						<button type="submit" class="ui green button">Bekreft</button>
+						<input type="hidden" name="liveeventknapp" value="avslutt">
+					</form>
+				</div>
+				<div class="item">
+					<button class="ui red cancel button">Avbryt</button>
+				</div>
+			</div>
 		</div>
 	</div>
 

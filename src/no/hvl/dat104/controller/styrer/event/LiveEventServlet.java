@@ -15,10 +15,12 @@ import javax.servlet.http.HttpSession;
 
 import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.JspMappings;
+import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.IKodeordEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
+import no.hvl.dat104.model.Status;
 
 /**
  * Servlet implementation class LiveEventServlet
@@ -48,12 +50,12 @@ public class LiveEventServlet extends HttpServlet {
 		// bedre test/kontroll må komme.
 		if (session != null) {
 			Event detteEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
+
 			//
 			if (detteEvent != null) {
 				//Må ha test for at kodeordet ikke er satt fra før.
 				Kodeord kodeord = genererKodeord(detteEvent);
-				System.out.println("Kodeord: " + kodeord.getKode());				
-				kodeordEAO.leggTilKodeord(kodeord);
+				//kodeordEAO.leggTilKodeord(kodeord);
 
 				session.setAttribute(Attributter.KODEORD, kodeord);
 			}
@@ -79,6 +81,9 @@ public class LiveEventServlet extends HttpServlet {
 		// Må ha test for innlogging og gyldig session her.
 		HttpSession session = request.getSession(false);
 		Event denneEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
+		
+		String knappTrykket = (String)request.getParameter(Attributter.LIVE_EVENT_KNAPP);
+		
 		// Forleng-knapp
 		Boolean test = false;
 
@@ -86,8 +91,11 @@ public class LiveEventServlet extends HttpServlet {
 			System.out.println("forlengknapp");
 		}
 
-		if (true) {
-			System.out.println("liveevent, denneevent i do post:" + denneEvent.getNavn());
+		if (knappTrykket.equals("avslutt")) {
+			System.out.println("Avluttknapp...");
+			eventEAO.endreStatusPaaEvent(denneEvent.getId(), Status.AVSLUTTET);
+			response.sendRedirect(UrlMappings.POST_LIVE_EVENT_URL);
+			
 		}
 		/**
 		 * START-KNAPP
@@ -103,7 +111,6 @@ public class LiveEventServlet extends HttpServlet {
 		 * endres til avsluttet.
 		 * 
 		 */
-		doGet(request, response);
 	}
 
 	/**

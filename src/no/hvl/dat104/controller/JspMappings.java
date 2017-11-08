@@ -22,6 +22,7 @@ public final class JspMappings {
 	public static final String LAGEVENT_JSP = "WEB-INF/views/styrer/event/lagevent.jsp";
 	public static final String LIVE_EVENT_JSP = "WEB-INF/views/styrer/event/liveevent.jsp";
 	public static final String PRE_EVENT_JSP = "WEB-INF/views/styrer/event/preEvent.jsp";
+	public static final String POST_LIVE_EVENT_JSP = "WEB-INF/views/styrer/event/postLiveEvent.jsp";
 	public static final String REDIGEREVENT_JSP = "WEB-INF/views/styrer/event/redigerevent.jsp";
 	public static final String VIS_EVENT_JSP = "WEB-INF/views/styrer/event/visevent.jsp";
 	public static final String MINEEVENTER_JSP = "WEB-INF/views/styrer/event/mineeventer.jsp";

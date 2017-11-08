@@ -41,7 +41,10 @@ public class PreEventController extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		
 		//Må finne eventet som skal startes på en eller annen måte. 
-		Event ev = eventEAO.finnEvent(20);
+		Event ev = eventEAO.finnEvent(12);
+
+		ev.setStatus(Status.PLANLAGT);
+		
 		eventEAO.endreStatusPaaEvent(ev.getId(), Status.PLANLAGT);
 		
 		System.out.println("eventStatus: " + ev.getStatus());
@@ -50,12 +53,17 @@ public class PreEventController extends HttpServlet {
 		String denneStatus = ev.getStatus();
 		//Hvis eventet er planlagt, skal viser vi PreEventJSP.
 		if (denneStatus.equals(Status.PLANLAGT)) {
+
 			request.getRequestDispatcher(JspMappings.PRE_EVENT_JSP).forward(request, response);
+			
 		} else if (denneStatus.equals(Status.PAAGANDE)) {
 			
 			request.getRequestDispatcher(JspMappings.LIVE_EVENT_JSP).forward(request, response);
-		} else {
 
+		} else {
+			
+			System.out.println("Status til eventet er satt til Avsluttet, må implementere en JSP for dette.");
+		
 		}
 
 	}

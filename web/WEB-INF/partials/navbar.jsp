@@ -10,7 +10,7 @@
 				Dashbord </a>
 		</div>
 		<div class="item">
-			<a class="ui teal button" href="<%=PRE_EVENT_URL%>"> Pågående
+			<a class="ui teal button" href="<%= PRE_LIVE_EVENT_URL %>"> Pågående
 				Event </a>
 		</div>
 		<div class="item">
