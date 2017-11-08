@@ -13,7 +13,7 @@ public final class JspMappings {
 	public static final String GODKJENNBRUKER_JSP = "WEB-INF/views/admin/godkjennbruker.jsp";
 
 	// ----------------- DELTAGER -----------------
-	public static final String DELTAEVENT_JSP = "WEB-INF/views/deltager/deltaevent.jsp";
+	public static final String DELTAEVENT_JSP = LANDING_JSP;
 	public static final String EVENTFERDIG_JSP = "WEB-INF/views/deltager/eventferdig.jsp";
 	public static final String GITILBAKEMELDING_JSP = "WEB-INF/views/deltager/gitilbakemelding.jsp";
 
