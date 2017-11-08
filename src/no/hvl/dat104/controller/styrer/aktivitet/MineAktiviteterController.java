@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Aktivitet;
+import no.hvl.dat104.util.InnloggingUtil;
 
 /**
  * Servlet implementation class MineAktiviteterController
@@ -24,15 +26,12 @@ public class MineAktiviteterController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Aktivitet> a = brukerEAO.finnAlleAktiviteterTilBruker(2);
-		request.getSession().setAttribute("aktiviteter", a);
-		request.getRequestDispatcher(MINEAKTIVITETER_JSP).forward(request, response);
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			List<Aktivitet> a = brukerEAO.finnAlleAktiviteterTilBruker(2);
+			request.getSession().setAttribute("aktiviteter", a);
+			request.getRequestDispatcher(MINEAKTIVITETER_JSP).forward(request, response);
+		} else {
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
+		}
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

@@ -12,6 +12,7 @@ import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.util.FlashUtil;
+import no.hvl.dat104.util.InnloggingUtil;
 import no.hvl.dat104.util.ValidatorUtil;
 
 /**
@@ -25,32 +26,29 @@ public class SlettAktivitetController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			String aktivitetId = ValidatorUtil.escapeHtml(request.getParameter("aktivitetId"));
+			System.out.println("aktivitetId " + aktivitetId);
 
-		String aktivitetId = ValidatorUtil.escapeHtml(request.getParameter("aktivitetId"));
-		System.out.println("aktivitetId " + aktivitetId);
-
-		if (ValidatorUtil.isNotNull0(aktivitetId)) {
-			Integer id = Integer.parseInt(aktivitetId);
-			Aktivitet a = aktivitetEAO.finnAktivitet(id);
-			if (a != null) {
-				System.out.println(a.getNavn());
-				aktivitetEAO.slettAktivitet(a);
-				FlashUtil.Flash(request, "success", "Aktiviteten " + a.getNavn() + " er slettet!");
-				response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+			if (ValidatorUtil.isNotNull0(aktivitetId)) {
+				Integer id = Integer.parseInt(aktivitetId);
+				Aktivitet a = aktivitetEAO.finnAktivitet(id);
+				if (a != null) {
+					System.out.println(a.getNavn());
+					aktivitetEAO.slettAktivitet(a);
+					FlashUtil.Flash(request, "success", "Aktiviteten " + a.getNavn() + " er slettet!");
+					response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+				} else {
+					System.out.println("den er tom");
+					FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
+					response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+				}
 			} else {
-				System.out.println("den er tom");
 				FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
 				response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
 			}
 		} else {
-			FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
-			response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-	}
-
 }

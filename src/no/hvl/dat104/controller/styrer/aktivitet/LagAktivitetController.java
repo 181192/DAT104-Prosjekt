@@ -15,6 +15,7 @@ import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.util.InnloggingUtil;
 import no.hvl.dat104.util.ValidatorUtil;
 
 /**
@@ -30,23 +31,32 @@ public class LagAktivitetController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher(JspMappings.LAGAKTIVITET_JSP).forward(request, response);
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			request.getRequestDispatcher(JspMappings.LAGAKTIVITET_JSP).forward(request, response);
+		} else {
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String tittel = request.getParameter("tittel");
-		String status = request.getParameter("status");
-		if (ValidatorUtil.isNotNull0(tittel)) {
-			Bruker b = brukerEAO.finnBruker(2);
-			Aktivitet a = new Aktivitet();
-			a.setNavn(tittel);
-			a.setStatus(status);
-			a.setIdBruker(b);
-			List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
-			aktiviteter.add(a);
-			aktivitetEAO.leggTilAktivitet(a);
-			response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+			String tittel = request.getParameter("tittel");
+			String status = request.getParameter("status");
+			if (ValidatorUtil.isNotNull0(tittel)) {
+				Bruker b = brukerEAO.finnBruker(2);
+				Aktivitet a = new Aktivitet();
+				a.setNavn(tittel);
+				a.setStatus(status);
+				a.setIdBruker(b);
+				List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
+				aktiviteter.add(a);
+				aktivitetEAO.leggTilAktivitet(a);
+				response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+			}
+		} else {
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
+
 	}
 }
