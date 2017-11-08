@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +18,7 @@ import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Status;
+import no.hvl.dat104.util.InnloggingUtil;
 
 /**
  * Servlet implementation class PreEventController
@@ -29,73 +29,68 @@ public class PreEventController extends HttpServlet {
 	@EJB
 	IEventEAO eventEAO;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("doget i preEventController");
-		
-		//Skal her teste for at bruker har en session.
-		HttpSession session = request.getSession(true);
-		
-		//Må finne eventet som skal startes på en eller annen måte. 
-		Event ev = eventEAO.finnEvent(1);
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 
-		ev.setStatus(Status.PLANLAGT);
-		
-		eventEAO.endreStatusPaaEvent(ev.getId(), Status.PLANLAGT);
-		
-		System.out.println("eventStatus: " + ev.getStatus());
-		
-		session.setAttribute(Attributter.LIVE_EVENT, ev);
-		String denneStatus = ev.getStatus();
-		//Hvis eventet er planlagt, skal viser vi PreEventJSP.
-		if (denneStatus.equals(Status.PLANLAGT)) {
+			// Skal her teste for at bruker har en session.
+			HttpSession session = request.getSession(true);
 
-			request.getRequestDispatcher(JspMappings.PRE_EVENT_JSP).forward(request, response);
-			
-		} else if (denneStatus.equals(Status.PAAGANDE)) {
-			
-			request.getRequestDispatcher(JspMappings.LIVE_EVENT_JSP).forward(request, response);
+			// Må finne eventet som skal startes på en eller annen måte.
+			Event ev = eventEAO.finnEvent(1);
 
+			ev.setStatus(Status.PLANLAGT);
+
+			eventEAO.endreStatusPaaEvent(ev.getId(), Status.PLANLAGT);
+
+			System.out.println("eventStatus: " + ev.getStatus());
+
+			session.setAttribute(Attributter.LIVE_EVENT, ev);
+			String denneStatus = ev.getStatus();
+			// Hvis eventet er planlagt, skal viser vi PreEventJSP.
+			if (denneStatus.equals(Status.PLANLAGT)) {
+
+				request.getRequestDispatcher(JspMappings.PRE_EVENT_JSP).forward(request, response);
+
+			} else if (denneStatus.equals(Status.PAAGANDE)) {
+
+				request.getRequestDispatcher(JspMappings.LIVE_EVENT_JSP).forward(request, response);
+
+			} else {
+
+				System.out.println("Status til eventet er satt til Avsluttet, må implementere en JSP for dette.");
+
+			}
 		} else {
-			
-			System.out.println("Status til eventet er satt til Avsluttet, må implementere en JSP for dette.");
-		
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
-
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("dopost i preEventController.... ");
-		
-		//Trenger session for å finne riktig event. 
-		HttpSession session = request.getSession(false);
-		
-		Event ev = (Event)session.getAttribute(Attributter.LIVE_EVENT);
-		System.out.println("liveEvent: " + ev.getId());
+		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 
-		//Trenger test for rett knapp/loggin/osv/bruke hidden?
-		//Startknappen trykkes: lager liste, setter status til pågående. 
-		if(true) {
-			List<LiveTilbakemelding> liveTilbakemeldinger = new ArrayList<>();
-			System.out.println("liveTilbakemeldinger.lengde: " + liveTilbakemeldinger.size());
-			ev.setLiveTilbakemeldinger(liveTilbakemeldinger);
-			ev.setStatus(Status.PAAGANDE);
-			
-			session.setAttribute(Attributter.LIVE_EVENT, ev);
-			response.sendRedirect(UrlMappings.LIVE_EVENT_URL);
+			// Trenger session for å finne riktig event.
+			HttpSession session = request.getSession(false);
+
+			Event ev = (Event) session.getAttribute(Attributter.LIVE_EVENT);
+			System.out.println("liveEvent: " + ev.getId());
+
+			// Trenger test for rett knapp/loggin/osv/bruke hidden?
+			// Startknappen trykkes: lager liste, setter status til pågående.
+			if (true) {
+				List<LiveTilbakemelding> liveTilbakemeldinger = new ArrayList<>();
+				System.out.println("liveTilbakemeldinger.lengde: " + liveTilbakemeldinger.size());
+				ev.setLiveTilbakemeldinger(liveTilbakemeldinger);
+				ev.setStatus(Status.PAAGANDE);
+
+				session.setAttribute(Attributter.LIVE_EVENT, ev);
+				response.sendRedirect(UrlMappings.LIVE_EVENT_URL);
+			}
+		} else {
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 
-		
-		
 	}
 
 }
