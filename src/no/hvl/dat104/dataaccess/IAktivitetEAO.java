@@ -1,6 +1,5 @@
 package no.hvl.dat104.dataaccess;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 import no.hvl.dat104.model.Aktivitet;
