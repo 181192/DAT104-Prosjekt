@@ -20,7 +20,7 @@ import javax.persistence.Table;
  *
  */
 @Entity(name = "LiveTilbakemelding")
-@Table(name = "live_tilbakemelding", schema = "db")
+@Table(name = "livetm", schema = "db")
 public class LiveTilbakemelding {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
