@@ -13,6 +13,7 @@ import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.util.InnloggingUtil;
+import no.hvl.dat104.util.SHA;
 
 /**
  * Servlet implementation class LoggInnController
@@ -29,10 +30,6 @@ public class LoggInnController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// byte[] salt = SHA.getSalt();
-		// String hashetPassord = get_SHA_1_SecurePassword(String passwordToHash, byte[]
-		// salt)
-
 		InnloggingValidator skjema = new InnloggingValidator(request);
 		if (skjema.erMailGyldig() && skjema.erPassordGyldig()) {
 			Bruker b = brukerEAO.finnBrukerPaaEmail(skjema.getMail());
