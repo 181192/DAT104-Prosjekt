@@ -5,7 +5,9 @@
 	<c:set var="PAAGANDE" value="<%=PAAGANDE%>"></c:set>
 <c:set var="AVSLUTTET" value="<%=AVSLUTTET%>"></c:set>
 <div class="ui container">
-	<h3>${aktivitet.navn} - Eventer:</h3>
+	<h3>${aktivitet.navn} - Eventer:
+	<a class="ui teal basic button" href="<%=LAGEVENT_URL%>" style="float: right;">Opprett event</a> 
+	</h3><br>
 	<c:if test="${flash == 'success'}">
 		<p style="color: green;">${melding}</p>
 		<c:remove var="flash" scope="session" />
