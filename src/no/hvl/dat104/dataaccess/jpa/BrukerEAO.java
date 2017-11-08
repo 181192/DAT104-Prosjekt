@@ -28,16 +28,16 @@ public class BrukerEAO implements IBrukerEAO {
 		return em.find(Bruker.class, id);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Bruker finnBrukerPaaEmail(String mail) {
-        Bruker bruker = (Bruker) em.createQuery("SELECT b FROM Bruker b WHERE b.mail = :mail").setParameter("mail",mail).getSingleResult();
-
-        return bruker;
-
+		List<Bruker> bruker =em.createQuery("SELECT b FROM Bruker b WHERE b.mail = :mail").setParameter("mail", mail).getResultList();
+        if(bruker.isEmpty()) {
+        	return null;
+        }
+        return bruker.get(0);
     }
 
-
-	
 	@Override
 	public void oppdaterBruker(Bruker b) {
 		em.merge(b);

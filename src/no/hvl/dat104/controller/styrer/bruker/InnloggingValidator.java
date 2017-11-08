@@ -1,19 +1,17 @@
-package no.hvl.dat104.util;
+package no.hvl.dat104.controller.styrer.bruker;
 
-import javax.ejb.EJB;
 import javax.servlet.http.HttpServletRequest;
 
-
-import no.hvl.dat104.dataaccess.IBrukerEAO;
+import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.util.ValidatorUtil;
 
 public class InnloggingValidator {
 	private String mail;
 	private String passord;
 	private String mailFeilmelding;
 	private String passordFeilmelding;
-	
-	@EJB
-	private IBrukerEAO brukerEAO;
+	private Bruker bruker;
+
 	
 	public InnloggingValidator() {
 		
@@ -22,6 +20,9 @@ public class InnloggingValidator {
 	public InnloggingValidator(HttpServletRequest request) {
 		mail = ValidatorUtil.escapeHtml(request.getParameter("mail"));
 		passord = ValidatorUtil.escapeHtml(request.getParameter("passord"));
+		bruker = (Bruker) request.getSession().getAttribute("bruker");
+		
+		System.out.println(bruker.getFornavn() + bruker.getEtternavn() + bruker.getPassord());
 	}
 	
 	private boolean erMailGyldig() {
@@ -29,14 +30,14 @@ public class InnloggingValidator {
 	}
 	
 	private boolean erMailRegistrert() {
-		return brukerEAO.finnBrukerPaaEmail(mail) != null;
+		return bruker != null;
 	}
 	
 	private boolean erPassordRett() {
 		if (!erMailGyldig() || !erMailRegistrert()) {
 			return false;
-		} if (brukerEAO.finnBrukerPaaEmail(mail) != null) {
-			return brukerEAO.finnBrukerPaaEmail(mail).getPassord().equals(passord);	
+		} if (bruker != null) {
+			return bruker.getPassord().equals(passord);	
 		}
 		return false;
 	}
@@ -54,6 +55,8 @@ public class InnloggingValidator {
 		if (!erMailGyldig()) {
 			mail = "";
 			mailFeilmelding = "Mailadressen er ikke gyldig";
+			passord = "";
+			passordFeilmelding = "";
 		} else if (!erMailRegistrert()) {
 			mail = "";
 			mailFeilmelding = "Mailadressen er ikke registrert på en bruker";

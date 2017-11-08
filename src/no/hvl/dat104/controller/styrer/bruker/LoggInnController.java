@@ -13,7 +13,6 @@ import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.util.InnloggingUtil;
-import no.hvl.dat104.util.InnloggingValidator;
 
 /**
  * Servlet implementation class LoggInnController
@@ -21,7 +20,7 @@ import no.hvl.dat104.util.InnloggingValidator;
 public class LoggInnController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	@EJB
-	IBrukerEAO brukerEAO;
+	private IBrukerEAO brukerEAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -34,8 +33,10 @@ public class LoggInnController extends HttpServlet {
 		//String hashetPassord = get_SHA_1_SecurePassword(String passwordToHash, byte[] salt)
 		
 		InnloggingValidator skjema = new InnloggingValidator(request);
+		Bruker b = brukerEAO.finnBrukerPaaEmail(request.getParameter("mail"));
+		System.out.println(b.getEtternavn());
+		request.getSession().setAttribute("bruker", b);
 		if (skjema.gyldigInnlogging()) {
-			Bruker b = brukerEAO.finnBrukerPaaEmail(request.getParameter("mail"));
 			InnloggingUtil.loggInnSomBruker(request, b);
 		} else {
 			skjema.settOppFeilmeldinger(request);
