@@ -10,7 +10,6 @@ public final class JspMappings {
 
 	// ----------------- ADMIN -----------------
 	public static final String ADMINISTRER_JSP = "WEB-INF/views/admin/administrer.jsp";
-	public static final String GODKJENNBRUKER_JSP = "WEB-INF/views/admin/godkjennbruker.jsp";
 
 	// ----------------- DELTAGER -----------------
 	public static final String DELTAEVENT_JSP = LANDING_JSP;

@@ -4,8 +4,6 @@ import static no.hvl.dat104.controller.JspMappings.MINEAKTIVITETER_JSP;
 import static no.hvl.dat104.controller.JspMappings.MINEEVENTER_JSP;
 
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import javax.ejb.EJB;

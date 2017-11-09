@@ -25,10 +25,6 @@
 		<servlet-class>no.hvl.dat104.controller.admin.AdministrerController</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>GodkjennBrukerController</servlet-name>
-		<servlet-class>no.hvl.dat104.controller.admin.GodkjennBrukerController</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>DeltaEventController</servlet-name>
 		<servlet-class>no.hvl.dat104.controller.deltager.DeltaEventController</servlet-class>
 	</servlet>
@@ -119,10 +115,6 @@
 	<servlet-mapping>
 		<servlet-name>AdministrerController</servlet-name>
 		<url-pattern>/administrer</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>GodkjennBrukerController</servlet-name>
-		<url-pattern>/godkjennbruker</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>DeltaEventController</servlet-name>

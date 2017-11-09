@@ -5,7 +5,6 @@ package no.hvl.dat104.controller;
  */
 public abstract class UrlMappings {
 	public static final String ADMINISTRER_URL = "administrer";
-	public static final String GODKJENNBRUKER_URL = "godkjennbruker";
 	public static final String DELTAEVENT_URL = "deltaevent";
 	public static final String EVENTFERDIG_URL = "eventferdig";
 	public static final String GITILBAKEMELDING_URL = "gitilbakemelding";

@@ -1,7 +1,6 @@
 package no.hvl.dat104.controller.styrer;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.EJB;

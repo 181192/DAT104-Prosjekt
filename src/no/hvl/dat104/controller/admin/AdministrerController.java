@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.dataaccess.IRolleEAO;
@@ -59,16 +58,26 @@ public class AdministrerController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (InnloggingUtil.erInnLoggetSomAdmin(request)) {
-			Bruker b = byttRolle(request);
-			FlashUtil.Flash(request, "success",
-					"Suksess! Rollen til "+b.getFornavn()+" "+b.getEtternavn()+" ble endret.");
-			response.sendRedirect(UrlMappings.ADMINISTRER_URL);
+			try {
+				Integer idUserToChange = Integer.parseInt(request.getParameter("id"));
+				if (idUserToChange.equals(InnloggingUtil.innloggetSomBruker(request).getId())) {
+					FlashUtil.Flash(request, "error", "Du kan ikke endre din egen tilgang");
+					response.sendRedirect(UrlMappings.ADMINISTRER_URL);
+				} else {
+					Bruker b = byttRolle(request);
+					FlashUtil.Flash(request, "success",
+							"Suksess! Rollen til " + b.getFornavn() + " " + b.getEtternavn() + " ble endret.");
+					response.sendRedirect(UrlMappings.ADMINISTRER_URL);
+				}
+			} catch (NumberFormatException e) {
+
+			}
 		} else {
-			FlashUtil.Flash(request, "error", "Ingen tilgang.");
+			FlashUtil.Flash(request, "error", "Ingen tilgang");
 			response.sendRedirect(UrlMappings.LANDING_URL);
 		}
 	}
-	
+
 	private Bruker byttRolle(HttpServletRequest request) {
 		Integer id = Integer.valueOf(request.getParameter("id"));
 		Integer idrolle = Integer.valueOf(request.getParameter("rolle"));
@@ -78,5 +87,5 @@ public class AdministrerController extends HttpServlet {
 		brukerEAO.endreRollePaaBruker(id, r);
 		return b;
 	}
-		
+
 }
