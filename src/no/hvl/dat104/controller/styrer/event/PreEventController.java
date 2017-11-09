@@ -15,6 +15,7 @@ import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
+import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Status;
@@ -34,7 +35,14 @@ public class PreEventController extends HttpServlet {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 
 			// Skal her teste for at bruker har en session.
-			HttpSession session = request.getSession(true);
+			HttpSession session = request.getSession(false);
+			
+			Bruker br = (Bruker) session.getAttribute(Attributter.BRUKER);
+			
+			
+			System.out.println("Skal være davik: "  + br.getFornavn());
+			
+			
 
 			// Må finne eventet som skal startes på en eller annen måte.
 			Event ev = eventEAO.finnEvent(1);

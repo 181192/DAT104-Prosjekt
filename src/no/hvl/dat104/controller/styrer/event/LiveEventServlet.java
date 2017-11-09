@@ -43,10 +43,7 @@ public class LiveEventServlet extends HttpServlet {
 			throws ServletException, IOException {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 			System.out.println("doGet LiveEventServlet kjører.");
-			/*
-			 * Sjekk innlogging Send eventEAO i responsen.
-			 * 
-			 */
+
 			HttpSession session = request.getSession(false);
 
 			// bedre test/kontroll må komme.
