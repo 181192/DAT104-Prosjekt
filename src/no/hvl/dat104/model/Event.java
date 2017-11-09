@@ -235,9 +235,11 @@ public class Event {
 	public void setLiveTilbakemeldinger(List<LiveTilbakemelding> liveTilbakemeldinger) {
 		this.liveTilbakemeldinger = liveTilbakemeldinger;
 	}
-
-	@Override
-	public String toString() {
+	
+	/**
+	 * Custom toString metode, for å skrive ut innholdet av objektet (N.B. Sjekker ikke om verdier er null!)
+	 */
+	public String tilStreng() {
 		return "Event [id=" + id + ", \nnavn=" + navn + ", \ntidFra=" + tidFra + ", \ntidTil=" + tidTil
 				+ ", \nfaktiskStart=" + faktiskStart + ", \nfaktiskSlutt=" + faktiskSlutt + ", \nstatus=" + status
 				+ ", \nsted=" + sted + ", \nidAktivitet=" + idAktivitet + ", \ntilbakemeldinger=" + tilbakemeldinger
