@@ -100,6 +100,7 @@ public class GiTilbakemeldingController extends HttpServlet {
 			System.out.println("Par 1: " + request.getParameter("tilbakemelding") + ", par 2: " + DatoUtil.lagCurrentTimestamp() + ", par 3: " + (request.getSession(true).getAttribute("event")!=null));
 			LiveTilbakemelding liveTilbakemelding = new LiveTilbakemelding(request.getParameter("tilbakemelding"),
 					DatoUtil.lagCurrentTimestamp(), (Event) request.getSession(true).getAttribute("event"));
+			System.out.println(liveTilbakemelding != null);
 			//denne kaster nullpointexception
 			ILiveTilbakemeldingEAO.leggTilLiveTilbakemelding(liveTilbakemelding);
 		}
