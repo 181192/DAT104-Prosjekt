@@ -1,6 +1,7 @@
 package no.hvl.dat104.controller.styrer;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -40,12 +41,9 @@ public class LandingStyrerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		Bruker bruker = InnloggingUtil.innloggetSomBruker(request);
 		if (InnloggingUtil.erInnloggetSomBruker(request) && bruker != null ) {
-			List<Aktivitet> a = brukerEAO.finnAlleAktiviteterTilBruker(bruker.getId());
-			for (Aktivitet ak : a) {
-				System.out.println(ak.getNavn());
-			}
+			List<Aktivitet> a = brukerEAO.alleAktiviteterIJPQL(bruker.getId());
 			List<Event> alleEventer = brukerEAO.finnAlleEventerTilBruker(bruker.getId());
-			String[] farger = { "orange", "green", "red", "orange", "yellow" };
+			String[] farger = { "orange", "green", "red", "blue", "yellow", "purple", "teal", "cyan", "magenta", "brown", "black", "white" };
 			request.getSession().setAttribute("alleEventer", alleEventer);
 			request.getSession().setAttribute("aktiviteter", a);
 			request.getSession().setAttribute("color", farger);

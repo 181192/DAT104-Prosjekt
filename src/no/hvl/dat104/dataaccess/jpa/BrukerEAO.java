@@ -139,6 +139,13 @@ public class BrukerEAO implements IBrukerEAO {
 		e.setIdAktivitet(aktivitet);
 		em.persist(e);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Aktivitet> alleAktiviteterIJPQL(Integer id) {
+		List<Aktivitet> aktiviteter = em.createQuery("SELECT a FROM Aktivitet a WHERE a.idBruker.id = :id ORDER BY a.id").setParameter("id", id).getResultList();
+		return aktiviteter;
+	}
 	
 
 }

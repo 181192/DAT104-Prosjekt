@@ -144,7 +144,13 @@ public interface IBrukerEAO {
 	 * @param e
 	 */
 	public void finnBrukerLeggTilEvent(Integer id, Event e, Integer aktivitetId);
-
+	
+	/**
+	 * Returnerer sortert liste ved hjelp av JPQL
+	 * @param id
+	 * @return
+	 */
+	public List<Aktivitet> alleAktiviteterIJPQL(Integer id);
 
 
 }

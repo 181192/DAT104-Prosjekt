@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
+import no.hvl.dat104.dataaccess.IRolleEAO;
 import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Rolle;
 import no.hvl.dat104.util.FlashUtil;
@@ -29,6 +30,8 @@ public class AdministrerController extends HttpServlet {
 
 	@EJB
 	private IBrukerEAO brukerEAO;
+	@EJB
+	private IRolleEAO rolleEAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -49,43 +52,31 @@ public class AdministrerController extends HttpServlet {
 			// brukere.remove(InnloggingUtil.innloggetSomBruker(request));
 
 			request.getSession().setAttribute("brukere", brukere);
-
 			request.getRequestDispatcher(ADMINISTRER_JSP).forward(request, response);
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("greit");
 		if (InnloggingUtil.erInnLoggetSomAdmin(request)) {
-			System.out.println("Er logget inn som admin.");
-			Integer id = Integer.valueOf(request.getParameter("id"));
-			Integer idrolle = Integer.valueOf(request.getParameter("rolle"));
-			
-			Bruker b = brukerEAO.finnBruker(id);
-			System.out.println("Gammel: "+b.getIdRolle().getType());
-			Rolle r = b.getIdRolle();
-			if (idrolle == 1) {
-				System.out.println("ADMIN");
-				r.setType(Attributter.ROLLE_TYPE_ADMIN);
-				b.setIdRolle(r);
-			} else if (idrolle == 2) {
-				System.out.println("STYRER");
-				r.setType(Attributter.ROLLE_TYPE_STYRER);
-				b.setIdRolle(r);
-			} else {
-				System.out.println("FEIL");
-				FlashUtil.Flash(request, "error", "Noe gikk galt.");
-			}
-			System.out.println("Ny: " + b.getIdRolle().getType());
-			brukerEAO.oppdaterBruker(b);
-			System.out.println(brukerEAO.finnBruker(b.getId()).getIdRolle().getType());
+			Bruker b = byttRolle(request);
 			FlashUtil.Flash(request, "success",
-					"Suksess! Rollen til " + b.getFornavn() + " " + b.getEtternavn() + " ble endret.");
+					"Suksess! Rollen til "+b.getFornavn()+" "+b.getEtternavn()+" ble endret.");
+			response.sendRedirect(UrlMappings.ADMINISTRER_URL);
 		} else {
 			FlashUtil.Flash(request, "error", "Ingen tilgang.");
-			request.getRequestDispatcher(LANDING_JSP).forward(request, response);
+			response.sendRedirect(UrlMappings.LANDING_URL);
 		}
 	}
-
+	
+	private Bruker byttRolle(HttpServletRequest request) {
+		Integer id = Integer.valueOf(request.getParameter("id"));
+		Integer idrolle = Integer.valueOf(request.getParameter("rolle"));
+		Bruker b = brukerEAO.finnBruker(id);
+		Rolle r = rolleEAO.finnRolle(idrolle);
+		b.setIdRolle(r);
+		brukerEAO.endreRollePaaBruker(id, r);
+		return b;
+	}
+		
 }

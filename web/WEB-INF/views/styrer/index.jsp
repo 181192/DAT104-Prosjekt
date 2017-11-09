@@ -26,6 +26,14 @@
 </style>
 
 </head>
+<c:if test="${flash == 'success'}">
+	<p style="color: green;">${melding}</p>
+	<c:remove var="flash" scope="session" />
+</c:if>
+<c:if test="${flash == 'error'}">
+	<p style="color: red;">${melding}</p>
+	<c:remove var="flash" scope="session" />
+</c:if>
 <div class="ui container">
 	<div id='calendar'></div>
 </div>
