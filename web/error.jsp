@@ -24,19 +24,24 @@
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-	<div style="margin-top: 5em;" class="ui center middle aligned grid">
-		<div class="ui negative message">
-			<i style="font-size: 10em; color: #B03060;" class="fa fa-frown-o"></i>
-			<div class="header">Uuups, her gikk noe galt</div>
-			<c:if test="${exception}">
-				<p>${exception.message}</p>
-				<p><% exception.printStackTrace(response.getWriter()); %></p>
-			</c:if>
+	<div class="ui container">
+		<div style="margin-top: 5em;" class="ui center aligned grid">
+			<div class="column">
+				<div class="ui negative message">
+					<i style="font-size: 10em; color: #B03060;" class="fa fa-frown-o"></i>
+					<div class="header">Uuups, her gikk noe galt</div>
+					<c:if test="${exception}">
+						<p>${exception.message}</p>
+						<p>
+							<%
+								exception.printStackTrace(response.getWriter());
+							%>
+						</p>
+					</c:if>
+				</div>
+			</div>
 		</div>
 	</div>
-
-
-
 	<script src="public/js/jquery.min.js"></script>
 	<script src="public/js/moment.min.js"></script>
 	<script src="public/js/jquery-ui.min.js"></script>
