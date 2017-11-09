@@ -41,22 +41,15 @@ public class Event {
 	private Timestamp faktiskSlutt;
 	private String status;
 	private String sted;
-	
-	//Ny
+
 	@ManyToOne
 	@JoinColumn(name = "id_aktivitet", referencedColumnName = "id")
 	private Aktivitet idAktivitet;
-	
-	//Gammel (i tilfelle noe går galt)
-	/*	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id_aktivitet", referencedColumnName = "id")
-	private Aktivitet idAktivitet;*/
-	
-	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvent", fetch = FetchType.LAZY)
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvent")
 	private List<Tilbakemelding> tilbakemeldinger;
 
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvent", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvent")
 	private List<LiveTilbakemelding> liveTilbakemeldinger;
 
 	/**
@@ -65,7 +58,6 @@ public class Event {
 	public Event() {
 
 	}
-	
 
 	public String getNavn() {
 		return navn;
@@ -235,9 +227,10 @@ public class Event {
 	public void setLiveTilbakemeldinger(List<LiveTilbakemelding> liveTilbakemeldinger) {
 		this.liveTilbakemeldinger = liveTilbakemeldinger;
 	}
-	
+
 	/**
-	 * Custom toString metode, for å skrive ut innholdet av objektet (N.B. Sjekker ikke om verdier er null!)
+	 * Custom toString metode, for å skrive ut innholdet av objektet (N.B. Sjekker
+	 * ikke om verdier er null!)
 	 */
 	public String tilStreng() {
 		return "Event [id=" + id + ", \nnavn=" + navn + ", \ntidFra=" + tidFra + ", \ntidTil=" + tidTil
