@@ -89,7 +89,7 @@ public class PreEventController extends HttpServlet {
 			// Setter verdier i liveevetn.
 			if (ev != null) {
 				
-				System.out.println("size: " + ev.getTilbakemeldinger().size());
+				System.out.println("size: " + ev.getTilbakemeldinger());
 				
 				ev.setFaktiskStart(new Timestamp(System.currentTimeMillis()));
 				System.out.println("Eventi prevenetkontroller: " + ev.getLiveTilbakemeldinger());
