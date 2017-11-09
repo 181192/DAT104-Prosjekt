@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.controller.UrlMappings;
+import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**
@@ -19,6 +20,7 @@ public class LoggUtController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		InnloggingUtil.loggUt(request);
+		FlashUtil.Flash(request, "success", "Velkommen tilbake!");
 		response.sendRedirect(UrlMappings.LOGGINN_URL);
 	}
 }
