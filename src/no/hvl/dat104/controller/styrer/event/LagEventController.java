@@ -76,7 +76,7 @@ public class LagEventController extends HttpServlet {
 		Event e = new Event();
 		e.setNavn(skjema.getTittel());
 		e.setSted(skjema.getHvor());
-		e.setStatus(Status.AVSLUTTET);
+		e.setStatus(Status.PLANLAGT);
 		try {
 			e.setTidTil(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getTil()));
 			e.setTidFra(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getFra()));

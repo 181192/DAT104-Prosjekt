@@ -18,6 +18,7 @@ import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.util.EventUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 import no.hvl.dat104.util.ValidatorUtil;
 
@@ -41,12 +42,9 @@ public class MineEventerController extends HttpServlet {
 
 				Aktivitet a = aktivitetEAO.finnAktivitet(id);
 				List<Event> eventer = aktivitetEAO.finnAlleEventerTilAktivitet(a.getId());
-
-				Collections.sort(eventer, new Comparator<Event>() {
-					public int compare(Event e1, Event e2) {
-						return e1.getTidFra().compareTo(e2.getTidFra());
-					}
-				});
+				
+				EventUtil.sorterEventer(eventer);
+				
 				request.getSession().setAttribute("eventer", eventer);
 				request.getSession().setAttribute("aktivitet", a);
 				request.getRequestDispatcher(MINEEVENTER_JSP).forward(request, response);

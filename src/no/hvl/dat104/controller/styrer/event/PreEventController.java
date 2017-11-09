@@ -3,6 +3,7 @@ package no.hvl.dat104.controller.styrer.event;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Collections;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+
 
 import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.JspMappings;
@@ -22,6 +25,7 @@ import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Status;
+import no.hvl.dat104.util.EventUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**
@@ -55,7 +59,7 @@ public class PreEventController extends HttpServlet {
 			for( Aktivitet a : akt) {
 				List<Event> temp = aktivitetEAO.finnAlleEventerTilAktivitet(a.getId());
 				for(Event ev : temp) {
-					ev.setStatus(Status.PLANLAGT);
+					eventEAO.endreStatusPaaEvent(ev.getId(), Status.PLANLAGT);
 					//Legger til alle eventer som ikke er avsluttet. 
 					if(!ev.getStatus().equals(Status.AVSLUTTET)) {
 						eventer.add(ev);
@@ -64,7 +68,11 @@ public class PreEventController extends HttpServlet {
 			}
 			
 			
-			System.out.println("Skal være davids eventer: " + eventer.toString());
+			EventUtil.sorterEventer(eventer);
+			for(Event e : eventer) {
+				System.out.println("" + e.getTidFra());
+			}
+			
 			
 			
 

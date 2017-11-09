@@ -8,4 +8,5 @@ public final class Attributter {
 	public static final String ADMIN = "admin";
 	public static final String DELTAGER = "deltager";
 	public static final Integer ROLLE_BRUKER = 2;
+	public static final String EVENT_LISTE = "eventer";
 }

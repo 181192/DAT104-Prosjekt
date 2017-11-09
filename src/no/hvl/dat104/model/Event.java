@@ -65,6 +65,7 @@ public class Event {
 	public Event() {
 
 	}
+	
 
 	public String getNavn() {
 		return navn;
