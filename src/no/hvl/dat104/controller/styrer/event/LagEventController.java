@@ -38,12 +38,17 @@ public class LagEventController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Bruker bruker = InnloggingUtil.innloggetSomBruker(request);
-		if (InnloggingUtil.erInnloggetSomBruker(request) && bruker != null) {
-			String dato = DatoUtil.fraEngTilNorskDato(request.getParameter("dato"));
-			request.getSession().setAttribute("dato", dato);
-			List<Aktivitet> a = iBrukerEAO.finnAlleAktiviteterTilBruker(bruker.getId());
-			request.getSession().setAttribute("aktiviteter", a);
-			request.getRequestDispatcher(JspMappings.LAGEVENT_JSP).forward(request, response);
+		String dato = request.getParameter("dato");
+		if (InnloggingUtil.erInnloggetSomBruker(request) && bruker != null ) {
+			if(dato != null) {
+				dato = DatoUtil.fraEngTilNorskDato(dato);
+				request.getSession().setAttribute("dato", dato);
+				List<Aktivitet> a = iBrukerEAO.finnAlleAktiviteterTilBruker(bruker.getId());
+				request.getSession().setAttribute("aktiviteter", a);
+				request.getRequestDispatcher(JspMappings.LAGEVENT_JSP).forward(request, response);
+			}else {
+				response.sendRedirect(UrlMappings.LOGGINN_URL);
+			}
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
@@ -56,7 +61,6 @@ public class LagEventController extends HttpServlet {
 			EventValidator skjema = new EventValidator(request);
 			if (skjema.erAlleDataGyldige()) {
 				Event e = lagEvent(request, skjema);
-
 				iBrukerEAO.finnBrukerLeggTilEvent(bruker.getId(), e, Integer.parseInt(skjema.getAktivitet()));
 				request.getSession().removeAttribute("skjema");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);

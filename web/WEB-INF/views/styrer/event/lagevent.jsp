@@ -4,20 +4,20 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css">
   <div class="ui container">
   <form method="post" action="<%=LAGEVENT_URL %>" class="ui form">
-    <div class="field"><label>Tittel:</label> <input type="text" name="tittel" placeholder="Tittel"></div>
-    <div class="field" id="datoen"><label>Dato:</label><input type="text" name="dato" id="datepicker" value="${dato}"></div>
+    <div class="field"><label>Tittel: <span style="color:#B03060">${skjema.tittelFeilmelding }</span></label> <input type="text" name="tittel" value="${skjema.tittel }" placeholder="Tittel"></div>
+    <div class="field" id="datoen"><label>Dato: <span style="color:#B03060">${skjema.datoFeilmelding }</span></label><input type="text" name="dato" id="datepicker" value="${dato}"></div>
     <div class="two fields">
       <div class="field">
-        <label>Fra:</label><input class="timepicker" type="text" name="fra" placeholder="hh.mm">
+        <label>Fra: <span style="color:#B03060">${skjema.fraFeilmelding }</span></label><input class="timepicker" value="${skjema.fra }" type="text" name="fra" placeholder="hh.mm">
       </div>
       <div class="field">
-        <label>Til:</label><input type="text" class="timepicker" name="til" placeholder="hh.mm">
+        <label>Til: <span style="color:#B03060">${skjema.tilFeilmelding }</span></label><input type="text" class="timepicker" value="${skjema.til }" name="til" placeholder="hh.mm">
       </div>
     </div>
-    <div class="field"><label>Hvor:</label><input type="text" name="hvor" placeholder="Hvor"></div>
+    <div class="field"><label>Hvor: <span style="color:#B03060">${skjema.hvorFeilmelding }</span></label><input type="text" value="${skjema.hvor }" name="hvor" placeholder="Hvor"></div>
     <div class="field">
-    <label>Beskrivelse</label>
-    <textarea rows="2" name="beskrivelse"></textarea>
+    <label>Beskrivelse <span style="color:#B03060">${skjema.hvorFeilmelding }</span></label>
+    <input type="text" name="beskrivelse" value="${skjema.beskrivelse }" placeholder="Beskrivelse">
     </div>
     <div class="field">
       <label>Aktivitet</label>
@@ -26,14 +26,20 @@
         <i class="dropdown icon"></i>
         <div class="default text">Aktivitet</div>
         <div class="menu">
-          <!-- FOR LØKKE SOM GÅR GJENNOM ALLE AKTIVITETER.-->
-          <c:forEach var="aktivitet" items="${aktiviteter}" varStatus="count">
-          	<div class="item" data-value="${aktivitet.id}">${aktivitet.navn}</div>
-          </c:forEach>
+        <c:choose>
+          <c:when test = "${not empty aktiviteter }">
+         	<c:forEach var="aktivitet" items="${aktiviteter}" varStatus="count">
+          	  <div class="item" data-value="${aktivitet.id}">${aktivitet.navn}</div>
+            </c:forEach>
+      	  </c:when>
+      	  <c:otherwise>
+      	  	<div class="item"><a href="<%=LAGEVENT_URL %>?">Opprett Aktivitet</a></div>
+      	  </c:otherwise>
+      	</c:choose>
         </div>
       </div>
     </div>
-    <button class="ui button">Lag event</button>
+    <input type="submit" class="ui button" value="Lag event">
   </form>
   </div>
   <jsp:include page="../../../partials/footer.jsp" />

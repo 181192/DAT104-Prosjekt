@@ -34,6 +34,9 @@ public class EventValidator {
         beskrivelse = ValidatorUtil.escapeHtml(request.getParameter("beskrivelse"));
         aktivitet = ValidatorUtil.escapeHtml(request.getParameter("aktivitet"));
     }
+    private boolean erBeskrivelseGyldig() {
+        return ValidatorUtil.isNotNull0(beskrivelse);
+    }
     private boolean erTittelGyldig() {
         return ValidatorUtil.isNotNull0(tittel);
     }
@@ -53,12 +56,12 @@ public class EventValidator {
         return ValidatorUtil.isNotNull0(aktivitet);
     }
     public boolean erAlleDataGyldige() {
-        return erTittelGyldig()&&erDatoGyldig()&&erFraGyldig()&&erTilGyldig()&&erHvorGyldig()&&erAktivitetGyldig();
+        return erTittelGyldig()&&erDatoGyldig()&&erFraGyldig()&&erTilGyldig()&&erHvorGyldig()&&erAktivitetGyldig()&&erBeskrivelseGyldig();
     }
     public void settOppFeilmeldinger() {
         if (!erTittelGyldig()) {
         	tittel = "";
-        	tittelFeilmelding = "Tittel er ikke gyldig!";
+        	tittelFeilmelding = "Kan ikke være tom";
         }
         if (!erDatoGyldig()) {
         	dato = "";
@@ -79,6 +82,10 @@ public class EventValidator {
         if (!erAktivitetGyldig()) {
         	aktivitet = "";
         	aktivitetFeilmelding = "Ugyldig";
+        }
+        if (!erBeskrivelseGyldig()) {
+        	beskrivelse = "";
+        	beskrivelseFeilmelding = "Ugyldig";
         }
     }
 

@@ -25,7 +25,13 @@ public class LoggInnController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.getRequestDispatcher(JspMappings.LOGGINN_JSP).forward(request, response);
+		if(InnloggingUtil.erInnloggetSomBruker(request)) {
+			response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+		}else if(InnloggingUtil.erInnloggetSomAdmin(request)) {
+			response.sendRedirect(UrlMappings.ADMINISTRER_URL);
+		}else {
+			request.getRequestDispatcher(JspMappings.LOGGINN_JSP).forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
