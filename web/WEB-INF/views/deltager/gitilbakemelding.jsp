@@ -5,11 +5,10 @@
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div style="margin-top: 5em;" class="ui container">
-	<h2 style="text-align: center; margin-bottom: 1em;">Gi tilbakemelding</h2>
+	<h2 style="text-align: center; margin-bottom: 1em;">Gi
+		tilbakemelding</h2>
 	<c:if test="${flash=='Success'}">
-		<div class="ui info message">
-			<i class="window close icon"></i> ${melding}
-		</div>
+		<div style="margin-bottom: 2em;" class="ui info message">${melding}</div>
 		<c:remove var="flash" scope="session" />
 	</c:if>
 	<div class="ui center aligned stackable three column grid">
