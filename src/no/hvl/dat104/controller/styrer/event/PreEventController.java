@@ -81,17 +81,21 @@ public class PreEventController extends HttpServlet {
 
 			// Finner riktig event i databasen;
 			String evId = (String) request.getParameter(Attributter.LIVE_EVENT_ID);
-			Event ev = eventEAO.finnEvent(Integer.parseInt(evId));
+			Event ev = new Event();
+			ev = eventEAO.finnEvent(Integer.parseInt(evId));
+			List<LiveTilbakemelding> ltb = new ArrayList<>();
+			ev.setLiveTilbakemeldinger(ltb);
 
 			// Setter verdier i liveevetn.
 			if (ev != null) {
-				List<LiveTilbakemelding> liveTilbakemeldinger = new ArrayList<>();
-				Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-				ev.setFaktiskStart(timestamp);
-				ev.setLiveTilbakemeldinger(liveTilbakemeldinger);
+				
+				System.out.println("size: " + ev.getTilbakemeldinger().size());
+				
+				ev.setFaktiskStart(new Timestamp(System.currentTimeMillis()));
+				System.out.println("Eventi prevenetkontroller: " + ev.getLiveTilbakemeldinger());
 				ev.setStatus(Status.PAAGANDE);
 				eventEAO.oppdaterEvent(ev);
-				System.out.println(ev);
+				System.out.println("Eventi prevenetkontroller: " + ev.getLiveTilbakemeldinger());
 			}
 
 			System.out.println(ev.toString());
