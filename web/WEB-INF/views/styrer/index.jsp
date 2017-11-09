@@ -2,9 +2,14 @@
 <jsp:useBean id="dato" class="no.hvl.dat104.util.DatoUtil" />
 <jsp:include page="../../partials/header.jsp" />
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/modal.min.css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/dimmer.min.css">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/transition.min.css">
 <head>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
 <style>
 .foo {
 	width: 20px;
@@ -25,9 +30,6 @@
 	<div id='calendar'></div>
 </div>
 <script>
-
-document.querySelector("#nav-bar").style.fontSize = "1.4rem";
-
 var datoen;
 
 $('#calendar').fullCalendar({
@@ -69,12 +71,12 @@ function lagEvent() {
 
 </script>
 
-<div class="container">
-	<!-- Modal -->
+<!-- <div class="container">
+	Modal
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
 
-			<!-- Modal content-->
+			Modal content
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -89,6 +91,10 @@ function lagEvent() {
 		</div>
 	</div>
 
+</div> -->
+<div class="ui modal">
+	<div class="header">Opprett event</div>
+	<div class="content"></div>
 </div>
 
 <table class="aktivitet">
@@ -109,23 +115,36 @@ function lagEvent() {
 		</c:forEach>
 	</tbody>
 </table>
-<jsp:include page="../../partials/footer.jsp" />
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/modal.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/dimmer.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/transition.min.js"></script>
+
 <script>
   function lagmodal(date) {
-      $("#myModal").modal()
-      console.log("lagmodal");
-      $(".modal-body").load("<%=LAGEVENT_URL%>?dato="+date.format());
+      $('.ui.modal')
+      .modal({
+    	  inverted: true,
+    	    observeChanges: true
+      })
+      .modal('show');
+      $(".content").load("<%=LAGEVENT_URL%>?dato="+date.format());
   }
   function eventModal(event) {
-	  $("#myModal").modal()
-      $(".modal-body").load("<%=VIS_EVENT_URL%>?id=" + event.id);
+	  $('.ui.modal')
+	  .modal({
+		  inverted: true,
+    	    observeChanges: true
+      })
+	  .modal('show');
+      $(".content").load("<%=VIS_EVENT_URL%>?id=" + event.id);
   }
   function fjernAktivitet(aktivitet){
-	  console.log(aktivitet);
 	  $('#calendar').fullCalendar('removeResource', aktivitet.toString());  
   }
 </script>
+<jsp:include page="../../partials/footer.jsp" />
