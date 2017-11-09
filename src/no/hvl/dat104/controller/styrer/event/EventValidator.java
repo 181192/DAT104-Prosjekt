@@ -5,199 +5,209 @@ import javax.servlet.http.HttpServletRequest;
 import no.hvl.dat104.util.ValidatorUtil;
 
 public class EventValidator {
-    private String tittel;
-    private String dato;
-    private String fra;
-    private String til;
-    private String hvor;
-    private String beskrivelse;
-    private String aktivitet;
+	private String tittel;
+	private String dato;
+	private String fra;
+	private String til;
+	private String hvor;
+	private String beskrivelse;
+	private String aktivitet;
 
-    private String tittelFeilmelding;
-    private String datoFeilmelding;
-    private String fraFeilmelding;
-    private String tilFeilmelding;
-    private String hvorFeilmelding;
-    private String beskrivelseFeilmelding;
-    private String aktivitetFeilmelding;
+	private String tittelFeilmelding;
+	private String datoFeilmelding;
+	private String fraFeilmelding;
+	private String tilFeilmelding;
+	private String hvorFeilmelding;
+	private String beskrivelseFeilmelding;
+	private String aktivitetFeilmelding;
 
-    public EventValidator() {
+	public EventValidator() {
 
-    }
+	}
 
-    public EventValidator(HttpServletRequest request) {
-        tittel = ValidatorUtil.escapeHtml(request.getParameter("tittel"));
-        dato =  ValidatorUtil.escapeHtml(request.getParameter("dato"));
-        fra = ValidatorUtil.escapeHtml(request.getParameter("fra"));
-        til = ValidatorUtil.escapeHtml(request.getParameter("til"));
-        hvor = ValidatorUtil.escapeHtml(request.getParameter("hvor"));
-        beskrivelse = ValidatorUtil.escapeHtml(request.getParameter("beskrivelse"));
-        aktivitet = ValidatorUtil.escapeHtml(request.getParameter("aktivitet"));
-    }
-    private boolean erBeskrivelseGyldig() {
-        return ValidatorUtil.isNotNull0(beskrivelse);
-    }
-    private boolean erTittelGyldig() {
-        return ValidatorUtil.isNotNull0(tittel);
-    }
-    private boolean erDatoGyldig() {
-        return ValidatorUtil.isNotNull0(dato);
-    }
-    private boolean erFraGyldig() {
-    	 return ValidatorUtil.isValidTimeFormat(fra);
-    }
-    private boolean erTilGyldig() {
-        return ValidatorUtil.isValidTimeFormat(til);
-    }
-    private boolean erHvorGyldig() {
-        return ValidatorUtil.isNotNull0(hvor);
-    }
-    private boolean erAktivitetGyldig() {
-        return ValidatorUtil.isNotNull0(aktivitet);
-    }
-    public boolean erAlleDataGyldige() {
-        return erTittelGyldig()&&erDatoGyldig()&&erFraGyldig()&&erTilGyldig()&&erHvorGyldig()&&erAktivitetGyldig()&&erBeskrivelseGyldig();
-    }
-    public void settOppFeilmeldinger() {
-        if (!erTittelGyldig()) {
-        	tittel = "";
-        	tittelFeilmelding = "Kan ikke være tom";
-        }
-        if (!erDatoGyldig()) {
-        	dato = "";
-        	datoFeilmelding = "Feil Dato";
-        }
-        if (!erFraGyldig()) {
-        	fra = "";
-        	fraFeilmelding = "Ugyldig";
-        }
-        if (!erTilGyldig()) {
-        	til = "";
-        	tilFeilmelding = "Ugyldig";
-        }
-        if (!erHvorGyldig()) {
-        	hvor = "";
-        	hvorFeilmelding = "Ugyldig";
-        }
-        if (!erAktivitetGyldig()) {
-        	aktivitet = "";
-        	aktivitetFeilmelding = "Ugyldig";
-        }
-        if (!erBeskrivelseGyldig()) {
-        	beskrivelse = "";
-        	beskrivelseFeilmelding = "Ugyldig";
-        }
-    }
+	public EventValidator(HttpServletRequest request) {
+		tittel = ValidatorUtil.escapeHtml(request.getParameter("tittel"));
+		dato = ValidatorUtil.escapeHtml(request.getParameter("dato"));
+		fra = ValidatorUtil.escapeHtml(request.getParameter("fra"));
+		til = ValidatorUtil.escapeHtml(request.getParameter("til"));
+		hvor = ValidatorUtil.escapeHtml(request.getParameter("hvor"));
+		beskrivelse = ValidatorUtil.escapeHtml(request.getParameter("beskrivelse"));
+		aktivitet = ValidatorUtil.escapeHtml(request.getParameter("aktivitet"));
+	}
 
-    public String getTittel() {
-        return tittel;
-    }
+	private boolean erBeskrivelseGyldig() {
+		return ValidatorUtil.isNotNull0(beskrivelse);
+	}
 
-    public void setTittel(String tittel) {
-        this.tittel = tittel;
-    }
+	private boolean erTittelGyldig() {
+		return ValidatorUtil.isNotNull0(tittel);
+	}
 
-    public String getDato() {
-        return dato;
-    }
+	private boolean erDatoGyldig() {
+		return ValidatorUtil.isNotNull0(dato) && ValidatorUtil.isValidDateFormat(dato);
+	}
 
-    public void setDato(String dato) {
-        this.dato = dato;
-    }
+	private boolean erFraGyldig() {
+		return ValidatorUtil.isValidTimeFormat(fra);
+	}
 
-    public String getFra() {
-        return fra;
-    }
+	private boolean erTilGyldig() {
+		return ValidatorUtil.isValidTimeFormat(til);
+	}
 
-    public void setFra(String fra) {
-        this.fra = fra;
-    }
+	private boolean erHvorGyldig() {
+		return ValidatorUtil.isNotNull0(hvor);
+	}
 
-    public String getTil() {
-        return til;
-    }
+	private boolean erAktivitetGyldig() {
+		return ValidatorUtil.isNotNull0(aktivitet);
+	}
 
-    public void setTil(String til) {
-        this.til = til;
-    }
+	public boolean erAlleDataGyldige() {
+		return erTittelGyldig() && erDatoGyldig() && erFraGyldig() && erTilGyldig() && erHvorGyldig()
+				&& erAktivitetGyldig() && erBeskrivelseGyldig();
+	}
 
-    public String getHvor() {
-        return hvor;
-    }
+	public void settOppFeilmeldinger() {
+		if (!erTittelGyldig()) {
+			tittel = "";
+			tittelFeilmelding = "Kan ikke være tom";
+		}
+		if (!erDatoGyldig()) {
+			dato = "";
+			datoFeilmelding = "Feil Dato";
+		}
+		if (!erFraGyldig()) {
+			fra = "";
+			fraFeilmelding = "Ugyldig: Tid må være på formatet HH:mm";
+		}
+		if (!erTilGyldig()) {
+			til = "";
+			tilFeilmelding = "Ugyldig: Tid må være på formatet HH:mm";
+		}
+		if (!erHvorGyldig()) {
+			hvor = "";
+			hvorFeilmelding = "Ops! Tomt";
+		}
+		if (!erAktivitetGyldig()) {
+			aktivitet = "";
+			aktivitetFeilmelding = "Ugyldig";
+		}
+		if (!erBeskrivelseGyldig()) {
+			beskrivelse = "";
+			beskrivelseFeilmelding = "Ops! Tomt";
+		}
+	}
 
-    public void setHvor(String hvor) {
-        this.hvor = hvor;
-    }
+	public String getTittel() {
+		return tittel;
+	}
 
-    public String getBeskrivelse() {
-        return beskrivelse;
-    }
+	public void setTittel(String tittel) {
+		this.tittel = tittel;
+	}
 
-    public void setBeskrivelse(String beskrivelse) {
-        this.beskrivelse = beskrivelse;
-    }
+	public String getDato() {
+		return dato;
+	}
 
-    public String getAktivitet() {
-        return aktivitet;
-    }
+	public void setDato(String dato) {
+		this.dato = dato;
+	}
 
-    public void setAktivitet(String aktivitet) {
-        this.aktivitet = aktivitet;
-    }
+	public String getFra() {
+		return fra;
+	}
 
-    public String getTittelFeilmelding() {
-        return tittelFeilmelding;
-    }
+	public void setFra(String fra) {
+		this.fra = fra;
+	}
 
-    public void setTittelFeilmelding(String tittelFeilmelding) {
-        this.tittelFeilmelding = tittelFeilmelding;
-    }
+	public String getTil() {
+		return til;
+	}
 
-    public String getDatoFeilmelding() {
-        return datoFeilmelding;
-    }
+	public void setTil(String til) {
+		this.til = til;
+	}
 
-    public void setDatoFeilmelding(String datoFeilmelding) {
-        this.datoFeilmelding = datoFeilmelding;
-    }
+	public String getHvor() {
+		return hvor;
+	}
 
-    public String getFraFeilmelding() {
-        return fraFeilmelding;
-    }
+	public void setHvor(String hvor) {
+		this.hvor = hvor;
+	}
 
-    public void setFraFeilmelding(String fraFeilmelding) {
-        this.fraFeilmelding = fraFeilmelding;
-    }
+	public String getBeskrivelse() {
+		return beskrivelse;
+	}
 
-    public String getTilFeilmelding() {
-        return tilFeilmelding;
-    }
+	public void setBeskrivelse(String beskrivelse) {
+		this.beskrivelse = beskrivelse;
+	}
 
-    public void setTilFeilmelding(String tilFeilmelding) {
-        this.tilFeilmelding = tilFeilmelding;
-    }
+	public String getAktivitet() {
+		return aktivitet;
+	}
 
-    public String getHvorFeilmelding() {
-        return hvorFeilmelding;
-    }
+	public void setAktivitet(String aktivitet) {
+		this.aktivitet = aktivitet;
+	}
 
-    public void setHvorFeilmelding(String hvorFeilmelding) {
-        this.hvorFeilmelding = hvorFeilmelding;
-    }
+	public String getTittelFeilmelding() {
+		return tittelFeilmelding;
+	}
 
-    public String getBeskrivelseFeilmelding() {
-        return beskrivelseFeilmelding;
-    }
+	public void setTittelFeilmelding(String tittelFeilmelding) {
+		this.tittelFeilmelding = tittelFeilmelding;
+	}
 
-    public void setBeskrivelseFeilmelding(String beskrivelseFeilmelding) {
-        this.beskrivelseFeilmelding = beskrivelseFeilmelding;
-    }
+	public String getDatoFeilmelding() {
+		return datoFeilmelding;
+	}
 
-    public String getAktivitetFeilmelding() {
-        return aktivitetFeilmelding;
-    }
+	public void setDatoFeilmelding(String datoFeilmelding) {
+		this.datoFeilmelding = datoFeilmelding;
+	}
 
-    public void setAktivitetFeilmelding(String aktivitetFeilmelding) {
-        this.aktivitetFeilmelding = aktivitetFeilmelding;
-    }
+	public String getFraFeilmelding() {
+		return fraFeilmelding;
+	}
+
+	public void setFraFeilmelding(String fraFeilmelding) {
+		this.fraFeilmelding = fraFeilmelding;
+	}
+
+	public String getTilFeilmelding() {
+		return tilFeilmelding;
+	}
+
+	public void setTilFeilmelding(String tilFeilmelding) {
+		this.tilFeilmelding = tilFeilmelding;
+	}
+
+	public String getHvorFeilmelding() {
+		return hvorFeilmelding;
+	}
+
+	public void setHvorFeilmelding(String hvorFeilmelding) {
+		this.hvorFeilmelding = hvorFeilmelding;
+	}
+
+	public String getBeskrivelseFeilmelding() {
+		return beskrivelseFeilmelding;
+	}
+
+	public void setBeskrivelseFeilmelding(String beskrivelseFeilmelding) {
+		this.beskrivelseFeilmelding = beskrivelseFeilmelding;
+	}
+
+	public String getAktivitetFeilmelding() {
+		return aktivitetFeilmelding;
+	}
+
+	public void setAktivitetFeilmelding(String aktivitetFeilmelding) {
+		this.aktivitetFeilmelding = aktivitetFeilmelding;
+	}
 }

@@ -54,6 +54,9 @@ public class ValidatorUtil {
     public static boolean isValidTimeFormat(String tid) {
     	return tid.matches("^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$")&&(isNotNull0(tid));
     }
+    public static boolean isValidDateFormat(String tid) {
+    	return tid.matches("^(0[1-9]|[12][0-9]|3[01])[- \\.](0[1-9]|1[012])[- \\.](19|20)\\d\\d$");
+    }
     
     //Må fylles inn
     public static boolean isValidMail(String mail) {
