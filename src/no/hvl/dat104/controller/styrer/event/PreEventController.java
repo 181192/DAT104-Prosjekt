@@ -14,7 +14,10 @@ import javax.servlet.http.HttpSession;
 import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
+import no.hvl.dat104.dataaccess.IAktivitetEAO;
+import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.dataaccess.IEventEAO;
+import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.LiveTilbakemelding;
@@ -29,6 +32,13 @@ public class PreEventController extends HttpServlet {
 
 	@EJB
 	IEventEAO eventEAO;
+	
+	@EJB
+	IBrukerEAO brukerEAO;
+	
+	
+	@EJB
+	IAktivitetEAO aktivitetEAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -39,8 +49,22 @@ public class PreEventController extends HttpServlet {
 			
 			Bruker br = (Bruker) session.getAttribute(Attributter.BRUKER);
 			
+			List<Aktivitet> akt = brukerEAO.finnAlleAktiviteterTilBruker(br.getId());
+			List<Event> eventer = new ArrayList<>();
 			
-			System.out.println("Skal være davik: "  + br.getFornavn());
+			for( Aktivitet a : akt) {
+				List<Event> temp = aktivitetEAO.finnAlleEventerTilAktivitet(a.getId());
+				for(Event ev : temp) {
+					ev.setStatus(Status.PLANLAGT);
+					//Legger til alle eventer som ikke er avsluttet. 
+					if(!ev.getStatus().equals(Status.AVSLUTTET)) {
+						eventer.add(ev);
+					}
+				}
+			}
+			
+			
+			System.out.println("Skal være davids eventer: " + eventer.toString());
 			
 			
 
