@@ -45,18 +45,15 @@ public class LiveEventServlet extends HttpServlet {
 			System.out.println("doGet LiveEventServlet kjører.");
 
 			HttpSession session = request.getSession(false);
-
-			// bedre test/kontroll må komme.
+			Event detteEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
 			if (session != null) {
-				Event detteEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
-				System.out.println(detteEvent.getNavn());
+				
 				//
 				if (detteEvent != null) {
 					System.out.println("Kodeordet er her");
 					// Må ha test for at kodeordet ikke er satt fra før.
 					Kodeord kodeord = genererKodeord(detteEvent);
 					kodeordEAO.leggTilKodeord(kodeord);
-
 					session.setAttribute(Attributter.KODEORD, kodeord);
 				}
 			}

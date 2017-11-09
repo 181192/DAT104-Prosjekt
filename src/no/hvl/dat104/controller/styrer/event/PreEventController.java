@@ -22,6 +22,7 @@ import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Status;
+import no.hvl.dat104.model.Tilbakemelding;
 import no.hvl.dat104.util.EventUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
@@ -75,28 +76,23 @@ public class PreEventController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
-
-			// Trenger session for å finne riktig event.
-			HttpSession session = request.getSession(false);
-
-			String evId = (String)request.getParameter(Attributter.LIVE_EVENT_ID);
-			System.out.println("dopost i preEvent: " + evId);
 			
+			HttpSession session = request.getSession(false);
+			
+			//Finner riktig event i databasen;
+			String evId = (String)request.getParameter(Attributter.LIVE_EVENT_ID);
 			Event ev = eventEAO.finnEvent(Integer.parseInt(evId));
 			
-			System.out.println("ev: " + ev.tilStreng());
-			// Trenger test for rett knapp/loggin/osv/bruke hidden?
-			// Startknappen trykkes: lager liste, setter status til pågående.
-			if (true) {
+			if(ev != null) {
 				List<LiveTilbakemelding> liveTilbakemeldinger = new ArrayList<>();
-				System.out.println("liveTilbakemeldinger.lengde: " + liveTilbakemeldinger.size());
 				ev.setLiveTilbakemeldinger(liveTilbakemeldinger);
-				ev.setStatus(Status.PAAGANDE);
-				
+				ev.setStatus(Status.PAAGANDE);	
 				eventEAO.oppdaterEvent(ev);
-				session.setAttribute(Attributter.LIVE_EVENT, ev);
-				response.sendRedirect(UrlMappings.LIVE_EVENT_URL);
 			}
+
+			session.setAttribute(Attributter.LIVE_EVENT, ev);
+			response.sendRedirect(UrlMappings.LIVE_EVENT_URL);
+			
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
