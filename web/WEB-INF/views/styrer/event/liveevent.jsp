@@ -4,14 +4,6 @@
 
 
 <div class="ui container">
-	<h1>
-		<time>00:00:00</time>
-	</h1>
-	<button class="ui labeled icon button" id="start-stopp"
-		onclick="lagBekreftAvsluttmodal()">Avslutt event</button>
-	<button class="ui right labeled icon button" id="forlengKnapp">
-		Pluss 5 min</button>
-
 
 
 	<div class="ui tiny modal" id="avsluttModal">
@@ -35,12 +27,14 @@
 	</div>
 
 	<!-- Denne inneholder grafen over liveevents -->
-	<div id="chart_div" style="width: 100%; height: 500px;"></div>
+	<div id="chart_div" style="width: 100%; height: 600px;"></div>
 
 	<div class="ui divider"></div>
+		<button class="ui labeled icon button" id="start-stopp"
+		onclick="lagBekreftAvsluttmodal()">Avslutt event</button>
 	<div class="ui buttons">
 		<button class="ui red basic button" id="daarligKnapp"
-			onclick="daarligKnappHandeler()">Daarlig</button>
+			onclick="lagBekreftAvsluttmodal()">Avslutt event</button>
 		<button class="ui blue basic button" id="middelsKnapp"
 			onclick="middelsKnappHandeler()">Middels</button>
 		<button class="ui green basic button" id="braKnapp"
