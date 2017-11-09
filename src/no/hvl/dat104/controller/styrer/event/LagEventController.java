@@ -56,13 +56,15 @@ public class LagEventController extends HttpServlet {
 			EventValidator skjema = new EventValidator(request);
 			if (skjema.erAlleDataGyldige()) {
 				Event e = lagEvent(request, skjema);
-				iBrukerEAO.finnBrukerLeggTilEvent(bruker.getId(), e, bruker.getId());
+
+				iBrukerEAO.finnBrukerLeggTilEvent(bruker.getId(), e, Integer.parseInt(skjema.getAktivitet()));
 				request.getSession().removeAttribute("skjema");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+
 			} else {
 				skjema.settOppFeilmeldinger();
 				request.getSession().setAttribute("skjema", skjema);
-				response.sendRedirect("skjema");
+				response.sendRedirect(UrlMappings.LAGEVENT_URL);
 			}
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);

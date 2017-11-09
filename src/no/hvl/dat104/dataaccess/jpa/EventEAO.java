@@ -70,7 +70,7 @@ public class EventEAO implements IEventEAO {
 	
 	@Override
 	public Aktivitet finnAktivitetTilEvent(Integer id) {
-		return (Aktivitet) em.createQuery("SELECT a FROM Aktivitet a, Event e WHERE a.id = e.idAktivitet AND e.id=" + id).getSingleResult();
+		return (Aktivitet) em.createQuery("SELECT a FROM Aktivitet a, Event e WHERE a = e.idAktivitet AND e.id=:id").setParameter("id", id).getSingleResult();
 	}
 
 	@Override

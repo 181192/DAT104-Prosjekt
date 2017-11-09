@@ -25,6 +25,9 @@
 	<div id='calendar'></div>
 </div>
 <script>
+
+document.querySelector("#nav-bar").style.fontSize = "1.4rem";
+
 var datoen;
 
 $('#calendar').fullCalendar({
