@@ -10,4 +10,6 @@ public final class Attributter {
 	public static final String DELTAGER = "deltager";
 	public static final Integer ROLLE_BRUKER = 2;
 	public static final String EVENT_LISTE = "eventer";
+	public static final String ROLLE_TYPE_STYRER = "Aktivitetsstyrer";
+	public static final String ROLLE_TYPE_ADMIN = "Admin";
 }

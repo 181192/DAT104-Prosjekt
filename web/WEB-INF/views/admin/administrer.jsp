@@ -1,25 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../../partials/header.jsp" />
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
-<script type="text/javascript">
-function postAD(p) {
-	document.getElementById('id').value=p;
-	document.getElementById('rolle').value='1';
-	document.getElementById('brukere').submit();
-}
 
-function postAS(p) {
-	document.getElementById('id').value=p;
-	document.getElementById('rolle').value='2';
-	document.getElementById('brukere').submit();
-}
-
-function postIG(p) {
-	document.getElementById('id').value=p;
-	document.getElementById('rolle').value='3';
-	document.getElementById('brukere').submit();
-}
-</script>
 <div class="ui container">
 	<h3>Brukere</h3>
 	<form action="<%=ADMINISTRER_URL %>" method="POST" id="brukere">
@@ -51,4 +33,23 @@ function postIG(p) {
 	</table>
 	</form>
 </div>
+<script type="text/javascript">
+function postAD(p) {
+	document.getElementById('id').value=p;
+	document.getElementById('rolle').value='1';
+	document.getElementById('brukere').submit();
+}
+
+function postAS(p) {
+	document.getElementById('id').value=p;
+	document.getElementById('rolle').value='2';
+	document.getElementById('brukere').submit();
+}
+
+function postIG(p) {
+	document.getElementById('id').value=p;
+	document.getElementById('rolle').value='3';
+	document.getElementById('brukere').submit();
+}
+</script>
 <jsp:include page="../../partials/footer.jsp" />

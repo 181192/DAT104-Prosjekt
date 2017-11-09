@@ -87,7 +87,7 @@ public class PreEventController extends HttpServlet {
 			
 			Event ev = eventEAO.finnEvent(Integer.parseInt(evId));
 			
-			System.out.println("ev: " + ev.toString());
+			System.out.println("ev: " + ev.tilStreng());
 			// Trenger test for rett knapp/loggin/osv/bruke hidden?
 			// Startknappen trykkes: lager liste, setter status til pågående.
 			if (true) {

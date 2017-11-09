@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
@@ -35,8 +36,13 @@ public class LoggInnController extends HttpServlet {
 			if (b != null) {
 				skjema.setBruker(b);
 				if (skjema.erPassordRett()) {
-					InnloggingUtil.loggInnSomBruker(request, b);
-					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+					if (b.getIdRolle().getType().equals(Attributter.ROLLE_TYPE_STYRER)) {
+						InnloggingUtil.loggInnSomBruker(request, b);
+						response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+					} else {
+						InnloggingUtil.loggInnSomAdmin(request);
+						response.sendRedirect(UrlMappings.ADMINISTRER_URL);
+					}
 				} else {
 					skjema.settOppFeilmeldinger(request);
 					request.getSession().setAttribute("skjema", skjema);
@@ -46,7 +52,7 @@ public class LoggInnController extends HttpServlet {
 				skjema.settOppFeilmeldinger(request);
 				request.getSession().setAttribute("skjema", skjema);
 				response.sendRedirect(UrlMappings.LOGGINN_URL);
-				
+
 			}
 		} else {
 			skjema.settOppFeilmeldinger(request);

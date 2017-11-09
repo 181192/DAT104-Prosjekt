@@ -14,6 +14,7 @@ import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Tilbakemelding;
+import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.FormaterTilbakemeldingUtil;
 import no.hvl.dat104.util.FormatertTilbakemelding;
 import no.hvl.dat104.util.InnloggingUtil;
@@ -50,6 +51,7 @@ public class EventResultaterController extends HttpServlet {
 			request.setAttribute("formaterteTilbakemeldinger", formaterteTilbakemeldinger);
 			request.getRequestDispatcher(JspMappings.EVENTRESULTATER_JSP).forward(request, response);
 		} else {
+			FlashUtil.Flash(request, "error", "Du må logge inn for å se resultatene for eventet ditt!");
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 	}
