@@ -29,6 +29,28 @@ public class InnloggingUtil {
 		HttpSession session = request.getSession(false);
 		return erInnloggetSomBruker(request) ? (Bruker) session.getAttribute(Attributter.BRUKER) : null;
 	}
+	
+	/**
+	 * Sjekker om admin er innlogget
+	 * 
+	 * @param request
+	 * @return True eller False
+	 */
+	public static boolean erInnloggetSomAdmin(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		return (session != null) && (session.getAttribute(Attributter.ADMIN) != null);
+	}
+	
+	/**
+	 * Returner admin som er innlogget, ellers null
+	 * 
+	 * @param request
+	 * @return Brukeren
+	 */
+	public static Bruker innloggetSomAdmin(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		return erInnloggetSomAdmin(request) ? (Bruker) session.getAttribute(Attributter.ADMIN) : null;
+	}
 
 	/**
 	 * Logger inn som Bruker
@@ -64,10 +86,10 @@ public class InnloggingUtil {
 	 * 
 	 * @param request
 	 */
-	public static void loggInnSomAdmin(HttpServletRequest request) {
+	public static void loggInnSomAdmin(HttpServletRequest request, Bruker b) {
 		loggUt(request);
 		HttpSession sesjon = request.getSession(true);
-		sesjon.setAttribute(Attributter.ADMIN, Attributter.ADMIN);
+		sesjon.setAttribute(Attributter.ADMIN, b);
 		sesjon.setMaxInactiveInterval(1200);
 	}
 

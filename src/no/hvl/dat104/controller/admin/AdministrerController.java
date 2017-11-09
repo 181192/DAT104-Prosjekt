@@ -58,19 +58,17 @@ public class AdministrerController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (InnloggingUtil.erInnLoggetSomAdmin(request)) {
-			try {
-				Integer idUserToChange = Integer.parseInt(request.getParameter("id"));
-				if (idUserToChange.equals(InnloggingUtil.innloggetSomBruker(request).getId())) {
-					FlashUtil.Flash(request, "error", "Du kan ikke endre din egen tilgang");
-					response.sendRedirect(UrlMappings.ADMINISTRER_URL);
-				} else {
-					Bruker b = byttRolle(request);
-					FlashUtil.Flash(request, "success",
-							"Suksess! Rollen til " + b.getFornavn() + " " + b.getEtternavn() + " ble endret.");
-					response.sendRedirect(UrlMappings.ADMINISTRER_URL);
-				}
-			} catch (NumberFormatException e) {
-
+			Integer idUserToChange = Integer.valueOf(request.getParameter("id"));
+			Bruker sessionAdmin = InnloggingUtil.innloggetSomAdmin(request);
+			Integer idAdmin = sessionAdmin.getId();
+			if (idUserToChange.equals(idAdmin)) {
+				FlashUtil.Flash(request, "error", "Du kan ikke endre din egen tilgang");
+				response.sendRedirect(UrlMappings.ADMINISTRER_URL);
+			} else {
+				Bruker b = byttRolle(request);
+				FlashUtil.Flash(request, "success",
+						"Suksess! Rollen til " + b.getFornavn() + " " + b.getEtternavn() + " ble endret.");
+				response.sendRedirect(UrlMappings.ADMINISTRER_URL);
 			}
 		} else {
 			FlashUtil.Flash(request, "error", "Ingen tilgang");

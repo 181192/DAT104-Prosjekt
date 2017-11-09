@@ -4,8 +4,8 @@
 	<div class="item">
 		<h1 id="nav-textfelt"></h1>
 	</div>
-	<!-- HVIS BRUKE ER INNLOGGET. -->
 	<c:if test="${not empty bruker}">
+		<!-- HVIS BRUKE ER INNLOGGET. -->
 		<div class="right menu">
 			<div class="item">
 				<a class="ui teal button" href="<%=LANDING_STYRER_URL%>"> Dashbord </a>
