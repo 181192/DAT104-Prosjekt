@@ -5,6 +5,7 @@ package no.hvl.dat104.dataaccess.jpa;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -15,6 +16,7 @@ import no.hvl.dat104.model.LiveTilbakemelding;
  * @author krist
  *
  */
+@Stateless
 public class LiveTilbakemeldingEOA implements ILiveTilbakemeldingEAO {
 	@PersistenceContext(name = "g03PersistenceUnit")
 	private EntityManager em;
