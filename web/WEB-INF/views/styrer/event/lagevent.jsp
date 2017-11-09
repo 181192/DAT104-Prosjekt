@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
 <jsp:include page="../../../partials/headerNoNavbar.jsp" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css">
   <div class="ui container">
   <form method="post" action="<%=LAGEVENT_URL %>" class="ui form">
     <div class="field"><label>Tittel:</label> <input type="text" name="tittel" placeholder="Tittel"></div>
@@ -36,6 +37,7 @@
   </form>
   </div>
   <jsp:include page="../../../partials/footer.jsp" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
   <script>
       $( function() {
           $( "#datepicker" ).datepicker({
