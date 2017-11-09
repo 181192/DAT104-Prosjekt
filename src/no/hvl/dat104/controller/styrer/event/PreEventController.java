@@ -68,7 +68,6 @@ public class PreEventController extends HttpServlet {
 			
 			EventUtil.sorterEventer(eventer);
 			request.setAttribute(Attributter.EVENT_LISTE, eventer);
-			
 			request.getRequestDispatcher(JspMappings.PRE_EVENT_JSP).forward(request, response);	
 
 		} else {
@@ -83,9 +82,12 @@ public class PreEventController extends HttpServlet {
 			// Trenger session for å finne riktig event.
 			HttpSession session = request.getSession(false);
 
-			Event ev = (Event) session.getAttribute(Attributter.LIVE_EVENT);
-			System.out.println("liveEvent: " + ev.getId());
-
+			String evId = (String)request.getParameter(Attributter.LIVE_EVENT_ID);
+			System.out.println("dopost i preEvent: " + evId);
+			
+			Event ev = eventEAO.finnEvent(Integer.parseInt(evId));
+			
+			System.out.println("ev: " + ev.toString());
 			// Trenger test for rett knapp/loggin/osv/bruke hidden?
 			// Startknappen trykkes: lager liste, setter status til pågående.
 			if (true) {
@@ -93,7 +95,8 @@ public class PreEventController extends HttpServlet {
 				System.out.println("liveTilbakemeldinger.lengde: " + liveTilbakemeldinger.size());
 				ev.setLiveTilbakemeldinger(liveTilbakemeldinger);
 				ev.setStatus(Status.PAAGANDE);
-
+				
+				eventEAO.oppdaterEvent(ev);
 				session.setAttribute(Attributter.LIVE_EVENT, ev);
 				response.sendRedirect(UrlMappings.LIVE_EVENT_URL);
 			}
