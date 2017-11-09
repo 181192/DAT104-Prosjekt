@@ -46,13 +46,13 @@ public class DeltaEventController extends HttpServlet {
 				response.sendRedirect(UrlMappings.GITILBAKEMELDING_URL);
 			} else {
 				System.out.println("kodeord finnes ikke");
-				FlashUtil.Flash(request, "Error", "Kodeordet finnes ikke");
+				FlashUtil.Flash(request, "error", "Kodeordet finnes ikke");
 				response.sendRedirect(UrlMappings.DELTAEVENT_URL);// index
 			}
 
 		} else {
 			System.out.println("feil kodeord syntaks");
-			FlashUtil.Flash(request, "Error", "Kodeord består av 5 siffer");
+			FlashUtil.Flash(request, "error", "Kodeord består av 5 siffer");
 			response.sendRedirect(UrlMappings.DELTAEVENT_URL);// index
 		}
 	}
