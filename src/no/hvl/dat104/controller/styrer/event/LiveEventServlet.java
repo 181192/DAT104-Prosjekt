@@ -1,6 +1,7 @@
 package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -20,7 +21,9 @@ import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.IKodeordEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
+import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Status;
+import no.hvl.dat104.util.EventUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**
@@ -46,16 +49,14 @@ public class LiveEventServlet extends HttpServlet {
 
 			HttpSession session = request.getSession(false);
 			Event detteEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
-			if (session != null) {
-				
-				//
-				if (detteEvent != null) {
-					System.out.println("Kodeordet er her");
-					// Må ha test for at kodeordet ikke er satt fra før.
-					Kodeord kodeord = genererKodeord(detteEvent);
-					kodeordEAO.leggTilKodeord(kodeord);
-					session.setAttribute(Attributter.KODEORD, kodeord);
-				}
+			Timestamp faktiskStart = detteEvent.getFaktiskStart();
+			
+			if (detteEvent != null) {
+				System.out.println("Kodeordet er her" + faktiskStart);
+
+				Kodeord kodeord = genererKodeord(detteEvent);
+				kodeordEAO.leggTilKodeord(kodeord);
+				session.setAttribute(Attributter.KODEORD, kodeord);
 			}
 
 			// Lager noen testdata og sender til jsp i requesten.
