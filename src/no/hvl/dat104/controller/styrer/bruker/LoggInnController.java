@@ -13,7 +13,6 @@ import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Bruker;
-import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**

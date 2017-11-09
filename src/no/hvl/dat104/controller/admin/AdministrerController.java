@@ -5,6 +5,7 @@ import static no.hvl.dat104.controller.JspMappings.LANDING_JSP;
 import static no.hvl.dat104.controller.JspMappings.LANDING_STYRER_JSP;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -47,8 +48,9 @@ public class AdministrerController extends HttpServlet {
 			}
 		} else {
 			// Bruker er innlogget som admin, list brukere
-			List<Bruker> brukere = brukerEAO.alleBrukerne();
-			// brukere.remove(InnloggingUtil.innloggetSomBruker(request));
+			List<Bruker> liste = brukerEAO.alleBrukerne();
+			ArrayList<Bruker> brukere = new ArrayList<Bruker>(liste);
+			brukere.remove(InnloggingUtil.innloggetSomAdmin(request));
 
 			request.getSession().setAttribute("brukere", brukere);
 			request.getRequestDispatcher(ADMINISTRER_JSP).forward(request, response);
@@ -62,11 +64,15 @@ public class AdministrerController extends HttpServlet {
 			Bruker sessionAdmin = InnloggingUtil.innloggetSomAdmin(request);
 			Integer idAdmin = sessionAdmin.getId();
 			if (idUserToChange.equals(idAdmin)) {
-				FlashUtil.Flash(request, "error", "Du kan ikke endre din egen tilgang");
+				if(request.getSession().getAttribute("success") != null)
+					request.getSession().removeAttribute("success");
+				request.getSession().setAttribute("error", "Du kan ikke endre din egen bruker");
 				response.sendRedirect(UrlMappings.ADMINISTRER_URL);
 			} else {
 				Bruker b = byttRolle(request);
-				FlashUtil.Flash(request, "success",
+				if(request.getSession().getAttribute("error") != null)
+					request.getSession().removeAttribute("error");
+				request.getSession().setAttribute("success",
 						"Suksess! Rollen til " + b.getFornavn() + " " + b.getEtternavn() + " ble endret.");
 				response.sendRedirect(UrlMappings.ADMINISTRER_URL);
 			}

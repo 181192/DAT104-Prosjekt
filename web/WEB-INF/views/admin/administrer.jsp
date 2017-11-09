@@ -4,6 +4,8 @@
 
 <div class="ui container">
 	<h3>Brukere</h3>
+	<p><font color="red">${error}</font></p>
+	<p><font color="red">${success}</font></p>
 	<form action="<%=ADMINISTRER_URL %>" method="POST" id="brukere">
 	<input type="hidden" id="id" name="id" />
 	<input type="hidden" id="rolle" name="rolle" />
