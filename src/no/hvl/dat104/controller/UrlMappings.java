@@ -27,4 +27,5 @@ public abstract class UrlMappings {
 	public static final String MINEEVENTER_URL = "mineeventer";
 	public static final String SLETTEVENT_URL = "slettevent";
 	public static final String SLETTAKTIVITET_URL = "slettaktivitet";
+	public static final String LOGGUT_URL = "loggut";
 }

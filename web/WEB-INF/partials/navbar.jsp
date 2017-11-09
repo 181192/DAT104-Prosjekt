@@ -20,7 +20,7 @@
 				<a class="ui teal basic button" href="<%=MINEAKTIVITETER_URL%>">Innlogget som ${bruker.fornavn}</a>
 			</div>
 			<div class="item">
-				<a class="ui teal basic button" href="">Logg Ut</a>
+				<a class="ui teal basic button" href="<%=LOGGUT_URL%>">Logg Ut</a>
 			</div>
 		</div>
 	</c:if>
