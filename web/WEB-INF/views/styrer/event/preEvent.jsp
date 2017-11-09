@@ -11,18 +11,18 @@
 			<tr>
 				<th>Event navn</th>
 				<th>Tidspunkt (planlagt start)</th>
-				<th>Gå til event</th>
+				<th>Live tilbakemeldinger</th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach items="${eventer}" var="event">
 				<tr>
-					<td><a href="<%= EVENTRESULTATER_URL%>?eventId=${event.id}"><c:out
+					<td><a href=<%= EVENTRESULTATER_URL%>?eventId=${event.id}><c:out
 								value="${event.navn}" /></a></td>
 					<td
 						class="${event.status eq PAAGANDE ? 'positive' : (event.status eq AVSLUTTET) ? 'error' : 'warning'}"><c:out
-							value="${event.status}" /></td>
-					<td><a href="<%= LIVE_EVENT_URL%>?eventId=${event.id}">Rediger</a></td>
+							value="${event.tidFra}" /></td>
+					<td><a href="<%= LIVE_EVENT_URL%>?eventId=${event.id}">${event.status eq PAAGAENDE ? 'event pågår nå' : 'Start event'}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
@@ -33,7 +33,6 @@
 
 			<div class="ui divider"></div>
 			<div class="ui red warning message">
-				<div class="ui medium header">Advarsel</div>
 				<p></p>
 				<p>Starter du eventet blir pin-koden generert, og publikum kan
 					gi tilbakemeldinger.</p>
@@ -41,7 +40,6 @@
 					Denne handlingen kan <strong>ikke </strong>omgjøres.
 				</p>
 			</div>
-			<input type="submit" class="ui primary button" value="Start Event">
 		</div>
 	</form>
 </div>

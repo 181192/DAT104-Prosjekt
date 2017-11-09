@@ -60,47 +60,17 @@ public class PreEventController extends HttpServlet {
 				List<Event> temp = aktivitetEAO.finnAlleEventerTilAktivitet(a.getId());
 				for(Event ev : temp) {
 					eventEAO.endreStatusPaaEvent(ev.getId(), Status.PLANLAGT);
-					//Legger til alle eventer som ikke er avsluttet. 
 					if(!ev.getStatus().equals(Status.AVSLUTTET)) {
 						eventer.add(ev);
 					}
 				}
 			}
 			
-			
 			EventUtil.sorterEventer(eventer);
-			for(Event e : eventer) {
-				System.out.println("" + e.getTidFra());
-			}
+			request.setAttribute(Attributter.EVENT_LISTE, eventer);
 			
-			
-			
+			request.getRequestDispatcher(JspMappings.PRE_EVENT_JSP).forward(request, response);	
 
-			// Må finne eventet som skal startes på en eller annen måte.
-			Event ev = eventEAO.finnEvent(1);
-
-			ev.setStatus(Status.PLANLAGT);
-
-			eventEAO.endreStatusPaaEvent(ev.getId(), Status.PLANLAGT);
-
-			System.out.println("eventStatus: " + ev.getStatus());
-
-			session.setAttribute(Attributter.LIVE_EVENT, ev);
-			String denneStatus = ev.getStatus();
-			// Hvis eventet er planlagt, skal viser vi PreEventJSP.
-			if (denneStatus.equals(Status.PLANLAGT)) {
-
-				request.getRequestDispatcher(JspMappings.PRE_EVENT_JSP).forward(request, response);
-
-			} else if (denneStatus.equals(Status.PAAGANDE)) {
-
-				request.getRequestDispatcher(JspMappings.LIVE_EVENT_JSP).forward(request, response);
-
-			} else {
-
-				System.out.println("Status til eventet er satt til Avsluttet, må implementere en JSP for dette.");
-
-			}
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
