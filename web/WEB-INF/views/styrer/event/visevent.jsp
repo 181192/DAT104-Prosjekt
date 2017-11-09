@@ -38,7 +38,7 @@
 	    </tr>	       
 	  </tbody>
 	</table>
-	<form action="<%=EVENTRESULTATER_URL %>" method="post">
+	<form action="<%=EVENTRESULTATER_URL %>" method="get">
 		<input type="hidden" value="${event.id}" name="eventId"><input class="ui primary button" type="submit" value="Vis Tilbakemeldinger">
 	</form>
 	
