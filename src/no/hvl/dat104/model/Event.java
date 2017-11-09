@@ -1,6 +1,7 @@
 package no.hvl.dat104.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -55,7 +56,54 @@ public class Event {
 	 * Tom konstruktor til Event
 	 */
 	public Event() {
+		this(null, "", "", null, null, null, null, "", "", null);
+		tilbakemeldinger = new ArrayList<>();
+		liveTilbakemeldinger = new ArrayList<>();
 
+	}
+
+	/**
+	 * Konstruktør for Event med parameter
+	 * 
+	 * @param id
+	 *            ID til event
+	 * @param navn
+	 *            Navnet på event
+	 * @param beskrivelse
+	 *            Beskrivelse på event
+	 * @param tidFra
+	 *            Tid planlagt fra
+	 * @param tidTil
+	 *            Tid planlagt til
+	 * @param faktiskStart
+	 *            Faktisk start
+	 * @param faktiskSlutt
+	 *            Faktisk slutt
+	 * @param status
+	 *            Status på event
+	 * @param sted
+	 *            Stedet til event
+	 * @param idAktivitet
+	 *            Aktiviteten til eventet
+	 * @param tilbakemeldinger
+	 *            Tilbakemeldingene
+	 * @param liveTilbakemeldinger
+	 *            Live tilbakemeldingene
+	 */
+	public Event(Integer id, String navn, String beskrivelse, Timestamp tidFra, Timestamp tidTil,
+			Timestamp faktiskStart, Timestamp faktiskSlutt, String status, String sted, Aktivitet idAktivitet) {
+		this.id = id;
+		this.navn = navn;
+		this.beskrivelse = beskrivelse;
+		this.tidFra = tidFra;
+		this.tidTil = tidTil;
+		this.faktiskStart = faktiskStart;
+		this.faktiskSlutt = faktiskSlutt;
+		this.status = status;
+		this.sted = sted;
+		this.idAktivitet = idAktivitet;
+		this.tilbakemeldinger = new ArrayList<>();
+		this.liveTilbakemeldinger = new ArrayList<>();
 	}
 
 	public String getNavn() {
