@@ -41,8 +41,8 @@ public class GiTilbakemeldingController extends HttpServlet {
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-    	if (GiTilbakemeldingHjelpeklasse.eventHarStartet(request) && !GiTilbakemeldingHjelpeklasse.maaVente(request, 10)) {
-        	GiTilbakemeldingHjelpeklasse.lastOppTilbakemelding(request, liveTilbakemeldingEAO, tilbakemeldingEAO, response);
+    	if (GiTilbakemeldingHjelpeklasse.eventHarStartet(request, eventEAO) && !GiTilbakemeldingHjelpeklasse.maaVente(request, 10)) {
+        	GiTilbakemeldingHjelpeklasse.lastOppTilbakemelding(request, liveTilbakemeldingEAO, tilbakemeldingEAO, response, eventEAO);
     	}
     	else {
     		GiTilbakemeldingHjelpeklasse.settFeilmelding(request);

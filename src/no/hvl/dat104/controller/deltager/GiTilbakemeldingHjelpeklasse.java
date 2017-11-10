@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.controller.UrlMappings;
+import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.ILiveTilbakemeldingEAO;
 import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
 import no.hvl.dat104.model.Event;
@@ -28,8 +29,8 @@ public class GiTilbakemeldingHjelpeklasse {
 	 */
 
 	public static void lastOppTilbakemelding(HttpServletRequest request, ILiveTilbakemeldingEAO liveTilbakemeldingEAO, 
-			ITilbakemeldingEAO tilbakemeldingEAO,HttpServletResponse response) throws IOException  {
-		if (GiTilbakemeldingHjelpeklasse.eventPaagaar(request)) {
+			ITilbakemeldingEAO tilbakemeldingEAO,HttpServletResponse response,IEventEAO eventEAO) throws IOException  {
+		if (GiTilbakemeldingHjelpeklasse.eventPaagaar(request, eventEAO)) {
 			LiveTilbakemelding liveTilbakemelding = new LiveTilbakemelding(request.getParameter("tilbakemelding"),
 					DatoUtil.lagCurrentTimestamp(), (Event) request.getSession(true).getAttribute("event"));
 			liveTilbakemeldingEAO.leggTilLiveTilbakemelding(liveTilbakemelding);
@@ -81,7 +82,13 @@ public class GiTilbakemeldingHjelpeklasse {
     	else {
     		Date naa = new Date();
     		long sekunderIgjen = GiTilbakemeldingHjelpeklasse.sekunderVente - ((naa.getTime() - sistStemme.getTime()) / 1000);
-    		melding = "Du må vente " + sekunderIgjen + " sekunder.";
+    		if (sekunderIgjen > 1) {
+        		melding = "Du må vente " + sekunderIgjen + " sekunder.";
+    		}
+    		else {
+    			sekunderIgjen = 1;
+        		melding = "Du må vente " + sekunderIgjen + " sekund.";
+    		}
     	}
 		FlashUtil.Flash(request, "Error", melding);
     }
@@ -91,9 +98,10 @@ public class GiTilbakemeldingHjelpeklasse {
      * @param request
      * @return boolean
      */
-    public static boolean eventHarStartet(HttpServletRequest request) {
-    	Event event = (Event) request.getSession().getAttribute("event");
-    	return event.getFaktiskStart()!=null; 
+    public static boolean eventHarStartet(HttpServletRequest request, IEventEAO eventEAO) {
+    	Event gammelVersjon = (Event) request.getSession().getAttribute("event");
+    	Event nyVersjon = eventEAO.finnEvent(gammelVersjon.getId());
+    	return nyVersjon.getFaktiskStart()!=null; 
     }
     
     /**
@@ -101,9 +109,10 @@ public class GiTilbakemeldingHjelpeklasse {
      * @param request
      * @return boolean
      */
-    private static boolean eventPaagaar(HttpServletRequest request) {
-    	Event event = (Event) request.getSession().getAttribute("event");
-    	return event.getFaktiskSlutt()==null;
+    private static boolean eventPaagaar(HttpServletRequest request, IEventEAO eventEAO) {
+    	Event gammelVersjon = (Event) request.getSession().getAttribute("event");
+    	Event nyVersjon = eventEAO.finnEvent(gammelVersjon.getId());
+    	return nyVersjon.getFaktiskSlutt()==null;
     }
 	
     /**
