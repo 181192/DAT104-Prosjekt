@@ -21,7 +21,7 @@
 	  <tbody>
 	    <tr>
 	      <td class="selectable"id="vis">
-	        <p class="aktivitet-link" >${event.navn}<p>
+	        <p>${event.navn}<p>
 	      </td>
 	      <td>${event.tidFra}</td>
 	      <td>${event.tidTil}</td>
