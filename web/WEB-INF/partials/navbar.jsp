@@ -8,16 +8,20 @@
 		<!-- HVIS BRUKE ER INNLOGGET. -->
 		<div class="right menu">
 			<div class="item">
-				<a class="ui teal button" href="<%=LANDING_STYRER_URL%>"> Dashbord </a>
+				<a class="ui teal button" href="<%=LANDING_STYRER_URL%>">
+					Dashbord </a>
 			</div>
 			<div class="item">
-				<a class="ui teal button" href="<%=PRE_LIVE_EVENT_URL%>"> Pågående Event </a>
+				<a class="ui teal button" href="<%=PRE_LIVE_EVENT_URL%>">
+					Pågående Event </a>
 			</div>
 			<div class="item">
-				<a class="ui teal button" href="<%=MINEAKTIVITETER_URL%>"> Mine Aktiviteter </a>
+				<a class="ui teal button" href="<%=MINEAKTIVITETER_URL%>"> Mine
+					Aktiviteter </a>
 			</div>
 			<div class="item">
-				<a class="ui teal basic button" href="<%=MINEAKTIVITETER_URL%>">Innlogget som ${bruker.fornavn}</a>
+				<a class="ui teal basic button" href="<%=MINEAKTIVITETER_URL%>">Innlogget
+					som ${bruker.fornavn}</a>
 			</div>
 			<div class="item">
 				<a class="ui teal basic button" href="<%=LOGGUT_URL%>">Logg Ut</a>
@@ -25,16 +29,23 @@
 		</div>
 	</c:if>
 	<c:if test="${empty bruker}">
-		<!-- HVIS IKKE INNLOGGET VIS LOGIN REGISTRER -->
-
-		<div class="right menu">
-			<div class="item">
-				<a class="ui button"href="<%=LOGGINN_URL%>">Logg inn</a>
+		<c:if test="${not empty admin}">
+			<div class="right menu">
+				<div class="item">
+					<a class="ui teal basic button" href="<%=LOGGUT_URL%>">Logg Ut</a>
+				</div>
 			</div>
-			<div class="item">
-				<a class="ui button" href="<%=OPPRETTBRUKER_URL%>">Registrer</a>
+		</c:if>
+		<c:if test="${empty admin}">
+			<div class="right menu">
+				<div class="item">
+					<a class="ui button" href="<%=LOGGINN_URL%>">Logg inn</a>
+				</div>
+				<div class="item">
+					<a class="ui button" href="<%=OPPRETTBRUKER_URL%>">Registrer</a>
+				</div>
 			</div>
-		</div>
+		</c:if>
 	</c:if>
 </div>
 <jsp:include page="../partials/footer.jsp" />

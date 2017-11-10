@@ -171,35 +171,10 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- Dummy data
 
-INSERT INTO Rolle (id, type) VALUES('1', 'Admin');
-INSERT INTO Rolle (id, type) VALUES('2', 'Aktivitetsstyrer');
+INSERT INTO rolle (id, type) VALUES('1', 'Admin');
+INSERT INTO rolle (id, type) VALUES('2', 'Aktivitetsstyrer');
 INSERT INTO rolle (id, type) VALUES('3', 'Ikke godkjent');
 
 INSERT INTO rettigheter (godkjenne_bruker, slette_bruker, opprette_aktivitet, "id_rolle") VALUES ('1','1','0','1');
 INSERT INTO rettigheter (godkjenne_bruker, slette_bruker, opprette_aktivitet, "id_rolle") VALUES ('0','0','1','2');
 INSERT INTO rettigheter (godkjenne_bruker, slette_bruker, opprette_aktivitet, "id_rolle") VALUES ('0','0','0','3');
-
-INSERT INTO bruker (mail, fornavn, etternavn, passord, salt, "id_rolle") VALUES ('admin@gruppe3.no', 'Ola', 'Olsen', 'foobar', 'dioawd633a', '1');
-INSERT INTO bruker (mail, fornavn, etternavn, passord, salt, "id_rolle") VALUES ('kari@gruppe3.no', 'Kari', 'Pettersen', 'foobar', 'afa7fa9dwa', '2');
-INSERT INTO bruker (mail, fornavn, etternavn, passord, salt, "id_rolle") VALUES ('per@gruppe3.no', 'Per', 'Hansen', 'foobar', 'njnpojniu2', '2');
-
-INSERT INTO aktivitet (navn, status, "id_bruker") VALUES ('DAT100', 'avsluttet', '2');
-INSERT INTO aktivitet (navn, status, "id_bruker") VALUES ('MAT101', 'pagaende', '2');
-INSERT INTO aktivitet (navn, status, "id_bruker") VALUES ('DAT102', 'planlagt', '3');
-
-INSERT INTO event (navn, tid_fra, tid_til, status, sted, "id_aktivitet") VALUES ('DAT100', '2017-10-20 12:00:00', '2017-10-20 14:00:00', 'avsluttet', 'F115', '1');
-INSERT INTO event (navn, tid_fra, tid_til, status, sted, "id_aktivitet") VALUES ('MAT101', '2017-10-26 10:00:00', '2017-10-26 22:00:00', 'pagaende', 'F110', '2');
-INSERT INTO event (navn, tid_fra, tid_til, status, sted, "id_aktivitet") VALUES ('DAT102', '2017-12-20 09:00:00', '2017-12-20 10:30:00', 'planlagt', 'E403', '3');
-
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:01:00','1');
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:02:00','1');
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:03:00','1');
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:04:00','1');
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:05:00','1');
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('0','2017-10-20 14:06:00','1');
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:07:00','1');
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('1','2017-10-20 14:08:00','1');
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:09:00','1');
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:10:00','1');
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:11:00','1');
-INSERT INTO tilbakemelding (stemme, tid, "id_event") VALUES ('2','2017-10-20 14:12:00','1');
