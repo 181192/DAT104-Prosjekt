@@ -1,6 +1,5 @@
 package no.hvl.dat104.controller.styrer.event;
 
-import static no.hvl.dat104.controller.JspMappings.MINEAKTIVITETER_JSP;
 import static no.hvl.dat104.controller.JspMappings.MINEEVENTER_JSP;
 
 import java.io.IOException;
@@ -39,7 +38,7 @@ public class MineEventerController extends HttpServlet {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 			String aktivitetsId = request.getParameter("aktivitetId");
 			if (!ValidatorUtil.isNotNull0(aktivitetsId)) {
-				request.getRequestDispatcher(MINEAKTIVITETER_JSP).forward(request, response);
+				response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
 			} else {
 				int aktivitetId = Integer.parseInt(aktivitetsId);
 				Bruker b = InnloggingUtil.innloggetSomBruker(request);
