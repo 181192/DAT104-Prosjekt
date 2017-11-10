@@ -43,18 +43,18 @@ public class OpprettBrukerController extends HttpServlet {
 			Bruker bruker = setOppBruker(skjema);
 			if (skjema.erMailUnik(brukerEAO.finnBrukerPaaEmail(bruker.getMail()))) {
 				brukerEAO.leggTilBruker(bruker);
-				request.getSession().removeAttribute("skjema");
+				request.getSession().removeAttribute("opprettBrukerSkjema");
 				FlashUtil.Flash(request, "Success", "Velkommet til dashbordet!");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);	
 			} else {
 				skjema.setMailFeilmelding("Denne mailadressen er allerede registrert");
-				request.getSession().setAttribute("skjema", skjema);
+				request.getSession().setAttribute("opprettBrukerSkjema", skjema);
 				response.sendRedirect(UrlMappings.OPPRETTBRUKER_URL);
 			}
 		} else {
 			skjema.settOppFeilmeldinger(request);
 			FlashUtil.Flash(request, "Error", "Ugyldig input!");
-			request.getSession().setAttribute("skjema", skjema);
+			request.getSession().setAttribute("opprettBrukerSkjema", skjema);
 			response.sendRedirect(UrlMappings.OPPRETTBRUKER_URL);
 		}
 	}

@@ -20,28 +20,28 @@
 	<form method="post" action="<%=OPPRETTBRUKER_URL%>" class="ui form">
 		<div class="field">
 			<label>Fornavn:</label> <input type="text" name="fornavn"
-				value="${skjema.fornavn}" placeholder="Fornavn">
+				value="${opprettBrukerSkjema.fornavn}" placeholder="Fornavn">
 			<p>
-				<font color="red">${skjema.fornavnFeilmelding}</font>
+				<font color="red">${opprettBrukerSkjema.fornavnFeilmelding}</font>
 			</p>
 		</div>
 		<div class="field">
 			<label>Etternavn:</label><input type="text" name="etternavn"
-				value="${skjema.etternavn}" id="datepicker" placeholder="Etternavn">
+				value="${opprettBrukerSkjema.etternavn}" id="datepicker" placeholder="Etternavn">
 		</div>
 		<p>
-			<font color="red">${skjema.etternavnFeilmelding}</font>
+			<font color="red">${opprettBrukerSkjema.etternavnFeilmelding}</font>
 		</p>
 		<div class="field">
 			<label>Mail:</label><input class="timepicker" type="text" name="mail"
-				value="${skjema.mail}" placeholder="Mailadresse">
+				value="${opprettBrukerSkjema.mail}" placeholder="Mailadresse">
 		</div>
 		<p>
-			<font color="red">${skjema.mailFeilmelding}</font>
+			<font color="red">${opprettBrukerSkjema.mailFeilmelding}</font>
 		</p>
 		<div class="field">
 			<label>Passord:</label><input type="password" class="timepicker"
-				name="passord" value="${skjema.passord}" placeholder="Passord">
+				name="passord" value="${opprettBrukerSkjema.passord}" placeholder="Passord">
 		</div>
 
 		<button class="ui button">Opprett bruker</button>

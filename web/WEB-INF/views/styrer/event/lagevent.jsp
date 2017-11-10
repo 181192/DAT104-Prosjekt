@@ -5,20 +5,20 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css">
   <div class="ui container">
   <form method="post" action="<%=LAGEVENT_URL %>" class="ui form">
-    <div class="field"><label>Tittel: <span class="fjerndata" style="color:#B03060">${skjema.tittelFeilmelding }</span></label> <input type="text" class="fjerndata" name="tittel" value="${skjema.tittel }" placeholder="Tittel"></div>
-    <div class="field" id="datoen"><label>Dato: <span class="fjerndata" style="color:#B03060">${skjema.datoFeilmelding }</span></label><input class="fjerndata" type="text" name="dato" id="datepicker" value="${dato}"></div>
+    <div class="field"><label>Tittel: <span class="fjerndata" style="color:#B03060">${eventSkjema.tittelFeilmelding }</span></label> <input type="text" class="fjerndata" name="tittel" value="${eventSkjema.tittel }" placeholder="Tittel"></div>
+    <div class="field" id="datoen"><label>Dato: <span class="fjerndata" style="color:#B03060">${eventSkjema.datoFeilmelding }</span></label><input class="fjerndata" type="text" name="dato" id="datepicker" value="${dato}"></div>
     <div class="two fields">
       <div class="field">
-        <label>Fra: <span class="fjerndata" style="color:#B03060">${skjema.fraFeilmelding }</span></label><input class="timepicker fjerndata" value="${skjema.fra }" type="text" name="fra" placeholder="hh.mm">
+        <label>Fra: <span class="fjerndata" style="color:#B03060">${eventSkjema.fraFeilmelding }</span></label><input class="timepicker fjerndata" value="${eventSkjema.fra }" type="text" name="fra" placeholder="hh.mm">
       </div>
       <div class="field">
-        <label>Til: <span class="fjerndata" style="color:#B03060">${skjema.tilFeilmelding }</span></label><input type="text" class="timepicker fjerndata" value="${skjema.til }" name="til" placeholder="hh.mm">
+        <label>Til: <span class="fjerndata" style="color:#B03060">${eventSkjema.tilFeilmelding }</span></label><input type="text" class="timepicker fjerndata" value="${eventSkjema.til }" name="til" placeholder="hh.mm">
       </div>
     </div>
-    <div class="field"><label>Hvor: <span class="fjerndata" style="color:#B03060">${skjema.hvorFeilmelding }</span></label><input type="text" class="fjerndata" value="${skjema.hvor }" name="hvor" placeholder="Hvor"></div>
+    <div class="field"><label>Hvor: <span class="fjerndata" style="color:#B03060">${eventSkjema.hvorFeilmelding }</span></label><input type="text" class="fjerndata" value="${eventSkjema.hvor }" name="hvor" placeholder="Hvor"></div>
     <div class="field">
-    <label>Beskrivelse <span class="fjerndata" style="color:#B03060">${skjema.hvorFeilmelding }</span></label>
-    <input type="text" class="fjerndata" name="beskrivelse" value="${skjema.beskrivelse }" placeholder="Beskrivelse">
+    <label>Beskrivelse <span class="fjerndata" style="color:#B03060">${eventSkjema.hvorFeilmelding }</span></label>
+    <input type="text" class="fjerndata" name="beskrivelse" value="${eventSkjema.beskrivelse }" placeholder="Beskrivelse">
     </div>
     <div class="field">
       <label>Aktivitet</label>

@@ -54,18 +54,18 @@ public class LoggInnController extends HttpServlet {
 					}
 				} else {
 					skjema.settOppFeilmeldinger(request);
-					request.getSession().setAttribute("skjema", skjema);
+					request.getSession().setAttribute("brukerSkjema", skjema);
 					response.sendRedirect(UrlMappings.LOGGINN_URL);
 				}
 			} else {
 				skjema.settOppFeilmeldinger(request);
-				request.getSession().setAttribute("skjema", skjema);
+				request.getSession().setAttribute("brukerSkjema", skjema);
 				response.sendRedirect(UrlMappings.LOGGINN_URL);
 
 			}
 		} else {
 			skjema.settOppFeilmeldinger(request);
-			request.getSession().setAttribute("skjema", skjema);
+			request.getSession().setAttribute("brukerSkjema", skjema);
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 	}

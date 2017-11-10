@@ -22,16 +22,16 @@
 	<form method="post" action="<%=LOGGINN_URL%>" class="ui form">
 		<div class="field">
 			<label>Mailadresse</label> <input type="text" name="mail"
-				value="${skjema.mail}" placeholder="Mailadresse">
+				value="${brukerSkjema.mail}" placeholder="Mailadresse">
 			<p>
-				<font color="#B03060">${skjema.mailFeilmelding}</font>
+				<font color="#B03060">${brukerSkjema.mailFeilmelding}</font>
 			</p>
 		</div>
 		<div class="field">
 			<label>Passord</label> <input type="password" name="passord"
 				placeholder="Passord">
 			<p>
-				<font color="#B03060">${skjema.passordFeilmelding}</font>
+				<font color="#B03060">${brukerSkjema.passordFeilmelding}</font>
 			</p>
 		</div>
 		<button class="ui button">Logg inn</button>
