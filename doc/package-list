@@ -1,0 +1,12 @@
+no.hvl.dat104
+no.hvl.dat104.controller
+no.hvl.dat104.controller.admin
+no.hvl.dat104.controller.deltager
+no.hvl.dat104.controller.styrer
+no.hvl.dat104.controller.styrer.aktivitet
+no.hvl.dat104.controller.styrer.bruker
+no.hvl.dat104.controller.styrer.event
+no.hvl.dat104.dataaccess
+no.hvl.dat104.dataaccess.jpa
+no.hvl.dat104.model
+no.hvl.dat104.util
