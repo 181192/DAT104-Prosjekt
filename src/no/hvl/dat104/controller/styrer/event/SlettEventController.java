@@ -28,24 +28,20 @@ public class SlettEventController extends HttpServlet {
 			throws ServletException, IOException {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 			String eventId = ValidatorUtil.escapeHtml(request.getParameter("eventId"));
-			System.out.println("eventid " + eventId);
-
 			if (ValidatorUtil.isNotNull0(eventId)) {
 				Integer id = Integer.parseInt(eventId);
 				Event e = eventEAO.finnEvent(id);
 				if (e != null) {
-					System.out.println(e.getNavn());
 					eventEAO.slettEvent(e);
 					FlashUtil.Flash(request, "success", "Eventet " + e.getNavn() + " er slettet!");
-					response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 				} else {
-					System.out.println("den er tom");
 					FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
-					response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 				}
 			} else {
 				FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
-				response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 			}
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);

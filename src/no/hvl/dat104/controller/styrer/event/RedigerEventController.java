@@ -84,7 +84,7 @@ public class RedigerEventController extends HttpServlet {
 			// Oppdaterer eventen
 			eventEAO.endreParametereTilEvent(id, navn, beskrivelse, dateFra, dateTil, status, sted);
 			FlashUtil.Flash(request, "success", "Eventen " + navn + " er oppdatert!");
-			response.sendRedirect(UrlMappings.MINEEVENTER_URL);
+			response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
