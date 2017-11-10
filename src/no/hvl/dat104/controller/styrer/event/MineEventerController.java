@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.context.Flash;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +47,9 @@ public class MineEventerController extends HttpServlet {
 				if (brukerEAO.eierBrukerAktivitet(b.getId(), aktivitetId)) {
 					Aktivitet a = aktivitetEAO.finnAktivitet(aktivitetId);
 					List<Event> eventer = aktivitetEAO.finnAlleEventerTilAktivitet(a.getId());
+					if (eventer.isEmpty()) {
+						FlashUtil.Flash(request, "error", "Aktiviteten har ingen eventer");
+					}
 					EventUtil.sorterEventer(eventer);
 
 					request.getSession().setAttribute("eventer", eventer);
