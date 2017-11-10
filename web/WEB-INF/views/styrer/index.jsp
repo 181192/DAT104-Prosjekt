@@ -92,7 +92,7 @@ $('#calendar').fullCalendar({
 			header: {
 				left: 'today prev,next',
 				center: 'title',
-				right: 'timelineDay,month'
+				right: 'month'
 			},
 			defaultView: 'month',
 			//aktiviteter
