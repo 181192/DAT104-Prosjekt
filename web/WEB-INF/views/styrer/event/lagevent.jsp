@@ -17,7 +17,7 @@
     </div>
     <div class="field"><label>Hvor: <span class="fjerndata" style="color:#B03060">${eventSkjema.hvorFeilmelding }</span></label><input type="text" class="fjerndata" value="${eventSkjema.hvor }" name="hvor" placeholder="Hvor"></div>
     <div class="field">
-    <label>Beskrivelse <span class="fjerndata" style="color:#B03060">${eventSkjema.hvorFeilmelding }</span></label>
+    <label>Beskrivelse <span class="fjerndata" style="color:#B03060">${eventSkjema.beskrivelseFeilmelding }</span></label>
     <input type="text" class="fjerndata" name="beskrivelse" value="${eventSkjema.beskrivelse }" placeholder="Beskrivelse">
     </div>
     <div class="field">
