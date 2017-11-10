@@ -21,9 +21,7 @@ import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.IKodeordEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
-import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Status;
-import no.hvl.dat104.util.EventUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**

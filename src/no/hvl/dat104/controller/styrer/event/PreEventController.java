@@ -1,7 +1,6 @@
 package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +17,11 @@ import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.dataaccess.IEventEAO;
-import no.hvl.dat104.dataaccess.ILiveTilbakemeldingEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Status;
-import no.hvl.dat104.model.Tilbakemelding;
 import no.hvl.dat104.util.EventUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
