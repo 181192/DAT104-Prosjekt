@@ -34,7 +34,7 @@
             </c:forEach>
       	  </c:when>
       	  <c:otherwise>
-      	  	<div class="item"><a href="<%=LAGEVENT_URL %>?">Opprett Aktivitet</a></div>
+      	  	<div class="item"><a href="<%=LAGAKTIVITET_URL %>">Opprett Aktivitet</a></div>
       	  </c:otherwise>
       	</c:choose>
         </div>
