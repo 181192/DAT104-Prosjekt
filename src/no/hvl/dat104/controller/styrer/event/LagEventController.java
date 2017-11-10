@@ -64,7 +64,6 @@ public class LagEventController extends HttpServlet {
 				iBrukerEAO.finnBrukerLeggTilEvent(bruker.getId(), e, Integer.parseInt(skjema.getAktivitet()));
 				request.getSession().removeAttribute("eventSkjema");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
-
 			} else {
 				skjema.settOppFeilmeldinger();
 				request.getSession().setAttribute("eventSkjema", skjema);

@@ -79,8 +79,8 @@ function lagEvent() {
 </script>
 
 <div class="ui modal">
-	<div class="header">Opprett event</div>
-	<div class="content"></div>
+	<div id="event_modal" class="header">Opprett event</div>
+	<div id="ingenAktivitet" class="content"></div>
 </div>
 
 <table class="aktivitet">
@@ -118,7 +118,15 @@ function lagEvent() {
     	    observeChanges: true
       })
       .modal('show');
-      $(".content").load("<%=LAGEVENT_URL%>?dato="+date.format());
+      var visForm = '${not empty aktiviteter }';
+	  if((visForm === "false")){
+		  $("#event_modal").text('Ops! Du har ingen Aktiviteter ennå - Opprett Aktivitet før du kan oppretter en Event!');
+		  $("#event_modal").css('color', '#FE9A76');
+    	  $('.content').append('<div> <a href="lagaktivitet">Opprett Aktivitet!</a> </div>');
+      }else {
+    	  $(".content").load("<%=LAGEVENT_URL%>?dato="+date.format());
+      }
+      
   }
   function eventModal(event) {
 	  $('.ui.modal')
