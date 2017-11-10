@@ -1,23 +1,24 @@
+	
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
 <jsp:include page="../../../partials/headerNoNavbar.jsp" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.css">
   <div class="ui container">
   <form method="post" action="<%=LAGEVENT_URL %>" class="ui form">
-    <div class="field"><label>Tittel: <span style="color:#B03060">${skjema.tittelFeilmelding }</span></label> <input type="text" name="tittel" value="${skjema.tittel }" placeholder="Tittel"></div>
-    <div class="field" id="datoen"><label>Dato: <span style="color:#B03060">${skjema.datoFeilmelding }</span></label><input type="text" name="dato" id="datepicker" value="${dato}"></div>
+    <div class="field"><label>Tittel: <span class="fjerndata" style="color:#B03060">${skjema.tittelFeilmelding }</span></label> <input type="text" class="fjerndata" name="tittel" value="${skjema.tittel }" placeholder="Tittel"></div>
+    <div class="field" id="datoen"><label>Dato: <span class="fjerndata" style="color:#B03060">${skjema.datoFeilmelding }</span></label><input class="fjerndata" type="text" name="dato" id="datepicker" value="${dato}"></div>
     <div class="two fields">
       <div class="field">
-        <label>Fra: <span style="color:#B03060">${skjema.fraFeilmelding }</span></label><input class="timepicker" value="${skjema.fra }" type="text" name="fra" placeholder="hh.mm">
+        <label>Fra: <span class="fjerndata" style="color:#B03060">${skjema.fraFeilmelding }</span></label><input class="timepicker fjerndata" value="${skjema.fra }" type="text" name="fra" placeholder="hh.mm">
       </div>
       <div class="field">
-        <label>Til: <span style="color:#B03060">${skjema.tilFeilmelding }</span></label><input type="text" class="timepicker" value="${skjema.til }" name="til" placeholder="hh.mm">
+        <label>Til: <span class="fjerndata" style="color:#B03060">${skjema.tilFeilmelding }</span></label><input type="text" class="timepicker fjerndata" value="${skjema.til }" name="til" placeholder="hh.mm">
       </div>
     </div>
-    <div class="field"><label>Hvor: <span style="color:#B03060">${skjema.hvorFeilmelding }</span></label><input type="text" value="${skjema.hvor }" name="hvor" placeholder="Hvor"></div>
+    <div class="field"><label>Hvor: <span class="fjerndata" style="color:#B03060">${skjema.hvorFeilmelding }</span></label><input type="text" class="fjerndata" value="${skjema.hvor }" name="hvor" placeholder="Hvor"></div>
     <div class="field">
-    <label>Beskrivelse <span style="color:#B03060">${skjema.hvorFeilmelding }</span></label>
-    <input type="text" name="beskrivelse" value="${skjema.beskrivelse }" placeholder="Beskrivelse">
+    <label>Beskrivelse <span class="fjerndata" style="color:#B03060">${skjema.hvorFeilmelding }</span></label>
+    <input type="text" class="fjerndata" name="beskrivelse" value="${skjema.beskrivelse }" placeholder="Beskrivelse">
     </div>
     <div class="field">
       <label>Aktivitet</label>
@@ -39,8 +40,10 @@
         </div>
       </div>
     </div>
-    <input type="submit" class="ui button" value="Lag event">
+    <input type="submit" class="ui primary button" value="Lag event">
+    <input type="button" id="fjernAlt" class="ui red button" value="Fjern Data">
   </form>
+ 
   </div>
   <jsp:include page="../../../partials/footer.jsp" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
@@ -56,6 +59,10 @@
           });
           $('.aktivitet').dropdown();
       } );
-
   </script>
- 
+  <script>
+	  $("#fjernAlt").click(function(){
+		  console.log("fjerner");
+		  $(".fjerndata").val('');
+	  });
+  </script>
