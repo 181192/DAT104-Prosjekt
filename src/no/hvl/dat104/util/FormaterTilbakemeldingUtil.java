@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Tilbakemelding;
 
 public class FormaterTilbakemeldingUtil {
