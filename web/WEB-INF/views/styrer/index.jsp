@@ -19,15 +19,11 @@
 }
 
 .aktivitet {
-	width: 10%;
-	margin: auto;
-	display: block;
+	
 }
 </style>
 
 </head>
-
-
 <div class="ui container">
 	<c:if test="${flash == 'success'}">
 		<div class="ui positive message">${melding}</div>
@@ -37,8 +33,43 @@
 		<div class="ui negative message">${melding}</div>
 		<c:remove var="flash" scope="session" />
 	</c:if>
-	<div id='calendar'></div>
 </div>
+
+<div class="ui grid">
+  <div class="two wide column"></div>
+  <div class="eleven wide column">
+  	<div id='calendar'></div>
+  </div>
+  <div class="two wide column">
+   <div class="ui card">
+   	<div class="content">
+   	  <div class="header">Mine Aktiviter:</div>
+   	</div>
+   	<div class="content">
+   		<table class="aktivitet">
+		<thead>
+			<tr>
+				<td></td>
+				<td></td>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="aktivitet" items="${aktiviteter}" varStatus="loop">
+				<tr>
+					<td onclick="fjernAktivitet(<c:out value="${aktivitet.id}"/>)"
+						class="foo"
+						style="background-color: <c:out value="${color[loop.index]}"/>"></td>
+					<td>${aktivitet.navn}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	  </table>
+   	</div>
+   	</div>
+   </div>
+   <div class="one wide column"></div>
+  </div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/locale/nb.js"></script>
 <script>
 var datoen;
@@ -87,24 +118,7 @@ function lagEvent() {
 	<div id="ingenAktivitet" class="content"></div>
 </div>
 
-<table class="aktivitet">
-	<thead>
-		<tr>
-			<td></td>
-			<td></td>
-		</tr>
-	</thead>
-	<tbody>
-		<c:forEach var="aktivitet" items="${aktiviteter}" varStatus="loop">
-			<tr>
-				<td onclick="fjernAktivitet(<c:out value="${aktivitet.id}"/>)"
-					class="foo"
-					style="background-color: <c:out value="${color[loop.index]}"/>"></td>
-				<td>${aktivitet.navn}</td>
-			</tr>
-		</c:forEach>
-	</tbody>
-</table>
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script

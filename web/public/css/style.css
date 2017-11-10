@@ -7,7 +7,9 @@
 	margin-top: 10%;
 	width: 60%;
 }
-
+#nav-bar {
+	margin-bottom: 3%;
+}
 #calendar {
 	max-width: 900px;
 	margin: 0 auto;

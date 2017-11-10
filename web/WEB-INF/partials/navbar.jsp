@@ -1,6 +1,6 @@
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<div class="ui menu" id="nav-bar">
+<div class="ui menu" id="nav-bar" style="margin-bottom: 3%;">
 	<div class="item">
 		<h1 id="nav-textfelt"></h1>
 	</div>
