@@ -15,6 +15,7 @@ import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
+import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**
@@ -31,6 +32,9 @@ public class MineAktiviteterController extends HttpServlet {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 			if (b != null) {
 				List<Aktivitet> a = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
+				if (a.isEmpty()) {
+					FlashUtil.Flash(request, "error", "Du har ingen aktiviteter");
+				}
 				request.getSession().setAttribute("aktiviteter", a);
 				request.getRequestDispatcher(MINEAKTIVITETER_JSP).forward(request, response);
 			} else {
