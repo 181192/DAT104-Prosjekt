@@ -1,7 +1,6 @@
 package no.hvl.dat104.controller.deltager;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -12,8 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
-import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
 import no.hvl.dat104.dataaccess.ILiveTilbakemeldingEAO;
+import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**
