@@ -3,13 +3,11 @@
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 <jsp:include page="../../../partials/header.jsp" />
 
-<fmt:parseDate value="${event.tidFra}" var="datoFra"
-	pattern="yyyy-MM-dd HH:mm:ss" />
-<fmt:formatDate value="${datoFra}" var="parsedDate" pattern="dd-MM-yyyy" />
+<fmt:parseDate value="${event.tidFra}" var="datoFra" pattern="yyyy-MM-dd HH:mm:ss" />
+<fmt:formatDate value="${datoFra}" var="parsedDate" pattern="dd.MM.yyyy" />
 <fmt:formatDate value="${datoFra}" var="parsedTimeFra" pattern="HH-mm" />
 
-<fmt:parseDate value="${event.tidTil}" var="datoTil"
-	pattern="yyyy-MM-dd HH:mm:ss" />
+<fmt:parseDate value="${event.tidTil}" var="datoTil" pattern="yyyy-MM-dd HH:mm:ss" />
 <fmt:formatDate value="${datoTil}" var="parsedTimeTil" pattern="HH-mm" />
 
 <div class="ui container">

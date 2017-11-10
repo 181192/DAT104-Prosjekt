@@ -78,7 +78,6 @@ public class RedigerEventController extends HttpServlet {
 					dateTil = DatoUtil.parseBasertPaaBindestrek(dato, klokkeslettTil);
 				} catch (Exception exc2) {
 					exc2.printStackTrace();
-
 				}
 			}
 
