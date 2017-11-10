@@ -2,10 +2,11 @@
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 <jsp:include page="../../../partials/header.jsp" />
 
+<c:set var="e" scope="request" value="${event}"/>
+<c:set var="k" scope="session" value="${kodeord}"/>
 
+<h1>${e.navn }</h1>
 <div class="ui container">
-
-
 	<div class="ui tiny modal" id="avsluttModal">
 		<div class="header">Avslutt event</div>
 		<div class="content">
@@ -49,7 +50,7 @@
 
 <script type="text/javascript">
 	var pinContainer = document.getElementById('nav-textfelt');
-	pinContainer.innerText = 'PIN: ${ sessionScope.kodeord.kode }';
+	pinContainer.innerText = 'PIN: ${k.kode}';
 
 	function lagBekreftAvsluttmodal() {
 		$("#avsluttModal").modal('show');

@@ -45,25 +45,21 @@ public class PreEventController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//Sjekker om bruker er logget inn
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
-
-			HttpSession session = request.getSession(false);
-
-			Bruker br = (Bruker) session.getAttribute(Attributter.BRUKER);
-
+			//FÅr tak i brukeren og alle eventene til brukeren
+			Bruker br = InnloggingUtil.innloggetSomBruker(request);
 			List<Aktivitet> akt = brukerEAO.finnAlleAktiviteterTilBruker(br.getId());
 			List<Event> eventer = new ArrayList<>();
-
+			//Finner alle eventer med 'status = planlagt' og legger dem til i listen "eventer"
 			for (Aktivitet a : akt) {
 				List<Event> temp = aktivitetEAO.finnAlleEventerTilAktivitet(a.getId());
 				for (Event ev : temp) {
-					eventEAO.endreStatusPaaEvent(ev.getId(), Status.PLANLAGT);
-					if (!ev.getStatus().equals(Status.AVSLUTTET)) {
+					if(ev.getStatus().equals(Status.PLANLAGT)) {
 						eventer.add(ev);
 					}
 				}
 			}
-
 			EventUtil.sorterEventer(eventer);
 			request.setAttribute(Attributter.EVENT_LISTE, eventer);
 			request.getRequestDispatcher(JspMappings.PRE_EVENT_JSP).forward(request, response);
@@ -84,21 +80,13 @@ public class PreEventController extends HttpServlet {
 			Event ev = new Event();
 			ev = eventEAO.finnEvent(Integer.parseInt(evId));
 			List<LiveTilbakemelding> ltb = new ArrayList<>();
-			ev.setLiveTilbakemeldinger(ltb);
+			ev.setLiveTilbakemeldinger(ltb); //Antar vi gjør dette pga den er null fra før av
 
 			// Setter verdier i liveevetn.
 			if (ev != null) {
-				
-				System.out.println("size: " + ev.getTilbakemeldinger());
-				
-				ev.setFaktiskStart(new Timestamp(System.currentTimeMillis()));
-				System.out.println("Eventi prevenetkontroller: " + ev.getLiveTilbakemeldinger());
-				ev.setStatus(Status.PAAGANDE);
-				eventEAO.oppdaterEvent(ev);
-				System.out.println("Eventi prevenetkontroller: " + ev.getLiveTilbakemeldinger());
+				eventEAO.endreEventTilPaagaaende(ev.getId());
 			}
 
-			System.out.println(ev.toString());
 			session.setAttribute(Attributter.LIVE_EVENT, ev);
 			response.sendRedirect(UrlMappings.LIVE_EVENT_URL);
 

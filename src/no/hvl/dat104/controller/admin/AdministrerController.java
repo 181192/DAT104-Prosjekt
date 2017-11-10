@@ -59,16 +59,19 @@ public class AdministrerController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//Sjekker først om bruker er admin
 		if (InnloggingUtil.erInnLoggetSomAdmin(request)) {
 			Integer idUserToChange = Integer.valueOf(request.getParameter("id"));
 			Bruker sessionAdmin = InnloggingUtil.innloggetSomAdmin(request);
 			Integer idAdmin = sessionAdmin.getId();
+			//Sjekker om brukeren prøver å endre sin egen rolle
 			if (idUserToChange.equals(idAdmin)) {
 				if(request.getSession().getAttribute("success") != null)
 					request.getSession().removeAttribute("success");
 				request.getSession().setAttribute("error", "Du kan ikke endre din egen bruker");
 				response.sendRedirect(UrlMappings.ADMINISTRER_URL);
 			} else {
+				//Hvis brukeren som skal endres ikke er admin, gjøres endringen
 				Bruker b = byttRolle(request);
 				if(request.getSession().getAttribute("error") != null)
 					request.getSession().removeAttribute("error");
@@ -82,6 +85,7 @@ public class AdministrerController extends HttpServlet {
 		}
 	}
 
+	//Metode for å bytte rolle på en bruker...
 	private Bruker byttRolle(HttpServletRequest request) {
 		Integer id = Integer.valueOf(request.getParameter("id"));
 		Integer idrolle = Integer.valueOf(request.getParameter("rolle"));

@@ -61,7 +61,7 @@ public class KodeordEAO implements IKodeordEAO {
 	
 	@Override
 	public Kodeord finnKodeordTilEvent(Event event) {
-		   Query query = em.createQuery( "Select Kodeord from Kodeord kd where kd.idEvent.id = " + event.getId() );
+		   Query query = em.createQuery( "Select k from Kodeord k where k.idEvent.id = :id").setParameter("id", event.getId());
 		   return (Kodeord) query.getSingleResult();
 	}
 	

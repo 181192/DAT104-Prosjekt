@@ -6,6 +6,7 @@ import java.util.List;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
+import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Tilbakemelding;
 
 public interface IEventEAO {
@@ -59,6 +60,15 @@ public interface IEventEAO {
 	public List<Tilbakemelding> finnAlleTilbakemeldingerTilEvent(Integer id);
 
 	/**
+	 * Returnerer en liste med alle livetilbakemeldingene til eventet
+	 * 
+	 * @param id
+	 *            Id til eventet
+	 * @return Liste med tilbakemeldinger
+	 */
+	public List<LiveTilbakemelding> finnAlleLiveTilbakemeldingerTilEvent(Integer id);
+	
+	/**
 	 * Endre status på event
 	 * 
 	 * @param id
@@ -97,4 +107,12 @@ public interface IEventEAO {
 	 * @param sted
 	 */
 	public void endreParametereTilEvent(Integer id, String navn, String beskrivelse, Timestamp tidFra, Timestamp tidTil, String status, String sted);
+	
+	/**
+	 * Starter eventet, endrer status på eventet til 'paagaaende'
+	 * @param eventId
+	 * @param status
+	 * @return
+	 */
+	public boolean endreEventTilPaagaaende(Integer eventId);
 }
