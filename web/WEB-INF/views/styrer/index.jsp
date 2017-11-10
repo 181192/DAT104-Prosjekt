@@ -115,7 +115,7 @@ function lagEvent() {
 
 <div class="ui modal">
 	<div id="event_modal" class="header">Opprett event</div>
-	<div id="ingenAktivitet" class="modal-content"></div>
+	<div id="ingenAktivitet" class="content modal_content"></div>
 </div>
 
 
@@ -140,9 +140,9 @@ function lagEvent() {
 	  if((visForm === "false")){
 		  $("#event_modal").text('Ops! Du har ingen Aktiviteter ennå - Opprett Aktivitet før du kan oppretter en Event!');
 		  $("#event_modal").css('color', '#FE9A76');
-    	  $('.content').append('<div> <a href="lagaktivitet">Opprett Aktivitet!</a> </div>');
+    	  $('.modal_content').append('<div> <a href="lagaktivitet">Opprett Aktivitet!</a> </div>');
       }else {
-    	  $(".modal-content").load("<%=LAGEVENT_URL%>?dato="+date.format());
+    	  $(".modal_content").load("<%=LAGEVENT_URL%>?dato="+date.format());
       }
       
   }
@@ -154,7 +154,7 @@ function lagEvent() {
       })
 	  .modal('show');
 	  $("#event_modal").text('Ditt Event!');
-      $(".modal-content").load("<%=VIS_EVENT_URL%>?id=" + event.id);
+      $(".modal_content").load("<%=VIS_EVENT_URL%>?id=" + event.id);
   }
   function fjernAktivitet(aktivitet){
 	  $('#calendar').fullCalendar('removeResource', aktivitet.toString());  
