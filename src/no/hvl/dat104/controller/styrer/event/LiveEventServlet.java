@@ -43,15 +43,11 @@ public class LiveEventServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
-			System.out.println("doGet LiveEventServlet kjører.");
-
 			HttpSession session = request.getSession(false);
 			Event detteEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
 			Timestamp faktiskStart = detteEvent.getFaktiskStart();
 			
 			if (detteEvent != null) {
-				System.out.println("Kodeordet er her" + faktiskStart);
-
 				Kodeord kodeord = genererKodeord(detteEvent);
 				kodeordEAO.leggTilKodeord(kodeord);
 				session.setAttribute(Attributter.KODEORD, kodeord);
@@ -90,7 +86,6 @@ public class LiveEventServlet extends HttpServlet {
 			}
 
 			if (knappTrykket.equals("avslutt")) {
-				System.out.println("Avluttknapp..."+detteEvent.getId());
 				eventEAO.endreStatusPaaEvent(detteEvent.getId(), Status.AVSLUTTET);
 				response.sendRedirect(UrlMappings.POST_LIVE_EVENT_URL);
 

@@ -92,7 +92,7 @@ public class GiTilbakemeldingController extends HttpServlet {
     private boolean eventHarStartet(HttpServletRequest request) {
     	Event event = (Event) request.getSession().getAttribute("event");
 		System.out.println("Tid fra: " + event.getTidFra());
-    	return new Date().after(event.getTidFra()); 
+    	return event.getTidFra().after(new Date()); 
     }
 
 	private void lastOppTilbakemelding(HttpServletRequest request, String type) {

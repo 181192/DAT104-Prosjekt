@@ -64,7 +64,9 @@ public class EventResultaterController extends HttpServlet {
 				List<LiveTilbakemelding> lt = eventEAO.finnAlleLiveTilbakemeldingerTilEvent(id);
 				List<FormatertTilbakemelding> formartertLt = null;
 				if(lt != null) {
+					if(!lt.isEmpty()) {
 					formartertLt = formaterLiveTilbakemeldinger(lt);
+					}
 				}
 				Kodeord kodeord = kodeEAO.finnKodeordTilEvent(e);
 				request.getSession().setAttribute(Attributter.KODEORD, kodeord);
