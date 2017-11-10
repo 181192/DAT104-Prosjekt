@@ -30,7 +30,7 @@ public class LagEventControllerTest {
 	public void setUp() {
 		lageventcontroller = new LagEventController();
 
-		when(stubRequest.getRequestDispatcher(any(String.class))).thenReturn(stubRequestDispatcher);
+		//when(stubRequest.getRequestDispatcher(any(String.class))).thenReturn(stubRequestDispatcher);
 	}
 
 	@Test

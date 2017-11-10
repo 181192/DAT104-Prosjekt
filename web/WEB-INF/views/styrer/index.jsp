@@ -37,6 +37,7 @@
 <div class="ui container">
 	<div id='calendar'></div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/locale/nb.js"></script>
 <script>
 var datoen;
 
@@ -45,6 +46,7 @@ $('#calendar').fullCalendar({
 			editable: false,
 			aspectRatio: 2,
 			scrollTime: '07:00',
+			locale: 'nb',
 			dayClick: function(date, jsEvent, view, resourceObj) {
 				// ny event modul.
 				console.log("dayclick");

@@ -6,9 +6,8 @@
 	<c:set var="PAAGANDE" value="<%=PAAGANDE%>"></c:set>
 <c:set var="AVSLUTTET" value="<%=AVSLUTTET%>"></c:set>
 <div class="ui container">
-	<h3>${aktivitet.navn} - Eventer:
-	<a class="ui teal basic button" href="<%=LAGEVENT_URL%>?dato=<%=lagCurrentDate()%>" style="float: right;">Opprett event</a> 
-	</h3><br>
+	<h2 style="text-align:center;">Eventer til Aktiviteten: <span style="color:teal;">  ${aktivitet.navn}</span></h2>
+	<h3 style="margin-bottom: 10px;">Eventer <span><a class="ui teal basic button" href="<%=LAGEVENT_URL%>?dato=<%=lagCurrentDate()%>" style="float: right;">Opprett event</a></span></h3>
 	<c:if test="${flash == 'success'}">
 		<div class="ui positive message">
 			<div class="header">Suksess!</div>

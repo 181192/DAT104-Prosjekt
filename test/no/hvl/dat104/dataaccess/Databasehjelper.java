@@ -40,28 +40,28 @@ public class Databasehjelper {
 	Aktivitet i = new Aktivitet("MAT101", "pagaende", f);
 	Aktivitet j = new Aktivitet("DAT102", "planlagt", g);
 
-	Event k = new Event(1, "DAT100", "Beskrivelse DAT100", DatoUtil.formaterDatoTilStamp("20.10.2017", "12:00"),
-			DatoUtil.formaterDatoTilStamp("20.10.2017", "14:00"), DatoUtil.formaterDatoTilStamp("20.10.2017", "12:02"),
-			DatoUtil.formaterDatoTilStamp("20.10.2017", "14:01"), "avsluttet", "F115", h);
-	Event l = new Event(2, "MAT101", "Beskrivelse MAT101", DatoUtil.formaterDatoTilStamp("26.10.2017", "10:00"),
-			DatoUtil.formaterDatoTilStamp("26.10.2017", "22:00"), DatoUtil.formaterDatoTilStamp("20.10.2017", "09:57"),
-			DatoUtil.formaterDatoTilStamp("20.10.2017", "22:05"), "pagaende", "F110", i);
-	Event m = new Event(3, "DAT02", "Beskrivelse DAT102", DatoUtil.formaterDatoTilStamp("20.12.2017", "09:00"),
-			DatoUtil.formaterDatoTilStamp("20.12.2017", "10:30"), DatoUtil.formaterDatoTilStamp("20.12.2017", "09:00"),
-			DatoUtil.formaterDatoTilStamp("20.12.2017", "10:30"), "planlagt", "E403", j);
-
-	Tilbakemelding n = new Tilbakemelding("0", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:01"));
-	Tilbakemelding o = new Tilbakemelding("1", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:02"));
-	Tilbakemelding p = new Tilbakemelding("2", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:03"));
-	Tilbakemelding q = new Tilbakemelding("0", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:04"));
-	Tilbakemelding r = new Tilbakemelding("0", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:05"));
-	Tilbakemelding s = new Tilbakemelding("0", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:06"));
-	Tilbakemelding t = new Tilbakemelding("1", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:07"));
-	Tilbakemelding u = new Tilbakemelding("1", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:08"));
-	Tilbakemelding v = new Tilbakemelding("2", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:09"));
-	Tilbakemelding w = new Tilbakemelding("2", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:10"));
-	Tilbakemelding x = new Tilbakemelding("2", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:11"));
-	Tilbakemelding z = new Tilbakemelding("2", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:12"));
+//	Event k = new Event(1, "DAT100", "Beskrivelse DAT100", DatoUtil.formaterDatoTilStamp("20.10.2017", "12:00"),
+//			DatoUtil.formaterDatoTilStamp("20.10.2017", "14:00"), DatoUtil.formaterDatoTilStamp("20.10.2017", "12:02"),
+//			DatoUtil.formaterDatoTilStamp("20.10.2017", "14:01"), "avsluttet", "F115", h);
+//	Event l = new Event(2, "MAT101", "Beskrivelse MAT101", DatoUtil.formaterDatoTilStamp("26.10.2017", "10:00"),
+//			DatoUtil.formaterDatoTilStamp("26.10.2017", "22:00"), DatoUtil.formaterDatoTilStamp("20.10.2017", "09:57"),
+//			DatoUtil.formaterDatoTilStamp("20.10.2017", "22:05"), "pagaende", "F110", i);
+//	Event m = new Event(3, "DAT02", "Beskrivelse DAT102", DatoUtil.formaterDatoTilStamp("20.12.2017", "09:00"),
+//			DatoUtil.formaterDatoTilStamp("20.12.2017", "10:30"), DatoUtil.formaterDatoTilStamp("20.12.2017", "09:00"),
+//			DatoUtil.formaterDatoTilStamp("20.12.2017", "10:30"), "planlagt", "E403", j);
+//
+//	Tilbakemelding n = new Tilbakemelding("0", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:01"));
+//	Tilbakemelding o = new Tilbakemelding("1", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:02"));
+//	Tilbakemelding p = new Tilbakemelding("2", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:03"));
+//	Tilbakemelding q = new Tilbakemelding("0", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:04"));
+//	Tilbakemelding r = new Tilbakemelding("0", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:05"));
+//	Tilbakemelding s = new Tilbakemelding("0", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:06"));
+//	Tilbakemelding t = new Tilbakemelding("1", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:07"));
+//	Tilbakemelding u = new Tilbakemelding("1", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:08"));
+//	Tilbakemelding v = new Tilbakemelding("2", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:09"));
+//	Tilbakemelding w = new Tilbakemelding("2", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:10"));
+//	Tilbakemelding x = new Tilbakemelding("2", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:11"));
+//	Tilbakemelding z = new Tilbakemelding("2", k, DatoUtil.formaterDatoTilStamp("20.10.2017", "14:12"));
 
 //	@PersistenceContext(name = "brukertPersistenceUnit")
 //	private EntityManager em;
