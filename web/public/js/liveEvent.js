@@ -95,19 +95,3 @@ function stopHandeler() {
 	console.log("stophandeler2: " + stoppModal2);
 }
 
-function daarligKnappHandeler() {
-	klargjortData[6][1] += 1;
-	tegnDiagram();
-
-}
-
-function middelsKnappHandeler() {
-	klargjortData[6][2] += 1;
-	tegnDiagram();
-}
-
-function godKnappHandeler() {
-	klargjortData[6][3] += 1;
-	tegnDiagram();
-}
-

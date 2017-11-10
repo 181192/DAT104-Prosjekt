@@ -61,6 +61,7 @@ public class LiveEventServlet extends HttpServlet {
 			List<Integer> dummyData = lagDummyListe(50, 20);
 			List<Integer> dummyDataFT = lagFrekvensTabell(dummyData, 60);
 			request.setAttribute("dummyData", dummyDataFT);
+			request.setAttribute(Attributter.LIVE_EVENT, detteEvent);
 			request.getRequestDispatcher(JspMappings.LIVE_EVENT_JSP).forward(request, response);
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
@@ -75,13 +76,10 @@ public class LiveEventServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
-			// TODO Auto-generated method stub
-			System.out.println("dopost i liveeventservlet...");
 
 			// Må ha test for innlogging og gyldig session her.
 			HttpSession session = request.getSession(false);
-			Event denneEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
-
+			Event detteEvent = (Event) session.getAttribute("event");
 			String knappTrykket = (String) request.getParameter(Attributter.LIVE_EVENT_KNAPP);
 
 			// Forleng-knapp
@@ -92,8 +90,8 @@ public class LiveEventServlet extends HttpServlet {
 			}
 
 			if (knappTrykket.equals("avslutt")) {
-				System.out.println("Avluttknapp...");
-				eventEAO.endreStatusPaaEvent(denneEvent.getId(), Status.AVSLUTTET);
+				System.out.println("Avluttknapp..."+detteEvent.getId());
+				eventEAO.endreStatusPaaEvent(detteEvent.getId(), Status.AVSLUTTET);
 				response.sendRedirect(UrlMappings.POST_LIVE_EVENT_URL);
 
 			}

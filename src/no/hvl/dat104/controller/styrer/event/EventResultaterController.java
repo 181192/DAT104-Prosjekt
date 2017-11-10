@@ -1,6 +1,7 @@
 package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -59,11 +60,15 @@ public class EventResultaterController extends HttpServlet {
 				request.getRequestDispatcher(JspMappings.EVENTRESULTATER_JSP).forward(request, response);
 			} else if (e.getStatus().equals(Status.PAAGANDE)) {// Eventen pågår, bytter visning til live-visning, henter
 																// også live tilbakemleding listen
-				List<LiveTilbakemelding> lt = null;
-				lt = eventEAO.finnAlleLiveTilbakemeldingerTilEvent(id);
+				
+				List<LiveTilbakemelding> lt = eventEAO.finnAlleLiveTilbakemeldingerTilEvent(id);
+				List<FormatertTilbakemelding> formartertLt = null;
+				if(lt != null) {
+					formartertLt = formaterLiveTilbakemeldinger(lt);
+				}
 				Kodeord kodeord = kodeEAO.finnKodeordTilEvent(e);
 				request.getSession().setAttribute(Attributter.KODEORD, kodeord);
-				request.setAttribute("liveTilbakemeldiner", lt);
+				request.setAttribute("liveTilbakemeldinger", formartertLt);
 				request.setAttribute("aktivitet", e.getIdAktivitet());
 				request.setAttribute("event", e);
 				request.getRequestDispatcher(JspMappings.LIVE_EVENT_JSP).forward(request, response);
@@ -76,5 +81,17 @@ public class EventResultaterController extends HttpServlet {
 			FlashUtil.Flash(request, "error", "Du må logge inn for å se resultatene for eventet ditt!");
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
+	}
+	
+	private List<FormatertTilbakemelding> formaterLiveTilbakemeldinger(List<LiveTilbakemelding> liveTb){
+		List<LiveTilbakemelding> l = liveTb;
+		List<Tilbakemelding> konverter = new ArrayList<Tilbakemelding>();
+		List<FormatertTilbakemelding> formatert;
+		
+		for(LiveTilbakemelding el: l) {
+			konverter.add(new Tilbakemelding(el.getStemme(), el.getIdEvent(), el.getTid()));
+		}
+		formatert = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(konverter);
+		return formatert;
 	}
 }

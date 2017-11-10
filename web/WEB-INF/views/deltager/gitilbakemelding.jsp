@@ -7,7 +7,7 @@
 <div style="margin-top: 5em;" class="ui container">
 	<h2 style="text-align: center; margin-bottom: 1em;">Gi
 		tilbakemelding</h2>
-	<c:if test="${flash=='Success'}">
+	<c:if test="${flash=='Success'}"> 
 		<div style="margin-bottom: 2em;" class="ui info message">${melding}</div>
 		<c:remove var="flash" scope="session" />
 	</c:if>

@@ -2,8 +2,9 @@
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 <jsp:include page="../../../partials/header.jsp" />
 
-<c:set var="e" scope="request" value="${event}"/>
-<c:set var="k" scope="session" value="${kodeord}"/>
+<c:set var="e" scope="request" value="${event}" />
+<c:set var="k" scope="session" value="${kodeord}" />
+<c:set var="flt" scope="request" value="${liveTilbakemeldinger}" />
 
 <h1>${e.navn }</h1>
 <div class="ui container">
@@ -28,25 +29,28 @@
 	</div>
 
 	<!-- Denne inneholder grafen over liveevents -->
-	<div id="chart_div" style="width: 100%; height: 600px;"></div>
+	<c:if test = "${not empty flt}">
+	  <div class="ui container">
+	    <div id="chart_div"></div>
+	    <div id="filter_div"></div>
+	    <button class="ui blue basic button" id="byttKnapp" onclick="switchView()"><i class="bar chart icon"></i>Bytt graf</button>
+	    <button class="ui green basic button" id="green" onclick="showColumn(1, this.id)"><i class="smile icon"></i>Vis fornøyd</button>
+	    <button class="ui orange basic button" id="orange" onclick="showColumn(2, this.id)"><i class="meh icon"></i>Vis nøytral</button>
+	    <button class="ui red basic button" id="red" onclick="showColumn(3, this.id)"><i class="frown icon"></i>Vis misfornøyd</button>
+	    <button class="ui blue basic button" id="visAlleKnapp" onclick="showAll()"><i class="ellipsis horizontal icon"></i>Vis alle</button>
+	  </div>
+	</c:if>
 
 	<div class="ui divider"></div>
-		<button class="ui labeled icon button" id="start-stopp"
+	<button class="ui labeled icon button" id="start-stopp"
 		onclick="lagBekreftAvsluttmodal()">Avslutt event</button>
-	<div class="ui buttons">
-		<button class="ui red basic button" id="daarligKnapp"
-			onclick="lagBekreftAvsluttmodal()">Avslutt event</button>
-		<button class="ui blue basic button" id="middelsKnapp"
-			onclick="middelsKnappHandeler()">Middels</button>
-		<button class="ui green basic button" id="braKnapp"
-			onclick="godKnappHandeler()">Bra</button>
-	</div>
+	
 </div>
 
 
 <script type="text/javascript"
 	src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="public/js/liveEvent.js"></script>
+<script src="public/js/charts/eventResultaterChart.js"></script>
 
 <script type="text/javascript">
 	var pinContainer = document.getElementById('nav-textfelt');
@@ -55,14 +59,12 @@
 	function lagBekreftAvsluttmodal() {
 		$("#avsluttModal").modal('show');
 	}
-
-	google.charts.load('current', {
-		'packages' : [ 'corechart', 'bar' ]
-	});
-	var frekvensTabell = "${requestScope.dummyData}";
-	var klargjortData = vaskData(frekvensTabell, 15, 4);
-
-	google.charts.setOnLoadCallback(tegnDiagram);
+	enable = true;
+	var array = [ ['Tid', 'Fornoyd', 'Noytral', 'Misfornoyd'], 
+		<c:forEach items="${flt}" var="t">
+			[new Date("${t.tid.toString()}"), ${t.fornoyd}, ${t.noytral}, ${t.misfornoyd}],
+		</c:forEach>
+		];
 </script>
 
 <jsp:include page="../../../partials/footer.jsp" />
