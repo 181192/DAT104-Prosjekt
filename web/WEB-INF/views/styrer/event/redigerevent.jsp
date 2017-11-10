@@ -2,91 +2,89 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 <jsp:include page="../../../partials/header.jsp" />
-
-<fmt:parseDate value="${event.tidFra}" var="datoFra" pattern="yyyy-MM-dd HH:mm:ss" />
-<fmt:formatDate value="${datoFra}" var="parsedDate" pattern="dd.MM.yyyy" />
-<fmt:formatDate value="${datoFra}" var="parsedTimeFra" pattern="HH-mm" />
-
-<fmt:parseDate value="${event.tidTil}" var="datoTil" pattern="yyyy-MM-dd HH:mm:ss" />
-<fmt:formatDate value="${datoTil}" var="parsedTimeTil" pattern="HH-mm" />
-
+<link
+	href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css"
+	rel="stylesheet" type="text/css" />
 <div class="ui container">
-	<h3>Rediger event</h3>
-	<p>Her er ditt event ${event.navn}</p>
-	<c:if test="${flash == 'success'}">
-		<div class="ui positive message">
-			<div class="header">Suksess!</div>
-			<p style="color: #016936;">${melding}</p>
-		</div>
-		<c:remove var="flash" scope="session" />
-	</c:if>
-	<c:if test="${flash == 'error'}">
-		<div class="ui negative  message">
-			<div class="header">Beklager, noe gikk galt!</div>
-			<p style="color: #B03060;">${melding}</p>
-		</div>
-		<c:remove var="flash" scope="session" />
-	</c:if>
-
-
-	<form class="ui form" method="post" action="<%=REDIGEREVENT_URL%>">
-
-		<!-- Ta vare på event ID -->
-		<input type="hidden" name="id" value="${event.id}">
-
-		<!-- Endre navn på event -->
+<h1 class="ui header">Rediger Event: ${eventSkjema.tittel }</h1>
+	<form method="post" id="myForm" action="<%= REDIGEREVENT_URL%>"
+		class="ui form">
 		<div class="field">
-			<label>Event</label> <input type="text" name="navn"
-				value="${event.navn}">
+			<label>Tittel: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.tittelFeilmelding }</span></label>
+			<input type="text" class="fjerndata" name="tittel"
+				value="${redigerEventSkjema.tittel }" placeholder="Tittel">
 		</div>
-
-		<!-- Endre beskrivelse -->
-		<div class="field">
-			<label>Beskrivelse</label> <input type="text" name="beskrivelse"
-				value="${event.beskrivelse}">
-		</div>
-		<!-- Endre tid og dato -->
-
 		<div class="field" id="datoen">
-			<label>Dato:</label><input type="text" name="dato" id="datepicker"
-				value="${parsedDate}">
+			<label>Dato: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.datoFeilmelding }</span></label>
+			<div class="ui calendar" id="datepicker">
+				<div class="ui input left icon">
+					<i class="calendar icon"></i> <input name="dato" type="text" value="${redigerEventSkjema.dato}"
+						placeholder="Dato">
+				</div>
+			</div>
 		</div>
 		<div class="two fields">
 			<div class="field">
-				<label>Fra:</label><input class="timepicker" type="text" name="fra"
-					value="${parsedTimeFra}" placeholder="hh:mm">
+				<label>Fra: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.fraFeilmelding }</span></label><input
+					class="timepicker fjerndata" value="${redigerEventSkjema.fra }"
+					type="text" name="fra" placeholder="hh.mm">
 			</div>
 			<div class="field">
-				<label>Til:</label><input class="timepicker" type="text" name="til"
-					value="${parsedTimeTil}" placeholder="hh:mm">
+				<label>Til: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.tilFeilmelding }</span></label><input
+					type="text" class="timepicker fjerndata"
+					value="${redigerEventSkjema.til }" name="til" placeholder="hh.mm">
 			</div>
 		</div>
-
-		<!-- Endre status -->
 		<div class="field">
-			<label>Status</label> <select name="status">
-				<option ${event.status eq 'pagaende' ? 'selected="selected"' : ''}
-					value="pagaende">Pågående</option>
-				<option ${event.status eq 'planlagt' ? 'selected="selected"' : ''}
-					value="planlagt">Planlagt</option>
-				<option ${event.status eq 'avsluttet' ? 'selected="selected"' : ''}
-					value="avsluttet">Avsluttet</option>
-			</select>
+			<label>Hvor: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.hvorFeilmelding }</span></label><input
+				type="text" class="fjerndata" value="${redigerEventSkjema.hvor }"
+				name="hvor" placeholder="Hvor">
 		</div>
-
-		<!-- Endre sted -->
 		<div class="field">
-			<label>Sted</label> <input type="text" name="sted"
-				value="${event.sted}">
+			<label>Beskrivelse <span class="fjerndata"
+				style="color: #B03060">${redigerEventSkjema.beskrivelseFeilmelding }</span></label>
+			<input type="text" class="fjerndata" name="beskrivelse"
+				value="${redigerEventSkjema.beskrivelse }" placeholder="Beskrivelse">
 		</div>
-
-		<button class="ui button" type="submit">Submit</button>
+		<input type="hidden" value="${event.id}" name="eventId">
+		<input type="submit" class="ui primary button" value="Oppdater event">
+		<input type="button" id="fjernAlt" class="ui red button"
+			value="Fjern Data">
 	</form>
+
 </div>
+
+<jsp:include page="../../../partials/footer.jsp" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui-calendar/0.0.8/calendar.min.js"></script>
+
 <script>
 	$(function() {
-		$("#datepicker").datepicker({
-			dateFormat : "dd.mm.yy"
+		$('#datepicker').calendar({
+			type : 'date',
+			firstDayOfWeek: 1,
+			text: {
+			      days: ['M', 'T', 'O', 'T', 'F', 'L', 'S'],
+			      months: ['Januar', 'Februar', 'Mars', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Desember'],
+			      monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
+			      today: 'Idag',
+			      now: 'Nå'
+			    },
+		 	initialDate: null,
+		 	closable: true,
+		 	today: true,
+		 	formatter: {
+		 	    date: function (date, settings) {
+		 	      if (!date) return '';
+		 	      var day = date.getDate();
+		 	      var month = date.getMonth() + 1;
+		 	      var year = date.getFullYear();
+		 	      return (day<10?'0'+day:day) + '.' + (month<10?'0'+month:month) + '.' + year;
+		 	    }
+		 	}
 		});
 		$('.timepicker').timepicker({
 			'scrollDefault' : 'now',
@@ -94,6 +92,13 @@
 			'step' : 15
 		});
 		$('.aktivitet').dropdown();
+
 	});
 </script>
-<jsp:include page="../../../partials/footer.jsp" />
+<script>
+	$("#fjernAlt").click(function() {
+		console.log("fjerner");
+		$(".fjerndata").val('');
+		$(".fjerndata").text('');
+	});
+</script>

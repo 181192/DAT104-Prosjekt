@@ -78,15 +78,13 @@ public class EventEAO implements IEventEAO {
 	}
 
 	@Override
-	public void endreParametereTilEvent(Integer id, String navn, String beskrivelse, Timestamp tidFra, Timestamp tidTil,
-			String status, String sted) {
+	public void endreParametereTilEvent(Integer id, String navn, String beskrivelse, Timestamp tidFra, Timestamp tidTil, String sted) {
 
 		Event e = finnEvent(id);
 		e.setNavn(navn);
 		e.setBeskrivelse(beskrivelse);
 		e.setTidFra(tidFra);
 		e.setTidTil(tidTil);
-		e.setStatus(status);
 		e.setSted(sted);
 
 		em.merge(e);

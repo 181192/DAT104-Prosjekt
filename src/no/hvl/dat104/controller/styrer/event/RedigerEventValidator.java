@@ -5,15 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.util.ValidatorUtil;
 
-public class EventValidator {
+public class RedigerEventValidator {
 	private String tittel;
 	private String dato;
 	private String fra;
 	private String til;
 	private String hvor;
 	private String beskrivelse;
-	private String aktivitet;
-	private Event e;
 
 	private String tittelFeilmelding;
 	private String datoFeilmelding;
@@ -21,27 +19,22 @@ public class EventValidator {
 	private String tilFeilmelding;
 	private String hvorFeilmelding;
 	private String beskrivelseFeilmelding;
-	private String aktivitetFeilmelding;
 
-	public EventValidator(Event e) {
-		this.e = e;
+	public RedigerEventValidator(Event e) {
 		tittel = e.getNavn();
 		fra = e.getTidFra().toString().substring(10, 16);
 		til = e.getTidTil().toString().substring(10, 16);
 		hvor = e.getSted();
 		beskrivelse = e.getBeskrivelse();
 		dato = e.getTidFra().toString().substring(0,10);
-		aktivitet = e.getIdAktivitet().getNavn().toString();
 	}
-
-	public EventValidator(HttpServletRequest request) {
+	public RedigerEventValidator(HttpServletRequest request) {
 		tittel = ValidatorUtil.escapeHtml(request.getParameter("tittel"));
 		dato = ValidatorUtil.escapeHtml(request.getParameter("dato"));
 		fra = ValidatorUtil.escapeHtml(request.getParameter("fra"));
 		til = ValidatorUtil.escapeHtml(request.getParameter("til"));
 		hvor = ValidatorUtil.escapeHtml(request.getParameter("hvor"));
 		beskrivelse = ValidatorUtil.escapeHtml(request.getParameter("beskrivelse"));
-		aktivitet = ValidatorUtil.escapeHtml(request.getParameter("aktivitet"));
 	}
 
 	private boolean erBeskrivelseGyldig() {
@@ -68,13 +61,10 @@ public class EventValidator {
 		return ValidatorUtil.isNotNull0(hvor);
 	}
 
-	private boolean erAktivitetGyldig() {
-		return ValidatorUtil.isNotNull0(aktivitet);
-	}
 
 	public boolean erAlleDataGyldige() {
 		return erTittelGyldig() && erDatoGyldig() && erFraGyldig() && erTilGyldig() && erHvorGyldig()
-				&& erAktivitetGyldig() && erBeskrivelseGyldig();
+				&& erBeskrivelseGyldig();
 	}
 
 	public void settOppFeilmeldinger() {
@@ -98,23 +88,10 @@ public class EventValidator {
 			hvor = "";
 			hvorFeilmelding = "Ops! Tomt";
 		}
-		if (!erAktivitetGyldig()) {
-			aktivitet = "";
-			aktivitetFeilmelding = "Ugyldig";
-		}
 		if (!erBeskrivelseGyldig()) {
 			beskrivelse = "";
 			beskrivelseFeilmelding = "Ops! Tomt";
 		}
-	}
-	
-
-	public Event getE() {
-		return e;
-	}
-
-	public void setE(Event e) {
-		this.e = e;
 	}
 
 	public String getTittel() {
@@ -165,14 +142,6 @@ public class EventValidator {
 		this.beskrivelse = beskrivelse;
 	}
 
-	public String getAktivitet() {
-		return aktivitet;
-	}
-
-	public void setAktivitet(String aktivitet) {
-		this.aktivitet = aktivitet;
-	}
-
 	public String getTittelFeilmelding() {
 		return tittelFeilmelding;
 	}
@@ -221,11 +190,5 @@ public class EventValidator {
 		this.beskrivelseFeilmelding = beskrivelseFeilmelding;
 	}
 
-	public String getAktivitetFeilmelding() {
-		return aktivitetFeilmelding;
-	}
 
-	public void setAktivitetFeilmelding(String aktivitetFeilmelding) {
-		this.aktivitetFeilmelding = aktivitetFeilmelding;
-	}
 }

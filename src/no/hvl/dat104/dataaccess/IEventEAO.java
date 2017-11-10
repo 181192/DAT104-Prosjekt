@@ -106,7 +106,7 @@ public interface IEventEAO {
 	 * @param status
 	 * @param sted
 	 */
-	public void endreParametereTilEvent(Integer id, String navn, String beskrivelse, Timestamp tidFra, Timestamp tidTil, String status, String sted);
+	public void endreParametereTilEvent(Integer id, String navn, String beskrivelse, Timestamp tidFra, Timestamp tidTil, String sted);
 	
 	/**
 	 * Starter eventet, endrer status på eventet til 'paagaaende'

@@ -1,7 +1,7 @@
 package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
-import java.sql.Timestamp;
+import java.text.ParseException;
 
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -14,6 +14,7 @@ import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.model.Status;
 import no.hvl.dat104.util.DatoUtil;
 import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
@@ -36,7 +37,9 @@ public class RedigerEventController extends HttpServlet {
 				Integer id = Integer.parseInt(eventId);
 				Event e = eventEAO.finnEvent(id);
 				if (e != null) {
+					RedigerEventValidator ev = new RedigerEventValidator(e);
 					HttpSession mySession = request.getSession();
+					mySession.setAttribute("redigerEventSkjema", ev);
 					mySession.setAttribute("event", e);
 					request.getRequestDispatcher(JspMappings.REDIGEREVENT_JSP).forward(request, response);
 				} else {
@@ -56,38 +59,42 @@ public class RedigerEventController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
-			Integer id = Integer.valueOf(request.getParameter("id"));
-			String navn = request.getParameter("navn");
-			String beskrivelse = request.getParameter("beskrivelse");
-			String dato = request.getParameter("dato");
-			String klokkeslettFra = request.getParameter("fra");
-			String klokkeslettTil = request.getParameter("til");
-			String status = request.getParameter("status");
-			String sted = request.getParameter("sted");
-			Timestamp dateFra = null;
-			Timestamp dateTil = null;
-
-			try {
-				dateFra = DatoUtil.formaterDatoTilStamp(dato, klokkeslettFra);
-				dateTil = DatoUtil.formaterDatoTilStamp(dato, klokkeslettTil);
-			} catch (Exception exc) {
-				exc.printStackTrace();
-				// Hvis dato ikke kan parses med punkter, prøver man å parse med streker
-				try {
-					dateFra = DatoUtil.parseBasertPaaBindestrek(dato, klokkeslettFra);
-					dateTil = DatoUtil.parseBasertPaaBindestrek(dato, klokkeslettTil);
-				} catch (Exception exc2) {
-					exc2.printStackTrace();
+			String eventIdString = ValidatorUtil.escapeHtml(request.getParameter("eventId"));
+			RedigerEventValidator skjema = new RedigerEventValidator(request);
+			Integer eventId = null;
+			if (ValidatorUtil.isNotNull0(eventIdString)) {
+				eventId = Integer.parseInt(eventIdString);
+				if (skjema.erAlleDataGyldige()) {
+					Event e = oppdaterEvent(skjema);
+					eventEAO.endreParametereTilEvent(eventId, skjema.getTittel(), skjema.getBeskrivelse(), e.getTidFra(), e.getTidTil(), skjema.getHvor());
+					FlashUtil.Flash(request, "success", "Eventen " + skjema.getTittel() + " er oppdatert!");
+					request.getSession().removeAttribute("eventSkjema");
+					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+				} else {
+					skjema.settOppFeilmeldinger();
+					request.getSession().setAttribute("eventSkjema", skjema);
+					response.sendRedirect(UrlMappings.REDIGEREVENT_URL +"?eventId=" + eventId);
 				}
+			}else {
+				FlashUtil.Flash(request, "error", "Eventen finnes ikke");
 			}
-
-			// Oppdaterer eventen
-			eventEAO.endreParametereTilEvent(id, navn, beskrivelse, dateFra, dateTil, status, sted);
-			FlashUtil.Flash(request, "success", "Eventen " + navn + " er oppdatert!");
-			response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+			
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
+	}
+	public Event oppdaterEvent(RedigerEventValidator skjema) {
+		Event e = new Event();
+		e.setNavn(skjema.getTittel());
+		e.setSted(skjema.getHvor());
+		e.setBeskrivelse(skjema.getBeskrivelse());
+		try {
+			e.setTidTil(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getTil()));
+			e.setTidFra(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getFra()));
+		} catch (ParseException e1) {
+			e1.printStackTrace();
+		}
+		return e;
 	}
 
 }
