@@ -64,5 +64,6 @@
 	  $("#fjernAlt").click(function(){
 		  console.log("fjerner");
 		  $(".fjerndata").val('');
+		  $(".fjerndata").text('');
 	  });
   </script>

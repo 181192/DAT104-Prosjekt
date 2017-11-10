@@ -44,12 +44,15 @@ public class LoggInnController extends HttpServlet {
 				if (skjema.erPassordRett()) {
 					if (b.getIdRolle().getType().equals(Attributter.ROLLE_TYPE_STYRER)) {
 						InnloggingUtil.loggInnSomBruker(request, b);
+						request.getSession().removeAttribute("brukerSkjema");
 						response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 					} else if (b.getIdRolle().getType().equals(Attributter.ROLLE_TYPE_ADMIN)) {
 						InnloggingUtil.loggInnSomAdmin(request, b);
+						request.getSession().removeAttribute("brukerSkjema");
 						response.sendRedirect(UrlMappings.ADMINISTRER_URL);
 					} else {
 						request.getSession().setAttribute("ikkeGodkjent", "Beklager, men din bruker er ikke godkjent");
+						request.getSession().setAttribute("brukerSkjema", skjema);
 						response.sendRedirect(UrlMappings.LOGGINN_URL);
 					}
 				} else {
