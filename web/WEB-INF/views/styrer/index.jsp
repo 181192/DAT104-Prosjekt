@@ -115,7 +115,7 @@ function lagEvent() {
 
 <div class="ui modal">
 	<div id="event_modal" class="header">Opprett event</div>
-	<div id="ingenAktivitet" class="content"></div>
+	<div id="ingenAktivitet" class="modal-content"></div>
 </div>
 
 
@@ -154,7 +154,7 @@ function lagEvent() {
       })
 	  .modal('show');
 	  $("#event_modal").text('Ditt Event!');
-      $(".content").load("<%=VIS_EVENT_URL%>?id=" + event.id);
+      $(".modal-content").load("<%=VIS_EVENT_URL%>?id=" + event.id);
   }
   function fjernAktivitet(aktivitet){
 	  $('#calendar').fullCalendar('removeResource', aktivitet.toString());  
