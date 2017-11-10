@@ -18,6 +18,10 @@
 				</div>
 				<c:remove var="flash" scope="session" />
 			</c:if>
+				<c:if test="${flash=='Success'}">
+				<div style="margin-bottom: 2em;" class="ui info message">${melding}</div>
+				<c:remove var="flash" scope="session" />
+			</c:if>
 			<input type="submit" class="ui primary button" value="Delta Event">
 		</div>
 	</form>

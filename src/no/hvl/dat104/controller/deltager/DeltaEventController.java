@@ -13,7 +13,11 @@ import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.IKodeordEAO;
+import no.hvl.dat104.dataaccess.ILiveTilbakemeldingEAO;
+import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
+import no.hvl.dat104.model.LiveTilbakemelding;
+import no.hvl.dat104.util.DatoUtil;
 import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
@@ -27,6 +31,8 @@ public class DeltaEventController extends HttpServlet {
 	private IKodeordEAO kodeordEAO;
 	@EJB
 	private IEventEAO eventEAO;
+	@EJB
+	private ILiveTilbakemeldingEAO liveTilbakemeldingEAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
