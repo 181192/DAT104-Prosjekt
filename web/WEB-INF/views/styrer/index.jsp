@@ -26,15 +26,17 @@
 </style>
 
 </head>
-<c:if test="${flash == 'success'}">
-	<p style="color: green;">${melding}</p>
-	<c:remove var="flash" scope="session" />
-</c:if>
-<c:if test="${flash == 'error'}">
-	<p style="color: red;">${melding}</p>
-	<c:remove var="flash" scope="session" />
-</c:if>
+
+
 <div class="ui container">
+	<c:if test="${flash == 'success'}">
+		<div class="ui positive message">${melding}</div>
+		<c:remove var="flash" scope="session" />
+	</c:if>
+	<c:if test="${flash == 'error'}">
+		<div class="ui negative message">${melding}</div>
+		<c:remove var="flash" scope="session" />
+	</c:if>
 	<div id='calendar'></div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.6.2/locale/nb.js"></script>
