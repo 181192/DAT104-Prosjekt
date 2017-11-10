@@ -14,9 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
+import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.model.Aktivitet;
+import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.util.EventUtil;
+import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 import no.hvl.dat104.util.ValidatorUtil;
 
@@ -28,6 +31,8 @@ public class MineEventerController extends HttpServlet {
 
 	@EJB
 	private IAktivitetEAO aktivitetEAO;
+	@EJB
+	private IBrukerEAO brukerEAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -36,18 +41,23 @@ public class MineEventerController extends HttpServlet {
 			if (!ValidatorUtil.isNotNull0(aktivitetsId)) {
 				request.getRequestDispatcher(MINEAKTIVITETER_JSP).forward(request, response);
 			} else {
-				int id = Integer.parseInt(aktivitetsId);
+				int aktivitetId = Integer.parseInt(aktivitetsId);
+				Bruker b = InnloggingUtil.innloggetSomBruker(request);
+				if (brukerEAO.eierBrukerAktivitet(b.getId(), aktivitetId)) {
+					Aktivitet a = aktivitetEAO.finnAktivitet(aktivitetId);
+					List<Event> eventer = aktivitetEAO.finnAlleEventerTilAktivitet(a.getId());
+					EventUtil.sorterEventer(eventer);
 
-				Aktivitet a = aktivitetEAO.finnAktivitet(id);
-				List<Event> eventer = aktivitetEAO.finnAlleEventerTilAktivitet(a.getId());
-				
-				EventUtil.sorterEventer(eventer);
-				
-				request.getSession().setAttribute("eventer", eventer);
-				request.getSession().setAttribute("aktivitet", a);
-				request.getRequestDispatcher(MINEEVENTER_JSP).forward(request, response);
+					request.getSession().setAttribute("eventer", eventer);
+					request.getSession().setAttribute("aktivitet", a);
+					request.getRequestDispatcher(MINEEVENTER_JSP).forward(request, response);
+				} else {
+					FlashUtil.Flash(request, "error", "Fant ikke aktiviteten");
+					response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+				}
 			}
 		} else {
+			FlashUtil.Flash(request, "error", "Du er ikke innlogget");
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 	}

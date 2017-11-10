@@ -32,12 +32,13 @@ public class BrukerEAO implements IBrukerEAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Bruker finnBrukerPaaEmail(String mail) {
-		List<Bruker> bruker =em.createQuery("SELECT b FROM Bruker b WHERE b.mail = :mail").setParameter("mail", mail).getResultList();
-		if(bruker.isEmpty()) {
-        	return null;
-        }
-        return bruker.get(0);
-    }
+		List<Bruker> bruker = em.createQuery("SELECT b FROM Bruker b WHERE b.mail = :mail").setParameter("mail", mail)
+				.getResultList();
+		if (bruker.isEmpty()) {
+			return null;
+		}
+		return bruker.get(0);
+	}
 
 	@Override
 	public void oppdaterBruker(Bruker b) {
@@ -53,7 +54,7 @@ public class BrukerEAO implements IBrukerEAO {
 	@Override
 	public List<Bruker> alleBrukerne() {
 		Query b = em.createQuery("SELECT b FROM Bruker b ORDER BY b.idRolle DESC, b.etternavn");
-        return b.getResultList();
+		return b.getResultList();
 	}
 
 	@Override
@@ -128,9 +129,9 @@ public class BrukerEAO implements IBrukerEAO {
 		Bruker b = finnBruker(id);
 		List<Aktivitet> a = b.getAktiviteter();
 		Aktivitet aktivitet = null;
-		for(Aktivitet k : a) {
-			if(k != null ) {
-				if(k.getId().equals(aktivitetId)) {
+		for (Aktivitet k : a) {
+			if (k != null) {
+				if (k.getId().equals(aktivitetId)) {
 					aktivitet = k;
 				}
 			}
@@ -143,9 +144,22 @@ public class BrukerEAO implements IBrukerEAO {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Aktivitet> alleAktiviteterIJPQL(Integer id) {
-		List<Aktivitet> aktiviteter = em.createQuery("SELECT a FROM Aktivitet a WHERE a.idBruker.id = :id ORDER BY a.id").setParameter("id", id).getResultList();
+		List<Aktivitet> aktiviteter = em
+				.createQuery("SELECT a FROM Aktivitet a WHERE a.idBruker.id = :id ORDER BY a.id").setParameter("id", id)
+				.getResultList();
 		return aktiviteter;
 	}
 	
+	@SuppressWarnings("unchecked")
+	@Override
+	public boolean eierBrukerAktivitet(Integer id, Integer idAktivitet) {
+		List<Aktivitet> aktiviteter = em.createQuery(
+				"SELECT a FROM Aktivitet a, Bruker b WHERE a.idBruker = b AND a.id = :akId AND b.id = :brukerId")
+				.setParameter("akId", idAktivitet).setParameter("brukerId", id).getResultList();
+		if (aktiviteter.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
 
 }

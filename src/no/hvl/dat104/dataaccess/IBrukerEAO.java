@@ -152,5 +152,13 @@ public interface IBrukerEAO {
 	 */
 	public List<Aktivitet> alleAktiviteterIJPQL(Integer id);
 
+	/**
+	 * Finner ut om bruker eier aktiviteten
+	 * @param id Id til brukeren
+	 * @param idAktivitet Id til aktiviteten
+	 * @return True eller false
+	 */
+	boolean eierBrukerAktivitet(Integer id, Integer idAktivitet);
+
 
 }

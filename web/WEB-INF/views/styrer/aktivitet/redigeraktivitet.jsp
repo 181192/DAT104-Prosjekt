@@ -5,8 +5,18 @@
 <div class="ui container">
 	<h3>Rediger aktivitet</h3>
 	<p>Her er din aktivitet ${aktivitet.navn}</p>
+	<c:if test="${flash == 'success'}">
+		<div class="ui positive message">
+			<div class="header">Suksess!</div>
+			<p style="color: #016936;">${melding}</p>
+		</div>
+		<c:remove var="flash" scope="session" />
+	</c:if>
 	<c:if test="${flash == 'error'}">
-		<p style="color: red;">${melding}</p>
+		<div class="ui negative  message">
+			<div class="header">Beklager, noe gikk galt!</div>
+			<p style="color: #B03060;">${melding}</p>
+		</div>
 		<c:remove var="flash" scope="session" />
 	</c:if>
 	<form class="ui form" method="post" action="<%=REDIGERAKTIVITET_URL%>">

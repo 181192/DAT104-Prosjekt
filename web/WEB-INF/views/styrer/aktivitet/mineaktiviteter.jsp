@@ -10,11 +10,17 @@
 	</h3>
 	<br>
 	<c:if test="${flash == 'success'}">
-		<p style="color: green;">${melding}</p>
+		<div class="ui positive message">
+			<div class="header">Suksess!</div>
+			<p style="color: #016936;">${melding}</p>
+		</div>
 		<c:remove var="flash" scope="session" />
 	</c:if>
 	<c:if test="${flash == 'error'}">
-		<p style="color: red;">${melding}</p>
+		<div class="ui negative  message">
+			<div class="header">Beklager, noe gikk galt!</div>
+			<p style="color: #B03060;">${melding}</p>
+		</div>
 		<c:remove var="flash" scope="session" />
 	</c:if>
 	<table class="ui fixed single line celled table">
