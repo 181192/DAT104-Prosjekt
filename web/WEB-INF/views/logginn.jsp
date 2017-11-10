@@ -1,9 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../partials/header.jsp" />
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
-<div class="ui three column centered grid">
-	<div class="column"></div>
-	<div class="ui segment column">
+<div class="ui centered grid container">
+	<div style="margin-top: 2em;" class="ui segment column">
 		<h1 class="header">Logg inn</h1>
 		<c:if test="${flash == 'success'}">
 			<div class="ui positive message">
@@ -48,7 +47,6 @@
 			<button class="ui teal button">Logg inn</button>
 		</form>
 	</div>
-	<div class="column"></div>
 </div>
 
 <jsp:include page="../partials/footer.jsp" />

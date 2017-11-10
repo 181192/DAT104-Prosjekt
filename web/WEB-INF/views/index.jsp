@@ -1,9 +1,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../partials/header.jsp" />
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
-<div class="ui three column centered grid">
-	<div class="column"></div>
-	<div class="ui segment column">
+<div class="ui centered grid container">
+	<div style="margin-top: 2em;" class="ui segment column">
 		<h1 class="header">Delta event</h1>
 		<form action="<%=DELTAEVENT_URL%>" method="post">
 			<div class="ui form warning">
@@ -26,7 +25,6 @@
 			</div>
 		</form>
 	</div>
-	<div class="column"></div>
 </div>
 
 
