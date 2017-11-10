@@ -103,7 +103,7 @@ public class GiTilbakemeldingHjelpeklasse {
      */
     private static boolean eventPaagaar(HttpServletRequest request) {
     	Event event = (Event) request.getSession().getAttribute("event");
-    	return event.getFaktiskSlutt()!=null;
+    	return event.getFaktiskSlutt()==null;
     }
 	
     /**
