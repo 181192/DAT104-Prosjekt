@@ -142,7 +142,7 @@ function lagEvent() {
 		  $("#event_modal").css('color', '#FE9A76');
     	  $('.content').append('<div> <a href="lagaktivitet">Opprett Aktivitet!</a> </div>');
       }else {
-    	  $(".content").load("<%=LAGEVENT_URL%>?dato="+date.format());
+    	  $(".modal-content").load("<%=LAGEVENT_URL%>?dato="+date.format());
       }
       
   }
