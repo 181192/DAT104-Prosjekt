@@ -16,7 +16,7 @@
 		<c:remove var="flash" scope="session" />
 	</c:if>
 	<c:if test="${flash == 'error'}">
-		<div class="ui negative  message">
+		<div class="ui warning  message">
 			<div class="header">Beklager, noe gikk galt!</div>
 			<p style="color: #B03060;">${melding}</p>
 		</div>

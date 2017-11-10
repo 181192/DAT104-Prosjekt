@@ -1,15 +1,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
 <%@ page import="static no.hvl.dat104.model.Status.*" %>
 <c:set var="PAAGANDE" value="<%=PAAGANDE%>"></c:set>
 <c:set var="AVSLUTTET" value="<%=AVSLUTTET%>"></c:set>
-<c:set var="PAAGANDE" value="<%=PLANLAGT%>"></c:set>
 	 <div class="ui container">
 	Aktivitet: <a href="<%=VISAKTIVITET_URL%>?aktivitetId=${aktivitet.id}">${aktivitet.navn}</a>
 	<table class="ui celled table">
 	  <thead>
 	    <tr>
 	      <th>Navn</th>
+	      <th>Dato</th>
 	      <th>Fra</th>
 	      <th>Til</th>
 	      <th>Status</th>
@@ -20,12 +21,13 @@
 	  </thead>
 	  <tbody>
 	    <tr>
-	      <td class="selectable"id="vis">
-	        <p>${event.navn}<p>
+	      <td class="selectable">
+	        <div style="padding:11px;">${event.navn}</div>
 	      </td>
-	      <td>${event.tidFra}</td>
-	      <td>${event.tidTil}</td>
-	      <td class="${event.status eq PAAGANDE ? 'positive' : event.status eq PLANLAGT ?  'warning' : 'red'}">${event.status}</td>
+	      <td>${fn:substring(event.tidFra, 0, 10)}</td>
+	      <td>${fn:substring(event.tidFra, 10, 16)}</td>
+	      <td>${fn:substring(event.tidTil, 10, 16)}</td>
+	      <td class="${event.status eq PAAGANDE ? 'positive' : (event.status eq AVSLUTTET) ? 'error' : 'warning'}">${event.status}</td>
 	      <td>${event.sted}</td>
 	      <td class="selectable" id="rediger">
 	      	<a href="<%= REDIGEREVENT_URL%>?eventId=${event.id}">Rediger</a>
@@ -36,6 +38,9 @@
 	    </tr>	       
 	  </tbody>
 	</table>
+	<h4 style="margin-top:0;" class="ui header">
+		Beskrivelse: <div class="sub header"><div class="ui message">${event.beskrivelse }</div></div>
+	</h4>
 	<form action="<%=EVENTRESULTATER_URL %>" method="get">
 		<input type="hidden" value="${event.id}" name="eventId"><input class="ui primary button" type="submit" value="Vis Tilbakemeldinger">
 	</form>

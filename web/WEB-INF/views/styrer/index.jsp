@@ -137,6 +137,7 @@ function lagEvent() {
     	    observeChanges: true
       })
 	  .modal('show');
+	  $("#event_modal").text('Ditt Event!');
       $(".content").load("<%=VIS_EVENT_URL%>?id=" + event.id);
   }
   function fjernAktivitet(aktivitet){
