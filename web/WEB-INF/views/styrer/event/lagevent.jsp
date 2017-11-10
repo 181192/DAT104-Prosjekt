@@ -8,6 +8,7 @@
 <link
 	href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css"
 	rel="stylesheet" type="text/css" />
+
 <div class="ui container">
 	<form method="post" id="myForm" action="<%=LAGEVENT_URL%>"
 		class="ui form">
@@ -25,13 +26,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="two fields">
-			<div class="field">
+		<div class="two fields" style="margin-bottom:0;">
+			<div class="field" style="padding-left:6px;">
 				<label>Fra: <span class="fjerndata" style="color: #B03060">${eventSkjema.fraFeilmelding }</span></label><input
 					class="timepicker fjerndata" value="${eventSkjema.fra }"
 					type="text" name="fra" placeholder="hh.mm">
 			</div>
-			<div class="field">
+			<div class="field" style="padding-right: 6px;">
 				<label>Til: <span class="fjerndata" style="color: #B03060">${eventSkjema.tilFeilmelding }</span></label><input
 					type="text" class="timepicker fjerndata"
 					value="${eventSkjema.til }" name="til" placeholder="hh.mm">
@@ -118,7 +119,7 @@
 </script>
 <script>
 	$("#fjernAlt").click(function() {
-		console.log("fjerner");
+		<c:remove var="eventSkjema" scope="session" />
 		$(".fjerndata").val('');
 		$(".fjerndata").text('');
 	});
