@@ -41,7 +41,6 @@ public class LagEventController extends HttpServlet {
 		String dato = request.getParameter("dato");
 		if (InnloggingUtil.erInnloggetSomBruker(request) && bruker != null ) {
 			if(dato != null) {
-				dato = DatoUtil.fraEngTilNorskDato(dato);
 				request.getSession().setAttribute("dato", dato);
 				List<Aktivitet> a = iBrukerEAO.finnAlleAktiviteterTilBruker(bruker.getId());
 				request.getSession().setAttribute("aktiviteter", a);
@@ -80,6 +79,7 @@ public class LagEventController extends HttpServlet {
 		e.setNavn(skjema.getTittel());
 		e.setSted(skjema.getHvor());
 		e.setStatus(Status.PLANLAGT);
+		e.setBeskrivelse(skjema.getBeskrivelse());
 		try {
 			e.setTidTil(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getTil()));
 			e.setTidFra(DatoUtil.formaterDatoTilStamp(skjema.getDato(), skjema.getFra()));
