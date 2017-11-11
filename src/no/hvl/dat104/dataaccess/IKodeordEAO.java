@@ -84,4 +84,11 @@ public interface IKodeordEAO {
 	 * @return Kodeord
 	 */
 	public List<Kodeord> finnKodeordBasertPaaKode(Integer kode);
+
+	/**
+	 * Sletter kodeord basert på event.
+	 * @param e
+	 * @return
+	 */
+	boolean slettKodeordTilEvent(Event e);
 }

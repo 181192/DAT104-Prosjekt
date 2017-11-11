@@ -115,4 +115,10 @@ public interface IEventEAO {
 	 * @return
 	 */
 	public boolean endreEventTilPaagaaende(Integer eventId);
+
+	/**
+	 * Endre status til event til avsluttet.
+	 * @param eventId
+	 */
+	public boolean endreEventTilAvsluttet(Integer eventId);
 }

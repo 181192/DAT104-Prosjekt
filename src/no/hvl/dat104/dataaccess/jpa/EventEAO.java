@@ -110,4 +110,18 @@ public class EventEAO implements IEventEAO {
 		t.addAll(em.find(Event.class, id).getLiveTilbakemeldinger());
 		return t;
 	}
+
+	@Override
+	public boolean endreEventTilAvsluttet(Integer eventId) {
+		try {
+			Event e = finnEvent(eventId);
+			e.setFaktiskStart(new Timestamp(System.currentTimeMillis()));
+			e.setStatus(Status.AVSLUTTET);
+			em.merge(e);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 }

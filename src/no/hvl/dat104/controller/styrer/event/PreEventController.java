@@ -44,15 +44,15 @@ public class PreEventController extends HttpServlet {
 			throws ServletException, IOException {
 		//Sjekker om bruker er logget inn
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
-			//FÅr tak i brukeren og alle eventene til brukeren
+			//Får tak i brukeren og alle eventene til brukeren
 			Bruker br = InnloggingUtil.innloggetSomBruker(request);
 			List<Aktivitet> akt = brukerEAO.finnAlleAktiviteterTilBruker(br.getId());
 			List<Event> eventer = new ArrayList<>();
-			//Finner alle eventer med 'status = planlagt' og legger dem til i listen "eventer"
+			//Finner alle eventer med 'status = planlagt eller pågående' og legger dem til i listen "eventer"
 			for (Aktivitet a : akt) {
 				List<Event> temp = aktivitetEAO.finnAlleEventerTilAktivitet(a.getId());
 				for (Event ev : temp) {
-					if(ev.getStatus().equals(Status.PLANLAGT)) {
+					if(ev.getStatus().equals(Status.PLANLAGT) || ev.getStatus().equals(Status.PAAGANDE)) {
 						eventer.add(ev);
 					}
 				}
@@ -73,19 +73,18 @@ public class PreEventController extends HttpServlet {
 			HttpSession session = request.getSession(false);
 
 			// Finner riktig event i databasen;
-			String evId = (String) request.getParameter(Attributter.LIVE_EVENT_ID);
+			String evId = (String) request.getParameter("liveeventid");
 			Event ev = new Event();
 			ev = eventEAO.finnEvent(Integer.parseInt(evId));
 			List<LiveTilbakemelding> ltb = new ArrayList<>();
 			ev.setLiveTilbakemeldinger(ltb); //Antar vi gjør dette pga den er null fra før av
 
-			// Setter verdier i liveevetn.
+			// Setter eventen til "paagaaende"
 			if (ev != null) {
 				eventEAO.endreEventTilPaagaaende(ev.getId());
 			}
-
-			session.setAttribute(Attributter.LIVE_EVENT, ev);
-			response.sendRedirect(UrlMappings.LIVE_EVENT_URL);
+			
+			response.sendRedirect(UrlMappings.PRE_LIVE_EVENT_URL);
 
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);

@@ -1,9 +1,7 @@
 package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -21,7 +19,11 @@ import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.IKodeordEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
+import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Status;
+import no.hvl.dat104.model.Tilbakemelding;
+import no.hvl.dat104.util.FormaterTilbakemeldingUtil;
+import no.hvl.dat104.util.FormatertTilbakemelding;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**
@@ -42,22 +44,37 @@ public class LiveEventServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		response.setIntHeader("Refresh", 5);
+
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
+
 			HttpSession session = request.getSession(false);
-			Event detteEvent = (Event) session.getAttribute(Attributter.LIVE_EVENT);
-			Timestamp faktiskStart = detteEvent.getFaktiskStart();
-			
+			Integer eventId = Integer.valueOf(request.getParameter("liveeventid"));
+			Event detteEvent = eventEAO.finnEvent(eventId);
+
 			if (detteEvent != null) {
-				Kodeord kodeord = genererKodeord(detteEvent);
-				kodeordEAO.leggTilKodeord(kodeord);
-				session.setAttribute(Attributter.KODEORD, kodeord);
+				if (kodeordEAO.finnKodeordTilEvent(detteEvent) == null) {
+					Kodeord kodeord = genererKodeord(detteEvent);
+					kodeordEAO.leggTilKodeord(kodeord);
+					request.setAttribute("koden", kodeord);
+				} else {
+					// Hente livetilbakemeldinger og kodeordet her
+					Kodeord kode = kodeordEAO.finnKodeordTilEvent(detteEvent);
+					List<FormatertTilbakemelding> formaterteLiveTilbakemeldinger = null;
+					List<LiveTilbakemelding> liveTilbakemeldingListe = eventEAO.finnAlleLiveTilbakemeldingerTilEvent(detteEvent.getId());
+					//Sjekker om null eller tom
+					if(liveTilbakemeldingListe != null) {
+						if(!liveTilbakemeldingListe.isEmpty()) {
+							formaterteLiveTilbakemeldinger = formaterLiveTilbakemeldinger(liveTilbakemeldingListe);
+						}
+					}
+					session.setAttribute("koden", kode);
+					session.setAttribute("liveTilbakemeldinger", formaterteLiveTilbakemeldinger);
+				}
 			}
 
-			// Lager noen testdata og sender til jsp i requesten.
-			List<Integer> dummyData = lagDummyListe(50, 20);
-			List<Integer> dummyDataFT = lagFrekvensTabell(dummyData, 60);
-			request.setAttribute("dummyData", dummyDataFT);
-			request.setAttribute(Attributter.LIVE_EVENT, detteEvent);
+			request.setAttribute("eventsend", detteEvent);
 			request.getRequestDispatcher(JspMappings.LIVE_EVENT_JSP).forward(request, response);
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
@@ -75,8 +92,8 @@ public class LiveEventServlet extends HttpServlet {
 
 			// Må ha test for innlogging og gyldig session her.
 			HttpSession session = request.getSession(false);
-			Event detteEvent = (Event) session.getAttribute("event");
 			String knappTrykket = (String) request.getParameter(Attributter.LIVE_EVENT_KNAPP);
+			Integer eventId = Integer.valueOf(request.getParameter("eventId"));
 
 			// Forleng-knapp
 			Boolean test = false;
@@ -86,7 +103,7 @@ public class LiveEventServlet extends HttpServlet {
 			}
 
 			if (knappTrykket.equals("avslutt")) {
-				eventEAO.endreStatusPaaEvent(detteEvent.getId(), Status.AVSLUTTET);
+				eventEAO.endreEventTilAvsluttet(eventId);
 				response.sendRedirect(UrlMappings.POST_LIVE_EVENT_URL);
 
 			}
@@ -110,42 +127,21 @@ public class LiveEventServlet extends HttpServlet {
 	}
 
 	/**
-	 * Mockup for testdata.
+	 * Tar en liste med liveTilbakemeldinger og formaterer dem til grafisk bruk.
 	 * 
-	 * @param antall
-	 * @param maxTid
+	 * @param liveTb
 	 * @return
 	 */
-	private List<Integer> lagDummyListe(int antall, int maxTid) {
-		List<Integer> tbm = new ArrayList<>();
-		Random r = new Random();
-		for (int i = 0; i < antall; i++) {
-			tbm.add(r.nextInt(maxTid));
+	private List<FormatertTilbakemelding> formaterLiveTilbakemeldinger(List<LiveTilbakemelding> liveTb) {
+		List<LiveTilbakemelding> l = liveTb;
+		List<Tilbakemelding> konverter = new ArrayList<Tilbakemelding>();
+		List<FormatertTilbakemelding> formatert;
+
+		for (LiveTilbakemelding el : l) {
+			konverter.add(new Tilbakemelding(el.getStemme(), el.getIdEvent(), el.getTid()));
 		}
-
-		return tbm;
-	}
-
-	/**
-	 * Mockup for testdata
-	 * 
-	 * @param alleTilbakemeldinger
-	 * @param maxVerdi
-	 * @return
-	 */
-	private List<Integer> lagFrekvensTabell(List<Integer> alleTilbakemeldinger, Integer maxVerdi) {
-		Integer[] ftb = new Integer[maxVerdi];
-
-		for (int i = 0; i < maxVerdi; i++) {
-			ftb[i] = 0;
-		}
-
-		for (int i = 0; i < alleTilbakemeldinger.size(); i++) {
-			int denne = alleTilbakemeldinger.get(i);
-			ftb[denne] += 1;
-		}
-
-		return Arrays.asList(ftb);
+		formatert = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(konverter);
+		return formatert;
 	}
 
 	/**
@@ -154,7 +150,6 @@ public class LiveEventServlet extends HttpServlet {
 	 * @param event
 	 * @return kodeord klassen
 	 */
-
 	private Kodeord genererKodeord(Event e) {
 		Boolean unik = false;
 		Kodeord kodeord = new Kodeord();

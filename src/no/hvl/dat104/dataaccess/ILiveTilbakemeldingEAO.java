@@ -5,6 +5,7 @@ package no.hvl.dat104.dataaccess;
 
 import java.util.List;
 
+import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.LiveTilbakemelding;
 
 /**
@@ -50,4 +51,11 @@ public interface ILiveTilbakemeldingEAO {
 	 * @return Alle livetilbakemeldingene
 	 */
 	public List<LiveTilbakemelding> alleLiveTilbakemeldingene();
+
+	/**
+	 * Sletter alle livetilbakemeldinger til en event.
+	 * @param e
+	 * @return
+	 */
+	boolean slettAlleLiveTilbakemeldingTilEvent(Event e);
 }

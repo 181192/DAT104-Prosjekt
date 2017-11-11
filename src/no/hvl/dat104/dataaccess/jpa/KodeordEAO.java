@@ -37,6 +37,13 @@ public class KodeordEAO implements IKodeordEAO {
 		em.remove(em.find(Kodeord.class, k.getId()));
 
 	}
+	
+	@Override
+	public boolean slettKodeordTilEvent(Event e) {
+		
+		Query query = em.createQuery("DELETE FROM Kodeord k WHERE k.idEvent.id = :id").setParameter("id", e.getId());
+		return query.executeUpdate() == 1;
+	}
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -51,20 +58,26 @@ public class KodeordEAO implements IKodeordEAO {
 		k.setKode(kode);
 		em.merge(k);
 	}
-	
+
 	@Override
 	public Boolean sjekkOmKodeordErUnik(Kodeord kode) {
-		String sql = "SELECT COUNT(k.id) FROM Kodeord k WHERE k.kode = "+kode.getKode();
-		Long q = (Long)em.createQuery(sql).getSingleResult();
+		String sql = "SELECT COUNT(k.id) FROM Kodeord k WHERE k.kode = " + kode.getKode();
+		Long q = (Long) em.createQuery(sql).getSingleResult();
 		return q < 1;
 	}
-	
+
 	@Override
 	public Kodeord finnKodeordTilEvent(Event event) {
-		   Query query = em.createQuery( "Select k from Kodeord k where k.idEvent.id = :id").setParameter("id", event.getId());
-		   return (Kodeord) query.getSingleResult();
+		try {
+			Query query = em.createQuery("Select k from Kodeord k where k.idEvent.id = :id").setParameter("id",
+					event.getId());
+			return (Kodeord) query.getSingleResult();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Kodeord> finnKodeordBasertPaaKode(Integer kode) {

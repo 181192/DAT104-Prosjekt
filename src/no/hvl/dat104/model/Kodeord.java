@@ -25,7 +25,7 @@ public class Kodeord {
 	private Integer id;
 	private Integer kode;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne
 	@JoinColumn(name = "id_event", referencedColumnName = "id")
 	private Event idEvent;
 

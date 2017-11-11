@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -51,7 +52,9 @@ public class Event {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idEvent")
 	private List<LiveTilbakemelding> liveTilbakemeldinger;
-
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "idEvent")
+	private Kodeord kodeord;
 	/**
 	 * Tom konstruktor til Event
 	 */
