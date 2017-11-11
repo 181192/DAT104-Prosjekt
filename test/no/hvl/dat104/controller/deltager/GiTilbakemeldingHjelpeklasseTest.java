@@ -34,9 +34,9 @@ public class GiTilbakemeldingHjelpeklasseTest {
 	@Test
 	public void maaVente() throws ServletException, IOException {
 		stubSesjon.setAttribute("sistStemme", new Date());
-		
+		GiTilbakemeldingHjelpeklasse.maaVente(stubRequest, 10);
 		verify(stubSesjon).getAttribute("sistStemme");
-		//assertTrue(GiTilbakemeldingHjelpeklasse.maaVente(stubRequest, 10));
+		assertTrue(GiTilbakemeldingHjelpeklasse.maaVente(stubRequest, 10));
 		
 	}
 
