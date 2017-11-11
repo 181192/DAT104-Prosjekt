@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 <jsp:include page="../../partials/header.jsp" />
-
+<p>${redigerBrukerSkjema.etternavnFeilmelding}</p>
 <div class="ui container">
 	<h1>Rediger bruker</h1>
 	<c:if test="${flash == 'success'}">
@@ -22,28 +22,47 @@
 	<form method="post" action="<%=REDIGERBRUKER_URL%>" class="ui form">
 		<div class="field">
 			<label>Fornavn:</label> <input type="text" name="fornavn"
-				value="${skjema.fornavn}" placeholder="Fornavn">
-			<p>
-				<font color="red">${skjema.fornavnFeilmelding}</font>
-			</p>
+				value="${empty redigerBrukerSkjema.fornavn ? bruker.fornavn : redigerBrukerSkjema.fornavn}"
+				placeholder="Fornavn">
+			<c:if test="${not empty redigerBrukerSkjema.fornavnFeilmelding}">
+				<div class="ui negative  message">
+					<div class="header">Beklager, noe gikk galt!</div>
+					<p style="color: #B03060;">${redigerBrukerSkjema.fornavnFeilmelding}</p>
+				</div>
+				<c:remove var="brukerSkjema" scope="session" />
+			</c:if>
 		</div>
 		<div class="field">
 			<label>Etternavn:</label><input type="text" name="etternavn"
-				value="${skjema.etternavn}" id="datepicker" placeholder="Etternavn">
+				value="${empty redigerBrukerSkjema.etternavn ? bruker.etternavn : redigerBrukerSkjema.etternavn}"
+				placeholder="Etternavn">
+			<c:if test="${not empty redigerBrukerSkjema.etternavnFeilmelding}">
+				<div class="ui negative  message">
+					<div class="header">Beklager, noe gikk galt!</div>
+					<p style="color: #B03060;">${redigerBrukerSkjema.etternavnFeilmelding}</p>
+				</div>
+				<c:remove var="brukerSkjema" scope="session" />
+			</c:if>
 		</div>
-		<p>
-			<font color="red">${skjema.etternavnFeilmelding}</font>
-		</p>
 		<div class="field">
-			<label>Mail:</label><input class="timepicker" type="text" name="mail"
-				value="${skjema.mail}" placeholder="Mailadresse">
+			<label>Mail:</label><input type="text" name="mail"
+				value="${empty redigerBrukerSkjema.mail ? bruker.mail : redigerBrukerSkjema.mail}"
+				placeholder="Mailadresse">
+			<c:if test="${not empty redigerBrukerSkjema.mailFeilmelding}">
+				<div class="ui negative  message">
+					<div class="header">Beklager, noe gikk galt!</div>
+					<p style="color: #B03060;">${redigerBrukerSkjema.mailFeilmelding}</p>
+				</div>
+				<c:remove var="brukerSkjema" scope="session" />
+			</c:if>
 		</div>
-		<p>
-			<font color="red">${skjema.mailFeilmelding}</font>
-		</p>
 		<div class="field">
-			<label>Passord:</label><input type="password" class="timepicker"
-				name="passord" value="${skjema.passord}" placeholder="Passord">
+			<label>Gammelt passord:</label><input type="password"
+				name="gammeltpassord" placeholder="Passord">
+		</div>
+		<div class="field">
+			<label>Nytt passord:</label><input type="password" name="nyttpassord"
+				placeholder="Passord">
 		</div>
 
 		<button class="ui button">Oppdater bruker</button>
