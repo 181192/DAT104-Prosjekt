@@ -20,7 +20,7 @@
 					Aktiviteter </a>
 			</div>
 			<div class="item">
-				<a class="ui teal basic button" href="<%=MINEAKTIVITETER_URL%>">Innlogget
+				<a class="ui teal basic button" href="<%=REDIGERBRUKER_URL%>">Innlogget
 					som ${bruker.fornavn}</a>
 			</div>
 			<div class="item">

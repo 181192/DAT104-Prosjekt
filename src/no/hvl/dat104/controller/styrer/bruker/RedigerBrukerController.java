@@ -57,7 +57,7 @@ public class RedigerBrukerController extends HttpServlet {
 					brukerEAO.endrePassordPaaBruker(id, skjema.getPassord());
 
 					FlashUtil.Flash(request, "success",
-							"Brukeren " + b.getFornavn() + b.getEtternavn() + " er oppdatert!");
+							"Brukeren " + b.getFornavn() + " " + b.getEtternavn() + " er oppdatert!");
 					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 				} else {
 					FlashUtil.Flash(request, "error", "Beklager, noe gikk galt");
