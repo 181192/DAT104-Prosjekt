@@ -51,6 +51,7 @@ public class RedigerEventController extends HttpServlet {
 				FlashUtil.Flash(request, "error", "Beklager, eventen eksisterer ikke");
 			}
 		} else {
+			FlashUtil.Flash(request, "error", "Du må være logget inn for å gjøre det!");
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 

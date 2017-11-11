@@ -55,7 +55,7 @@ public class LagAktivitetController extends HttpServlet {
 					aktiviteter.add(a);
 					aktivitetEAO.leggTilAktivitet(a);
 					FlashUtil.Flash(request, "success", "Aktiviteten ble opprettet");
-					response.sendRedirect(UrlMappings.MINEAKTIVITETER_URL);
+					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 				} else {
 					skjema.settOppFeilmeldinger(request);
 					FlashUtil.Flash(request, "error", "Vennligst prøv på nytt");
