@@ -63,7 +63,7 @@ public class LiveEventServlet extends HttpServlet {
 					Kodeord kode = kodeordEAO.finnKodeordTilEvent(detteEvent);
 					List<FormatertTilbakemelding> formaterteLiveTilbakemeldinger = null;
 					List<LiveTilbakemelding> liveTilbakemeldingListe = eventEAO.finnAlleLiveTilbakemeldingerTilEvent(detteEvent.getId());
-					//Sjekker om null eller tom
+					//Sjekker om null eller tom.
 					if(liveTilbakemeldingListe != null) {
 						if(!liveTilbakemeldingListe.isEmpty()) {
 							formaterteLiveTilbakemeldinger = formaterLiveTilbakemeldinger(liveTilbakemeldingListe);
