@@ -20,9 +20,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LagEventControllerTest {
-	@Mock HttpServletRequest stubRequest;
-	@Mock HttpServletResponse stubResponse;
-	@Mock RequestDispatcher stubRequestDispatcher;
+	@Mock
+	HttpServletRequest stubRequest;
+	@Mock
+	HttpServletResponse stubResponse;
+	@Mock
+	RequestDispatcher stubRequestDispatcher;
 
 	LagEventController lageventcontroller;
 
@@ -38,13 +41,14 @@ public class LagEventControllerTest {
 		assertTrue(true);
 	}
 
-//	@Test
-//	public void atDetGjoresEnForwardTilKorrektJsp() throws ServletException, IOException {
-//
-//		lageventcontroller.doGet(stubRequest, stubResponse);
-//
-//		verify(stubRequest).getRequestDispatcher("WEB-INF/views/styrer/event/lagevent.jsp");
-//		verify(stubRequestDispatcher).forward(stubRequest, stubResponse);
-//	}
+	// @Test
+	// public void atDetGjoresEnForwardTilKorrektJsp() throws ServletException,
+	// IOException {
+	//
+	// lageventcontroller.doGet(stubRequest, stubResponse);
+	//
+	// verify(stubRequest).getRequestDispatcher("WEB-INF/views/styrer/event/lagevent.jsp");
+	// verify(stubRequestDispatcher).forward(stubRequest, stubResponse);
+	// }
 
 }
