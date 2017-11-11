@@ -71,6 +71,7 @@ public class LiveEventServlet extends HttpServlet {
 					}
 					session.setAttribute("koden", kode);
 					session.setAttribute("liveTilbakemeldinger", formaterteLiveTilbakemeldinger);
+
 				}
 			}
 

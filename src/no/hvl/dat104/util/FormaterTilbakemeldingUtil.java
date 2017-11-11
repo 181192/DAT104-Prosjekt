@@ -39,17 +39,17 @@ public class FormaterTilbakemeldingUtil {
 			}
 			sorterTilbakemeldingene();
 			last = formaterteTilbakemeldinger.size();
-			//legger til en tom tilbakemelding i slutten av listen, slik at grafen gidder å gjøre jobben sin
-			FormatertTilbakemelding ekkelFiks = new FormatertTilbakemelding(0, 0, 0);
-			Timestamp time = formaterteTilbakemeldinger.get(last-1).getTid();
-			if(time.getMinutes()+1 > 59) {
-				time.setHours(time.getHours()+1);
-				time.setMinutes(0);
-			}else {
-				time.setMinutes(time.getMinutes()+1);
-			}
-			ekkelFiks.setTid(time);
-			formaterteTilbakemeldinger.add(ekkelFiks);
+//			//legger til en tom tilbakemelding i slutten av listen, slik at grafen gidder å gjøre jobben sin
+//			FormatertTilbakemelding ekkelFiks = new FormatertTilbakemelding(0, 0, 0);
+//			Timestamp time = formaterteTilbakemeldinger.get(last-1).getTid();
+//			if(time.getMinutes()+1 > 59) {
+//				time.setHours(time.getHours()+1);
+//				time.setMinutes(0);
+//			}else {
+//				time.setMinutes(time.getMinutes()+1);
+//			}
+//			ekkelFiks.setTid(time);
+//			formaterteTilbakemeldinger.add(ekkelFiks);
 			
 			return formaterteTilbakemeldinger;
 		} else {
