@@ -2,7 +2,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 <jsp:include page="../../partials/header.jsp" />
-<p>${redigerBrukerSkjema.etternavnFeilmelding}</p>
 <div class="ui container">
 	<h1>Rediger bruker</h1>
 	<c:if test="${flash == 'success'}">
