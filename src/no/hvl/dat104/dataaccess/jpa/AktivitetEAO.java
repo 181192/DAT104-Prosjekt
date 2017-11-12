@@ -85,11 +85,17 @@ public class AktivitetEAO implements IAktivitetEAO {
 		em.merge(a);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public Aktivitet finnAktivitetPaaNavnOgBruker(String navn, Bruker b) {
-		return (Aktivitet) em
+		List<Aktivitet> a = em
 				.createQuery("SELECT a FROM Aktivitet a, Bruker b WHERE b = a.idBruker AND a.navn=:navn AND b=:bruker")
-				.setParameter("navn", navn).setParameter("bruker", b).getSingleResult();
+				.setParameter("navn", navn).setParameter("bruker", b).getResultList();
+		if(a.isEmpty()) {
+			return null;
+		}else {
+			return a.get(0);
+		}
 	}
 
 }
