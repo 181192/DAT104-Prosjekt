@@ -25,6 +25,8 @@ public class LandingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		if(InnloggingUtil.erInnloggetSomBruker(request) ||InnloggingUtil.erInnloggetSomAdmin((request))) {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
+		}else if (InnloggingUtil.erInnloggetSomDeltager(request)){
+			response.sendRedirect(UrlMappings.GITILBAKEMELDING_URL);
 		}else {
 			request.getRequestDispatcher(JspMappings.LANDING_JSP).forward(request, response);
 		}

@@ -36,7 +36,11 @@ public class DeltaEventController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		getServletContext().getRequestDispatcher("/" + JspMappings.LANDING_JSP).forward(request, response);
+		if(InnloggingUtil.erInnloggetSomDeltager(request)) {
+			response.sendRedirect(UrlMappings.GITILBAKEMELDING_URL);
+		}else {
+			request.getRequestDispatcher(JspMappings.LANDING_JSP).forward(request, response);
+		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
