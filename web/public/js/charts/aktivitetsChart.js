@@ -43,19 +43,6 @@ function drawChart() {
 	// Set chart options
 	var options;
 
-	refresh = function() {
-		count++;
-		data.addRow([ 'SomeEvent: ' + count.toString(),
-				Math.floor(Math.random() * 15), Math.floor(Math.random() * 15),
-				Math.floor(Math.random() * 15) ]);
-		currentView = new google.visualization.DataView(data);
-		boolFornoeyd = true;
-		boolNoeytral = true;
-		boolMisfornoeyd = true;
-		resetOptions();
-		chart.draw(currentView, google.charts.Line.convertOptions(options));
-	}
-
 	resetOptions = function() {
 		options = {
 			'title' : 'Samlet tilbakemelding for aktivitet:',

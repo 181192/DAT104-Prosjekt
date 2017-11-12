@@ -20,6 +20,9 @@ import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.model.Tilbakemelding;
+import no.hvl.dat104.util.AktivitetTilbakemelding;
+import no.hvl.dat104.util.FormaterTilbakemeldingUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**
@@ -40,7 +43,8 @@ public class VisAktivitetController extends HttpServlet {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 			String aktivitetsId = request.getParameter("aktivitetId");
 			int id = Integer.parseInt(aktivitetsId);
-
+			
+			FormaterTilbakemeldingUtil format = new FormaterTilbakemeldingUtil();
 			Aktivitet a = aktivitetEao.finnAktivitet(id);
 			List<Event> readonlyEventListe = aktivitetEao.finnAlleEventerTilAktivitet(a.getId());
 			List<Event> eventListe = new ArrayList<Event>();
@@ -51,26 +55,14 @@ public class VisAktivitetController extends HttpServlet {
 					return e1.getTidFra().compareTo(e2.getTidFra());
 				}
 			});
-
-			// kapasitet for dataListe
-			int count = eventListe.size();
-
-			// Her blir dataen lagt inn
-			String[][] dataListe = new String[count][4];
-
-			// Genererer test data -begin
-			Random rand = new Random();
-			int i = 0;
-			for (Event e : eventListe) {
-				dataListe[i][0] = e.getNavn();
-				dataListe[i][1] = String.valueOf(rand.nextInt(10));
-				dataListe[i][2] = String.valueOf(rand.nextInt(10));
-				dataListe[i][3] = String.valueOf(rand.nextInt(10));
-				i++;
+			List<AktivitetTilbakemelding> aktivitetsVisning = new ArrayList<AktivitetTilbakemelding>(); 
+			
+			for(Event e:eventListe){
+				List<Tilbakemelding> tb = eventEao.finnAlleTilbakemeldingerTilEvent(e.getId());
+				aktivitetsVisning.add(format.formaterTilbakemeldingerForAktivitetsResultatVisning(e.getNavn(), tb));
 			}
-
 			request.getSession().setAttribute("aktivitetsNavn", a.getNavn());
-			request.setAttribute("arrayMedTilbakemeldinger", dataListe);
+			request.setAttribute("arrayMedTilbakemeldinger", aktivitetsVisning);
 			request.getRequestDispatcher(JspMappings.VISAKTIVITET_JSP).forward(request, response);
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);

@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 <%@ page import="static no.hvl.dat104.controller.Attributter.*"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../../../partials/header.jsp" />
 
 <c:set var="e" scope="request" value="${eventsend}" />
@@ -83,7 +84,9 @@
 		});
 		data.addRows([				
 		<c:forEach items="${flt}" var="t" varStatus="count">
-			[${count.count}, ${t.fornoyd}, "${t.tid.toString()}", ${t.noytral}, "${t.tid.toString()}", ${t.misfornoyd}, "${t.tid.toString()}"],
+		<fmt:formatDate pattern = "yyyy-MM-dd hh:mm" 
+	         value = "${t.tid}" var="tidFormatert" />
+			[${count.count}, ${t.fornoyd}, "${tidFormatert}", ${t.noytral}, "${tidFormatert}", ${t.misfornoyd}, "${tidFormatert}"],
 		</c:forEach>
 			]);
 

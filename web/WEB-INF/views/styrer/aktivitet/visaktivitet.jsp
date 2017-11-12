@@ -9,8 +9,8 @@
 <script>
 	<!-->https://stackoverflow.com/questions/19036522/how-to-copy-multidimensional-array-from-java-request-variable-to-javascript-vari<-->
 	var hentData = new Array();
-	<c:forEach var="row" items="${arrayMedTilbakemeldinger}">
-		hentData.push(['${row[0]}', '${row[1]}', '${row[2]}', '${row[3]}']);
+	<c:forEach var="e" items="${arrayMedTilbakemeldinger}">
+		hentData.push(["${e.navn}","${e.fornoyd}","${e.noytral}","${e.misfornoyd}"]);
 	</c:forEach>
 </script>
 </head>
@@ -21,7 +21,6 @@
 		<div id="chart_div" style="width: 900px; height: 500px"></div>
 		<div class="ui centered grid">
 			<div class="ten wide column">
-				<button class="ui blue basic button" id="refresh" onclick="refresh()">Oppdater</button>
 				<button class="ui green basic button" id="refresh" onclick="toggleColumn(1)">Toggle fornøyelse</button>
 				<button class="ui orange basic button" id="refresh" onclick="toggleColumn(2)">Toggle nøytralitet</button>
 				<button class="ui red basic button" id="refresh" onclick="toggleColumn(3)">Toggle misnøye</button>
