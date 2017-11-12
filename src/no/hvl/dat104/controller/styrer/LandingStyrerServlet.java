@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.controller.JspMappings;
+import no.hvl.dat104.controller.Meldinger;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
@@ -17,6 +18,7 @@ import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**
@@ -39,17 +41,30 @@ public class LandingStyrerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Bruker bruker = InnloggingUtil.innloggetSomBruker(request);
-		if (InnloggingUtil.erInnloggetSomBruker(request) && bruker != null ) {
+		if (bruker != null ) {
 			List<Aktivitet> a = brukerEAO.alleAktiviteterIJPQL(bruker.getId());
 			List<Event> alleEventer = brukerEAO.finnAlleEventerTilBruker(bruker.getId());
-			String[] farger = { "orange", "green", "red", "blue", "yellow", "purple", "teal", "cyan", "magenta", "brown", "black", "white" };
+			setOppFarger(request);
 			request.getSession().setAttribute("alleEventer", alleEventer);
 			request.getSession().setAttribute("aktiviteter", a);
-			request.getSession().setAttribute("color", farger);
+			settOppFlash(request);
+			System.out.println(request.getAttribute("flash"));
 			request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);
 		} else {
+			FlashUtil.Flash(request, "error", Meldinger.UGYLDIG_MELD);
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
+	}
+	private void settOppFlash(HttpServletRequest request) {
+		String newcommer = (String) request.getSession().getAttribute("nuub");
+		if(newcommer != null) {
+			FlashUtil.Flash(request, "success", Meldinger.OPPRETT_BRUKER_MELD);
+		}
+		request.getSession().removeAttribute("nuub");
+	}
+	private void setOppFarger(HttpServletRequest request) {
+		String[] farger = { "orange", "green", "red", "blue", "yellow", "purple", "teal", "cyan", "magenta", "brown", "black", "white" };
+		request.getSession().setAttribute("color", farger);
 	}
 
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.controller.JspMappings;
+import no.hvl.dat104.controller.Meldinger;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
@@ -45,16 +46,19 @@ public class LagAktivitetController extends HttpServlet {
 			AktivitetValidator skjema = new AktivitetValidator(request);
 			Bruker b = InnloggingUtil.innloggetSomBruker(request);
 			if (skjema.erAlleDataGyldig()) {
-				System.out.println("data er gyldig");
 				if (b != null) {
 					Aktivitet a = new Aktivitet();
 					a.setNavn(skjema.getTittel());
 					a.setStatus(skjema.getStatus());
 					a.setIdBruker(b);
 					List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
+					if(aktiviteter.isEmpty()) {
+						FlashUtil.Flash(request, "success", Meldinger.OPPRETT_AKT_MELD);
+					} else {
+						FlashUtil.Flash(request, "success", "Aktiviteten ble opprettet");
+					}
 					aktiviteter.add(a);
 					aktivitetEAO.leggTilAktivitet(a);
-					FlashUtil.Flash(request, "success", "Aktiviteten ble opprettet");
 					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 				} else {
 					skjema.settOppFeilmeldinger(request);
@@ -64,7 +68,7 @@ public class LagAktivitetController extends HttpServlet {
 				}
 			} else {
 				skjema.settOppFeilmeldinger(request);
-				FlashUtil.Flash(request, "error", "Har du husket å fylle ut alle feltene?");
+				FlashUtil.Flash(request, "error", "Har du huske å fylle ut alle feltene?");
 				request.getSession().setAttribute("skjema", skjema);
 				response.sendRedirect(UrlMappings.LAGAKTIVITET_URL);
 			}

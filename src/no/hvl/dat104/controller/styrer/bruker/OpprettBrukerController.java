@@ -12,11 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.JspMappings;
+import no.hvl.dat104.controller.Meldinger;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.dataaccess.IRolleEAO;
 import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.util.FlashUtil;
+import no.hvl.dat104.util.InnloggingUtil;
 import no.hvl.dat104.util.SHA;
 
 /**
@@ -43,8 +45,9 @@ public class OpprettBrukerController extends HttpServlet {
 			Bruker bruker = setOppBruker(skjema);
 			if (skjema.erMailUnik(brukerEAO.finnBrukerPaaEmail(bruker.getMail()))) {
 				brukerEAO.leggTilBruker(bruker);
+				Bruker b = brukerEAO.finnBrukerPaaEmail(bruker.getMail());
 				request.getSession().removeAttribute("opprettBrukerSkjema");
-				FlashUtil.Flash(request, "Success", "Velkommet til dashbordet!");
+				InnloggingUtil.loggPaaRettighet(request, b);
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);	
 			} else {
 				skjema.setMailFeilmelding("Denne mailadressen er allerede registrert");
@@ -53,7 +56,7 @@ public class OpprettBrukerController extends HttpServlet {
 			}
 		} else {
 			skjema.settOppFeilmeldinger(request);
-			FlashUtil.Flash(request, "Error", "Ugyldig input!");
+			FlashUtil.Flash(request, "Error", Meldinger.UGYLDIG_MELD);
 			request.getSession().setAttribute("opprettBrukerSkjema", skjema);
 			response.sendRedirect(UrlMappings.OPPRETTBRUKER_URL);
 		}

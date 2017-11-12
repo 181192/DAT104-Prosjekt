@@ -20,6 +20,7 @@ import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Status;
 import no.hvl.dat104.util.DatoUtil;
+import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
 /**
@@ -62,6 +63,7 @@ public class LagEventController extends HttpServlet {
 				Event e = lagEvent(request, skjema);
 				iBrukerEAO.finnBrukerLeggTilEvent(bruker.getId(), e, Integer.parseInt(skjema.getAktivitet()));
 				request.getSession().removeAttribute("eventSkjema");
+				FlashUtil.Flash(request, "success", "Eventen ble opprettet!");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 			} else {
 				skjema.settOppFeilmeldinger();

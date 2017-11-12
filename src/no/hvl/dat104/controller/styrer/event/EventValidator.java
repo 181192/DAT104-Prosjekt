@@ -22,6 +22,7 @@ public class EventValidator {
 	private String hvorFeilmelding;
 	private String beskrivelseFeilmelding;
 	private String aktivitetFeilmelding;
+	private String framindreennminFeilmeilding;
 
 	public EventValidator(Event e) {
 		this.e = e;
@@ -32,6 +33,7 @@ public class EventValidator {
 		beskrivelse = e.getBeskrivelse();
 		dato = e.getTidFra().toString().substring(0,10);
 		aktivitet = e.getIdAktivitet().getNavn().toString();
+		System.out.println(fra.substring(0, 3));
 	}
 
 	public EventValidator(HttpServletRequest request) {
@@ -42,6 +44,16 @@ public class EventValidator {
 		hvor = ValidatorUtil.escapeHtml(request.getParameter("hvor"));
 		beskrivelse = ValidatorUtil.escapeHtml(request.getParameter("beskrivelse"));
 		aktivitet = ValidatorUtil.escapeHtml(request.getParameter("aktivitet"));
+	}
+	private boolean erFraMindreEnnTilGyilding() {
+		int fraint = 0;
+		int tilint = 0;
+		if(erTilGyldig() && erTilGyldig()) {
+			fraint = Integer.parseInt(fra.substring(0,2)+fra.substring(3,5));
+	        tilint = Integer.parseInt(til.substring(0,2)+til.substring(3,5));
+	        return fraint < tilint;
+		}
+		return fraint == tilint;
 	}
 
 	private boolean erBeskrivelseGyldig() {
@@ -74,7 +86,7 @@ public class EventValidator {
 
 	public boolean erAlleDataGyldige() {
 		return erTittelGyldig() && erDatoGyldig() && erFraGyldig() && erTilGyldig() && erHvorGyldig()
-				&& erAktivitetGyldig() && erBeskrivelseGyldig();
+				&& erAktivitetGyldig() && erBeskrivelseGyldig() && erFraMindreEnnTilGyilding();
 	}
 
 	public void settOppFeilmeldinger() {
@@ -106,8 +118,20 @@ public class EventValidator {
 			beskrivelse = "";
 			beskrivelseFeilmelding = "Ops! Tomt";
 		}
+		if(!erFraMindreEnnTilGyilding()) {
+			til = "";
+			framindreennminFeilmeilding = "Fra kan ikke være mindre enn til";
+		}
 	}
 	
+
+	public String getFramindreennminFeilmeilding() {
+		return framindreennminFeilmeilding;
+	}
+
+	public void setFramindreennminFeilmeilding(String framindreennminFeilmeilding) {
+		this.framindreennminFeilmeilding = framindreennminFeilmeilding;
+	}
 
 	public Event getE() {
 		return e;

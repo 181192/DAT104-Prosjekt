@@ -20,7 +20,7 @@ public class LoggUtController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		InnloggingUtil.loggUt(request);
-		FlashUtil.Flash(request, "success", "Velkommen tilbake!");
+		FlashUtil.Flash(request, "success", "Du er nå logget ut! Velkommen tilbake!");
 		response.sendRedirect(UrlMappings.LOGGINN_URL);
 	}
 }

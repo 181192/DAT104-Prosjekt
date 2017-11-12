@@ -2,35 +2,14 @@
 <jsp:useBean id="dato" class="no.hvl.dat104.util.DatoUtil" />
 <jsp:include page="../../partials/header.jsp" />
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/modal.min.css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/dimmer.min.css">
-<link
-	href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/transition.min.css">
-<head>
 
-<style>
-.foo {
-	width: 20px;
-	height: 20px;
-	margin: 5px;
-	border: 1px solid rgba(0, 0, 0, .2);
-}
-
-.aktivitet {
-	
-}
-</style>
-
-</head>
 <div class="ui container">
 	<c:if test="${flash == 'success'}">
-		<div class="ui positive message">${melding}</div>
+		<div class="ui positive message fjern_meld">${melding}</div>
 		<c:remove var="flash" scope="session" />
 	</c:if>
 	<c:if test="${flash == 'error'}">
-		<div class="ui negative message">${melding}</div>
+		<div class="ui negative message fjern_meld">${melding}</div>
 		<c:remove var="flash" scope="session" />
 	</c:if>
 </div>
@@ -44,6 +23,7 @@
    <div class="ui card">
    	<div class="content">
    	  <div class="header">Mine Aktiviter:</div>
+   	  <p>Opprett ny <a href="<%=LAGAKTIVITET_URL%>">her!</a></p>
    	</div>
    	<div class="content">
    		<table class="aktivitet">
@@ -54,14 +34,23 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach var="aktivitet" items="${aktiviteter}" varStatus="loop">
-				<tr>
-					<td onclick="fjernAktivitet(<c:out value="${aktivitet.id}"/>)"
-						class="foo"
-						style="background-color: <c:out value="${color[loop.index]}"/>"></td>
-					<td>${aktivitet.navn}</td>
-				</tr>
-			</c:forEach>
+		<c:choose>
+			<c:when test="${not empty aktiviteter }">
+				<c:forEach var="aktivitet" items="${aktiviteter}" varStatus="loop">
+					<tr>
+						<td onclick="fjernAktivitet(<c:out value="${aktivitet.id}"/>)"
+							class="foo"
+							style="background-color: <c:out value="${color[loop.index]}"/>"></td>
+						<td><a href="<%=VISAKTIVITET_URL%>?aktivitetId=${aktivitet.id}">${aktivitet.navn}</a></td>
+					</tr>
+				</c:forEach>
+			</c:when>
+			<c:otherwise>
+				<div class="item">
+					Du har ingen aktiviteter. 
+				</div>
+			</c:otherwise>
+		</c:choose>			
 		</tbody>
 	  </table>
    	</div>
@@ -130,6 +119,7 @@ function lagEvent() {
 
 <script>
   function lagmodal(date) {
+	  $('.fjern_meld').remove();
       $('.ui.modal')
       .modal({
     	  inverted: true,
@@ -147,6 +137,7 @@ function lagEvent() {
       
   }
   function eventModal(event) {
+	  $('.fjern_meld').remove();
 	  $('.ui.modal')
 	  .modal({
 		  inverted: true,

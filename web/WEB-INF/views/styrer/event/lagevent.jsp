@@ -33,7 +33,7 @@
 					type="text" name="fra" placeholder="hh.mm">
 			</div>
 			<div class="field" style="padding-right: 6px;">
-				<label>Til: <span class="fjerndata" style="color: #B03060">${eventSkjema.tilFeilmelding }</span></label><input
+				<label>Til: <span class="fjerndata" style="color: #B03060">${eventSkjema.tilFeilmelding } ${eventSkjema.framindreennminFeilmeilding } </span></label><input
 					type="text" class="timepicker fjerndata"
 					value="${eventSkjema.til }" name="til" placeholder="hh.mm">
 			</div>

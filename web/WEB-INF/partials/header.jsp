@@ -13,6 +13,9 @@
 	<link rel="stylesheet" type="text/css" href="public/css/semantic.min.css">
 	<link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.10.0/jquery.timepicker.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/modal.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/dimmer.min.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/transition.min.css">	
     <link rel="stylesheet" type="text/css" href="public/css/style.css">	
 </head>
 <jsp:include page="../partials/navbar.jsp" />

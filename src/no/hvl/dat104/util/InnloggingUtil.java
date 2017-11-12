@@ -92,6 +92,21 @@ public class InnloggingUtil {
 		sesjon.setAttribute(Attributter.ADMIN, b);
 		sesjon.setMaxInactiveInterval(1200);
 	}
+	/**
+	 * Logger inn som admin eller bruker basert på rettighet
+	 * @param request
+	 * @param b
+	 */
+	public static void loggPaaRettighet(HttpServletRequest request, Bruker b) {
+		request.getSession().invalidate();
+		HttpSession sesjon = request.getSession(true);
+		if(b.getIdRolle().getType().equals(Attributter.ROLLE_TYPE_STYRER)) {
+			sesjon.setAttribute(Attributter.NY_BRUKER, Attributter.NY_BRUKER);
+			sesjon.setAttribute(Attributter.BRUKER, b);
+		}else {
+			sesjon.setAttribute(Attributter.ADMIN, b);
+		}
+	}
 
 	/**
 	 * Sjekker sessionen er admin

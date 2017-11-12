@@ -3,6 +3,17 @@
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
 
 <div class="ui container">
+	<c:if test="${flash == 'success'}">
+		<div class="ui positive message">${melding}</div>
+		<c:remove var="flash" scope="session" />
+	</c:if>
+	<c:if test="${flash == 'error'}">
+		<div class="ui negative message">${melding}</div>
+		<c:remove var="flash" scope="session" />
+	</c:if>
+</div>
+
+<div class="ui container">
 	<h3>Brukere</h3>
 	<p><font color="red">${error}</font></p>
 	<p><font color="green">${success}</font></p>
