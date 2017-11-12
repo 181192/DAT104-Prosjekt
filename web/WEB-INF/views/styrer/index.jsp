@@ -110,7 +110,8 @@ function lagEvent() {
 	<div id="event_modal" class="header">Opprett event</div>
 	<div id="ingenAktivitet" class="content modal_content"></div>
 </div>
-
+<div style="display:none;" class="sjekkInnlogg">
+</div>
 
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -125,12 +126,6 @@ function lagEvent() {
  
   function lagmodal(date) {
 	  $('.fjern_meld').remove();
-      $('.ui.modal')
-      .modal({
-    	  inverted: true,
-    	    observeChanges: true
-      })
-      .modal('show');
       var visForm = '${not empty aktiviteter }';
 	  if((visForm === "false")){
 		  $("#event_modal").text('Ops! Du har ingen Aktiviteter ennå - Opprett Aktivitet før du kan opprette en hendelse!');
@@ -140,18 +135,24 @@ function lagEvent() {
     	  $("#event_modal").text('Lag hendelse!');
     	  $(".modal_content").load("<%=LAGEVENT_URL%>?dato="+date.format());
       }
+	  $('.ui.modal')
+      .modal({
+    	  inverted: true,
+    	    observeChanges: true
+      })
+      .modal('show');
       
   }
   function eventModal(event) {
-	  $('.fjern_meld').remove();
+	  $("#event_modal").text('Din hendelse!');
+      $(".modal_content").load("<%=VIS_EVENT_URL%>?id=" + event.id);
+      $('.fjern_meld').remove();
 	  $('.ui.modal')
 	  .modal({
 		  inverted: true,
     	    observeChanges: true
       })
 	  .modal('show');
-	  $("#event_modal").text('Din hendelse!');
-      $(".modal_content").load("<%=VIS_EVENT_URL%>?id=" + event.id);
   }
   function fjernAktivitet(aktivitet){
 	  $('#calendar').fullCalendar('removeResource', aktivitet.toString());  

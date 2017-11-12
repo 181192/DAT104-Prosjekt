@@ -39,14 +39,15 @@ public class RedigerEventController extends HttpServlet {
 				String ok = (String) request.getSession().getAttribute(Attributter.EVENT_IKKE_OK);
 				if (e != null) {
 					RedigerEventValidator skjema = new RedigerEventValidator(e);
-					if(ok == null) {
+					RedigerEventValidator feilmeld = (RedigerEventValidator) request.getSession().getAttribute("redigerEventSkjema");
+					if(ok == null && feilmeld == null) {
 						request.getSession().setAttribute("hendelse", skjema);
 						request.getSession().setAttribute("eventId", id);
 					}else if(!eventId.equals((String)request.getSession().getAttribute("eventIden"))) {
 						System.out.println("stemmer ikke");
 						request.getSession().removeAttribute("redigerEventSkjema");
 					}else {
-						
+						request.getSession().setAttribute("hendelse", feilmeld);
 					}
 					request.getRequestDispatcher(JspMappings.REDIGEREVENT_JSP).forward(request, response);
 				} else {
