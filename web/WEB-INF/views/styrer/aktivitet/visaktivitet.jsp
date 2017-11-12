@@ -16,17 +16,19 @@
 </head>
 <body>
 	<jsp:include page="../../../partials/header.jsp" />
-	<h1>Tilbakemeldinger for ${aktivitetsNavn}</h1>
+	<div class="ui container">
+		<h2 style="text-align:center;"><span style="color:teal;">Tilbakemeldinger for ${aktivitetsNavn}</span></h2>
+		<div id="chart_div" style="width: 900px; height: 500px"></div>
+		<div class="ui centered grid">
+			<div class="ten wide column">
+				<button class="ui blue basic button" id="refresh" onclick="refresh()">Oppdater</button>
+				<button class="ui green basic button" id="refresh" onclick="toggleColumn(1)">Toggle fornøyelse</button>
+				<button class="ui orange basic button" id="refresh" onclick="toggleColumn(2)">Toggle nøytralitet</button>
+				<button class="ui red basic button" id="refresh" onclick="toggleColumn(3)">Toggle misnøye</button>
+			</div>
+		</div>
+	</div>
 	
-	<div id="chart_div"
-		style="width: 900px; height: 500px"></div>
-	<button class="ui blue basic button" id="refresh" onclick="refresh()">Oppdater</button>
-	<button class="ui green basic button" id="refresh"
-		onclick="toggleColumn(1)">Toggle fornøyelse</button>
-	<button class="ui orange basic button" id="refresh"
-		onclick="toggleColumn(2)">Toggle nøytralitet</button>
-	<button class="ui red basic button" id="refresh"
-		onclick="toggleColumn(3)">Toggle misnøye</button>
 
 	<jsp:include page="../../../partials/footer.jsp" />
 </body>
