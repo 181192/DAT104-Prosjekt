@@ -84,7 +84,7 @@ public interface IAktivitetEAO {
 	 * @return
 	 */
 	public List<Event> finnAlleEventerTilAktivitet(Integer id);
-	
+
 	/**
 	 * 
 	 * @param id
@@ -92,5 +92,16 @@ public interface IAktivitetEAO {
 	 * @param status
 	 */
 	public void endreParametereTilAktivitet(Integer id, String navn, String status);
+
+	/**
+	 * Finner aktiviteten basert paa navn og bruker
+	 * 
+	 * @param navn
+	 *            Navnet paa aktiviteten
+	 * @param b
+	 *            Brukeren
+	 * @return Aktiviteten eller null
+	 */
+	public Aktivitet finnAktivitetPaaNavnOgBruker(String navn, Bruker b);
 
 }

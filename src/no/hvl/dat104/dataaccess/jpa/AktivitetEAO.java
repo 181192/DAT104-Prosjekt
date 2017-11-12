@@ -84,5 +84,12 @@ public class AktivitetEAO implements IAktivitetEAO {
 		a.setStatus(status);
 		em.merge(a);
 	}
-	
+
+	@Override
+	public Aktivitet finnAktivitetPaaNavnOgBruker(String navn, Bruker b) {
+		return (Aktivitet) em
+				.createQuery("SELECT a FROM Aktivitet a, Bruker b WHERE b = a.idBruker AND a.navn=:navn AND b=:bruker")
+				.setParameter("navn", navn).setParameter("bruker", b).getSingleResult();
+	}
+
 }
