@@ -82,15 +82,6 @@ public class RedigerBrukerValidator {
 			mail = "";
 			mailFeilmelding = "Mailadressen er ikke gyldig";
 		}
-		if (!erGammeltPassordGyldig()) {
-			gammeltPassord = "";
-			gammeltPassordFeilmelding = "Passord er ikke gyldig";
-		}
-		if (!erNyttPassordGyldig()) {
-			nyttPassord = "";
-			nyttPassordFeilmelding = "Passord er ikke gyldig";
-		}
-
 	}
 
 	public String getFornavn() {

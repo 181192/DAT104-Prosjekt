@@ -36,6 +36,7 @@ public class RedigerBrukerController extends HttpServlet {
 			if (b != null) {
 				request.getSession().setAttribute(Attributter.BRUKER, b);
 				request.getRequestDispatcher(JspMappings.REDIGERBRUKER_JSP).forward(request, response);
+				request.getSession().removeAttribute("redigerBrukerSkjema");
 			} else {
 				FlashUtil.Flash(request, "error", "Noe gikk galt, prøv på nytt");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
@@ -53,14 +54,15 @@ public class RedigerBrukerController extends HttpServlet {
 			Bruker b = (Bruker) request.getSession().getAttribute(Attributter.BRUKER);
 			if (skjema.erAlleDataGyldig()) {
 				if (b != null) {
+					boolean ok = true;
 					Integer id = b.getId();
 					if (!b.getMail().equals(skjema.getMail())) {
 						if (skjema.erMailUnik(brukerEAO.finnBrukerPaaEmail(skjema.getMail()))) {
 							brukerEAO.endreMailPaaBruker(id, skjema.getMail());
 						} else {
+							ok = false;
 							skjema.setMailFeilmelding("Denne mailadressen er allede i bruk");
 							FlashUtil.Flash(request, "error", "Mailadresse allerede i bruk");
-							request.getSession().setAttribute("redigerBrukerSkjema", skjema);
 						}
 					}
 					if (skjema.erGammeltPassordGyldig() && skjema.erNyttPassordGyldig()) {
@@ -73,11 +75,16 @@ public class RedigerBrukerController extends HttpServlet {
 							brukerEAO.endreSaltPaaBruker(id, b.getSalt());
 							brukerEAO.endrePassordPaaBruker(id, passord);
 						} else {
-							FlashUtil.Flash(request, "error", "Passord stemmer ikke");
-							request.getSession().setAttribute("redigerBrukerSkjema", skjema);
+							ok = false;
+							FlashUtil.Flash(request, "error", "Passordene stemmer ikke");
 						}
 					}
 					oppdaterBruker(request, response, b, skjema);
+					if (ok) {
+						FlashUtil.Flash(request, "success",
+								"Brukeren " + b.getFornavn() + " " + b.getEtternavn() + " er oppdatert!");
+					}
+					request.getSession().setAttribute("redigerBrukerSkjema", skjema);
 					response.sendRedirect(UrlMappings.REDIGERBRUKER_URL);
 
 				} else {
@@ -87,7 +94,6 @@ public class RedigerBrukerController extends HttpServlet {
 			} else {
 				skjema.settOppFeilmeldinger(request);
 				request.getSession().setAttribute("redigerBrukerSkjema", skjema);
-				System.out.println(skjema.getEtternavnFeilmelding());
 				response.sendRedirect(UrlMappings.REDIGERBRUKER_URL);
 			}
 		} else {
@@ -111,9 +117,6 @@ public class RedigerBrukerController extends HttpServlet {
 		brukerEAO.endreEtternavnPaaBruker(id, skjema.getEtternavn());
 		brukerEAO.endreFornavnPaaBruker(id, skjema.getFornavn());
 		b = brukerEAO.finnBruker(id);
-		// FlashUtil.Flash(request, "success", "Brukeren " + b.getFornavn() + " " +
-		// b.getEtternavn() + " er oppdatert!");
 		request.getSession().setAttribute(Attributter.BRUKER, b);
-		// request.getSession().removeAttribute("redigerBrukerSkjema");
 	}
 }
