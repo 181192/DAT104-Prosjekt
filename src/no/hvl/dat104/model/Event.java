@@ -55,6 +55,10 @@ public class Event {
 	
 	@OneToOne(cascade = CascadeType.ALL, mappedBy = "idEvent")
 	private Kodeord kodeord;
+	public Kodeord getKodeord() {
+		return kodeord;
+	}
+
 	/**
 	 * Tom konstruktor til Event
 	 */

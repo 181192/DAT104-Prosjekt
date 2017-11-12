@@ -20,7 +20,6 @@ import no.hvl.dat104.dataaccess.IKodeordEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
 import no.hvl.dat104.model.LiveTilbakemelding;
-import no.hvl.dat104.model.Status;
 import no.hvl.dat104.model.Tilbakemelding;
 import no.hvl.dat104.util.FormaterTilbakemeldingUtil;
 import no.hvl.dat104.util.FormatertTilbakemelding;
@@ -50,23 +49,59 @@ public class LiveEventServlet extends HttpServlet {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 
 			HttpSession session = request.getSession(false);
-			Integer eventId = Integer.valueOf(request.getParameter("liveeventid"));
-			Event detteEvent = eventEAO.finnEvent(eventId);
+			Integer eventId = null;
+			Event detteEvent = null;
+			// For at servletten ikke skal hente fra databasen hver gang sjekkes om eventen
+			// er i request attributten
+			if (!request.getParameter("liveeventid").isEmpty()) {
+				eventId = Integer.valueOf(request.getParameter("liveeventid"));
+				try {
+					detteEvent = eventEAO.finnEvent(eventId);
+				} catch (Exception e) {
+					e.printStackTrace();
+					doGet(request, response);
+				}
+			} else {
+				detteEvent = (Event) request.getAttribute("eventsend");
+				eventId = detteEvent.getId();
+			}
 			FormaterTilbakemeldingUtil format = new FormaterTilbakemeldingUtil();
 			if (detteEvent != null) {
-				if (kodeordEAO.finnKodeordTilEvent(detteEvent) == null) {
-					Kodeord kodeord = genererKodeord(detteEvent);
+				if (detteEvent.getKodeord() == null) {
+					Boolean unik = false;
+					Kodeord kodeord = new Kodeord();
+					kodeord.setIdEvent(detteEvent);
+					Random rand = new Random();
+					while (!unik) {
+						kodeord.setKode(rand.nextInt((99999 - 10000) - 1) + 10000);
+						if (kodeordEAO.sjekkOmKodeordErUnik(kodeord)) {
+							unik = true;
+						}
+					}
 					kodeordEAO.leggTilKodeord(kodeord);
 					request.setAttribute("koden", kodeord);
 				} else {
 					// Hente livetilbakemeldinger og kodeordet her
-					Kodeord kode = kodeordEAO.finnKodeordTilEvent(detteEvent);
+					Kodeord kode = null;
+					try {
+						kode = kodeordEAO.finnKodeordTilEvent(detteEvent);
+					} catch (Exception e) {
+						e.printStackTrace();
+						doGet(request, response);
+					}
 					List<FormatertTilbakemelding> formaterteLiveTilbakemeldinger = null;
-					List<LiveTilbakemelding> liveTilbakemeldingListe = eventEAO.finnAlleLiveTilbakemeldingerTilEvent(detteEvent.getId());
+					List<LiveTilbakemelding> liveTilbakemeldingListe = null;
+					try {
+						liveTilbakemeldingListe = eventEAO.finnAlleLiveTilbakemeldingerTilEvent(detteEvent.getId());
+					} catch (Exception e) {
+						e.printStackTrace();
+						doGet(request, response);
+					}
+					
 
-					//Sjekker om null eller tom.
-					if(liveTilbakemeldingListe != null) {
-						if(!liveTilbakemeldingListe.isEmpty()) {
+					// Sjekker om null eller tom.
+					if (liveTilbakemeldingListe != null) {
+						if (!liveTilbakemeldingListe.isEmpty()) {
 							List<LiveTilbakemelding> l = liveTilbakemeldingListe;
 							List<Tilbakemelding> konverter = new ArrayList<Tilbakemelding>();
 
@@ -79,10 +114,8 @@ public class LiveEventServlet extends HttpServlet {
 					session.setAttribute("koden", kode);
 					session.removeAttribute("liveTilbakemeldinger");
 					session.setAttribute("liveTilbakemeldinger", formaterteLiveTilbakemeldinger);
-
 				}
 			}
-
 			request.setAttribute("eventsend", detteEvent);
 			request.getRequestDispatcher(JspMappings.LIVE_EVENT_JSP).forward(request, response);
 		} else {
@@ -100,7 +133,6 @@ public class LiveEventServlet extends HttpServlet {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 
 			// Må ha test for innlogging og gyldig session her.
-			HttpSession session = request.getSession(false);
 			String knappTrykket = (String) request.getParameter(Attributter.LIVE_EVENT_KNAPP);
 			Integer eventId = Integer.valueOf(request.getParameter("eventId"));
 
@@ -108,7 +140,7 @@ public class LiveEventServlet extends HttpServlet {
 			Boolean test = false;
 
 			if (test) {
-				
+
 			}
 
 			if (knappTrykket.equals("avslutt")) {
@@ -119,26 +151,5 @@ public class LiveEventServlet extends HttpServlet {
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
-	}
-
-
-	/**
-	 * Metode for aa generere et kodeord for eventet
-	 * 
-	 * @param event
-	 * @return kodeord klassen
-	 */
-	private Kodeord genererKodeord(Event e) {
-		Boolean unik = false;
-		Kodeord kodeord = new Kodeord();
-		kodeord.setIdEvent(e);
-		Random rand = new Random();
-		while (!unik) {
-			kodeord.setKode(rand.nextInt((99999 - 10000) - 1) + 10000);
-			if (kodeordEAO.sjekkOmKodeordErUnik(kodeord)) {
-				unik = true;
-			}
-		}
-		return kodeord;
 	}
 }

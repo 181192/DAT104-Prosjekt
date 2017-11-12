@@ -29,7 +29,12 @@ public class EventEAO implements IEventEAO {
 
 	@Override
 	public Event finnEvent(Integer id) {
-		return em.find(Event.class, id);
+		try {
+			return em.find(Event.class, id);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -78,7 +83,8 @@ public class EventEAO implements IEventEAO {
 	}
 
 	@Override
-	public void endreParametereTilEvent(Integer id, String navn, String beskrivelse, Timestamp tidFra, Timestamp tidTil, String sted) {
+	public void endreParametereTilEvent(Integer id, String navn, String beskrivelse, Timestamp tidFra, Timestamp tidTil,
+			String sted) {
 
 		Event e = finnEvent(id);
 		e.setNavn(navn);

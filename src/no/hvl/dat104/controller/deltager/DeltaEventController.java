@@ -43,13 +43,25 @@ public class DeltaEventController extends HttpServlet {
 			throws ServletException, IOException {
 		String kodeord = request.getParameter("kodeord");
 		if (DeltaEventHjelpeklasse.riktigKodeordSyntaks(kodeord)) {
-			List<Kodeord> k = kodeordEAO.finnKodeordBasertPaaKode(Integer.parseInt(kodeord));
-			if (DeltaEventHjelpeklasse.kodeordFinnes(kodeordEAO.finnKodeordBasertPaaKode(Integer.parseInt(kodeord)))) {
-				InnloggingUtil.loggInnSomDeltager(request, eventEAO.finnEventBasertPaaKodeord(k.get(0)));
-				response.sendRedirect(UrlMappings.GITILBAKEMELDING_URL);
-			} else {
-				FlashUtil.Flash(request, "error", "Kodeordet finnes ikke");
-				response.sendRedirect(UrlMappings.DELTAEVENT_URL);
+			List<Kodeord> k = null;
+			try {
+				k = kodeordEAO.finnKodeordBasertPaaKode(Integer.parseInt(kodeord));
+			} catch (Exception e) {
+				e.printStackTrace();
+				doPost(request, response);
+			}
+			try {
+				if (DeltaEventHjelpeklasse
+						.kodeordFinnes(kodeordEAO.finnKodeordBasertPaaKode(Integer.parseInt(kodeord)))) {
+					InnloggingUtil.loggInnSomDeltager(request, eventEAO.finnEventBasertPaaKodeord(k.get(0)));
+					response.sendRedirect(UrlMappings.GITILBAKEMELDING_URL);
+				} else {
+					FlashUtil.Flash(request, "error", "Kodeordet finnes ikke");
+					response.sendRedirect(UrlMappings.DELTAEVENT_URL);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				doPost(request, response);
 			}
 		} else {
 			FlashUtil.Flash(request, "error", "Kodeord består av 5 siffer");

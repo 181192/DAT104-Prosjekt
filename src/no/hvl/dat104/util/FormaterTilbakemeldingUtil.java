@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Tilbakemelding;
 
 public class FormaterTilbakemeldingUtil {
@@ -23,7 +22,7 @@ public class FormaterTilbakemeldingUtil {
 	 * @param liste
 	 * @return
 	 */
-	@SuppressWarnings("deprecation")
+
 	public List<FormatertTilbakemelding> formaterTilbakemeldinger(List<Tilbakemelding> liste) {
 		if (!liste.isEmpty()) {
 //			int last = 0;

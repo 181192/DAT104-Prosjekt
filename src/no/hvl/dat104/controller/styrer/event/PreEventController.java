@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.JspMappings;
@@ -69,9 +68,6 @@ public class PreEventController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
-
-			HttpSession session = request.getSession(false);
-
 			// Finner riktig event i databasen;
 			String evId = (String) request.getParameter("liveeventid");
 			Event ev = new Event();

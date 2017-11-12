@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
@@ -72,7 +73,7 @@ public class KodeordEAO implements IKodeordEAO {
 			Query query = em.createQuery("Select k from Kodeord k where k.idEvent.id = :id").setParameter("id",
 					event.getId());
 			return (Kodeord) query.getSingleResult();
-		} catch (Exception e) {
+		} catch (NoResultException e) {
 			e.printStackTrace();
 			return null;
 		}

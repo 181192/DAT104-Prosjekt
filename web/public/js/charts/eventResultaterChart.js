@@ -13,7 +13,7 @@ google.charts.setOnLoadCallback(drawDashboard);
 function drawDashboard() {
 
   // Henter data fra jsp via controller
-  var data = customData;
+  var data = google.visualization.arrayToDataTable(array);
 
   // Views kontrollerer hvilken kolonne som skal vises
   var view = new google.visualization.DataView(data);
@@ -21,12 +21,13 @@ function drawDashboard() {
   // Instillinger for grafen
   var options = {
       colors: ['green', 'orange', 'red'],
-      axes: {
-          y: {
-              distance: {label: 'Tid'}, // Left y-axis.
-            }
-          },
-          explorer: {}
+      vAxis: {
+    	  format : "",
+    	  gridlines: { count: 1 }
+      },
+      hAxis:{
+    	  format : ""
+      }
   };
 
   // instantsierer grafen, tar instillingene som parameter
