@@ -67,7 +67,7 @@ public class LagEventController extends HttpServlet {
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 			} else {
 				skjema.settOppFeilmeldinger();
-				request.getSession().setAttribute("redigerEventSkjema", skjema);
+				request.getSession().setAttribute("eventSkjema", skjema);
 				response.sendRedirect(UrlMappings.LAGEVENT_URL);
 			}
 		} else {
