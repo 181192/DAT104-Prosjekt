@@ -43,6 +43,7 @@ public class GiTilbakemeldingHjelpeklasse {
 					(Event) request.getSession(true).getAttribute("event"), DatoUtil.lagCurrentTimestamp());
 			tilbakemeldingEAO.leggTilTilbakemelding(tilbakemelding);
 			request.getSession().setAttribute("avsluttendeStemmeAvgitt", true);
+			request.getSession().removeAttribute("event");
 			GiTilbakemeldingHjelpeklasse.settInfomelding(request);
 			response.sendRedirect(UrlMappings.DELTAEVENT_URL);
 		}

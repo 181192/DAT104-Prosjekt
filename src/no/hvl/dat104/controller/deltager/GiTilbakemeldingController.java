@@ -51,9 +51,10 @@ public class GiTilbakemeldingController extends HttpServlet {
 					&& !GiTilbakemeldingHjelpeklasse.maaVente(request, 10)) {
 				GiTilbakemeldingHjelpeklasse.lastOppTilbakemelding(request, liveTilbakemeldingEAO, tilbakemeldingEAO,
 						response, eventEAO);
-			} else {
+			} 
+			else {
 				GiTilbakemeldingHjelpeklasse.settFeilmelding(request);
-				response.sendRedirect("gitilbakemelding");
+				response.sendRedirect(UrlMappings.GITILBAKEMELDING_URL);
 			}
 		} catch (NullPointerException e) {
 			//Retry
