@@ -23,7 +23,7 @@
 		</c:otherwise>
 	</c:choose>
 </script>
-<div class="ui container" style="color:teal; text-align:center;">
+<div class="ui container" style="color:teal; text-align:center; margin-bottom:2%;">
 	<h3>Aktivitet - ${a.navn}:</h3>
 	<h3>${melding} "${e.navn}"</h3>
 </div>
