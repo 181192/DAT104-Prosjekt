@@ -5,7 +5,7 @@
 <c:set var="PAAGANDE" value="<%=PAAGANDE%>"></c:set>
 <c:set var="AVSLUTTET" value="<%=AVSLUTTET%>"></c:set>
 <div class="ui container">
-	<h2 style="text-align:center;">Mine Aktiviteter</h2>
+	<h2 style="text-align:center; color:teal;">Mine Aktiviteter</h2>
 	<span style="margin-bottom: 10px;"><a class="ui teal basic button" href="<%=LAGAKTIVITET_URL%>" style="float: right;">Opprett aktivitet</a> </span>	
 	<c:if test="${flash == 'success'}">
 		<div class="ui positive message">
