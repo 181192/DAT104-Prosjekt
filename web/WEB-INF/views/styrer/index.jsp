@@ -121,6 +121,7 @@ function lagEvent() {
 	src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/components/transition.min.js"></script>
 
 <script>
+ 
   function lagmodal(date) {
 	  $('.fjern_meld').remove();
       $('.ui.modal')
@@ -154,5 +155,19 @@ function lagEvent() {
   function fjernAktivitet(aktivitet){
 	  $('#calendar').fullCalendar('removeResource', aktivitet.toString());  
   }
+</script>
+<script>
+	  <c:if test='${not empty eventFeil}'>
+	  	  $('.fjern_meld').remove();
+		  $('.ui.modal')
+		  .modal({
+			  inverted: true,
+	    	    observeChanges: true
+	      })
+		  .modal('show');
+		  $("#event_modal").text('Skriv inn riktig data!');
+		  <c:remove var="eventFeil" scope="session" />
+		  $(".modal_content").load("<%=LAGEVENT_URL%>?dato="+ '${eventFeil}');
+	  </c:if>	  
 </script>
 <jsp:include page="../../partials/footer.jsp" />

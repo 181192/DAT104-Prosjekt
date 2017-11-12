@@ -68,7 +68,9 @@ public class LagEventController extends HttpServlet {
 			} else {
 				skjema.settOppFeilmeldinger();
 				request.getSession().setAttribute("eventSkjema", skjema);
-				response.sendRedirect(UrlMappings.LAGEVENT_URL);
+				String dato = (String) request.getSession().getAttribute("dato");
+				request.getSession().setAttribute("eventFeil", dato);
+				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 			}
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
