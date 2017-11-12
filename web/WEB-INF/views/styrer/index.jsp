@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:useBean id="dato" class="no.hvl.dat104.util.DatoUtil" />
+<jsp:useBean id="val" class="no.hvl.dat104.util.ValidatorUtil"/>
 <jsp:include page="../../partials/header.jsp" />
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 
@@ -44,7 +45,7 @@
 						<td onclick="fjernAktivitet(<c:out value="${aktivitet.id}"/>)"
 							class="foo"
 							style="background-color: <c:out value="${color[loop.index]}"/>"></td>
-						<td><a href="<%=VISAKTIVITET_URL%>?aktivitetId=${aktivitet.id}">${aktivitet.navn}</a></td>
+						<td><a href="<%=VISAKTIVITET_URL%>?aktivitetId=${aktivitet.id}">${val.formaterText(aktivitet.navn)}</a></td>
 					</tr>
 				</c:forEach>
 			</c:when>
