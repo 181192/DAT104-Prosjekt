@@ -27,7 +27,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="two fields">
+		<div class="two fields" style="margin: 0 0;">
 			<div class="field">
 				<label>Fra: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.fraFeilmelding }</span></label><input
 					class="timepicker fjerndata" value="${hendelse.fra }"
