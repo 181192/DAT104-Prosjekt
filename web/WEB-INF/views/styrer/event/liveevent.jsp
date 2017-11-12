@@ -112,7 +112,7 @@
 				}
 			},
 			vAxis : {
-				title : "Antall"
+				format : ""
 			},
 			hAxis : {
 				title : "Tilbakemeldinger",

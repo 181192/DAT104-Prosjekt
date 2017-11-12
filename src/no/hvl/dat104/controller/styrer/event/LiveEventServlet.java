@@ -52,7 +52,7 @@ public class LiveEventServlet extends HttpServlet {
 			HttpSession session = request.getSession(false);
 			Integer eventId = Integer.valueOf(request.getParameter("liveeventid"));
 			Event detteEvent = eventEAO.finnEvent(eventId);
-
+			FormaterTilbakemeldingUtil format = new FormaterTilbakemeldingUtil();
 			if (detteEvent != null) {
 				if (kodeordEAO.finnKodeordTilEvent(detteEvent) == null) {
 					Kodeord kodeord = genererKodeord(detteEvent);
@@ -63,13 +63,21 @@ public class LiveEventServlet extends HttpServlet {
 					Kodeord kode = kodeordEAO.finnKodeordTilEvent(detteEvent);
 					List<FormatertTilbakemelding> formaterteLiveTilbakemeldinger = null;
 					List<LiveTilbakemelding> liveTilbakemeldingListe = eventEAO.finnAlleLiveTilbakemeldingerTilEvent(detteEvent.getId());
+
 					//Sjekker om null eller tom.
 					if(liveTilbakemeldingListe != null) {
 						if(!liveTilbakemeldingListe.isEmpty()) {
-							formaterteLiveTilbakemeldinger = formaterLiveTilbakemeldinger(liveTilbakemeldingListe);
+							List<LiveTilbakemelding> l = liveTilbakemeldingListe;
+							List<Tilbakemelding> konverter = new ArrayList<Tilbakemelding>();
+
+							for (LiveTilbakemelding el : l) {
+								konverter.add(new Tilbakemelding(el.getStemme(), el.getIdEvent(), el.getTid()));
+							}
+							formaterteLiveTilbakemeldinger = format.formaterTilbakemeldinger(konverter);
 						}
 					}
 					session.setAttribute("koden", kode);
+					session.removeAttribute("liveTilbakemeldinger");
 					session.setAttribute("liveTilbakemeldinger", formaterteLiveTilbakemeldinger);
 
 				}
@@ -100,7 +108,7 @@ public class LiveEventServlet extends HttpServlet {
 			Boolean test = false;
 
 			if (test) {
-				System.out.println("forlengknapp");
+				
 			}
 
 			if (knappTrykket.equals("avslutt")) {
@@ -108,42 +116,11 @@ public class LiveEventServlet extends HttpServlet {
 				response.sendRedirect(UrlMappings.POST_LIVE_EVENT_URL);
 
 			}
-			/**
-			 * START-KNAPP
-			 * 
-			 * Faktisk tid for start må settes. Kodeord må genereres. Kodeord må settes i
-			 * session. Status må edres til pagaende.
-			 */
-
-			/**
-			 * STOPP-KNAPP
-			 * 
-			 * Faktisk tid for stop må settes. Kodeord skal slettes fra databasen. Status må
-			 * endres til avsluttet.
-			 * 
-			 */
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 	}
 
-	/**
-	 * Tar en liste med liveTilbakemeldinger og formaterer dem til grafisk bruk.
-	 * 
-	 * @param liveTb
-	 * @return
-	 */
-	private List<FormatertTilbakemelding> formaterLiveTilbakemeldinger(List<LiveTilbakemelding> liveTb) {
-		List<LiveTilbakemelding> l = liveTb;
-		List<Tilbakemelding> konverter = new ArrayList<Tilbakemelding>();
-		List<FormatertTilbakemelding> formatert;
-
-		for (LiveTilbakemelding el : l) {
-			konverter.add(new Tilbakemelding(el.getStemme(), el.getIdEvent(), el.getTid()));
-		}
-		formatert = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(konverter);
-		return formatert;
-	}
 
 	/**
 	 * Metode for aa generere et kodeord for eventet

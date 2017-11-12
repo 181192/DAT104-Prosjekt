@@ -2,6 +2,7 @@ package no.hvl.dat104.dataaccess;
 
 import java.util.List;
 
+import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Tilbakemelding;
 
 public interface ITilbakemeldingEAO {
@@ -43,5 +44,12 @@ public interface ITilbakemeldingEAO {
 	 * @return Alle tilbakemeldingene
 	 */
 	public List<Tilbakemelding> alleTilbakemeldingene();
+	
+	/**
+	 * Sletter alle tilbakemeldinger til en event.
+	 * @param e
+	 * @return
+	 */
+	boolean slettAlleTilbakemeldingTilEvent(Event e);
 
 }

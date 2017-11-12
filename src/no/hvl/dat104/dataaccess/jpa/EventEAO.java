@@ -115,7 +115,7 @@ public class EventEAO implements IEventEAO {
 	public boolean endreEventTilAvsluttet(Integer eventId) {
 		try {
 			Event e = finnEvent(eventId);
-			e.setFaktiskStart(new Timestamp(System.currentTimeMillis()));
+			e.setFaktiskSlutt(new Timestamp(System.currentTimeMillis()));
 			e.setStatus(Status.AVSLUTTET);
 			em.merge(e);
 		} catch (Exception e) {

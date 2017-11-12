@@ -5,8 +5,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
+import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Tilbakemelding;
 
 @Stateless
@@ -44,4 +46,15 @@ public class TilbakemeldingEAO implements ITilbakemeldingEAO {
 		return tilbakemeldinger;
 	}
 
+	@Override
+	public boolean slettAlleTilbakemeldingTilEvent(Event e) {
+		try {
+			Query query = em.createQuery("DELETE FROM Tilbakemelding t WHERE t.idEvent.id = :id").setParameter("id", e.getId());
+			return query.executeUpdate() == 1;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+
+	}
 }

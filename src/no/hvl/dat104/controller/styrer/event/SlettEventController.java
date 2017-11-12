@@ -20,6 +20,7 @@ import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
 import no.hvl.dat104.model.LiveTilbakemelding;
 import no.hvl.dat104.model.Status;
+import no.hvl.dat104.model.Tilbakemelding;
 import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 import no.hvl.dat104.util.ValidatorUtil;
@@ -36,6 +37,8 @@ public class SlettEventController extends HttpServlet {
 	private IKodeordEAO kodeEAO;
 	@EJB
 	private ILiveTilbakemeldingEAO ltmEAO;
+	@EJB
+	private ITilbakemeldingEAO tmEAO;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -47,14 +50,19 @@ public class SlettEventController extends HttpServlet {
 				if (e != null) {
 					Kodeord k = null;
 					List<LiveTilbakemelding> ltm = null;
+					List<Tilbakemelding> tm = null;
 					k = kodeEAO.finnKodeordTilEvent(e);
 					ltm = eventEAO.finnAlleLiveTilbakemeldingerTilEvent(id);
+					tm = eventEAO.finnAlleTilbakemeldingerTilEvent(id);
 					if (k != null) {
 						kodeEAO.slettKodeord(k);
 						kodeEAO.slettKodeordTilEvent(e);
 					}
 					if (ltm != null) {
 						ltmEAO.slettAlleLiveTilbakemeldingTilEvent(e);
+					}
+					if (tm != null) {
+						tmEAO.slettAlleTilbakemeldingTilEvent(e);
 					}
 					eventEAO.slettEvent(e);
 					FlashUtil.Flash(request, "success", "Eventet " + e.getNavn() + " er slettet!");

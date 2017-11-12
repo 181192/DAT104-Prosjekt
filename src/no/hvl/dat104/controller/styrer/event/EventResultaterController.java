@@ -38,6 +38,7 @@ public class EventResultaterController extends HttpServlet {
 			Integer id = Integer.parseInt(request.getParameter("eventId"));
 			Event e = null;
 			e = eventEAO.finnEvent(id);
+			FormaterTilbakemeldingUtil format = new FormaterTilbakemeldingUtil();
 			// Hvis eventen er avsluttet:
 			if (e.getStatus().equals(Status.AVSLUTTET)) {
 				List<Tilbakemelding> t = null;
@@ -47,7 +48,7 @@ public class EventResultaterController extends HttpServlet {
 				// til et format som kan brukes i grafene
 				List<FormatertTilbakemelding> formaterteTilbakemeldinger = null;
 				if (!t.isEmpty()) {
-					formaterteTilbakemeldinger = FormaterTilbakemeldingUtil.formaterTilbakemeldinger(t);
+					formaterteTilbakemeldinger = format.formaterTilbakemeldinger(t);
 				}
 				// Attributter får verdiene sine tilsendt
 				request.setAttribute("aktivitet", e.getIdAktivitet());
