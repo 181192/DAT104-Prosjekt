@@ -69,7 +69,6 @@ public class RedigerBrukerController extends HttpServlet {
 						String gammeltPassord = skjema.getGammeltPassord();
 						gammeltPassord = SHA.hashPassord(gammeltPassord, b.getSalt());
 						if (gammeltPassord.equals(b.getPassord())) {
-							System.out.println("Gammelt er her");
 							setOppSalt(b);
 							String passord = SHA.hashPassord(skjema.getNyttPassord(), b.getSalt());
 							brukerEAO.endreSaltPaaBruker(id, b.getSalt());
