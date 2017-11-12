@@ -2,7 +2,9 @@
 #test {
 	color: green;
 }
-
+.ui.container {
+	overflow:hidden;
+}
 #delta {
 	margin-top: 10%;
 	width: 60%;

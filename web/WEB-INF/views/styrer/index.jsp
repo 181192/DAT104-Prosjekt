@@ -26,7 +26,7 @@
   <div class="two wide column">
    <div class="ui card">
    	<div class="content">
-   	  <div class="header">Mine Aktiviter:</div>
+   	  <div class="header" style="overflow:hidden;">Mine Aktiviter:</div>
    	  <p>Opprett ny <a href="<%=LAGAKTIVITET_URL%>">her!</a></p>
    	</div>
    	<div class="content" style="overflow:hidden;">
@@ -106,7 +106,7 @@ function lagEvent() {
 };
 </script>
 
-<div class="ui modal">
+<div class="ui modal" style="overflow:hidden;">
 	<div id="event_modal" class="header">Opprett event</div>
 	<div id="ingenAktivitet" class="content modal_content"></div>
 </div>
