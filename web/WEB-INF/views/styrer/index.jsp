@@ -28,7 +28,7 @@
    	  <div class="header">Mine Aktiviter:</div>
    	  <p>Opprett ny <a href="<%=LAGAKTIVITET_URL%>">her!</a></p>
    	</div>
-   	<div class="content">
+   	<div class="content" style="overflow:hidden;">
    		<table class="aktivitet">
 		<thead>
 			<tr>

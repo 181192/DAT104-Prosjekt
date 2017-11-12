@@ -42,6 +42,9 @@ public class RedigerEventController extends HttpServlet {
 					if(ok == null) {
 						request.getSession().setAttribute("hendelse", skjema);
 						request.getSession().setAttribute("eventId", id);
+					}else if(!eventId.equals((String)request.getSession().getAttribute("eventIden"))) {
+						System.out.println("stemmer ikke");
+						request.getSession().removeAttribute("redigerEventSkjema");
 					}else {
 						
 					}
@@ -79,6 +82,7 @@ public class RedigerEventController extends HttpServlet {
 				} else {
 					skjema.settOppFeilmeldinger();
 					request.getSession().setAttribute("redigerEventSkjema", skjema);
+					request.getSession().setAttribute("eventIden", eventIdString);
 					request.getSession().setAttribute(Attributter.EVENT_IKKE_OK, Attributter.EVENT_IKKE_OK);
 					response.sendRedirect(UrlMappings.REDIGEREVENT_URL +"?eventId=" + eventId);
 				}

@@ -6,7 +6,7 @@
 <c:set var="AVSLUTTET" value="<%=AVSLUTTET%>"></c:set>
 	 <div class="ui container">
 	Aktivitet: <a href="<%=VISAKTIVITET_URL%>?aktivitetId=${aktivitet.id}">${aktivitet.navn}</a>
-	<table class="ui celled table">
+	<table class="ui fixed celled table">
 	  <thead>
 	    <tr>
 	      <th>Navn</th>
@@ -39,7 +39,7 @@
 	  </tbody>
 	</table>
 	<h4 style="margin-top:0;" class="ui header">
-		Beskrivelse: <div class="sub header"><div class="ui message">${event.beskrivelse }</div></div>
+		Beskrivelse: <div class="sub header"><div class="ui message" style="overflow:hidden;">${event.beskrivelse }</div></div>
 	</h4>
 	<form action="<%=EVENTRESULTATER_URL %>" method="get">
 		<input type="hidden" value="${event.id}" name="eventId"><input class="ui primary button" type="submit" value="Vis Tilbakemeldinger">

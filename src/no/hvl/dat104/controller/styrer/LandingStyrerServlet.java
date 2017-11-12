@@ -48,7 +48,6 @@ public class LandingStyrerServlet extends HttpServlet {
 			request.getSession().setAttribute("alleEventer", alleEventer);
 			request.getSession().setAttribute("aktiviteter", a);
 			settOppFlash(request);
-			System.out.println(request.getAttribute("flash"));
 			request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);
 		} else {
 			FlashUtil.Flash(request, "error", Meldinger.UGYLDIG_MELD);

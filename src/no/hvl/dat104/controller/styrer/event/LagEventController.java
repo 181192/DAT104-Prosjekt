@@ -40,7 +40,7 @@ public class LagEventController extends HttpServlet {
 			throws ServletException, IOException {
 		Bruker bruker = InnloggingUtil.innloggetSomBruker(request);
 		String dato = request.getParameter("dato");
-		if (InnloggingUtil.erInnloggetSomBruker(request) && bruker != null ) {
+		if (bruker != null ) {
 			if(dato != null) {
 				request.getSession().setAttribute("dato", dato);
 				List<Aktivitet> a = iBrukerEAO.finnAlleAktiviteterTilBruker(bruker.getId());
