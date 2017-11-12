@@ -27,7 +27,7 @@
 	      <td>${fn:substring(event.tidFra, 0, 10)}</td>
 	      <td>${fn:substring(event.tidFra, 10, 16)}</td>
 	      <td>${fn:substring(event.tidTil, 10, 16)}</td>
-	      <td class="${event.status eq PAAGANDE ? 'positive' : (event.status eq AVSLUTTET) ? 'error' : 'warning'}">${event.status}</td>
+	      <td class="${event.status eq PAAGANDE ? 'positive' : (event.status eq AVSLUTTET) ? 'error' : 'oransje'}">${event.status}</td>
 	      <td>${event.sted}</td>
 	      <td class="selectable" id="rediger">
 	      	<a href="<%= REDIGEREVENT_URL%>?eventId=${event.id}">Rediger</a>
@@ -39,7 +39,7 @@
 	  </tbody>
 	</table>
 	<h4 style="margin-top:0;" class="ui header">
-		Beskrivelse: <div class="sub header"><div class="ui message" style="overflow:hidden;">${event.beskrivelse }</div></div>
+		Beskrivelse: <div class="sub header"><div class="ui message" style="overflow:auto;">${event.beskrivelse }</div></div>
 	</h4>
 	<form action="<%=EVENTRESULTATER_URL %>" method="get">
 		<input type="hidden" value="${event.id}" name="eventId"><input class="ui primary button" type="submit" value="Vis Tilbakemeldinger">

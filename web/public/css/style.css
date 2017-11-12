@@ -5,6 +5,9 @@
 .ui.container {
 	overflow:hidden;
 }
+.oransje {
+	color:#FFD700;
+}
 #delta {
 	margin-top: 10%;
 	width: 60%;
