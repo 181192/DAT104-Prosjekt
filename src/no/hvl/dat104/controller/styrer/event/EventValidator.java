@@ -47,7 +47,7 @@ public class EventValidator {
 	private boolean erFraMindreEnnTilGyilding() {
 		int fraint = 0;
 		int tilint = 0;
-		if(erTilGyldig() && erTilGyldig()) {
+		if(erFraGyldig() && erTilGyldig()) {
 			fraint = Integer.parseInt(fra.substring(0,2)+fra.substring(3,5));
 	        tilint = Integer.parseInt(til.substring(0,2)+til.substring(3,5));
 	        return fraint < tilint;

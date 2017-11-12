@@ -98,7 +98,9 @@
 </script>
 <script>
 	$("#fjernAlt").click(function() {
-		console.log("fjerner");
+		<c:remove var="hendelse" scope="session" />
+		<c:remove var="redigerEventSkjema" scope="session" />
+			<c:remove var="false" scope="session" />
 		$(".fjerndata").val('');
 		$(".fjerndata").text('');
 	});
