@@ -4,6 +4,9 @@
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 
 <div class="ui container">
+	<c:if test="${(not empty aktiviteter) and (empty alleEventer)}">
+		<div class="ui positive message fjern_meld">Du har ingen hendelser! Opprett en ved å trykke på kalenderen.</div>
+	</c:if>
 	<c:if test="${flash == 'success'}">
 		<div class="ui positive message fjern_meld">${melding}</div>
 		<c:remove var="flash" scope="session" />
@@ -128,10 +131,11 @@ function lagEvent() {
       .modal('show');
       var visForm = '${not empty aktiviteter }';
 	  if((visForm === "false")){
-		  $("#event_modal").text('Ops! Du har ingen Aktiviteter ennå - Opprett Aktivitet før du kan oppretter en Event!');
+		  $("#event_modal").text('Ops! Du har ingen Aktiviteter ennå - Opprett Aktivitet før du kan opprette en hendelse!');
 		  $("#event_modal").css('color', '#FE9A76');
     	  $('.modal_content').append('<div> <a href="lagaktivitet">Opprett Aktivitet!</a> </div>');
       }else {
+    	  $("#event_modal").text('Lag hendelse!');
     	  $(".modal_content").load("<%=LAGEVENT_URL%>?dato="+date.format());
       }
       
@@ -144,7 +148,7 @@ function lagEvent() {
     	    observeChanges: true
       })
 	  .modal('show');
-	  $("#event_modal").text('Ditt Event!');
+	  $("#event_modal").text('Din hendelse!');
       $(".modal_content").load("<%=VIS_EVENT_URL%>?id=" + event.id);
   }
   function fjernAktivitet(aktivitet){

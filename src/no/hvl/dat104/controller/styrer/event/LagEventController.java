@@ -63,11 +63,11 @@ public class LagEventController extends HttpServlet {
 				Event e = lagEvent(request, skjema);
 				iBrukerEAO.finnBrukerLeggTilEvent(bruker.getId(), e, Integer.parseInt(skjema.getAktivitet()));
 				request.getSession().removeAttribute("eventSkjema");
-				FlashUtil.Flash(request, "success", "Eventen ble opprettet!");
+				FlashUtil.Flash(request, "success", "Eventen ble opprettet! Trykk på hendelsen i kalender for å vise informasjon.");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 			} else {
 				skjema.settOppFeilmeldinger();
-				request.getSession().setAttribute("eventSkjema", skjema);
+				request.getSession().setAttribute("redigerEventSkjema", skjema);
 				response.sendRedirect(UrlMappings.LAGEVENT_URL);
 			}
 		} else {

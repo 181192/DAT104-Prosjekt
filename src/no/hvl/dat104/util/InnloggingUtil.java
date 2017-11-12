@@ -78,7 +78,7 @@ public class InnloggingUtil {
 		loggUt(request);
 		HttpSession sesjon = request.getSession(true);
 		sesjon.setAttribute(Attributter.BRUKER, b);
-		sesjon.setMaxInactiveInterval(1200);
+		sesjon.setMaxInactiveInterval(10800);
 	}
 
 	/**

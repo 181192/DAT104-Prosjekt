@@ -13,4 +13,6 @@ public final class Attributter {
 	public static final String ROLLE_TYPE_STYRER = "Aktivitetsstyrer";
 	public static final String ROLLE_TYPE_ADMIN = "Admin";
 	public static final String NY_BRUKER = "nuub";
+	public static final String EVENT_OK = "true";
+	public static final String EVENT_IKKE_OK = "false";
 }

@@ -33,7 +33,6 @@ public class EventValidator {
 		beskrivelse = e.getBeskrivelse();
 		dato = e.getTidFra().toString().substring(0,10);
 		aktivitet = e.getIdAktivitet().getNavn().toString();
-		System.out.println(fra.substring(0, 3));
 	}
 
 	public EventValidator(HttpServletRequest request) {
