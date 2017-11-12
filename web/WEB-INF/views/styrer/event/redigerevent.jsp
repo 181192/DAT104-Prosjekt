@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
 <jsp:include page="../../../partials/header.jsp" />
 <link
@@ -9,19 +10,19 @@
 	href="https://cdn.rawgit.com/mdehoog/Semantic-UI/6e6d051d47b598ebab05857545f242caf2b4b48c/dist/semantic.min.css"
 	rel="stylesheet" type="text/css" />
 <div class="ui container">
-<h1 class="ui header">Rediger Event: ${eventSkjema.tittel }</h1>
+<h1 class="ui header">Rediger Event: ${hendelse.tittel }</h1>
 	<form method="post" id="myForm" action="<%= REDIGEREVENT_URL%>"
 		class="ui form">
 		<div class="field">
 			<label>Tittel: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.tittelFeilmelding }</span></label>
 			<input type="text" class="fjerndata" name="tittel"
-				value="${redigerEventSkjema.tittel }" placeholder="Tittel">
+				value="${hendelse.tittel}" placeholder="Tittel">
 		</div>
 		<div class="field" id="datoen">
 			<label>Dato: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.datoFeilmelding }</span></label>
 			<div class="ui calendar" id="datepicker">
 				<div class="ui input left icon">
-					<i class="calendar icon"></i> <input name="dato" type="text" value="${redigerEventSkjema.dato}"
+					<i class="calendar icon"></i> <input name="dato" type="text" value="${hendelse.dato}"
 						placeholder="Dato">
 				</div>
 			</div>
@@ -29,27 +30,27 @@
 		<div class="two fields">
 			<div class="field">
 				<label>Fra: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.fraFeilmelding }</span></label><input
-					class="timepicker fjerndata" value="${redigerEventSkjema.fra }"
+					class="timepicker fjerndata" value="${hendelse.fra }"
 					type="text" name="fra" placeholder="hh.mm">
 			</div>
 			<div class="field">
-				<label>Til: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.tilFeilmelding }</span></label><input
+				<label>Til: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.tilFeilmelding } ${redigerEventSkjema.framindreennminFeilmeilding }</span></label><input
 					type="text" class="timepicker fjerndata"
-					value="${redigerEventSkjema.til }" name="til" placeholder="hh.mm">
+					value="${hendelse.til }" name="til" placeholder="hh.mm">
 			</div>
 		</div>
 		<div class="field">
 			<label>Hvor: <span class="fjerndata" style="color: #B03060">${redigerEventSkjema.hvorFeilmelding }</span></label><input
-				type="text" class="fjerndata" value="${redigerEventSkjema.hvor }"
+				type="text" class="fjerndata" value="${hendelse.hvor }"
 				name="hvor" placeholder="Hvor">
 		</div>
 		<div class="field">
 			<label>Beskrivelse <span class="fjerndata"
 				style="color: #B03060">${redigerEventSkjema.beskrivelseFeilmelding }</span></label>
 			<input type="text" class="fjerndata" name="beskrivelse"
-				value="${redigerEventSkjema.beskrivelse }" placeholder="Beskrivelse">
+				value="${hendelse.beskrivelse }" placeholder="Beskrivelse">
 		</div>
-		<input type="hidden" value="${event.id}" name="eventId">
+		<input type="hidden" value="${eventId}" name="eventId">
 		<input type="submit" class="ui primary button" value="Oppdater event">
 		<input type="button" id="fjernAlt" class="ui red button"
 			value="Fjern Data">

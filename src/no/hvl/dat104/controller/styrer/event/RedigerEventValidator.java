@@ -19,6 +19,7 @@ public class RedigerEventValidator {
 	private String tilFeilmelding;
 	private String hvorFeilmelding;
 	private String beskrivelseFeilmelding;
+	private String framindreennminFeilmeilding;
 
 	public RedigerEventValidator(Event e) {
 		tittel = e.getNavn();
@@ -35,6 +36,16 @@ public class RedigerEventValidator {
 		til = ValidatorUtil.escapeHtml(request.getParameter("til"));
 		hvor = ValidatorUtil.escapeHtml(request.getParameter("hvor"));
 		beskrivelse = ValidatorUtil.escapeHtml(request.getParameter("beskrivelse"));
+	}
+	private boolean erFraMindreEnnTilGyilding() {
+		int fraint = 0;
+		int tilint = 0;
+		if(erTilGyldig() && erTilGyldig()) {
+			fraint = Integer.parseInt(fra.substring(0,2)+fra.substring(3,5));
+	        tilint = Integer.parseInt(til.substring(0,2)+til.substring(3,5));
+	        return fraint < tilint;
+		}
+		return fraint == tilint;
 	}
 
 	private boolean erBeskrivelseGyldig() {
@@ -64,7 +75,7 @@ public class RedigerEventValidator {
 
 	public boolean erAlleDataGyldige() {
 		return erTittelGyldig() && erDatoGyldig() && erFraGyldig() && erTilGyldig() && erHvorGyldig()
-				&& erBeskrivelseGyldig();
+				&& erBeskrivelseGyldig()  && erFraMindreEnnTilGyilding();
 	}
 
 	public void settOppFeilmeldinger() {
@@ -92,6 +103,17 @@ public class RedigerEventValidator {
 			beskrivelse = "";
 			beskrivelseFeilmelding = "Ops! Tomt";
 		}
+		if(!erFraMindreEnnTilGyilding()) {
+			til = "";
+			framindreennminFeilmeilding = "Fra kan ikke være mindre enn til";
+		}
+	}
+	public String getFramindreennminFeilmeilding() {
+		return framindreennminFeilmeilding;
+	}
+
+	public void setFramindreennminFeilmeilding(String framindreennminFeilmeilding) {
+		this.framindreennminFeilmeilding = framindreennminFeilmeilding;
 	}
 
 	public String getTittel() {

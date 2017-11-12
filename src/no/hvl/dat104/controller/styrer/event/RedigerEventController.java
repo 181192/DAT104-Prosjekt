@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import no.hvl.dat104.controller.Attributter;
 import no.hvl.dat104.controller.JspMappings;
 import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Event;
-import no.hvl.dat104.model.Status;
 import no.hvl.dat104.util.DatoUtil;
 import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
@@ -36,11 +36,15 @@ public class RedigerEventController extends HttpServlet {
 			if (ValidatorUtil.isNotNull0(eventId)) {
 				Integer id = Integer.parseInt(eventId);
 				Event e = eventEAO.finnEvent(id);
+				String ok = (String) request.getSession().getAttribute(Attributter.EVENT_IKKE_OK);
 				if (e != null) {
-					RedigerEventValidator ev = new RedigerEventValidator(e);
-					HttpSession mySession = request.getSession();
-					mySession.setAttribute("redigerEventSkjema", ev);
-					mySession.setAttribute("event", e);
+					RedigerEventValidator skjema = new RedigerEventValidator(e);
+					if(ok == null) {
+						request.getSession().setAttribute("hendelse", skjema);
+						request.getSession().setAttribute("eventId", id);
+					}else {
+						
+					}
 					request.getRequestDispatcher(JspMappings.REDIGEREVENT_JSP).forward(request, response);
 				} else {
 					response.sendRedirect(UrlMappings.MINEEVENTER_URL);
@@ -68,12 +72,14 @@ public class RedigerEventController extends HttpServlet {
 				if (skjema.erAlleDataGyldige()) {
 					Event e = oppdaterEvent(skjema);
 					eventEAO.endreParametereTilEvent(eventId, skjema.getTittel(), skjema.getBeskrivelse(), e.getTidFra(), e.getTidTil(), skjema.getHvor());
+					request.getSession().removeAttribute(Attributter.EVENT_IKKE_OK);
 					FlashUtil.Flash(request, "success", "Eventen " + skjema.getTittel() + " er oppdatert!");
-					request.getSession().removeAttribute("eventSkjema");
+					request.getSession().removeAttribute("redigerEventSkjema");
 					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 				} else {
 					skjema.settOppFeilmeldinger();
-					request.getSession().setAttribute("eventSkjema", skjema);
+					request.getSession().setAttribute("redigerEventSkjema", skjema);
+					request.getSession().setAttribute(Attributter.EVENT_IKKE_OK, Attributter.EVENT_IKKE_OK);
 					response.sendRedirect(UrlMappings.REDIGEREVENT_URL +"?eventId=" + eventId);
 				}
 			}else {
