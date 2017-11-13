@@ -29,7 +29,9 @@ import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Status;
 import no.hvl.dat104.util.DatoUtil;
+import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
+import no.hvl.dat104.util.ValidatorUtil;
 
 /**
  * Servlet implementation class ImporterKalenderController
@@ -48,8 +50,11 @@ public class ImporterKalenderController extends HttpServlet {
 			throws ServletException, IOException {
 		if(InnloggingUtil.erInnloggetSomBruker(request)) {
 			//List<Event> eventer = readCSV(request);
-			readCSVInternett(request);
-			request.getRequestDispatcher(JspMappings.LAGAKTIVITET_JSP).forward(request, response);;
+			String url = ValidatorUtil.escapeHtml(request.getParameter("url"));
+			System.out.println(url);
+			readCSVInternett(request, url);
+			FlashUtil.Flash(request, "success", "Kalender er importert!");
+			request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);;
 		}else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
@@ -58,9 +63,19 @@ public class ImporterKalenderController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		if(InnloggingUtil.erInnloggetSomBruker(request)) {
+			//List<Event> eventer = readCSV(request);
+			String url = ValidatorUtil.escapeHtml(request.getParameter("url"));
+			System.out.println(url);
+			readCSVInternett(request, url);
+			FlashUtil.Flash(request, "success", "Kalender er importert!");
+			response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+		}else {
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
+		}
 
 	}
-	private void readCSVInternett(HttpServletRequest request) throws FileNotFoundException, IOException {
+	private void readCSVInternett(HttpServletRequest request, String linken) throws FileNotFoundException, IOException {
 		URL url = new URL("https://no.timeedit.net/web/hib/db1/aistudent/ri1Y5vYyQ7f070QYZ5Q7527XZ10Q5.csv");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         if (connection.getResponseCode() == 200) {

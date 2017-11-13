@@ -29,6 +29,12 @@
    	  <div class="header" style="overflow:hidden;">Mine Aktiviter:</div>
    	  <p>Opprett ny <a href="<%=LAGAKTIVITET_URL%>">her!</a></p>
    	</div>
+   	<div class="conentet" style="overflow:hidden;">Importer kalender:
+   		<form method="post" action="importerkalender" class="ui form">
+   			<input type="text" placeholder="importer" name="url">
+   		</form>
+   	</div>
+   	
    	<div class="content" style="overflow:hidden;">
    		<table class="aktivitet">
 		<thead>
