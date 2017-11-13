@@ -15,7 +15,7 @@
 		<div style="margin-bottom: 2em;" class="ui negative message">${melding}</div>
 		<c:remove var="flash" scope="session" />
 	</c:if>
-	<div class="ui center aligned stackable three column grid">
+	<div style="padding:50px;" class="ui center aligned stackable three column grid">
 		<div class="column">
 			<form action="<%=GITILBAKEMELDING_URL%>" method="post">
 				<a href="javascript:;" onclick="parentNode.submit();"><abbr
