@@ -13,7 +13,7 @@ google.charts.setOnLoadCallback(drawDashboard);
 function drawDashboard() {
 
   // Henter data fra jsp via controller
-  var data = google.visualization.arrayToDataTable(array);
+  var data = data1;
 
   // Views kontrollerer hvilken kolonne som skal vises
   var view = new google.visualization.DataView(data);

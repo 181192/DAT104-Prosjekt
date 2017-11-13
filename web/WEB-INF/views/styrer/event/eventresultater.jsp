@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:include page="../../../partials/header.jsp" />
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script src="public/js/charts/eventResultaterChart.js"></script>
 
 <script type="text/javascript">
@@ -11,12 +12,74 @@
 	
 	<c:choose>
 		<c:when test="${not empty ft}">
-			enable = true;
-			var array = [ ['Tid', 'Fornoyd', 'Noytral', 'Misfornoyd'], 
-			<c:forEach items="${ft}" var="t">
-				[new Date("${t.tid.toString()}"), ${t.fornoyd}, ${t.noytral}, ${t.misfornoyd}],
+		google.charts.load('current', {
+			'packages' : [ 'corechart', 'bar' ]
+		});
+
+		google.charts.setOnLoadCallback(drawChart);
+		function drawChart() {
+			var data1 = new google.visualization.DataTable();
+			data1.addColumn('number', 'Tilbakemelding');
+			data1.addColumn('number', 'Fornøyd');
+			data1.addColumn({
+				type : 'string',
+				role : 'tooltip'
+			});
+			data1.addColumn('number', 'Nøytral');
+			data1.addColumn({
+				type : 'string',
+				role : 'tooltip'
+			});
+			data1.addColumn('number', 'Misfornøyd');
+			data1.addColumn({
+				type : 'string',
+				role : 'tooltip'
+			});
+			
+			
+			data1.addRows([				
+			<c:forEach items="${ft}" var="t" varStatus="count">
+			<fmt:formatDate pattern = "yyyy-MM-dd hh:mm" 
+		         value = "${t.tid}" var="tidFormatert" />
+				[${count.count}, ${t.fornoyd}, "${tidFormatert}", ${t.noytral}, "${tidFormatert}", ${t.misfornoyd}, "${tidFormatert}"],
 			</c:forEach>
-			];
+				]);
+			var view = new google.visualization.DataView(data1);
+			view.setColumns([ 0, 1, 6 ]);
+			view.setColumns([ 0, 3, 6 ]);
+			view.setColumns([ 0, 5, 6 ]);
+
+			view.setColumns([ 0, 1, 2, 3, 4, 5, 6 ]);
+
+			var options = {
+				height : 400,
+
+				series : {
+					0 : {
+						type : 'bars',
+						color : 'green'
+					},
+					1 : {
+						type : 'bars',
+						color : 'yellow'
+					},
+					2 : {
+						type : 'bars',
+						color : 'red'
+					}
+				},
+				vAxis : {
+					title : "Antall"
+				},
+				hAxis : {
+					title : "Tilbakemeldinger",
+					format : ""
+				}
+			};
+		
+			var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+			chart.draw(view, options);
+		}
 		</c:when>
 		<c:otherwise>
 			<c:set var = "melding" scope = "page" value = "Det finnes ingen tilbakemeldinger for"/>

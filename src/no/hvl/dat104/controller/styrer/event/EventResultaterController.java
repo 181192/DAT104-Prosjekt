@@ -1,6 +1,8 @@
 package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -43,6 +45,7 @@ public class EventResultaterController extends HttpServlet {
 			if (e.getStatus().equals(Status.AVSLUTTET)) {
 				List<Tilbakemelding> t = null;
 				t = eventEAO.finnAlleTilbakemeldingerTilEvent(id);
+				
 
 				// Får tak i liste med tilbakemeldinger for eventet, deretter konverterer den
 				// til et format som kan brukes i grafene
