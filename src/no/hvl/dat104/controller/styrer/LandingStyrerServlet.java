@@ -41,7 +41,7 @@ public class LandingStyrerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		Bruker bruker = InnloggingUtil.innloggetSomBruker(request);
-		if (bruker != null) {
+		if (bruker != null ) {
 			List<Aktivitet> a = brukerEAO.alleAktiviteterIJPQL(bruker.getId());
 			List<Event> alleEventer = brukerEAO.finnAlleEventerTilBruker(bruker.getId());
 			setOppFarger(request);
@@ -54,18 +54,15 @@ public class LandingStyrerServlet extends HttpServlet {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 	}
-
 	private void settOppFlash(HttpServletRequest request) {
 		String newcommer = (String) request.getSession().getAttribute("nuub");
-		if (newcommer != null) {
+		if(newcommer != null) {
 			FlashUtil.Flash(request, "success", Meldinger.OPPRETT_BRUKER_MELD);
 		}
 		request.getSession().removeAttribute("nuub");
 	}
-
 	private void setOppFarger(HttpServletRequest request) {
-		String[] farger = { "#0E6EB8", "#FFD700", "#016936", "#B03060", "#008080", "#EE82EE", "#FE9A76", "#32CD32",
-				"#B413EC", "#A52A2A", "#FF1493" };
+		String[] farger = { "orange", "green", "red", "blue", "yellow", "purple", "teal", "cyan", "magenta", "brown", "black", "white" };
 		request.getSession().setAttribute("color", farger);
 	}
 
