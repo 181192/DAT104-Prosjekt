@@ -18,6 +18,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import no.hvl.dat104.controller.UrlMappings;
+
 @RunWith(MockitoJUnitRunner.class)
 public class LagEventControllerTest {
 	@Mock
@@ -33,22 +35,16 @@ public class LagEventControllerTest {
 	public void setUp() {
 		lageventcontroller = new LagEventController();
 
-		//when(stubRequest.getRequestDispatcher(any(String.class))).thenReturn(stubRequestDispatcher);
+		when(stubRequest.getRequestDispatcher(any(String.class))).thenReturn(stubRequestDispatcher);
 	}
 
 	@Test
-	public void test() {
-		assertTrue(true);
+	public void atManBlirRedirectaVekkMedManglendeData() throws ServletException,
+	IOException {
+	
+	lageventcontroller.doGet(stubRequest, stubResponse);
+	
+	verify(stubResponse).sendRedirect(UrlMappings.LOGGINN_URL);;
 	}
-
-	// @Test
-	// public void atDetGjoresEnForwardTilKorrektJsp() throws ServletException,
-	// IOException {
-	//
-	// lageventcontroller.doGet(stubRequest, stubResponse);
-	//
-	// verify(stubRequest).getRequestDispatcher("WEB-INF/views/styrer/event/lagevent.jsp");
-	// verify(stubRequestDispatcher).forward(stubRequest, stubResponse);
-	// }
 
 }
