@@ -76,18 +76,37 @@ public class ValidatorUtilTest {
 
 	@Test
 	public void isValidTimeformat() {
-		// TODO
+		assertTrue(ValidatorUtil.isValidTimeFormat("10:59"));
+		assertTrue(ValidatorUtil.isValidTimeFormat("00:01"));
+		assertTrue(ValidatorUtil.isValidTimeFormat("18:18"));
+		assertFalse(ValidatorUtil.isValidTimeFormat("27:19"));
+		assertFalse(ValidatorUtil.isValidTimeFormat("40:79"));
 	}
 
 	@Test
 	public void isValidDateFormat() {
-		// TODO
+		assertTrue(ValidatorUtil.isValidDateFormat("10.10.2017"));
+		assertTrue(ValidatorUtil.isValidDateFormat("07.01.2000"));
+		assertTrue(ValidatorUtil.isValidDateFormat("07-01-2000"));
+		assertFalse(ValidatorUtil.isValidDateFormat("07/01/2000"));
+		assertFalse(ValidatorUtil.isValidDateFormat("39.01.2000"));
+		assertFalse(ValidatorUtil.isValidDateFormat("07.01.200"));
+		assertFalse(ValidatorUtil.isValidDateFormat("07.01.13"));
+		assertFalse(ValidatorUtil.isValidDateFormat("07.29.2013"));
+		assertFalse(ValidatorUtil.isValidDateFormat("207.01.2000"));
 	}
 
 	@Test
 	public void isValidMail() {
-		// TODO
-
+		assertTrue(ValidatorUtil.isValidMail("mail@mail.com"));
+		assertTrue(ValidatorUtil.isValidMail("mail-mail@mail.com"));
+		assertTrue(ValidatorUtil.isValidMail("test123@mail.com"));
+		assertTrue(ValidatorUtil.isValidMail("mail@mail.mail.com"));
+		assertTrue(ValidatorUtil.isValidMail("mailmailmailmailmail@mail.com"));
+		assertFalse(ValidatorUtil.isValidMail("mailmail.com"));
+		assertFalse(ValidatorUtil.isValidMail("mail.mail.com"));
+		assertFalse(ValidatorUtil.isValidMail("mail@mail."));
+		assertFalse(ValidatorUtil.isValidMail("mail@mail"));
 	}
 
 }
