@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -45,7 +47,8 @@ public class ImporterKalenderController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if(InnloggingUtil.erInnloggetSomBruker(request)) {
-			List<Event> eventer = readCSV(request);
+			//List<Event> eventer = readCSV(request);
+			readCSVInternett(request);
 			request.getRequestDispatcher(JspMappings.LAGAKTIVITET_JSP).forward(request, response);;
 		}else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
@@ -56,6 +59,60 @@ public class ImporterKalenderController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+	}
+	private void readCSVInternett(HttpServletRequest request) throws FileNotFoundException, IOException {
+		URL url = new URL("https://no.timeedit.net/web/hib/db1/aistudent/ri1Y5vYyQ7f070QYZ5Q7527XZ10Q5.csv");
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        if (connection.getResponseCode() == 200) {
+            InputStreamReader streamReader = new InputStreamReader(connection.getInputStream(), "UTF-8");
+            BufferedReader br = new BufferedReader(streamReader);
+            String line = br.readLine();
+            line = br.readLine() + br.readLine() + br.readLine();
+            String[] fields = line.split(",");
+            fields = Arrays.copyOfRange(fields, 3, fields.length);
+            while ((line = br.readLine()) != null && !line.isEmpty()) {
+				fields = line.split(",");
+	            String dato = fields[0].substring(1);
+	            String tidFra = fields[1].substring(1);
+	            String tidTil = fields[3].substring(1);
+	            String aktivitet = fields[6].substring(1);
+	            String navn = fields[8].substring(1);
+	            String beskrivelse = fields[10].substring(1);
+	            String sted = fields[9].substring(1);
+	            Timestamp til = null;
+	            Timestamp fra = null;
+				try {
+					fra = DatoUtil.formaterDatoTilStamp(dato, tidFra);
+					til = DatoUtil.formaterDatoTilStamp(dato, tidTil);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				Bruker b = InnloggingUtil.innloggetSomBruker(request);
+				List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
+				Event e = lagEvent(fra, til, navn, beskrivelse, sted);
+				boolean lagtTil = false;
+				Aktivitet a = null;
+				for(Aktivitet akt : aktiviteter) {
+					if(akt != null) {
+						if(akt.getNavn().toUpperCase().equals(aktivitet.toUpperCase())) {
+							e.setIdAktivitet(akt);
+							a = akt;
+							lagtTil = true;
+						}
+					}
+				}
+				if (!lagtTil) {
+					a = lagAktivitet(aktivitet);
+					a.setIdBruker(b);
+					aktiviteter.add(a);
+					aktivitetEAO.leggTilAktivitet(a);
+					e.setIdAktivitet(a);
+				}
+				brukerEAO.finnBrukerLeggTilEvent(b.getId(), e, a.getId());
+			}
+			br.close();
+        }
+            
 	}
 
 	private List<Event> readCSV(HttpServletRequest request) throws FileNotFoundException, IOException {
