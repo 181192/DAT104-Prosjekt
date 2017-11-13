@@ -28,7 +28,7 @@ public class ValidatorUtilTest {
 		assertTrue(ValidatorUtil.isValidNumber("924892"));
 		assertFalse(ValidatorUtil.isValidNumber("-3"));
 		assertFalse(ValidatorUtil.isValidNumber(""));
-		assertFalse(ValidatorUtil.isValidNumber("null"));
+		assertFalse(ValidatorUtil.isValidNumber(null));
 		assertFalse(ValidatorUtil.isValidNumber("&3"));
 
 	}
@@ -57,6 +57,7 @@ public class ValidatorUtilTest {
 		assertFalse(ValidatorUtil.isValidfornavn("Navn-med-over-nitten-tegn-i"));
 		assertFalse(ValidatorUtil.isValidfornavn(""));
 		assertFalse(ValidatorUtil.isValidfornavn("A"));
+		assertFalse(ValidatorUtil.isValidfornavn(null));
 		assertFalse(ValidatorUtil.isValidfornavn("Navn med tall3"));
 		assertFalse(ValidatorUtil.isValidfornavn("Navn med tegn &"));
 	}
@@ -68,6 +69,7 @@ public class ValidatorUtilTest {
 		assertFalse(ValidatorUtil.isValidetternavn("Navn-med-over-nitten-tegn-i"));
 		assertFalse(ValidatorUtil.isValidetternavn(""));
 		assertFalse(ValidatorUtil.isValidetternavn("A"));
+		assertFalse(ValidatorUtil.isValidetternavn(null));
 		assertFalse(ValidatorUtil.isValidetternavn("Navn med tall3"));
 		assertFalse(ValidatorUtil.isValidetternavn("Navn med tegn &"));
 	}

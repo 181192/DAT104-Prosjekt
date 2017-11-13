@@ -45,9 +45,15 @@ public class ValidatorUtil {
      * @return
      */
     public static boolean isValidfornavn(String fornavn) {
+    	if(fornavn==null) {
+    		return false;
+    	}
         return fornavn.matches("^[A-ZØÆÅ][A-ZÆØÅa-zæøå\\-\\ \\']{1,19}$");
     }
     public static boolean isValidetternavn(String etternavn) {
+    	if(etternavn==null) {
+    		return false;
+    	}
         return etternavn.matches("^[A-ZØÆÅ][A-ZÆØÅa-zæøå\\-\\']{1,19}$");
     }
     
