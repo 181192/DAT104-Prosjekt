@@ -66,7 +66,7 @@ public class ImporterKalenderController extends HttpServlet {
 	        }
 			if(readCSVInternett(request, url)) {
 				FlashUtil.Flash(request, "success", "Kalender er importert!");
-				request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);;
+				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 			}else {
 				FlashUtil.Flash(request, "success", "Kalender ble ikke importert!");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
