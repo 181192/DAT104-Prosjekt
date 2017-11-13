@@ -66,7 +66,6 @@ public class ImporterKalenderController extends HttpServlet {
 		if(InnloggingUtil.erInnloggetSomBruker(request)) {
 			//List<Event> eventer = readCSV(request);
 			String url = ValidatorUtil.escapeHtml(request.getParameter("url"));
-			System.out.println(url);
 			readCSVInternett(request, url);
 			FlashUtil.Flash(request, "success", "Kalender er importert!");
 			response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
@@ -76,7 +75,7 @@ public class ImporterKalenderController extends HttpServlet {
 
 	}
 	private void readCSVInternett(HttpServletRequest request, String linken) throws FileNotFoundException, IOException {
-		URL url = new URL("https://no.timeedit.net/web/hib/db1/aistudent/ri1Y5vYyQ7f070QYZ5Q7527XZ10Q5.csv");
+		URL url = new URL(linken);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         if (connection.getResponseCode() == 200) {
             InputStreamReader streamReader = new InputStreamReader(connection.getInputStream(), "UTF-8");
@@ -87,7 +86,7 @@ public class ImporterKalenderController extends HttpServlet {
             fields = Arrays.copyOfRange(fields, 3, fields.length);
             while ((line = br.readLine()) != null && !line.isEmpty()) {
 				fields = line.split(",");
-	            String dato = fields[0].substring(1);
+	            String dato = fields[0];
 	            String tidFra = fields[1].substring(1);
 	            String tidTil = fields[3].substring(1);
 	            String aktivitet = fields[6].substring(1);
