@@ -19,8 +19,8 @@ public class FormaterTilbakemeldingUtil {
 	 * En liste med formaterte tilbakemeldinger, blir returnert etter konvertering
 	 */
 	private List<FormatertTilbakemelding> formaterteTilbakemeldinger = new ArrayList<FormatertTilbakemelding>();
-	private static final Integer FIVE_MINUTES = 1000 * 60 * 5;
-	private static final Integer NEG_FIVE_MINUTES = -1000 * 60 * 5;
+	private static final Integer FIVE_MINUTES = 1000 * 60 * 2 + (30*1000);
+	private static final Integer NEG_FIVE_MINUTES = -1000 * 60 * 2 + (30*1000);
 
 	/**
 	 * Tar inn liste med tilbakemeldinger som argument, konverterer til en liste som
