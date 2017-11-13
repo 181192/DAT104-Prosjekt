@@ -49,12 +49,8 @@ public class ImporterKalenderController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if(InnloggingUtil.erInnloggetSomBruker(request)) {
-			//List<Event> eventer = readCSV(request);
-			String url = ValidatorUtil.escapeHtml(request.getParameter("url"));
-			System.out.println(url);
-			readCSVInternett(request, url);
-			FlashUtil.Flash(request, "success", "Kalender er importert!");
-			request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);;
+			request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);
+			//List<Event> eventer = readCSV(request);			
 		}else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
@@ -64,17 +60,24 @@ public class ImporterKalenderController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if(InnloggingUtil.erInnloggetSomBruker(request)) {
-			//List<Event> eventer = readCSV(request);
 			String url = ValidatorUtil.escapeHtml(request.getParameter("url"));
-			readCSVInternett(request, url);
-			FlashUtil.Flash(request, "success", "Kalender er importert!");
-			response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+			if(url.contains("html")) {
+				url = url.replace("html", "csv");
+	        }
+			if(readCSVInternett(request, url)) {
+				FlashUtil.Flash(request, "success", "Kalender er importert!");
+				request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);;
+			}else {
+				FlashUtil.Flash(request, "success", "Kalender ble ikke importert!");
+				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+			}
+			
 		}else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 
 	}
-	private void readCSVInternett(HttpServletRequest request, String linken) throws FileNotFoundException, IOException {
+	private boolean readCSVInternett(HttpServletRequest request, String linken) throws FileNotFoundException, IOException {
 		URL url = new URL(linken);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         if (connection.getResponseCode() == 200) {
@@ -125,7 +128,9 @@ public class ImporterKalenderController extends HttpServlet {
 				brukerEAO.finnBrukerLeggTilEvent(b.getId(), e, a.getId());
 			}
 			br.close();
+			return true;
         }
+        return false;
             
 	}
 
