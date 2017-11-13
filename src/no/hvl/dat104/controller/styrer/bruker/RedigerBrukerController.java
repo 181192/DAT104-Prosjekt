@@ -61,7 +61,7 @@ public class RedigerBrukerController extends HttpServlet {
 							brukerEAO.endreMailPaaBruker(id, skjema.getMail());
 						} else {
 							ok = false;
-							skjema.setMailFeilmelding("Denne mailadressen er allede i bruk");
+							skjema.setMailFeilmelding("Denne mailadressen er allerde i bruk");
 							FlashUtil.Flash(request, "error", "Mailadresse allerede i bruk");
 						}
 					}
