@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import no.hvl.dat104.controller.JspMappings;
+import no.hvl.dat104.controller.UrlMappings;
 import no.hvl.dat104.dataaccess.IAktivitetEAO;
 import no.hvl.dat104.dataaccess.IBrukerEAO;
 import no.hvl.dat104.dataaccess.IEventEAO;
@@ -42,8 +44,13 @@ public class ImporterKalenderController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		List<Event> eventer = readCSV(request);
-		System.out.println(eventer.get(0).getSted().toString());
+		if(InnloggingUtil.erInnloggetSomBruker(request)) {
+			List<Event> eventer = readCSV(request);
+			request.getRequestDispatcher(JspMappings.LAGAKTIVITET_JSP).forward(request, response);;
+		}else {
+			response.sendRedirect(UrlMappings.LOGGINN_URL);
+		}
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -77,17 +84,24 @@ public class ImporterKalenderController extends HttpServlet {
 					e.printStackTrace();
 				}
 				Bruker b = InnloggingUtil.innloggetSomBruker(request);
-				Aktivitet a = aktivitetEAO.finnAktivitetPaaNavnOgBruker(navn.toUpperCase(), b);
+				List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
 				Event e = lagEvent(fra, til, navn, beskrivelse, sted);
-				if (a == null) {
+				boolean lagtTil = false;
+				Aktivitet a = null;
+				for(Aktivitet akt : aktiviteter) {
+					if(akt != null) {
+						if(akt.getNavn().toUpperCase().equals(aktivitet.toUpperCase())) {
+							e.setIdAktivitet(akt);
+							a = akt;
+							lagtTil = true;
+						}
+					}
+				}
+				if (!lagtTil) {
 					a = lagAktivitet(aktivitet);
 					a.setIdBruker(b);
-					List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
 					aktiviteter.add(a);
 					aktivitetEAO.leggTilAktivitet(a);
-					e.setIdAktivitet(a);
-				} else {
-					System.out.println(a.getNavn());
 					e.setIdAktivitet(a);
 				}
 				brukerEAO.finnBrukerLeggTilEvent(b.getId(), e, a.getId());

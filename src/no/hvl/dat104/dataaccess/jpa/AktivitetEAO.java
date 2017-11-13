@@ -89,8 +89,9 @@ public class AktivitetEAO implements IAktivitetEAO {
 	@Override
 	public Aktivitet finnAktivitetPaaNavnOgBruker(String navn, Bruker b) {
 		List<Aktivitet> a = em
-				.createQuery("SELECT a FROM Aktivitet a, Bruker b WHERE b = a.idBruker AND a.navn=:navn AND b=:bruker")
+				.createQuery("SELECT a FROM Aktivitet a, Bruker b WHERE b = a.idBruker AND upper(a.navn)=:navn AND b=:bruker")
 				.setParameter("navn", navn).setParameter("bruker", b).getResultList();
+		System.out.println(a);
 		if(a.isEmpty()) {
 			return null;
 		}else {
