@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*" %>
+<jsp:useBean id="dato" class="no.hvl.dat104.util.DatoUtil" />
 <%@ page import="static no.hvl.dat104.model.Status.*" %>
 <c:set var="PAAGANDE" value="<%=PAAGANDE%>"></c:set>
 <c:set var="AVSLUTTET" value="<%=AVSLUTTET%>"></c:set>
@@ -24,7 +25,7 @@
 	      <td class="selectable">
 	        <div style="padding:11px;">${event.navn}</div>
 	      </td>
-	      <td>${fn:substring(event.tidFra, 0, 10)}</td>
+	      <td>${fn:substring(dato.fraEngTilNorskDatov2(event.tidFra), 0, 10)}</td>
 	      <td>${fn:substring(event.tidFra, 10, 16)}</td>
 	      <td>${fn:substring(event.tidTil, 10, 16)}</td>
 	      <td class="${event.status eq PAAGANDE ? 'positive' : (event.status eq AVSLUTTET) ? 'error' : 'oransje'}">${event.status}</td>

@@ -23,6 +23,26 @@ public class DatoUtil {
 		java.sql.Timestamp sq = new java.sql.Timestamp(startDato.getTime());
 		return sq;
 	}
+	
+	/**
+	 * fraEngTilNorskDato 
+	 * @param dato
+	 * @return
+	 */
+	public static String fraEngTilNorskDatov2(String dato) {
+        String nyDatoTmp = dato.substring(0,10);
+        String[] arr = nyDatoTmp.split("-");
+        for (int i = 0; i < arr.length - 1; i++) {
+            String tmp = arr[i];
+            arr[i] = arr[i + 1];
+            arr[i + 1] = tmp;
+        }
+        String tmp = arr[0];
+        arr[0] = arr[1];
+        arr[1] = tmp;
+        String nydato = String.join(".", arr);
+        return nydato;
+    }
 
 	/**
 	 * Formaterer en timestamp til en dato.
