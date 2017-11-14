@@ -94,8 +94,35 @@ public class ImporterKalenderController extends HttpServlet {
 	            String tidTil = fields[3].substring(1);
 	            String aktivitet = fields[6].substring(1);
 	            String navn = fields[8].substring(1);
-	            String beskrivelse = fields[10].substring(1);
+	            String beskrivelse = fields[10];
 	            String sted = fields[9].substring(1);
+	            
+	            if(navn.equals("Lab") || navn.equals("Øving")) {
+	                beskrivelse = fields[11];
+	            }else {
+	                beskrivelse += ", " + fields[11];
+	            }
+
+	            if(fields[12].matches("^\\s[A-Z].*")) {
+	                if(fields[11].charAt(0) == '\"') {
+	                    beskrivelse += ", " + fields[12];
+	                }
+	                if(fields[12].matches("^\\s[A-Z].*")) {
+	                    beskrivelse += ", " + fields[12];
+	                }
+	                if(fields[13].matches("^\\s[A-Z].*")) {
+	                    beskrivelse += ", " + fields[13];
+	                }
+	            }
+	            if(beskrivelse.contains("\"")) {
+	                beskrivelse = beskrivelse.replace('"', ' ').substring(1);
+	            }
+	            if(beskrivelse.charAt(0) == ' ') {
+	                beskrivelse = beskrivelse.substring(1);
+	            }
+	            if(sted.contains("\"")) {
+	            	sted = sted.replace('"', ' ').substring(1);
+	            }
 	            Timestamp til = null;
 	            Timestamp fra = null;
 				try {
@@ -150,7 +177,13 @@ public class ImporterKalenderController extends HttpServlet {
 	            String aktivitet = fields[6].substring(1);
 	            String navn = fields[8].substring(1);
 	            String beskrivelse = fields[10].substring(1);
+	            if(beskrivelse.contains("\"")) {
+	                beskrivelse = beskrivelse.replace('"', ' ').substring(1);
+	            }
 	            String sted = fields[9].substring(1);
+	            if(sted.contains("\"")) {
+	            	sted = sted.replace('"', ' ').substring(1);
+	            }
 	            Timestamp til = null;
 	            Timestamp fra = null;
 				try {
