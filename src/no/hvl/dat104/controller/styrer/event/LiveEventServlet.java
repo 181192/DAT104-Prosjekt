@@ -130,7 +130,6 @@ public class LiveEventServlet extends HttpServlet {
 								cal.setTime(t.getTid());
 								cal.add(Calendar.MINUTE, 5);
 								String interval = sdfDate.format(t.getTid())+" - "+sdfDate.format(cal.getTime());
-								System.out.println(interval);
 								liveTb.add(new FormatertLiveTilbakemelding(interval, t.getFornoyd(), t.getNoytral(), t.getMisfornoyd()));
 							}
 						}

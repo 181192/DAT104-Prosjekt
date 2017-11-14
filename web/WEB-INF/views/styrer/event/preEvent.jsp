@@ -10,14 +10,14 @@
 <c:set var="PLANLAGT" value="<%=PLANLAGT%>"></c:set>
 
 <h2 style="text-align:center; color:teal;">Pågående eventer: </h2>
-<p style="text-align:center; color:teal;">Her kan du gå til live visningen av pågående eventer for å se real-time statistikk, eller starte eventer.</p>
+<p style="text-align:center; color:teal;">Her kan du gå til live visningen av pågående eventer for å se real-time statistikk, eller starte eventer umiddelbart.</p>
 <div class="ui container segment delta" style="width: 60%; margin-top: 50px;">
 	
 	
 	<!-- Gå til livevisning av et startet event -->
 	<c:choose>
 	<c:when test="${visPaagande}">
-	<h3 style="text-align:center;  color:teal;">Pågående eventer: </h3>
+	<h3 style="text-align:left;  color:teal;">Pågående eventer: </h3>
 	<table class="ui fixed single line celled table">
 		<thead>
 			<tr>
@@ -52,7 +52,7 @@
 	</c:when>
 	<c:otherwise>
 	<c:if test="${visPlanlagt}">	
-		<h3 style="text-align:center;  color:teal;">Du har ingen pågående eventer, du kan starte en her: </h3>
+		<h3 style="text-align:center;  color:teal;">Du har ingen pågående eventer, du kan tvinge en i gang under: </h3>
 	</c:if>
 	</c:otherwise>
 	</c:choose>
@@ -61,7 +61,7 @@
 	<c:choose>
 	<c:when test="${visPlanlagt}">
 	<c:if test="${visPaagande}">
-	<h3 style="text-align:center;  color:teal;">Planlagte eventer: </h3>
+	<h3 style="text-align:left;  color:teal;">Planlagte eventer: </h3>
 	</c:if>
 	<table class="ui fixed single line celled table">
 		<thead>
@@ -70,7 +70,7 @@
 				<th>Event</th>
 				<th>Dato</th>
 				<th>Tidspunkt (planlagt)</th>
-				<th>Tving eventet i gang</th>
+				<th>Start umiddelbart</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -103,7 +103,7 @@
 		<c:otherwise>
 		<c:choose>
 			<c:when test="${visPaagande}">
-				<h3 style="text-align:center;  color:teal;">Alle eventene dine er i gang!</h3>
+				<h3 style="text-align:center;  color:teal;">Alle eventene dine pågår!</h3>
 			</c:when>
 			<c:otherwise>
 				<h3 style="text-align:center;  color:teal;">Du har ingen eventer, trykk <a href="<%=LAGEVENT_URL%>?dato=<%=lagCurrentDate()%>">her</a> for å lage en.</h3>

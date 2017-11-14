@@ -8,9 +8,7 @@
 <c:set var="flt" scope="session" value="${liveTilbakemeldinger}" />
 
 <h1>${e.navn }</h1>
-		<c:forEach items="${flt}" var="t">
-			<p>${t.tid}, ${t.fornoyd}, ${t.noytral}, ${t.misfornoyd}</p>
-		</c:forEach>
+
 <div class="ui container">
 	<div class="ui tiny modal" id="avsluttModal">
 		<div class="header">Avslutt event</div>
