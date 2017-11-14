@@ -3,12 +3,14 @@
 <%@ page import="static no.hvl.dat104.controller.Attributter.*"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="../../../partials/header.jsp" />
-
 <c:set var="e" scope="request" value="${eventsend}" />
 <c:set var="k" scope="request" value="${koden}" />
 <c:set var="flt" scope="session" value="${liveTilbakemeldinger}" />
 
 <h1>${e.navn }</h1>
+		<c:forEach items="${flt}" var="t">
+			<p>${t.tid}, ${t.fornoyd}, ${t.noytral}, ${t.misfornoyd}</p>
+		</c:forEach>
 <div class="ui container">
 	<div class="ui tiny modal" id="avsluttModal">
 		<div class="header">Avslutt event</div>
@@ -66,36 +68,19 @@
 
 	function drawChart() {
 		var data = new google.visualization.DataTable();
-		data.addColumn('number', 'Tilbakemelding');
+		data.addColumn('string', 'Tidsinterval på 5 min');
 		data.addColumn('number', 'Fornøyd');
-		data.addColumn({
-			type : 'string',
-			role : 'tooltip'
-		});
 		data.addColumn('number', 'Nøytral');
-		data.addColumn({
-			type : 'string',
-			role : 'tooltip'
-		});
 		data.addColumn('number', 'Misfornøyd');
-		data.addColumn({
-			type : 'string',
-			role : 'tooltip'
-		});
+
 		data.addRows([				
-		<c:forEach items="${flt}" var="t" varStatus="count">
-		<fmt:formatDate pattern = "yyyy-MM-dd hh:mm" 
-	         value = "${t.tid}" var="tidFormatert" />
-			[${count.count}, ${t.fornoyd}, "${tidFormatert}", ${t.noytral}, "${tidFormatert}", ${t.misfornoyd}, "${tidFormatert}"],
+		<c:forEach items="${flt}" var="t">
+			["${t.tid}", ${t.fornoyd}, ${t.noytral}, ${t.misfornoyd}],
 		</c:forEach>
 			]);
 
 		var view = new google.visualization.DataView(data);
-		view.setColumns([ 0, 1, 6 ]);
-		view.setColumns([ 0, 3, 6 ]);
-		view.setColumns([ 0, 5, 6 ]);
-
-		view.setColumns([ 0, 1, 2, 3, 4, 5, 6 ]);
+		view.setColumns([ 0, 1, 2, 3]);
 
 		var options = {
 			height : 400,

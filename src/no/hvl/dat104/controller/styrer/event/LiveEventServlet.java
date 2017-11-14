@@ -1,7 +1,9 @@
 package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
@@ -20,8 +22,10 @@ import no.hvl.dat104.dataaccess.IKodeordEAO;
 import no.hvl.dat104.model.Event;
 import no.hvl.dat104.model.Kodeord;
 import no.hvl.dat104.model.LiveTilbakemelding;
+import no.hvl.dat104.model.Status;
 import no.hvl.dat104.model.Tilbakemelding;
 import no.hvl.dat104.util.FormaterTilbakemeldingUtil;
+import no.hvl.dat104.util.FormatertLiveTilbakemelding;
 import no.hvl.dat104.util.FormatertTilbakemelding;
 import no.hvl.dat104.util.InnloggingUtil;
 
@@ -53,18 +57,28 @@ public class LiveEventServlet extends HttpServlet {
 			Event detteEvent = null;
 			// For at servletten ikke skal hente fra databasen hver gang sjekkes om eventen
 			// er i request attributten
-			if (!request.getParameter("liveeventid").isEmpty()) {
+			if (request.getParameter("liveeventid") != null) {
 				eventId = Integer.valueOf(request.getParameter("liveeventid"));
 				try {
 					detteEvent = eventEAO.finnEvent(eventId);
 				} catch (Exception e) {
 					e.printStackTrace();
-					doGet(request, response);
 				}
-			} else {
+			} else if(request.getAttribute("eventsend") != null && request.getAttribute("eventsend") != ""){
 				detteEvent = (Event) request.getAttribute("eventsend");
 				eventId = detteEvent.getId();
+			} else {
+				Integer paagandeEventId = Integer.valueOf(request.getParameter("paagandeEvent"));
+				try {
+					detteEvent = eventEAO.finnEvent(paagandeEventId);
+					if(detteEvent.getStatus().equals(Status.PLANLAGT)) {
+						eventEAO.endreEventTilPaagaaende(detteEvent.getId());
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
+			
 			FormaterTilbakemeldingUtil format = new FormaterTilbakemeldingUtil();
 			if (detteEvent != null) {
 				if (detteEvent.getKodeord() == null) {
@@ -90,6 +104,7 @@ public class LiveEventServlet extends HttpServlet {
 						doGet(request, response);
 					}
 					List<FormatertTilbakemelding> formaterteLiveTilbakemeldinger = null;
+					List<FormatertLiveTilbakemelding> liveTb = new ArrayList<FormatertLiveTilbakemelding>();
 					List<LiveTilbakemelding> liveTilbakemeldingListe = null;
 					try {
 						liveTilbakemeldingListe = eventEAO.finnAlleLiveTilbakemeldingerTilEvent(detteEvent.getId());
@@ -109,11 +124,20 @@ public class LiveEventServlet extends HttpServlet {
 								konverter.add(new Tilbakemelding(el.getStemme(), el.getIdEvent(), el.getTid()));
 							}
 							formaterteLiveTilbakemeldinger = format.formaterTilbakemeldinger(konverter);
+							SimpleDateFormat sdfDate = new SimpleDateFormat("hh:mm");
+							for(FormatertTilbakemelding t:formaterteLiveTilbakemeldinger) {
+								Calendar cal = Calendar.getInstance();
+								cal.setTime(t.getTid());
+								cal.add(Calendar.MINUTE, 5);
+								String interval = sdfDate.format(t.getTid())+" - "+sdfDate.format(cal.getTime());
+								System.out.println(interval);
+								liveTb.add(new FormatertLiveTilbakemelding(interval, t.getFornoyd(), t.getNoytral(), t.getMisfornoyd()));
+							}
 						}
 					}
 					session.setAttribute("koden", kode);
 					session.removeAttribute("liveTilbakemeldinger");
-					session.setAttribute("liveTilbakemeldinger", formaterteLiveTilbakemeldinger);
+					session.setAttribute("liveTilbakemeldinger", liveTb);
 				}
 			}
 			request.setAttribute("eventsend", detteEvent);

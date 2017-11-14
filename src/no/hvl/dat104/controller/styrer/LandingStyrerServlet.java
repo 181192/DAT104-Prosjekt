@@ -1,6 +1,9 @@
 package no.hvl.dat104.controller.styrer;
 
 import java.io.IOException;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -18,6 +21,7 @@ import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Bruker;
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.model.Status;
 import no.hvl.dat104.util.FlashUtil;
 import no.hvl.dat104.util.InnloggingUtil;
 
@@ -47,6 +51,7 @@ public class LandingStyrerServlet extends HttpServlet {
 			setOppFarger(request);
 			request.getSession().setAttribute("alleEventer", alleEventer);
 			request.getSession().setAttribute("aktiviteter", a);
+			request.getSession().setAttribute("paagandeEvent", sjekkPaagandeEventer(alleEventer));
 			settOppFlash(request);
 			request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);
 		} else {
@@ -64,6 +69,24 @@ public class LandingStyrerServlet extends HttpServlet {
 	private void setOppFarger(HttpServletRequest request) {
 		String[] farger = { "orange", "green", "red", "blue", "yellow", "purple", "teal", "cyan", "magenta", "brown", "black", "white" };
 		request.getSession().setAttribute("color", farger);
+	}
+	/**
+	 * Sjekker om eventene har et event som har tidFra før nåværende tid, og tidTil etter nåværende tid, altså om et event har "startet".
+	 * @param eventer
+	 * @return
+	 */
+	private Event sjekkPaagandeEventer(List<Event> eventer) {
+		Event paagandeEvent = null;
+		Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+		for(Event e:eventer) {
+			if(!e.getStatus().equals(Status.AVSLUTTET)) { //
+				if(currentTime.after(e.getTidFra()) && currentTime.before(e.getTidTil())) {
+					paagandeEvent = e;
+					break; //Første event som er innenfor tidsrommet blir returnert, hvis det er andre som pågår samtidig blir de ignorert.
+				}
+			}
+		}
+		return paagandeEvent;
 	}
 
 }

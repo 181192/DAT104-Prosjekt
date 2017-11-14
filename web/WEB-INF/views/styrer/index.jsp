@@ -3,6 +3,8 @@
 <jsp:useBean id="val" class="no.hvl.dat104.util.ValidatorUtil"/>
 <jsp:include page="../../partials/header.jsp" />
 <%@ page import="static no.hvl.dat104.controller.UrlMappings.*"%>
+<%@ page import="static no.hvl.dat104.model.Status.*" %>
+<c:set var="PLANLAGT" value="<%=PLANLAGT%>"></c:set>
 
 <div class="ui container">
 	<c:if test="${(not empty aktiviteter) and (empty alleEventer)}">
@@ -15,6 +17,14 @@
 	<c:if test="${flash == 'error'}">
 		<div class="ui negative message fjern_meld">${melding}</div>
 		<c:remove var="flash" scope="session" />
+	</c:if>
+	<!-- Dette er knappen for å gå til en pågående event -->
+	<c:if test="${not empty paagandeEvent}">
+		<c:set var="paagandeMeld" value="pågår, trykk her for å starte den!"/>
+ 		<c:if test="${paagandeEvent.status eq PAAGANDE}">
+ 			<c:set var="paagandeMeld" value="har startet, trykk her for å gå til den!"/>
+ 		</c:if>
+		<a href="<%=LIVE_EVENT_URL%>?paagandeEvent=${paagandeEvent.id}"><div class="ui positive message" style="margin-bottom: 20px;"><span style="color: teal;">"${paagandeEvent.navn}"</span> ${paagandeMeld}</div></a>
 	</c:if>
 </div>
 

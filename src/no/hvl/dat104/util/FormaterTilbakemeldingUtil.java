@@ -35,20 +35,15 @@ public class FormaterTilbakemeldingUtil {
 			});
 			for (Tilbakemelding tilbakemelding : liste) {
 				if (!tilbakemeldingInnenforTidsintervalFinnes(tilbakemelding.getTid())) {
-					System.out.println("Legger til ny.");
 					FormatertTilbakemelding tilbakemeldingFormatert = new FormatertTilbakemelding();
 					konverterStemmeOgInkrementerTilbakemelding(tilbakemeldingFormatert, tilbakemelding.getStemme());
 					tilbakemeldingFormatert.setTid(tilbakemelding.getTid());
 					formaterteTilbakemeldinger.add(tilbakemeldingFormatert);
 				} else {
-					System.out.println("Det er andre innen 5 min: ");
 					leggTilInnenforTidsinterval(tilbakemelding.getTid(), tilbakemelding.getStemme());
 				}
 			}
 			sorterTilbakemeldingene();
-			for(FormatertTilbakemelding t:formaterteTilbakemeldinger) {
-				System.out.println(t.toString());
-			}
 			return formaterteTilbakemeldinger;
 		} else {
 			formaterteTilbakemeldinger = null;
@@ -112,7 +107,6 @@ public class FormaterTilbakemeldingUtil {
 			cal2.add(Calendar.MINUTE, NEG_TWO_MINUTES);
 			cal2.add(Calendar.SECOND, NEG_THIRTY_SECONDS);
 			
-			System.out.println("legger til: Tid - 10sek: " + cal2.getTime().toString()+", Tid: "+ tid.toString()+", tid + 10sek"+ cal.getTime().toString());
 			if ((tid.before(formatertTilbakemelding.getTid()) && tid.after(cal2.getTime())) || (tid.after(formatertTilbakemelding.getTid()) && tid.before(cal.getTime()))) {
 				switch (Integer.valueOf(stemme)) {
 				case 0:
