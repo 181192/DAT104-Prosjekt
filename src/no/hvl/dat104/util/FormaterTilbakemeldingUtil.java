@@ -19,42 +19,10 @@ public class FormaterTilbakemeldingUtil {
 	 * En liste med formaterte tilbakemeldinger, blir returnert etter konvertering
 	 */
 	private List<FormatertTilbakemelding> formaterteTilbakemeldinger = new ArrayList<FormatertTilbakemelding>();
-	private static final Integer FIVE_MINUTES = 1000 * 60 * 2 + (30*1000);
-	private static final Integer NEG_FIVE_MINUTES = -1000 * 60 * 2 + (30*1000);
-
-	/**
-	 * Tar inn liste med tilbakemeldinger som argument, konverterer til en liste som
-	 * er enklere å arbeide med
-	 * 
-	 * @param liste
-	 * @return
-	 */
-
-	public AktivitetTilbakemelding formaterTilbakemeldingerForAktivitetsResultatVisning(String navn, List<Tilbakemelding> tbliste) {
-		AktivitetTilbakemelding aktivitetsTilbakemeldinger = gjorTilFormatTb(navn, tbliste);
-		return aktivitetsTilbakemeldinger;
-
-	}
-
-	private AktivitetTilbakemelding gjorTilFormatTb(String navn, List<Tilbakemelding> tbliste) {
-		AktivitetTilbakemelding ftb = new AktivitetTilbakemelding();
-		ftb.setNavn(navn);
-		
-		for(Tilbakemelding t:tbliste) {
-			switch (Integer.valueOf(t.getStemme())) {
-			case 0:
-				ftb.incrementFornoyd();
-				break;
-			case 1:
-				ftb.incrementNoytral();
-				break;
-			case 2:
-				ftb.incrementMisfornoyd();
-				break;
-			}
-		}
-		return ftb;
-	}
+	private static final Integer TWO_MINUTES = 2;
+	private static final Integer NEG_TWO_MINUTES = -2;
+	private static final Integer THIRTY_SECONDS = 30;
+	private static final Integer NEG_THIRTY_SECONDS = -30;
 
 	public List<FormatertTilbakemelding> formaterTilbakemeldinger(List<Tilbakemelding> liste) {
 		if (!liste.isEmpty()) {
@@ -66,15 +34,15 @@ public class FormaterTilbakemeldingUtil {
 				}
 			});
 			for (Tilbakemelding tilbakemelding : liste) {
-				if (!tilbakemeldingMedSammeTidsStempelEksisterer(tilbakemelding.getTid())) {
+				if (!tilbakemeldingInnenforTidsintervalFinnes(tilbakemelding.getTid())) {
+					System.out.println("Legger til ny.");
 					FormatertTilbakemelding tilbakemeldingFormatert = new FormatertTilbakemelding();
 					konverterStemmeOgInkrementerTilbakemelding(tilbakemeldingFormatert, tilbakemelding.getStemme());
 					tilbakemeldingFormatert.setTid(tilbakemelding.getTid());
 					formaterteTilbakemeldinger.add(tilbakemeldingFormatert);
-					System.out.println("ingen andre innenfor 5 min");
 				} else {
-					finnTilbakemeldingMedSammeTidOgLeggTilStemme(tilbakemelding.getTid(), tilbakemelding.getStemme());
-					System.out.println("Det er andre innen 5 min");
+					System.out.println("Det er andre innen 5 min: ");
+					leggTilInnenforTidsinterval(tilbakemelding.getTid(), tilbakemelding.getStemme());
 				}
 			}
 			sorterTilbakemeldingene();
@@ -88,7 +56,31 @@ public class FormaterTilbakemeldingUtil {
 		}
 	}
 
-
+	/**
+	 * Sjekker om listen med formaterte tilbakemeldinger har en tilbakemelding med
+	 * samme timestamp
+	 * 
+	 * @param tid
+	 * @return
+	 */
+	public boolean tilbakemeldingInnenforTidsintervalFinnes(Timestamp tid) {
+		Calendar cal = Calendar.getInstance();
+		Calendar cal2 = Calendar.getInstance();
+		for (FormatertTilbakemelding ft : formaterteTilbakemeldinger) {
+			cal.setTime(ft.getTid());
+			cal.add(Calendar.MINUTE, TWO_MINUTES);
+			cal.add(Calendar.SECOND, THIRTY_SECONDS);
+			cal2.setTime(ft.getTid());
+			cal2.add(Calendar.MINUTE, NEG_TWO_MINUTES);
+			cal2.add(Calendar.SECOND, NEG_THIRTY_SECONDS);
+			
+			if ((tid.before(ft.getTid()) && tid.after(cal2.getTime())) || (tid.after(ft.getTid()) && tid.before(cal.getTime()))) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Sorterer listen med formaterte tilbakemeldinger etter dato.
 	 */
@@ -109,15 +101,18 @@ public class FormaterTilbakemeldingUtil {
 	 * @param tid
 	 * @param stemme
 	 */
-	private void finnTilbakemeldingMedSammeTidOgLeggTilStemme(Timestamp tid, String stemme) {
+	public void leggTilInnenforTidsinterval(Timestamp tid, String stemme) {
 		Calendar cal = Calendar.getInstance();
 		Calendar cal2 = Calendar.getInstance();
 		for (FormatertTilbakemelding formatertTilbakemelding : formaterteTilbakemeldinger) {
 			cal.setTime(formatertTilbakemelding.getTid());
-			cal.add(Calendar.MINUTE, FIVE_MINUTES);
+			cal.add(Calendar.MINUTE, TWO_MINUTES);
+			cal.add(Calendar.SECOND, THIRTY_SECONDS);
 			cal2.setTime(formatertTilbakemelding.getTid());
-			cal2.add(Calendar.MINUTE, NEG_FIVE_MINUTES);
+			cal2.add(Calendar.MINUTE, NEG_TWO_MINUTES);
+			cal2.add(Calendar.SECOND, NEG_THIRTY_SECONDS);
 			
+			System.out.println("legger til: Tid - 10sek: " + cal2.getTime().toString()+", Tid: "+ tid.toString()+", tid + 10sek"+ cal.getTime().toString());
 			if ((tid.before(formatertTilbakemelding.getTid()) && tid.after(cal2.getTime())) || (tid.after(formatertTilbakemelding.getTid()) && tid.before(cal.getTime()))) {
 				switch (Integer.valueOf(stemme)) {
 				case 0:
@@ -141,7 +136,7 @@ public class FormaterTilbakemeldingUtil {
 	 * @param formatertTilbakemelding
 	 * @param stemme
 	 */
-	private void konverterStemmeOgInkrementerTilbakemelding(FormatertTilbakemelding formatertTilbakemelding,
+	public void konverterStemmeOgInkrementerTilbakemelding(FormatertTilbakemelding formatertTilbakemelding,
 			String stemme) {
 		switch (Integer.valueOf(stemme)) {
 		case 0:
@@ -156,24 +151,45 @@ public class FormaterTilbakemeldingUtil {
 		}
 		;
 	}
-
+	
 	/**
-	 * Sjekker om listen med formaterte tilbakemeldinger har en tilbakemelding med
-	 * samme timestamp
+	 * Tar inn liste med tilbakemeldinger som argument, konverterer til en liste som
+	 * er enklere å arbeide med
 	 * 
-	 * @param tid
+	 * @param liste
 	 * @return
 	 */
-	private boolean tilbakemeldingMedSammeTidsStempelEksisterer(Timestamp tid) {
-		Calendar cal = Calendar.getInstance();
-		for (FormatertTilbakemelding ft : formaterteTilbakemeldinger) {
-			cal.setTime(ft.getTid());
-			cal.add(Calendar.MINUTE, FIVE_MINUTES);
-			
-			if (tid.after(ft.getTid()) && tid.before(cal.getTime())) {
-				return true;
+
+	public AktivitetTilbakemelding formaterTilbakemeldingerForAktivitetsResultatVisning(String navn, List<Tilbakemelding> tbliste) {
+		AktivitetTilbakemelding aktivitetsTilbakemeldinger = gjorTilAktivitetFormat(navn, tbliste);
+		return aktivitetsTilbakemeldinger;
+
+	}
+
+	/**
+	 * Tar tilbakemelding og aktivitetsnavn, lager aktivitetstilbakemelding ut av de to parameterene.
+	 * @param navn
+	 * @param tbliste
+	 * @return
+	 */
+	private AktivitetTilbakemelding gjorTilAktivitetFormat(String navn, List<Tilbakemelding> tbliste) {
+		AktivitetTilbakemelding ftb = new AktivitetTilbakemelding();
+		ftb.setNavn(navn);
+		
+		for(Tilbakemelding t:tbliste) {
+			switch (Integer.valueOf(t.getStemme())) {
+			case 0:
+				ftb.incrementFornoyd();
+				break;
+			case 1:
+				ftb.incrementNoytral();
+				break;
+			case 2:
+				ftb.incrementMisfornoyd();
+				break;
 			}
 		}
-		return false;
+		return ftb;
 	}
+
 }
