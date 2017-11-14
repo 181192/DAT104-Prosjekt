@@ -51,8 +51,9 @@ public class LiveEventServlet extends HttpServlet {
 		response.setIntHeader("Refresh", 5);
 
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
-
+			
 			HttpSession session = request.getSession(false);
+			session.removeAttribute("liveTilbakemeldinger");
 			Integer eventId = null;
 			Event detteEvent = null;
 			// For at servletten ikke skal hente fra databasen hver gang sjekkes om eventen
@@ -135,7 +136,6 @@ public class LiveEventServlet extends HttpServlet {
 						}
 					}
 					session.setAttribute("koden", kode);
-					session.removeAttribute("liveTilbakemeldinger");
 					session.setAttribute("liveTilbakemeldinger", liveTb);
 				}
 			}
