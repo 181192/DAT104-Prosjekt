@@ -20,6 +20,7 @@ import no.hvl.dat104.dataaccess.IEventEAO;
 import no.hvl.dat104.dataaccess.ITilbakemeldingEAO;
 import no.hvl.dat104.model.Aktivitet;
 import no.hvl.dat104.model.Event;
+import no.hvl.dat104.model.Status;
 import no.hvl.dat104.model.Tilbakemelding;
 import no.hvl.dat104.util.AktivitetTilbakemelding;
 import no.hvl.dat104.util.FormaterTilbakemeldingUtil;
@@ -43,7 +44,7 @@ public class VisAktivitetController extends HttpServlet {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 			String aktivitetsId = request.getParameter("aktivitetId");
 			int id = Integer.parseInt(aktivitetsId);
-			
+
 			FormaterTilbakemeldingUtil format = new FormaterTilbakemeldingUtil();
 			Aktivitet a = aktivitetEao.finnAktivitet(id);
 			List<Event> readonlyEventListe = aktivitetEao.finnAlleEventerTilAktivitet(a.getId());
@@ -55,11 +56,13 @@ public class VisAktivitetController extends HttpServlet {
 					return e1.getTidFra().compareTo(e2.getTidFra());
 				}
 			});
-			List<AktivitetTilbakemelding> aktivitetsVisning = new ArrayList<AktivitetTilbakemelding>(); 
-			
-			for(Event e:eventListe){
+			List<AktivitetTilbakemelding> aktivitetsVisning = new ArrayList<AktivitetTilbakemelding>();
+
+			for (Event e : eventListe) {
 				List<Tilbakemelding> tb = eventEao.finnAlleTilbakemeldingerTilEvent(e.getId());
-				aktivitetsVisning.add(format.formaterTilbakemeldingerForAktivitetsResultatVisning(e.getNavn(), tb));
+				if (e.getStatus().equals(Status.AVSLUTTET)) {
+					aktivitetsVisning.add(format.formaterTilbakemeldingerForAktivitetsResultatVisning(e.getNavn(), tb));
+				}
 			}
 			request.getSession().setAttribute("aktivitetsNavn", a.getNavn());
 			request.setAttribute("arrayMedTilbakemeldinger", aktivitetsVisning);

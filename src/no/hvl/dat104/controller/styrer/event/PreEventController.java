@@ -47,18 +47,44 @@ public class PreEventController extends HttpServlet {
 			Bruker br = InnloggingUtil.innloggetSomBruker(request);
 			List<Aktivitet> akt = brukerEAO.finnAlleAktiviteterTilBruker(br.getId());
 			List<Event> eventer = new ArrayList<>();
+			int paagande = 0;
+			int planlagt = 0;
+			int avsluttet = 0;
 			//Finner alle eventer med 'status = planlagt eller pågående' og legger dem til i listen "eventer"
 			for (Aktivitet a : akt) {
 				List<Event> temp = aktivitetEAO.finnAlleEventerTilAktivitet(a.getId());
 				for (Event ev : temp) {
-					if(ev.getStatus().equals(Status.PLANLAGT) || ev.getStatus().equals(Status.PAAGANDE)) {
+					if(ev.getStatus().equals(Status.PLANLAGT)) {
+						planlagt++;
 						eventer.add(ev);
+					} else if(ev.getStatus().equals(Status.PAAGANDE)){
+						paagande++;
+						eventer.add(ev);
+					} else if (ev.getStatus().equals(Status.AVSLUTTET)) {
+						avsluttet++;
 					}
 				}
+			}
+			//hvis det er pågående eventer skal en tabell dukke opp, hvis ikke gjør den ikke det
+			if(paagande > 0) {
+				request.setAttribute("visPaagande", true);
+			} else {
+				request.setAttribute("visPaagande", false);
+			}
+			if(planlagt > 0) {
+				request.setAttribute("visPlanlagt", true);
+			} else {
+				request.setAttribute("visPlanlagt", false);
+			}
+			if(avsluttet > 0) {
+				request.setAttribute("harAvsluttet", true);
+			} else {
+				request.setAttribute("harAvsluttet", false);
 			}
 			EventUtil.sorterEventer(eventer);
 			request.setAttribute(Attributter.EVENT_LISTE, eventer);
 			request.getRequestDispatcher(JspMappings.PRE_EVENT_JSP).forward(request, response);
+
 
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
