@@ -21,13 +21,13 @@
 			<label>Dato: <span class="fjerndata" style="color: #B03060">${eventSkjema.datoFeilmelding }</span></label>
 			<div class="ui calendar" id="datepicker">
 				<div class="ui input left icon">
-					<i class="calendar icon"></i> <input name="dato" type="text" value="${dato}"
+					<i class="calendar icon"></i> <input name="dato" type="text" value="${dato } ${eventSkjema.dato}"
 						placeholder="Dato">
 				</div>
 			</div>
 		</div>
 		<div class="two fields" style="margin-bottom:0;">
-			<div class="field" style="padding-left:6px;">
+			<div class="field" style="padding-left:6px; margin-left:1px;">
 				<label>Fra: <span class="fjerndata" style="color: #B03060">${eventSkjema.fraFeilmelding }</span></label><input
 					class="timepicker fjerndata" value="${eventSkjema.fra }"
 					type="text" name="fra" placeholder="hh.mm">
@@ -50,8 +50,10 @@
 				value="${eventSkjema.beskrivelse }" placeholder="Beskrivelse">
 		</div>
 		<div class="field">
-			<label>Aktivitet</label>
-			<div class="ui selection dropdown aktivitet">
+		<div>
+			<label>Aktivitet <span class="fjerndata"
+				style="color: #B03060">${eventSkjema.aktivitetFeilmelding }</span></label>
+			<div class="ui fluid selection dropdown">
 				<input type="hidden" name="aktivitet"> <i
 					class="dropdown icon"></i>
 				<div class="default text">Aktivitet</div>
@@ -71,6 +73,7 @@
 					</c:choose>
 				</div>
 			</div>
+		 </div>
 		</div>
 		<input type="submit" class="ui primary button" value="Lag event">
 		<input type="button" id="fjernAlt" class="ui red button"
@@ -113,7 +116,7 @@
 			'timeFormat' : 'H:i',
 			'step' : 15
 		});
-		$('.aktivitet').dropdown();
+		$('.ui.dropdown').dropdown();
 
 	});
 </script>

@@ -111,7 +111,7 @@ public class EventValidator {
 		}
 		if (!erAktivitetGyldig()) {
 			aktivitet = "";
-			aktivitetFeilmelding = "Ugyldig";
+			aktivitetFeilmelding = "Velg aktivitet";
 		}
 		if (!erBeskrivelseGyldig()) {
 			beskrivelse = "";
