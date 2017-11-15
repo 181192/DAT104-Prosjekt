@@ -35,10 +35,12 @@ public class PostLiveEventController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		response.setIntHeader("Refresh", 5);
+		
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
 			HttpSession session = request.getSession(false);
-			//Kodeord koden = (Kodeord)session.getAttribute("koden");
-			
+			Kodeord koden = (Kodeord)session.getAttribute("koden");
+			System.out.println("koden: " + koden.getKode());
 			Event detteEvent= (Event)session.getAttribute(Attributter.LIVE_EVENT);
 			
 			Integer eventId = detteEvent.getId();
