@@ -19,7 +19,7 @@
 	max-width: 900px;
 	margin: 0 auto;
 }
-.ui.positive.message, .ui negative message {
+.ui.positive.message, .ui.negative.message {
 	margin-bottom: 15px;
 }
 .foo {

@@ -24,7 +24,7 @@
  		<c:if test="${paagandeEvent.status eq PAAGANDE}">
  			<c:set var="paagandeMeld" value="har startet, trykk her for å gå til den!"/>
  		</c:if>
-		<a href="<%=LIVE_EVENT_URL%>?paagandeEvent=${paagandeEvent.id}"><div class="ui positive message" style="margin-bottom: 20px;"><span style="color: teal;">"${paagandeEvent.navn}"</span> ${paagandeMeld}</div></a>
+		<a href="<%=LIVE_EVENT_URL%>?paagandeEvent=${paagandeEvent.id}"><div class="ui warning message" style="margin-bottom: 20px;"><span style="color: teal;">"${paagandeEvent.navn}"</span> ${paagandeMeld}</div></a>
 	</c:if>
 </div>
 

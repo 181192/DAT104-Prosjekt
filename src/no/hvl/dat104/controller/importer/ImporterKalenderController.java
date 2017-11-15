@@ -3,13 +3,12 @@ package no.hvl.dat104.controller.importer;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Timestamp;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -49,8 +48,7 @@ public class ImporterKalenderController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if(InnloggingUtil.erInnloggetSomBruker(request)) {
-			request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);
-			//List<Event> eventer = readCSV(request);			
+			request.getRequestDispatcher(JspMappings.LANDING_STYRER_JSP).forward(request, response);		
 		}else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
@@ -64,183 +62,52 @@ public class ImporterKalenderController extends HttpServlet {
 			if(url.contains("html")) {
 				url = url.replace("html", "csv");
 	        }
-			if(readCSVInternett(request, url)) {
-				FlashUtil.Flash(request, "success", "Kalender er importert!");
-				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+			if(ValidatorUtil.isNotNull0(url) && url.contains("no.timeedit.net")) {
+				if(readCSVInternett(request, url)) {
+					FlashUtil.Flash(request, "success", "Kalender er importert!");
+					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+				}else {
+					response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
+				}
 			}else {
-				FlashUtil.Flash(request, "success", "Kalender ble ikke importert!");
+				FlashUtil.Flash(request, "error", "Kan ikke importere fra denne lenken. Sjekk at Lenken kommer fra TimeEdit!");
 				response.sendRedirect(UrlMappings.LANDING_STYRER_URL);
 			}
-			
 		}else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
 
 	}
 	private boolean readCSVInternett(HttpServletRequest request, String linken) throws FileNotFoundException, IOException {
-		URL url = new URL(linken);
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        if (connection.getResponseCode() == 200) {
-            InputStreamReader streamReader = new InputStreamReader(connection.getInputStream(), "UTF-8");
-            BufferedReader br = new BufferedReader(streamReader);
-            String line = br.readLine();
-            line = br.readLine() + br.readLine() + br.readLine();
-            String[] fields = line.split(",");
-            fields = Arrays.copyOfRange(fields, 3, fields.length);
-            while ((line = br.readLine()) != null && !line.isEmpty()) {
-				fields = line.split(",");
-	            String dato = fields[0];
-	            String tidFra = fields[1].substring(1);
-	            String tidTil = fields[3].substring(1);
-	            String aktivitet = fields[6].substring(1);
-	            String navn = fields[8].substring(1);
-	            String beskrivelse = fields[10];
-	            String sted = fields[9].substring(1);
-	            
-	            if(navn.equals("Lab") || navn.equals("Øving")) {
-	                beskrivelse = fields[11];
-	            }else {
-	                beskrivelse += ", " + fields[11];
-	            }
-
-	            if(fields[12].matches("^\\s[A-Z].*")) {
-	                if(fields[11].charAt(0) == '\"') {
-	                    beskrivelse += ", " + fields[12];
-	                }
-	                if(fields[12].matches("^\\s[A-Z].*")) {
-	                    beskrivelse += ", " + fields[12];
-	                }
-	                if(fields[13].matches("^\\s[A-Z].*")) {
-	                    beskrivelse += ", " + fields[13];
-	                }
-	            }
-	            if(beskrivelse.contains("\"")) {
-	                beskrivelse = beskrivelse.replace('"', ' ').substring(1);
-	            }
-	            if(beskrivelse.charAt(0) == ' ') {
-	                beskrivelse = beskrivelse.substring(1);
-	            }
-	            if(sted.contains("\"")) {
-	            	sted = sted.replace('"', ' ').substring(1);
-	            }
-	            Timestamp til = null;
-	            Timestamp fra = null;
-				try {
-					fra = DatoUtil.formaterDatoTilStamp(dato, tidFra);
-					til = DatoUtil.formaterDatoTilStamp(dato, tidTil);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				Bruker b = InnloggingUtil.innloggetSomBruker(request);
-				List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
-				Event e = lagEvent(fra, til, navn, beskrivelse, sted);
-				boolean lagtTil = false;
-				Aktivitet a = null;
-				for(Aktivitet akt : aktiviteter) {
-					if(akt != null) {
-						if(akt.getNavn().toUpperCase().equals(aktivitet.toUpperCase())) {
-							e.setIdAktivitet(akt);
-							a = akt;
-							lagtTil = true;
-						}
-					}
-				}
-				if (!lagtTil) {
-					a = lagAktivitet(aktivitet);
-					a.setIdBruker(b);
-					aktiviteter.add(a);
-					aktivitetEAO.leggTilAktivitet(a);
-					e.setIdAktivitet(a);
-				}
-				brukerEAO.finnBrukerLeggTilEvent(b.getId(), e, a.getId());
-			}
-			br.close();
-			return true;
-        }
-        return false;
-            
-	}
-
-	private List<Event> readCSV(HttpServletRequest request) throws FileNotFoundException, IOException {
-		List<Event> eventer = new ArrayList<>();
+		URL url;
 		try {
-			InputStream is = getServletContext().getResourceAsStream("test2.csv");
-			InputStreamReader isr = new InputStreamReader(is);
-			BufferedReader br = new BufferedReader(isr);
-			String line = br.readLine();
-			String[] fields = null;
-			while ((line = br.readLine()) != null && !line.isEmpty()) {
-				fields = line.split(",");
-	            String dato = fields[0].substring(1);
-	            String tidFra = fields[1].substring(1);
-	            String tidTil = fields[3].substring(1);
-	            String aktivitet = fields[6].substring(1);
-	            String navn = fields[8].substring(1);
-	            String beskrivelse = fields[10].substring(1);
-	            if(beskrivelse.contains("\"")) {
-	                beskrivelse = beskrivelse.replace('"', ' ').substring(1);
-	            }
-	            String sted = fields[9].substring(1);
-	            if(sted.contains("\"")) {
-	            	sted = sted.replace('"', ' ').substring(1);
-	            }
-	            Timestamp til = null;
-	            Timestamp fra = null;
-				try {
-					fra = DatoUtil.formaterDatoTilStamp(dato, tidFra);
-					til = DatoUtil.formaterDatoTilStamp(dato, tidTil);
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
-				Bruker b = InnloggingUtil.innloggetSomBruker(request);
-				List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
-				Event e = lagEvent(fra, til, navn, beskrivelse, sted);
-				boolean lagtTil = false;
-				Aktivitet a = null;
-				for(Aktivitet akt : aktiviteter) {
-					if(akt != null) {
-						if(akt.getNavn().toUpperCase().equals(aktivitet.toUpperCase())) {
-							e.setIdAktivitet(akt);
-							a = akt;
-							lagtTil = true;
-						}
-					}
-				}
-				if (!lagtTil) {
-					a = lagAktivitet(aktivitet);
-					a.setIdBruker(b);
-					aktiviteter.add(a);
-					aktivitetEAO.leggTilAktivitet(a);
-					e.setIdAktivitet(a);
-				}
-				brukerEAO.finnBrukerLeggTilEvent(b.getId(), e, a.getId());
-				eventer.add(e);
-			}
-			br.close();
-		} catch (FileNotFoundException ex) {
-			System.out.println(ex);
-		} catch (IOException ex) {
-			System.out.println(ex);
+		    url = new URL(linken);
+		    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+	        if (connection.getResponseCode() == 200) {
+	        	InputStreamReader streamReader = new InputStreamReader(connection.getInputStream(), "UTF-8") ;
+	        		BufferedReader br = new BufferedReader(streamReader);
+	            	String line = br.readLine();
+	                line = br.readLine() + br.readLine() + br.readLine();
+	                String[] fields = line.split(",");
+	                fields = Arrays.copyOfRange(fields, 3, fields.length);
+	                while ((line = br.readLine()) != null && !line.isEmpty()) {
+	    				fields = line.split(",");
+	    				EventSetup eventHjelp = ImporterSetup.lagEventFraFields(fields);
+	    				Bruker b = InnloggingUtil.innloggetSomBruker(request);
+	    				List<Aktivitet> aktiviteter = brukerEAO.finnAlleAktiviteterTilBruker(b.getId());
+	    				Event e = ImporterSetup.lagEvent(eventHjelp.getTidFra(), eventHjelp.getTidTil(), eventHjelp.getNavn(), eventHjelp.getBeskrivelse(), eventHjelp.getSted());
+	    				Aktivitet a = ImporterSetup.lagAktivitet(e, aktiviteter, eventHjelp.getAktivitet(), b, aktivitetEAO);
+	    				brukerEAO.finnBrukerLeggTilEvent(b.getId(), e, a.getId());
+	    			}
+	    			br.close();
+	    			return true;
+	           }   
+		} catch(MalformedURLException e) {
+			FlashUtil.Flash(request, "error", "Kalender ble ikke importert!" + " Url'en er ikke gyldig : " + linken);
 		}
-		return eventer;
+		FlashUtil.Flash(request, "error", "Kalender ble ikke importert!" + " Url'en er ikke gyldig : " + linken);
+        return false;  
 	}
 
-	private static Event lagEvent(Timestamp fra, Timestamp til, String navn, String beskrivelse, String sted) {
-		Event e = new Event();
-		e.setNavn(navn);
-		e.setStatus(Status.PLANLAGT);
-		e.setBeskrivelse(beskrivelse);
-		e.setSted(sted);
-		e.setTidFra(fra);
-		e.setTidTil(til);
-		return e;
-	}
-
-	private static Aktivitet lagAktivitet(String aktivitet) {
-		Aktivitet a = new Aktivitet();
-		a.setNavn(aktivitet);
-		a.setStatus(Status.PAAGANDE);
-		return a;
-	}
 
 }
