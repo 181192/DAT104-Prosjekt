@@ -7,9 +7,10 @@
 <c:set var="k" scope="request" value="${koden}" />
 <c:set var="flt" scope="session" value="${liveTilbakemeldinger}" />
 
-<h1>${e.navn }</h1>
+
 
 <div class="ui container">
+	<h1 style="color:teal;">${e.navn }</h1>
 	<div class="ui tiny modal" id="avsluttModal">
 		<div class="header">Avslutt event</div>
 		<div class="content">
