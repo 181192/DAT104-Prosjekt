@@ -15,4 +15,5 @@ public final class Attributter {
 	public static final String NY_BRUKER = "nuub";
 	public static final String EVENT_OK = "true";
 	public static final String EVENT_IKKE_OK = "false";
+	public static final String TILBAKEMELDINGS_ARRAY = "tilbakemeldinger";
 }

@@ -185,5 +185,17 @@ public class FormaterTilbakemeldingUtil {
 		}
 		return ftb;
 	}
+	
+	public static Integer[] frekventTilbakemeldinger(List<Tilbakemelding> tbList) {
+		Integer[] resultat = {0, 0, 0};
+		
+		for(Tilbakemelding tb : tbList) {
+			Integer denneTB = Integer.parseInt(tb.getStemme());
+			resultat[denneTB] +=1;
+		}
+		return resultat;
+	}
+	
+	
 
 }

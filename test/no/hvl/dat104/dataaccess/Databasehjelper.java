@@ -23,7 +23,10 @@ import no.hvl.dat104.model.Rettigheter;
 public class Databasehjelper {
 
 	// test verdier fra seedDB.sql
-
+	@PersistenceContext(name = "g03PersistenceUnit")
+	private EntityManager em;
+	
+	
 	Rolle a = new Rolle("Admin"); // 1
 	Rolle b = new Rolle("Aktivitetsstyrer");// 2
 	Rolle bb = new Rolle("Ikke godkjent");// 3
@@ -39,6 +42,17 @@ public class Databasehjelper {
 	Aktivitet h = new Aktivitet("DAT100", "avsluttet", f);
 	Aktivitet i = new Aktivitet("MAT101", "pagaende", f);
 	Aktivitet j = new Aktivitet("DAT102", "planlagt", g);
+	
+	private void leggTilRolle(String rolle) {
+		em.persist(new Rolle(rolle));
+	}
+	
+	public void setterOppTestData() {
+		Bruker e = new Bruker("adminTest@gruppe3.no", "Ola", "Olsen", "foobar", "dioawd633a", a);
+		em.persist(e);
+	}
+	
+
 
 //	Event k = new Event(1, "DAT100", "Beskrivelse DAT100", DatoUtil.formaterDatoTilStamp("20.10.2017", "12:00"),
 //			DatoUtil.formaterDatoTilStamp("20.10.2017", "14:00"), DatoUtil.formaterDatoTilStamp("20.10.2017", "12:02"),

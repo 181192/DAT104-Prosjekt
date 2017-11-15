@@ -1,6 +1,7 @@
 package no.hvl.dat104.controller.styrer.event;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -113,7 +114,6 @@ public class LiveEventServlet extends HttpServlet {
 						e.printStackTrace();
 						doGet(request, response);
 					}
-					
 
 					// Sjekker om null eller tom.
 					if (liveTilbakemeldingListe != null) {
@@ -154,23 +154,22 @@ public class LiveEventServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (InnloggingUtil.erInnloggetSomBruker(request)) {
-
-			// Må ha test for innlogging og gyldig session her.
-			String knappTrykket = (String) request.getParameter(Attributter.LIVE_EVENT_KNAPP);
+			HttpSession session = request.getSession(false);
+			
+			//Finner eventet
 			Integer eventId = Integer.valueOf(request.getParameter("eventId"));
+			Event e = eventEAO.finnEvent(eventId);
+			
+			//Endrer faktisk start, og status.
+			Timestamp faktiskSlutt = new Timestamp(System.currentTimeMillis());
+			e.setFaktiskSlutt(faktiskSlutt);
+			eventEAO.endreEventTilPaagaaende(eventId);
+			eventEAO.oppdaterEvent(e);
+			
+			//Redirekter.
+			session.setAttribute(Attributter.LIVE_EVENT, e);
+			response.sendRedirect(UrlMappings.POST_LIVE_EVENT_URL);
 
-			// Forleng-knapp
-			Boolean test = false;
-
-			if (test) {
-
-			}
-
-			if (knappTrykket.equals("avslutt")) {
-				eventEAO.endreEventTilAvsluttet(eventId);
-				response.sendRedirect(UrlMappings.POST_LIVE_EVENT_URL);
-
-			}
 		} else {
 			response.sendRedirect(UrlMappings.LOGGINN_URL);
 		}
